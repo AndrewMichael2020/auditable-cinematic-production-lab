@@ -35,7 +35,6 @@ def main() -> None:
     ]
     packet = {
         "schema_version": "1.0",
-        "exported_at": datetime.now(timezone.utc).isoformat(),
         "events": ledger.audit_events(),
         "totals": {
             "reserved_usd": str(ledger.reserved_total()),
