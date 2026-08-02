@@ -1,7 +1,7 @@
 {
   "schema_version": "0.2.0",
   "project_id": "video-gen-test",
-  "status": "architecture_ready",
+  "status": "dry_run_ready",
   "updated_at": "2026-08-02",
   "objective": "Produce a reproducible one-location AI drama proof through DeepInfra-hosted OSS models before implementing a full production engine.",
   "provider_policy": {
@@ -180,22 +180,22 @@
     {
       "id": 1,
       "name": "golden_scene_design",
-      "implementation": "next"
+      "implementation": "complete"
     },
     {
       "id": 2,
       "name": "minimal_orchestrator",
-      "implementation": "deferred"
+      "implementation": "complete"
     },
     {
       "id": 3,
       "name": "dry_run_validation",
-      "implementation": "deferred"
+      "implementation": "complete"
     },
     {
       "id": 4,
       "name": "live_cad_10_proof",
-      "implementation": "deferred"
+      "implementation": "awaiting_human_live_approval"
     }
   ]
 }

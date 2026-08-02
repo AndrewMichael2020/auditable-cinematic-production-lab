@@ -1,0 +1,27 @@
+{
+  "id": "last-train-platform",
+  "title": "The Unsent Message",
+  "duration_seconds": 20,
+  "location": {
+    "name": "covered rural railway platform",
+    "time": "blue hour after rain",
+    "layout": "bench upstage, tracks behind, amber lamp frame left, timetable frame right",
+    "axis": "camera remains platform-side; Mara is screen left and Eli screen right",
+    "light": "cool sky fill with one warm practical lamp"
+  },
+  "characters": [
+    {"id": "mara", "age": 34, "description": "South Asian woman, oval face, shoulder-length black curls", "wardrobe": "mustard raincoat, charcoal trousers, brown satchel"},
+    {"id": "eli", "age": 37, "description": "East Asian man, angular face, short black hair", "wardrobe": "navy wool coat, pale grey scarf, dark jeans"}
+  ],
+  "shots": [
+    {"id": "s01", "seconds": 5, "framing": "locked wide two-shot", "action": "Mara waits left; Eli enters from right and stops", "dialogue": null},
+    {"id": "s02", "seconds": 5, "framing": "medium over Eli shoulder toward Mara", "action": "Mara grips the satchel and looks away", "dialogue": {"speaker": "mara", "line": "I wrote back. I just never sent it."}},
+    {"id": "s03", "seconds": 5, "framing": "profile close-up of Eli facing left", "action": "Eli absorbs the admission; restrained relief", "dialogue": {"speaker": "eli", "line": "Then don't miss this train."}},
+    {"id": "s04", "seconds": 5, "framing": "locked wide matching shot one", "action": "Mara crosses one step toward Eli as train light blooms off-screen", "dialogue": null}
+  ],
+  "acceptance": {
+    "technical": ["four decodable five-second landscape clips", "no blank or frozen sequence", "20-second assembly"],
+    "continuity": ["two adults only", "wardrobe colors persist", "Mara remains left of Eli until final step", "lamp and timetable retain sides"],
+    "human": ["admission creates an emotional turn", "reaction reads without visible lip-sync", "final movement feels like a decision"]
+  }
+}
