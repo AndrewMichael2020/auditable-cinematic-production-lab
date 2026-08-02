@@ -1,84 +1,115 @@
 {
-  "schema_version": "0.1.1",
+  "schema_version": "0.2.0",
   "project_id": "video-gen-test",
-  "status": "planning",
+  "status": "architecture_ready",
   "updated_at": "2026-08-02",
-  "objective": "Produce a reproducible one-location AI drama proof before implementing a full orchestration engine.",
-  "budget": {
-    "currency": "CAD",
-    "initial_incremental_cash_limit": 0,
-    "paid_api_calls_allowed": false,
-    "google_api_allowed": false,
+  "objective": "Produce a reproducible one-location AI drama proof through DeepInfra-hosted OSS models before implementing a full production engine.",
+  "provider_policy": {
+    "allowed_providers": [
+      "deepinfra"
+    ],
+    "partner_video_models_allowed": false,
+    "gemini_allowed": false,
     "vertex_ai_allowed": false,
-    "google_cloud_billing_allowed": false,
-    "automatic_credit_reload_must_be_inactive": true,
-    "generation_execution": "manual_human_approved",
-    "included_flow_credit_limit": {
-      "rule": "min(200, floor(displayed_monthly_balance * 0.20))",
-      "hard_stop": true
+    "openai_api_allowed": false,
+    "elevenlabs_allowed": false
+  },
+  "budget": {
+    "display_currency": "CAD",
+    "absolute_limit_cad_including_tax": 20,
+    "assumed_usd_to_cad": 1.37,
+    "assumed_tax_rate": 0.12,
+    "profiles": {
+      "cad_10": {
+        "application_hard_cap_usd": 6.5,
+        "max_fastwan_5s_drafts": 40,
+        "max_wan22_5s_finals": 12
+      },
+      "cad_15": {
+        "application_hard_cap_usd": 9.75,
+        "max_fastwan_5s_drafts": 80,
+        "max_wan22_5s_finals": 20
+      },
+      "cad_20": {
+        "application_hard_cap_usd": 13.0,
+        "max_fastwan_5s_drafts": 120,
+        "max_wan22_5s_finals": 28
+      }
+    },
+    "default_profile": "cad_10",
+    "deepinfra_account_spending_limit_usd_max": 13.0,
+    "monetary_cap_overrides_count_caps": true,
+    "provider_reported_cost_field": "inference_status.cost",
+    "reservation_required_before_request": true,
+    "reconcile_after_request": true
+  },
+  "approved_models": {
+    "planning": {
+      "id": "Qwen/Qwen3-32B",
+      "licence": "Apache-2.0",
+      "endpoint_type": "openai_chat",
+      "price_usd_per_million_input_tokens": 0.08,
+      "price_usd_per_million_output_tokens": 0.28
+    },
+    "draft_video": {
+      "id": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "licence": "Apache-2.0",
+      "endpoint_type": "deepinfra_inference",
+      "price_usd_per_second": 0.0025,
+      "seconds": 5,
+      "resolution": "480p",
+      "orientations": [
+        "landscape",
+        "portrait"
+      ]
+    },
+    "final_video": {
+      "id": "Wan-AI/Wan2.2-T2V-A14B",
+      "licence": "Apache-2.0",
+      "endpoint_type": "deepinfra_inference",
+      "price_usd_per_second": 0.075,
+      "seconds": 5,
+      "resolution": "720p",
+      "orientation": "landscape"
+    },
+    "visual_qa": {
+      "id": "Qwen/Qwen3-VL-30B-A3B-Instruct",
+      "licence": "Apache-2.0",
+      "endpoint_type": "openai_chat",
+      "price_usd_per_million_input_tokens": 0.15,
+      "price_usd_per_million_output_tokens": 0.6,
+      "input": "contact_sheet"
+    },
+    "speech": {
+      "id": "ResembleAI/chatterbox-turbo",
+      "licence": "MIT",
+      "endpoint_type": "deepinfra_tts",
+      "price_usd_per_million_characters": 1.0
     }
   },
-  "subscriptions": {
-    "chatgpt_codex": {
-      "use": [
-        "planning",
-        "coding",
-        "reference_images",
-        "review"
-      ],
-      "api_credit_assumed": false
-    },
-    "gemini_flow": {
-      "use": [
-        "manual_video_generation"
-      ],
-      "api_credit_assumed": false,
-      "overage_allowed": false
-    },
-    "github_copilot": {
-      "use": [
-        "optional_implementation_support"
-      ],
-      "video_generation_credit_assumed": false
-    }
+  "pricing": {
+    "verified_at": "2026-08-02",
+    "currency": "USD",
+    "fail_if_unverified_or_increased": true,
+    "price_refresh_requires_human_approval": true
   },
   "secrets_policy": {
-    "required_for_current_stage": [],
-    "consumer_session_credentials_must_not_be_stored": true,
-    "github_actions_auth": {
-      "name": "GITHUB_TOKEN",
-      "source": "automatically_provided_by_github_actions",
-      "user_created_secret_required": false
-    },
-    "future_provider_secrets": [
+    "github_actions_required": [
       {
         "name": "DEEPINFRA_API_TOKEN",
-        "purpose": "future_paid_video_provider_adapter",
-        "required_now": false,
-        "enabled_only_when": "paid_api_calls_allowed"
-      },
-      {
-        "name": "OPENAI_API_KEY",
-        "purpose": "future_separately_billed_evaluation_or_prompt_repair_adapter",
-        "required_now": false,
-        "enabled_only_when": "paid_api_calls_allowed"
-      },
-      {
-        "name": "ELEVENLABS_API_KEY",
-        "purpose": "future_speech_adapter",
-        "required_now": false,
-        "enabled_only_when": "paid_api_calls_allowed"
+        "maps_to_environment": "DEEPINFRA_TOKEN",
+        "purpose": "Authenticate all approved DeepInfra inference requests"
       }
     ],
-    "google_credentials": {
-      "allowed_now": false,
-      "forbidden_names": [
-        "GEMINI_API_KEY",
-        "GOOGLE_API_KEY",
-        "GOOGLE_APPLICATION_CREDENTIALS"
-      ],
-      "reason": "Included Gemini/Flow consumer credits are manual-only; Google API and cloud billing paths are disabled."
-    }
+    "forbidden": [
+      "OPENAI_API_KEY",
+      "ELEVENLABS_API_KEY",
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY",
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ],
+    "consumer_session_credentials_must_not_be_stored": true,
+    "github_token_is_automatic": true
   },
   "proof": {
     "finished_duration_seconds": {
@@ -88,11 +119,15 @@
     "location_count": 1,
     "adult_character_count": 2,
     "planned_shot_count": 4,
-    "max_initial_candidates_per_shot": 3,
-    "max_corrective_candidates_total": 2,
-    "credit_cap_overrides_candidate_caps": true,
+    "initial_shot_duration_seconds": 5,
+    "video_capability": "text_to_video",
+    "does_not_claim": [
+      "reference_conditioned_identity_control",
+      "solved_face_continuity",
+      "visible_lip_sync"
+    ],
     "tests": [
-      "character_identity",
+      "character_description_consistency",
       "wardrobe_continuity",
       "location_continuity",
       "screen_direction",
@@ -102,55 +137,65 @@
       "edit_coherence"
     ]
   },
+  "execution_policy": {
+    "default_mode": "dry_run",
+    "live_run_requires_explicit_flag": true,
+    "paid_request_concurrency": 1,
+    "recursive_retries_allowed": false,
+    "provider_self_retry_allowed": false,
+    "automatic_partner_model_fallback_allowed": false,
+    "automatic_retry_after_unknown_billing_status_allowed": false,
+    "human_approval_required_before_final_model": true,
+    "human_review_required_for_final_acceptance": true,
+    "append_only_ledger_required": true,
+    "output_sha256_required": true
+  },
   "preflight": [
-    "confirm_automatic_reload_inactive",
-    "confirm_no_billed_google_api_or_cloud_path",
-    "record_displayed_balance",
-    "record_displayed_generation_cost",
-    "confirm_projected_credit_use_within_cap",
-    "require_human_generation_approval"
+    "validate_budget_profile",
+    "validate_deepinfra_token_present",
+    "validate_model_in_approved_registry",
+    "validate_current_price_not_above_reserved_price",
+    "validate_deepinfra_account_spending_limit",
+    "simulate_all_request_reservations",
+    "confirm_sequential_execution",
+    "confirm_dry_run_or_explicit_live_flag"
   ],
   "stop_conditions": [
-    "purchase_upgrade_or_billing_prompt",
-    "insufficient_credit_prompt",
-    "missing_or_ambiguous_displayed_cost",
-    "automatic_reload_active",
-    "included_credit_cap_reached",
+    "projected_reserved_cost_exceeds_profile",
+    "deepinfra_account_limit_would_be_exceeded",
+    "model_not_in_approved_registry",
+    "model_price_unknown_or_increased",
+    "provider_reported_cost_missing",
+    "unknown_billing_status",
     "candidate_cap_reached",
-    "repeated_failure_requires_redesign"
+    "repeated_failure_requires_redesign",
+    "token_or_authorization_data_detected_in_log"
   ],
   "stages": [
     {
       "id": 0,
-      "name": "repository_foundation",
-      "implementation": "planning_only"
+      "name": "deepinfra_oss_architecture",
+      "implementation": "planning_complete"
     },
     {
       "id": 1,
       "name": "golden_scene_design",
-      "implementation": "structured_artifacts"
+      "implementation": "next"
     },
     {
       "id": 2,
-      "name": "included_credit_proof",
-      "implementation": "manual_generation_with_ledger"
+      "name": "minimal_orchestrator",
+      "implementation": "deferred"
     },
     {
       "id": 3,
-      "name": "minimal_local_orchestrator",
+      "name": "dry_run_validation",
       "implementation": "deferred"
     },
     {
       "id": 4,
-      "name": "provider_adapters",
+      "name": "live_cad_10_proof",
       "implementation": "deferred"
     }
-  ],
-  "automation_policy": {
-    "default_mode": "offline_dry_run",
-    "recursive_retries_allowed": false,
-    "unattended_paid_generation_allowed": false,
-    "provider_self_retry_allowed": false,
-    "human_review_required_for_final_acceptance": true
-  }
+  ]
 }
