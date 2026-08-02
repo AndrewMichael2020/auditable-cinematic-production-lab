@@ -100,6 +100,8 @@ Deliverables:
 
 ## Stage 1 — Golden-scene design
 
+Status: implemented in `scenes/golden-scene.json`.
+
 Cost: negligible DeepInfra text inference, or zero incremental cost when authored through the existing ChatGPT/Codex subscription.
 
 Create:
@@ -118,6 +120,9 @@ Exit gate:
 - the scene is evaluable with objective and human criteria.
 
 ## Stage 2 — Minimal orchestrator
+
+Status: implemented as a dependency-light Python CLI with automated fail-closed tests. Live inference
+remains intentionally gated and has not been invoked.
 
 Implement only:
 
@@ -145,6 +150,10 @@ Implementation preference:
 - pytest.
 
 ## Stage 3 — Dry-run validation
+
+Status: implemented. The test suite covers registry rejection, conservative reservations, hard caps,
+duplicate IDs, missing cost, timeouts, HTTP failures, credential redaction, human promotion, output
+download hashing, and malformed production records.
 
 Before any billed request:
 
