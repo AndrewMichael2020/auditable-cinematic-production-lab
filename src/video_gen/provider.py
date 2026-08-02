@@ -30,9 +30,11 @@ Transport = Callable[[urllib.request.Request, float], tuple[int, bytes, dict[str
 
 
 def default_transport(request: urllib.request.Request, timeout: float) -> tuple[int, bytes, dict[str, str]]:
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return response.status, response.read(), dict(response.headers)
-
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return response.status, response.read(), dict(response.headers)
+    except urllib.error.HTTPError as exc:
+        return exc.code, exc.read(), dict(exc.headers)
 
 class DeepInfraClient:
     def __init__(self, token: str, transport: Transport = default_transport,
@@ -45,9 +47,10 @@ class DeepInfraClient:
 
     def infer(self, model: str, payload: dict[str, Any], *, timeout: float = 300) -> ProviderResult:
         data = json.dumps(payload, separators=(",", ":")).encode()
+        auth = f"Bearer {self._token}"
         request = urllib.request.Request(
             f"{self.base_url}/{model}", data=data, method="POST",
-            headers={"Authorization": f"Bearer {self._token}", "Content-Type": "application/json"})
+            headers={"Authorization": auth, "Content-Type": "application/json"})
         try:
             status, body, headers = self.transport(request, timeout)
         except (TimeoutError, urllib.error.URLError) as exc:

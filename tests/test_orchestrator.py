@@ -5,7 +5,7 @@ import pytest
 from video_gen.config import ProjectConfig
 from video_gen.errors import PolicyError, UnknownBillingStatus
 from video_gen.ledger import Ledger
-from video_gen.orchestrator import Orchestrator
+from video_gen.orchestrator import Orchestrator, audit_safe_url
 from video_gen.provider import DeepInfraClient
 
 
@@ -30,17 +30,24 @@ def test_final_requires_human_promotion(tmp_path):
 
 def test_live_reconciles_reported_cost(tmp_path):
     app, ledger = setup(tmp_path)
-    response = {"video_url": "https://example/v.mp4", "inference_status": {"cost": "0.01"}}
+    response = {"video_url": "https://example/v.mp4?signature=secret", "inference_status": {"cost": "0.01"}}
+
     def transport(req, timeout):
-        if req.full_url == "https://example/v.mp4":
+        if req.full_url == "https://example/v.mp4?signature=secret":
             return 200, b"video bytes", {}
         return 200, json.dumps(response).encode(), {}
+
     client = DeepInfraClient("token", transport)
     result = app.run_video("draft_video", "prompt", live=True, confirmed=True, client=client, output_dir=tmp_path)
     assert result.dry_run is False
     assert str(ledger.actual_total()) == "0.01"
     event = ledger.db.execute("SELECT metadata FROM events WHERE event='completed'").fetchone()[0]
     assert "output_sha256" in event
+    assert "signature" not in event
+
+
+def test_audit_safe_url_removes_query_and_fragment():
+    assert audit_safe_url("https://cdn.example/v.mp4?token=x#part") == "https://cdn.example/v.mp4"
 
 
 def test_unknown_cost_is_recorded_and_not_retried(tmp_path):

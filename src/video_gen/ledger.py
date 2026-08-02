@@ -4,6 +4,7 @@ import sqlite3
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
+from typing import Any
 
 from .errors import BudgetExceeded, PolicyError
 
@@ -73,6 +74,16 @@ class Ledger:
     def reservation_count(self, model: str) -> int:
         return int(self.db.execute("SELECT COUNT(*) FROM events WHERE event='reserved' AND model=?",
                                    (model,)).fetchone()[0])
+
+    def audit_events(self) -> list[dict[str, Any]]:
+        """Return the immutable event stream in a portable, ordered form."""
+        columns = ("sequence", "request_id", "event", "model", "reserved_usd",
+                   "actual_usd", "metadata", "created_at")
+        rows = self.db.execute(
+            "SELECT sequence,request_id,event,model,reserved_usd,actual_usd,metadata,created_at "
+            "FROM events ORDER BY sequence"
+        )
+        return [dict(zip(columns, row, strict=True)) for row in rows]
 
     def close(self) -> None:
         self.db.close()

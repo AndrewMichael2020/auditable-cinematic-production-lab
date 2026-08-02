@@ -7,11 +7,18 @@ from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit, urlunsplit
 
 from .config import ProjectConfig
 from .errors import PolicyError, UnknownBillingStatus
 from .ledger import Ledger
 from .provider import DeepInfraClient, prompt_hash
+
+
+def audit_safe_url(url: str) -> str:
+    """Keep output provenance without persisting signed query credentials."""
+    parts = urlsplit(url)
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
 
 
 @dataclass(frozen=True)
@@ -76,7 +83,7 @@ class Orchestrator:
                                metadata=json.dumps({"reason": "download_failed"}))
             raise
         metadata = json.dumps({"provider_request_id": result.provider_request_id,
-                               "output_url": result.output_url, "output_path": str(destination),
+                               "output_url": audit_safe_url(result.output_url), "output_path": str(destination),
                                "output_sha256": output_sha256,
                                "prompt_sha256": planned.prompt_sha256}, sort_keys=True)
         self.ledger.append(request_id, "completed", actual=result.cost, metadata=metadata)

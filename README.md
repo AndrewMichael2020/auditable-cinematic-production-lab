@@ -103,6 +103,12 @@ provider request ID and reported cost. Unknown billing status is terminal and is
 Generated ledgers and media live under ignored `runs/` and `outputs/` directories. Inspect and
 human-approve the four compiled prompts from `scenes/golden-scene.json` before any live draft run.
 
+For a repository-secret-backed smoke test, run **live DeepInfra smoke test** from GitHub Actions and
+enter `LIVE`. The manually dispatched workflow makes exactly one FastWan request (maximum reserved
+cost US$0.0125), never retries it, and retains the generated clip, append-only SQLite ledger,
+compiled prompt, command result, hashes, and JSON audit export as a workflow artifact for 30 days.
+Signed query parameters from provider output URLs are deliberately excluded from the ledger.
+
 ## Repository map
 
 - [docs/PLAN.md](docs/PLAN.md): staged architecture and proof plan.
