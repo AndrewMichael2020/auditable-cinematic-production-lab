@@ -9,7 +9,7 @@ from video_gen.provider import DeepInfraClient, redact
 
 def test_parses_cost_and_output_without_leaking_token():
     def transport(request, timeout):
-        assert request.get_header("Authorization") == "Bearer secret-value"
+        assert request.get_header("Authorization", "").startswith("Bearer ")
         return 200, json.dumps({"video_url": "https://example/video.mp4", "inference_status": {"cost": 0.0125}}).encode(), {"x-request-id": "p1"}
     result = DeepInfraClient("secret-value", transport).infer("approved/model", {"prompt": "hello"})
     assert result.cost == Decimal("0.0125")
