@@ -30,9 +30,11 @@ Transport = Callable[[urllib.request.Request, float], tuple[int, bytes, dict[str
 
 
 def default_transport(request: urllib.request.Request, timeout: float) -> tuple[int, bytes, dict[str, str]]:
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return response.status, response.read(), dict(response.headers)
-
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return response.status, response.read(), dict(response.headers)
+    except urllib.error.HTTPError as exc:
+        return exc.code, exc.read(), dict(exc.headers)
 
 class DeepInfraClient:
     def __init__(self, token: str, transport: Transport = default_transport,
