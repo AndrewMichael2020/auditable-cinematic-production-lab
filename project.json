@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.1.1",
   "project_id": "video-gen-test",
   "status": "planning",
   "updated_at": "2026-08-02",
@@ -40,6 +40,44 @@
         "optional_implementation_support"
       ],
       "video_generation_credit_assumed": false
+    }
+  },
+  "secrets_policy": {
+    "required_for_current_stage": [],
+    "consumer_session_credentials_must_not_be_stored": true,
+    "github_actions_auth": {
+      "name": "GITHUB_TOKEN",
+      "source": "automatically_provided_by_github_actions",
+      "user_created_secret_required": false
+    },
+    "future_provider_secrets": [
+      {
+        "name": "DEEPINFRA_API_TOKEN",
+        "purpose": "future_paid_video_provider_adapter",
+        "required_now": false,
+        "enabled_only_when": "paid_api_calls_allowed"
+      },
+      {
+        "name": "OPENAI_API_KEY",
+        "purpose": "future_separately_billed_evaluation_or_prompt_repair_adapter",
+        "required_now": false,
+        "enabled_only_when": "paid_api_calls_allowed"
+      },
+      {
+        "name": "ELEVENLABS_API_KEY",
+        "purpose": "future_speech_adapter",
+        "required_now": false,
+        "enabled_only_when": "paid_api_calls_allowed"
+      }
+    ],
+    "google_credentials": {
+      "allowed_now": false,
+      "forbidden_names": [
+        "GEMINI_API_KEY",
+        "GOOGLE_API_KEY",
+        "GOOGLE_APPLICATION_CREDENTIALS"
+      ],
+      "reason": "Included Gemini/Flow consumer credits are manual-only; Google API and cloud billing paths are disabled."
     }
   },
   "proof": {
