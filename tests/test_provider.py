@@ -1,4 +1,5 @@
 import json
+import hashlib
 from decimal import Decimal
 
 import pytest
@@ -31,3 +32,25 @@ def test_http_failure_is_safe():
     with pytest.raises(ProviderError, match="401"):
         client.infer("m", {})
 
+
+def test_parses_documented_video_field():
+    body = {"video": "data:video/mp4;base64,dmlkZW8=", "inference_status": {"cost": 0}}
+    client = DeepInfraClient("x", lambda request, timeout: (200, json.dumps(body).encode(), {}))
+    assert client.infer("m", {}).output_url == body["video"]
+
+
+def test_download_accepts_video_data_url(tmp_path):
+    destination = tmp_path / "clip.mp4"
+    digest = DeepInfraClient("x").download(
+        "data:video/mp4;base64,dmlkZW8=", str(destination)
+    )
+    assert destination.read_bytes() == b"video"
+    assert digest == hashlib.sha256(b"video").hexdigest()
+
+
+def test_audio_inference_normalizes_base64_output():
+    body = {"audio": "UklGRg==", "words": [], "inference_status": {"cost": "0.000004"}}
+    client = DeepInfraClient("x", lambda request, timeout: (200, json.dumps(body).encode(), {}))
+    result = client.infer_audio("m", {"text": "test", "response_format": "wav"})
+    assert result.output_url == "data:audio/wav;base64,UklGRg=="
+    assert result.cost == Decimal("0.000004")

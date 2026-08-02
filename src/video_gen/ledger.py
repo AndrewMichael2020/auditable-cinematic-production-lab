@@ -68,7 +68,17 @@ class Ledger:
         return sum((Decimal(row[0]) for row in rows), Decimal("0"))
 
     def actual_total(self) -> Decimal:
-        rows = self.db.execute("SELECT actual_usd FROM events WHERE event='completed' AND actual_usd IS NOT NULL")
+        # Count the latest known provider-reported cost once per request. Failed
+        # downloads can still be billed, and a later reconciliation event should
+        # replace rather than double-count an earlier estimate.
+        rows = self.db.execute("""SELECT event.actual_usd
+          FROM events AS event
+          JOIN (
+            SELECT request_id, MAX(sequence) AS sequence
+            FROM events
+            WHERE actual_usd IS NOT NULL
+            GROUP BY request_id
+          ) AS latest ON latest.sequence = event.sequence""")
         return sum((Decimal(row[0]) for row in rows), Decimal("0"))
 
     def reservation_count(self, model: str) -> int:

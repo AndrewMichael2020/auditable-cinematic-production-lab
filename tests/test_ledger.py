@@ -22,3 +22,12 @@ def test_duplicate_request_is_rejected(tmp_path):
     with pytest.raises(PolicyError, match="duplicate"):
         ledger.reserve("same", "model", Decimal("0.1"), Decimal("1"))
 
+
+def test_actual_total_includes_failed_billing_and_latest_reconciliation(tmp_path):
+    ledger = Ledger(tmp_path / "ledger.db")
+    ledger.reserve("failed", "model", Decimal("0.2"), Decimal("1"))
+    ledger.append("failed", "failed", actual=Decimal("0.2"))
+    assert ledger.actual_total() == Decimal("0.2")
+
+    ledger.append("failed", "completed", actual=Decimal("0.15"))
+    assert ledger.actual_total() == Decimal("0.15")

@@ -8,6 +8,7 @@ import urllib.request
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 from typing import Any, Callable
+from urllib.parse import urlsplit
 
 from .errors import ProviderError, UnknownBillingStatus
 
@@ -26,10 +27,10 @@ class ProviderResult:
     raw: dict[str, Any]
 
 
-Transport = Callable[[urllib.request.Request, float], tuple[int, bytes, dict[str, str]]]
+Transport = Callable[[urllib.request.Request, float], tuple[int | None, bytes, dict[str, str]]]
 
 
-def default_transport(request: urllib.request.Request, timeout: float) -> tuple[int, bytes, dict[str, str]]:
+def default_transport(request: urllib.request.Request, timeout: float) -> tuple[int | None, bytes, dict[str, str]]:
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             return response.status, response.read(), dict(response.headers)
@@ -46,6 +47,19 @@ class DeepInfraClient:
         self.base_url = base_url.rstrip("/")
 
     def infer(self, model: str, payload: dict[str, Any], *, timeout: float = 300) -> ProviderResult:
+        return self._infer(model, payload, ("video_url", "output_url", "video"), timeout)
+
+    def infer_audio(self, model: str, payload: dict[str, Any], *, timeout: float = 300) -> ProviderResult:
+        result = self._infer(model, payload, ("audio", "audio_url", "output_url"), timeout)
+        output = result.output_url
+        if not urlsplit(output).scheme:
+            output_format = str(payload.get("response_format", "wav"))
+            output = f"data:audio/{output_format};base64,{output}"
+            result = ProviderResult(result.provider_request_id, result.cost, output, result.raw)
+        return result
+
+    def _infer(self, model: str, payload: dict[str, Any], output_fields: tuple[str, ...],
+               timeout: float) -> ProviderResult:
         data = json.dumps(payload, separators=(",", ":")).encode()
         auth = f"Bearer {self._token}"
         request = urllib.request.Request(
@@ -55,7 +69,7 @@ class DeepInfraClient:
             status, body, headers = self.transport(request, timeout)
         except (TimeoutError, urllib.error.URLError) as exc:
             raise UnknownBillingStatus("provider status unknown; do not retry automatically") from exc
-        if not 200 <= status < 300:
+        if status is None or not 200 <= status < 300:
             raise ProviderError(f"provider returned HTTP {status}")
         try:
             parsed = json.loads(body)
@@ -68,11 +82,13 @@ class DeepInfraClient:
             cost = Decimal(str(inference["cost"]))
         except InvalidOperation as exc:
             raise UnknownBillingStatus("provider returned invalid cost") from exc
-        output = parsed.get("video_url") or parsed.get("output_url")
+        output = next((parsed.get(field) for field in output_fields if parsed.get(field)), None)
         if not output and isinstance(parsed.get("videos"), list) and parsed["videos"]:
             output = parsed["videos"][0].get("url")
         if not output:
-            raise ProviderError("provider response omitted output URL")
+            raise ProviderError("provider response omitted media output")
+        if not isinstance(output, str):
+            raise ProviderError("provider returned invalid media output")
         return ProviderResult(headers.get("x-request-id") or parsed.get("request_id"), cost, output, parsed)
 
     def download(self, url: str, destination: str, *, timeout: float = 300) -> str:
@@ -87,8 +103,13 @@ class DeepInfraClient:
             status, body, _ = self.transport(request, timeout)
         except (TimeoutError, urllib.error.URLError) as exc:
             raise ProviderError("output download failed") from exc
-        if not 200 <= status < 300 or not body:
+        scheme = urlsplit(url).scheme.lower()
+        if status is None and scheme != "data":
+            raise ProviderError("output download returned no HTTP status")
+        if status is not None and not 200 <= status < 300:
             raise ProviderError(f"output download returned HTTP {status}")
+        if not body:
+            raise ProviderError("output download returned an empty body")
         partial.write_bytes(body)
         partial.replace(target)
         return hashlib.sha256(body).hexdigest()

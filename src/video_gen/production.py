@@ -36,8 +36,26 @@ def compile_prompt(scene: dict[str, Any], shot_id: str) -> str:
     except StopIteration as exc:
         raise PolicyError(f"unknown shot: {shot_id}") from exc
     location = scene["location"]
-    people = "; ".join(f'{c["description"]}, wearing {c["wardrobe"]}' for c in scene["characters"])
+    people_parts = []
+    for character in scene["characters"]:
+        construction = ", ".join(
+            f'{item["color"]} {item["item"]}: {item["construction"]}'
+            for item in character.get("wardrobe_visual", [])
+        )
+        suffix = f"; wardrobe construction: {construction}" if construction else ""
+        people_parts.append(f'{character["description"]}, wearing {character["wardrobe"]}{suffix}')
+    people = "; ".join(people_parts)
+    blocking = shot.get("blocking", {})
+    blocking_text = "; ".join(
+        f'{character["id"]} {blocking.get(character["id"], {}).get("start", "unspecified").replace("_", " ")} '
+        f'to {blocking.get(character["id"], {}).get("end", "unspecified").replace("_", " ")}'
+        for character in scene["characters"]
+    )
+    metaphors = "; ".join(scene.get("visual_policy", {}).get("environmental_metaphors", []))
     return (f'Cinematic naturalistic drama. Location: {location["name"]}; {location["time"]}; '
             f'{location["layout"]}; lighting: {location["light"]}. Characters: {people}. '
             f'Continuity: {location["axis"]}. Shot: {shot["framing"]}. Action: {shot["action"]}. '
-            'Exactly two adults, stable wardrobe and setting, no text, no subtitles, no visible lip-sync.')
+            f'Blocking: {blocking_text}. Environmental storytelling: {metaphors}. '
+            'The platform geometry, object supports, anatomy, scale, garment closures, and physical contact must remain plausible. '
+            'Exactly two adults, stable wardrobe and setting, plain surfaces, no signs, no labels, no letters, no numbers, '
+            'no subtitles, no watermark, no visible lip-sync.')

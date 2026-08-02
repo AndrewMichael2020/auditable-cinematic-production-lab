@@ -13,8 +13,9 @@ Produce one reproducible **15–30 second scene** before building a full engine:
 - credible action, dialogue rhythm, and editing;
 - complete cost and provenance records.
 
-The repository now contains the Stage 1 golden scene and a tested Stage 2 orchestrator. It defaults
-to dry-run mode; no billed generation has run yet.
+The repository contains the Stage 1 golden scene and a live-tested Stage 2 orchestrator. It still
+defaults to dry-run mode. A bounded CAD 10 smoke campaign has validated Data URL media persistence,
+cost reconciliation, technical inspection, and human candidate selection against DeepInfra.
 
 ## Programmatic model stack
 

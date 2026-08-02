@@ -122,7 +122,7 @@ Exit gate:
 ## Stage 2 — Minimal orchestrator
 
 Status: implemented as a dependency-light Python CLI with automated fail-closed tests. Live inference
-remains intentionally gated and has not been invoked.
+remains intentionally gated and has been validated with bounded draft and promoted-final requests.
 
 Implement only:
 

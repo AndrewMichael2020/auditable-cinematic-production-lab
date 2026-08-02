@@ -43,7 +43,9 @@ jobs:
           test -n "$DEEPINFRA_TOKEN"
           video-gen --ledger runs/live-smoke/ledger.sqlite3 plan-video \
             --profile cad_10 --role draft_video --seed 101 \
-            --prompt "$(cat runs/live-smoke/prompt.txt)" --live --confirm-live \
+            --prompt "$(cat runs/live-smoke/prompt.txt)" \
+            --scene-audit runs/live-smoke/compiled-scene.json --shot-id s01 \
+            --live --confirm-live \
             | tee runs/live-smoke/result.json
       - name: Export audit data
         if: always()

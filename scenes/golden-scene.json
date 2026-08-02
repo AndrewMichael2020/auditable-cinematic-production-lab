@@ -5,23 +5,116 @@
   "location": {
     "name": "covered rural railway platform",
     "time": "blue hour after rain",
-    "layout": "bench upstage, tracks behind, amber lamp frame left, timetable frame right",
-    "axis": "camera remains platform-side; Mara is screen left and Eli screen right",
+    "layout": "bench against the far platform wall, tracks beyond the platform edge behind the actors, wall-mounted amber lamp frame left, plain wall frame right",
+    "axis": "camera remains on the platform safe side; Mara is screen left and Eli screen right",
     "light": "cool sky fill with one warm practical lamp"
   },
+  "visual_policy": {
+    "text_policy": "forbid",
+    "public_space_symbols": {
+      "max_icons": 0,
+      "allowed_icons": []
+    },
+    "environmental_metaphors": [
+      "wet reflections suggest unresolved feeling",
+      "distance between the characters expresses hesitation",
+      "one warm lamp against cool blue hour suggests a possible reunion"
+    ]
+  },
+  "spatial_plan": {
+    "camera": {
+      "side": "platform_safe_side"
+    },
+    "platform": {
+      "tracks_relation": "beyond_platform_edge",
+      "minimum_character_edge_distance_m": 1.5
+    },
+    "objects": [
+      {
+        "id": "bench",
+        "kind": "bench",
+        "zone": "far_platform_wall",
+        "support": "ground",
+        "orientation": "parallel_to_tracks",
+        "minimum_edge_distance_m": 3.0,
+        "contains_text": false
+      },
+      {
+        "id": "amber_lamp",
+        "kind": "lamp",
+        "zone": "far_wall_left",
+        "support": "wall_mounted",
+        "contains_text": false
+      }
+    ]
+  },
   "characters": [
-    {"id": "mara", "age": 34, "description": "South Asian woman, oval face, shoulder-length black curls", "wardrobe": "mustard raincoat, charcoal trousers, brown satchel"},
-    {"id": "eli", "age": 37, "description": "East Asian man, angular face, short black hair", "wardrobe": "navy wool coat, pale grey scarf, dark jeans"}
+    {
+      "id": "mara",
+      "age": 34,
+      "description": "South Asian woman, oval face, shoulder-length black curls",
+      "wardrobe": "mustard raincoat, charcoal trousers, brown satchel",
+      "wardrobe_visual": [
+        {"item": "raincoat", "color": "mustard", "construction": "single straight row of five evenly spaced buttons, two stable sleeves and pockets"},
+        {"item": "satchel", "color": "brown", "construction": "one continuous strap resting naturally on the shoulder without merging into the coat"}
+      ]
+    },
+    {
+      "id": "eli",
+      "age": 37,
+      "description": "East Asian man, angular face, short black hair",
+      "wardrobe": "navy wool coat, pale grey scarf, dark jeans",
+      "wardrobe_visual": [
+        {"item": "wool coat", "color": "navy", "construction": "single-breasted front with three aligned buttons, two stable sleeves and pockets"},
+        {"item": "scarf", "color": "pale grey", "construction": "one continuous scarf draped naturally around the neck"}
+      ]
+    }
   ],
   "shots": [
-    {"id": "s01", "seconds": 5, "framing": "locked wide two-shot", "action": "Mara waits left; Eli enters from right and stops", "dialogue": null},
-    {"id": "s02", "seconds": 5, "framing": "medium over Eli shoulder toward Mara", "action": "Mara grips the satchel and looks away", "dialogue": {"speaker": "mara", "line": "I wrote back. I just never sent it."}},
-    {"id": "s03", "seconds": 5, "framing": "profile close-up of Eli facing left", "action": "Eli absorbs the admission; restrained relief", "dialogue": {"speaker": "eli", "line": "Then don't miss this train."}},
-    {"id": "s04", "seconds": 5, "framing": "locked wide matching shot one", "action": "Mara crosses one step toward Eli as train light blooms off-screen", "dialogue": null}
+    {
+      "id": "s01", "seconds": 5, "framing": "locked wide full-body two-shot",
+      "camera": {"movement": "locked", "framing": "wide_full_body"},
+      "blocking": {
+        "mara": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "eli": {"start": "off_screen_right", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "action": "Mara waits left; Eli enters from right and stops", "dialogue": null
+    },
+    {
+      "id": "s02", "seconds": 5, "framing": "medium over Eli shoulder toward Mara",
+      "camera": {"movement": "locked", "framing": "medium_over_shoulder"},
+      "blocking": {
+        "mara": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "action": "Mara grips the satchel and looks away", "dialogue": {"speaker": "mara", "line": "I wrote back. I just never sent it."}
+    },
+    {
+      "id": "s03", "seconds": 5, "framing": "profile close-up of Eli facing left",
+      "camera": {"movement": "locked", "framing": "profile_close_up"},
+      "blocking": {
+        "mara": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "action": "Eli absorbs the admission; restrained relief", "dialogue": {"speaker": "eli", "line": "Then don't miss this train."}
+    },
+    {
+      "id": "s04", "seconds": 5, "framing": "locked wide matching shot one",
+      "camera": {"movement": "locked", "framing": "wide_full_body"},
+      "blocking": {
+        "mara": {"start": "left_safe_zone", "end": "center_left_safe_zone"},
+        "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 0.75
+      },
+      "action": "Mara crosses one step toward Eli as train light blooms off-screen", "dialogue": null
+    }
   ],
   "acceptance": {
     "technical": ["four decodable five-second landscape clips", "no blank or frozen sequence", "20-second assembly"],
-    "continuity": ["two adults only", "wardrobe colors persist", "Mara remains left of Eli until final step", "lamp and timetable retain sides"],
+    "continuity": ["two adults only", "wardrobe construction and colors persist", "Mara remains left of Eli until final step", "bench and wall-mounted lamp retain anchors", "platform edge and tracks remain physically coherent", "no generated text"],
     "human": ["admission creates an emotional turn", "reaction reads without visible lip-sync", "final movement feels like a decision"]
   }
 }

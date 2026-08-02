@@ -1,7 +1,8 @@
 name: dry-run
 on:
-  push:
-  pull_request:
+  # Keep development testing local. Do not consume GitHub Actions minutes
+  # automatically on pushes or pull requests.
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

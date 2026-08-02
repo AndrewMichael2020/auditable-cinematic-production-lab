@@ -1,7 +1,7 @@
 {
   "schema_version": "0.2.0",
   "project_id": "video-gen-test",
-  "status": "dry_run_ready",
+  "status": "live_smoke_validated",
   "updated_at": "2026-08-02",
   "objective": "Produce a reproducible one-location AI drama proof through DeepInfra-hosted OSS models before implementing a full production engine.",
   "provider_policy": {
@@ -9,6 +9,12 @@
       "deepinfra"
     ],
     "partner_video_models_allowed": false,
+    "explicit_partner_test_exception": {
+      "model": "PrunaAI/p-video-avatar",
+      "requires_cli_override": true,
+      "additional_run_cap_usd": 3.0,
+      "licence_status": "not_reported_by_provider"
+    },
     "gemini_allowed": false,
     "vertex_ai_allowed": false,
     "openai_api_allowed": false,
@@ -85,6 +91,16 @@
       "licence": "MIT",
       "endpoint_type": "deepinfra_tts",
       "price_usd_per_million_characters": 1.0
+    },
+    "lip_sync_avatar": {
+      "id": "PrunaAI/p-video-avatar",
+      "licence": "provider-metadata-unspecified",
+      "endpoint_type": "deepinfra_partner_inference",
+      "partner": true,
+      "default_allowed": false,
+      "price_usd_per_second": 0.025,
+      "max_reserved_seconds_per_request": 8,
+      "resolution": "720p"
     }
   },
   "pricing": {
@@ -195,7 +211,7 @@
     {
       "id": 4,
       "name": "live_cad_10_proof",
-      "implementation": "awaiting_human_live_approval"
+      "implementation": "in_progress_live_smoke_validated"
     }
   ]
 }
