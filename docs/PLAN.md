@@ -2,187 +2,202 @@
 
 ## Decision
 
-Build this project programmatically, but in evidence-gated stages. The first deliverable is not a large application. It is a reproducible one-location proof and the structured production record needed to learn from it.
+Use DeepInfra as the single inference provider for the first proof. All selected runtime models have publicly available weights and permissive licences. Gemini/Flow, Vertex AI, OpenAI API, ElevenLabs, and proprietary DeepInfra partner video models are excluded.
 
-Consumer subscriptions are useful for development and manual generation. They do not provide a safe basis for unattended production APIs. Until a provider exposes a verified hard spending cap with no overage path, generation remains a human-approved boundary.
+The first deliverable is a reproducible one-location scene and its evidence trail, not a large application.
 
 ## Constraints
 
 | Constraint | Rule |
 |---|---|
-| Initial incremental spend | 0 dollars Canadian |
+| Incremental cash profile | 10, 15, or 20 dollars Canadian |
+| Absolute experiment ceiling | 20 dollars Canadian |
+| DeepInfra application cap | US$6.50, US$9.75, or US$13.00 |
 | Location | One |
 | Characters | Two adults |
 | Finished duration | 15–30 seconds |
-| Planned shots | Four |
-| Initial candidates | Up to three per shot |
-| Corrective candidates | Up to two across the scene |
-| Included Gemini/Flow credits | Lower of 200 credits or 20% of the displayed monthly balance |
-| Paid APIs | Disabled |
-| Automatic reload | Must be inactive |
-| Retry behavior | Bounded; never recursive or unattended |
-| Human review | Required before generation, fallback, and final acceptance |
+| Planned shots | Four 5-second shots initially |
+| Provider | DeepInfra only |
+| Runtime models | OSS models in the approved registry only |
+| Concurrency | One paid request at a time |
+| Retry behavior | Bounded, iterative, and budget-reserved |
+| Human review | Required before final-model promotion and final acceptance |
+| Gemini/Google billing | Prohibited |
+| OpenAI API billing | Prohibited |
 
-The credit ceiling overrides the candidate counts. Reaching the credit ceiling ends generation even if fewer candidates exist.
+The US-dollar caps conservatively assume 1 USD = 1.37 CAD and 12% tax. Before a real run, use the lower of the configured cap and the amount that remains under the DeepInfra account spending limit.
+
+## Approved model registry
+
+| Capability | Model | Licence | Listed price used for reservation |
+|---|---|---|---:|
+| Planning and prompt compilation | `Qwen/Qwen3-32B` | Apache 2.0 | US$0.08 input / US$0.28 output per 1M tokens |
+| Draft text-to-video | `FastVideo/FastWan-QAD-FP8-1.3B` | Apache 2.0 | US$0.0025/second |
+| Final text-to-video | `Wan-AI/Wan2.2-T2V-A14B` | Apache 2.0 | US$0.075/second |
+| Frame/contact-sheet QA | `Qwen/Qwen3-VL-30B-A3B-Instruct` | Apache 2.0 | US$0.15 input / US$0.60 output per 1M tokens |
+| Dialogue audio | `ResembleAI/chatterbox-turbo` | MIT | US$1.00 per 1M characters |
+
+Model names and prices are configuration data. A live run must fail closed if DeepInfra no longer exposes the exact model, the price is unknown, or the configured reservation price is lower than the currently verified price.
+
+## Honest limitation
+
+The two approved video models are text-to-video. They do not provide the reference-conditioned identity control of a strong image-to-video or reference-to-video model.
+
+Therefore, this proof tests how far structured prompts, one controlled location, shot design, selection, and editing can push continuity. It must not claim solved face identity or lip-sync. Dialogue can be placed over reaction shots, profiles, over-the-shoulder compositions, or off-screen beats so the first experiment evaluates drama and editing without pretending visible speech is synchronized.
+
+If continuity remains inadequate, the result is useful evidence. The engine remains provider-independent so a later permissively licensed I2V/R2V adapter can replace the video stage when one is available within budget.
 
 ## Target architecture
 
-The eventual engine should separate six concerns:
+The eventual engine separates:
 
-1. **Production model**: story, episode, scene, shot, character, wardrobe, location, and continuity state.
-2. **Asset registry**: immutable references, generated media, hashes, versions, and provenance.
-3. **Provider adapters**: replaceable interfaces for image, video, speech, and lip-sync providers.
-4. **Evaluation**: deterministic media checks, reference similarity, model-assisted review, and human judgment.
-5. **Control plane**: budget reservation, bounded retry policy, approval gates, and resumable run state.
-6. **Assembly**: edit decisions, audio mix, captions, encoding, and final manifest.
+1. **Production model**: scene, shot, character, wardrobe, location, dialogue, and continuity state.
+2. **Model registry**: exact model IDs, licences, capabilities, prices, and verification dates.
+3. **Budget controller**: profile selection, pre-request reservation, actual-cost reconciliation, and hard stops.
+4. **DeepInfra adapter**: authenticated requests, response parsing, download, hashes, and provenance.
+5. **Evaluation**: FFmpeg checks, contact sheets, Qwen-VL labels, and human decisions.
+6. **Run state**: append-only attempts, resumability, and idempotent request records.
+7. **Assembly**: selected shots, dialogue audio, edit decisions, encoding, and final manifest.
 
-Provider adapters must never own story or continuity truth. The production record remains authoritative.
+The provider adapter never owns story or continuity truth. Structured production records remain authoritative.
 
-## Stage 0 — Repository foundation
+## Budget controller
 
-Status: **complete when these planning files are committed**.
+Each request follows this order:
+
+1. Resolve model and maximum billable units from the approved registry.
+2. Calculate a conservative reservation in US dollars.
+3. Reject the request if reserved total plus the new reservation exceeds the selected profile.
+4. Append a pending ledger entry with a stable request ID.
+5. Send exactly one DeepInfra request.
+6. Record HTTP status, provider request ID, model, prompt hash, seed, output URL, and `inference_status.cost`.
+7. Reconcile reserved cost to reported cost without ever increasing the remaining cap beyond the original reservation until a human starts a new run.
+8. Download the output, calculate SHA-256, and mark the attempt complete or failed.
+
+A timeout with unknown provider status is not retried automatically. It is held for reconciliation so the same paid request is not duplicated.
+
+Recommended proof envelopes:
+
+| CAD profile | FastWan draft ceiling | Wan 2.2 final ceiling | Intended use |
+|---|---:|---:|---|
+| 10 | 40 × 5 seconds | 12 × 5 seconds | Default complete 20-second proof |
+| 15 | 80 × 5 seconds | 20 × 5 seconds | More prompt exploration |
+| 20 | 120 × 5 seconds | 28 × 5 seconds | Larger comparison set |
+
+The monetary cap overrides the count ceilings. Planning, QA, and TTS share the same cap.
+
+## Stage 0 — Correct architecture
+
+Status: complete when the repository describes the DeepInfra OSS route, one secret, and CAD caps.
 
 Deliverables:
 
-- concise project scope;
-- implementation plan;
-- machine-readable budget and experiment constraints;
-- exclusions for credentials and generated media.
-
-No provider SDK or application framework is selected yet.
+- approved model registry;
+- cost profiles;
+- secret contract;
+- exclusions for credentials and generated media;
+- no actual generation.
 
 ## Stage 1 — Golden-scene design
 
-Incremental cost: **0 dollars Canadian**.
+Cost: negligible DeepInfra text inference, or zero incremental cost when authored through the existing ChatGPT/Codex subscription.
 
 Create:
 
 - a 15–30 second script with one emotional turn;
-- character cards with stable physical, wardrobe, voice, and behavior constraints;
-- one location card with layout, lighting, time, and camera-axis rules;
-- four shot records with duration, framing, action, dialogue, continuity inputs, and acceptance criteria;
-- a review rubric scored per shot and across the assembled scene.
-
-The design should be provider-neutral. Prompts are compiled from the structured records rather than treated as the source of truth.
+- two character cards;
+- one location card with layout, light, time, and camera-axis rules;
+- four shot records;
+- dialogue audio plan that does not depend on unverified visible lip-sync;
+- per-shot and assembled-scene acceptance criteria.
 
 Exit gate:
 
 - every shot is necessary;
-- continuity constraints are explicit;
-- the scene can be evaluated without subjective guesswork alone.
+- repeated prompt constraints are explicit;
+- the scene is evaluable with objective and human criteria.
 
-## Stage 2 — Included-credit proof
+## Stage 2 — Minimal orchestrator
 
-Incremental cost: **0 dollars Canadian**.
+Implement only:
 
-Preflight before each manual generation:
+- JSON Schema or Pydantic contracts;
+- approved model registry;
+- DeepInfra HTTP client;
+- append-only JSONL or SQLite ledger;
+- cost reservation and hard-stop logic;
+- sequential draft/final generation commands;
+- FFmpeg/ffprobe validation;
+- contact-sheet creation;
+- Qwen-VL QA;
+- Chatterbox audio generation;
+- deterministic final assembly.
 
-1. Confirm automatic credit reload is inactive.
-2. Confirm no Google Cloud or Vertex AI billing path is being used.
-3. Record timestamp, displayed balance, displayed generation cost, model/mode, shot ID, and prompt version.
-4. Confirm the projected balance remains within the experiment credit ceiling.
-5. Generate only after human approval.
-6. Record the resulting balance and output identifier.
+Default behavior is dry-run. A live command requires the token, a selected budget profile, and explicit confirmation.
 
-Stop immediately on:
-
-- any purchase, upgrade, billing, or insufficient-credit prompt;
-- missing or ambiguous displayed cost;
-- automatic reload appearing active;
-- projected credit use above the ceiling;
-- 12 initial candidates, two corrective candidates, or the global credit ceiling;
-- repeated identity or continuity defects that indicate the design must change.
-
-Exit gate:
-
-- one assembled 15–30 second scene;
-- complete credit and provenance ledger;
-- per-shot and scene-level evaluation;
-- measured accepted-seconds ratio and retry count;
-- a written decision to stop, redesign, or proceed.
-
-## Stage 3 — Minimal local orchestrator
-
-Start only after Stage 2 produces useful evidence.
-
-Implement the smallest local tool that can:
-
-- validate project, scene, shot, character, location, and ledger records;
-- allocate stable IDs and content hashes;
-- compile prompts from approved structured inputs;
-- import manually generated outputs;
-- run local media checks with FFmpeg;
-- create contact sheets and review packets;
-- calculate credit/cost totals and enforce stop conditions;
-- resume from append-only run state.
-
-Default behavior must be offline and dry-run. Network adapters remain disabled unless explicitly enabled.
-
-Initial implementation preference:
+Implementation preference:
 
 - Python 3.11+;
-- Pydantic or JSON Schema for contracts;
-- SQLite for durable local state;
-- FFmpeg/ffprobe for deterministic media inspection;
-- pytest for policy and state-transition tests.
+- standard HTTP client;
+- Pydantic;
+- SQLite;
+- FFmpeg/ffprobe;
+- pytest.
 
-This is a preference, not a locked decision. The evidence from Stage 2 can change it.
+## Stage 3 — Dry-run validation
 
-## Stage 4 — Provider adapters
+Before any billed request:
 
-Add one adapter at a time only when it has:
+- validate all manifests;
+- simulate every request and cost;
+- verify the chosen profile stops at the correct boundary;
+- test missing-secret, higher-price, timeout, duplicate-run, failed-download, and unknown-cost paths;
+- verify logs redact authorization headers;
+- verify no generated media or local ledger is committed.
 
-- documented API terms and commercial-use rights;
-- explicit pricing and a verifiable spending-control strategy;
-- idempotency or safe request tracking;
-- timeouts, transient-error classification, and bounded retries;
-- complete request/response provenance;
-- a provider-independent output contract.
+Exit gate: all budget and fail-closed tests pass.
 
-A provider is never allowed to trigger its own retry.
+## Stage 4 — Live CAD 10 proof
+
+1. Set the DeepInfra account spending limit no higher than US$13 for the whole experiment.
+2. Select the CAD 10 application profile.
+3. Run cheap draft generations sequentially.
+4. Validate and score each draft.
+5. Human-approve only selected prompts for Wan 2.2.
+6. Generate bounded final candidates.
+7. Generate dialogue audio.
+8. Assemble and review the 15–30 second scene.
+9. Export the complete manifest and cost report.
+
+The CAD 15 and CAD 20 profiles are used only if the CAD 10 evidence justifies a new run.
 
 ## Retry policy
 
-For a rejected shot:
+For a rejected or failed shot:
 
-1. Retry a transient transport/provider failure with the same request.
-2. Try one new seed without changing production constraints.
-3. Apply one conservative prompt repair.
-4. Route to an approved alternative provider only after human authorization.
-5. Stop for redesign or human judgment.
+1. Reconcile whether the original request was billed.
+2. Retry one confirmed transient failure with the same request only if budget is available.
+3. Try one new seed.
+4. Apply one conservative prompt repair.
+5. Stop for human redesign.
 
-Every attempt is retained as labelled evidence. No recursive retry implementation is permitted.
+No provider self-retry, recursive retry, automatic upgrade to a partner model, or parallel retry is permitted.
 
 ## Evaluation order
 
-1. Technical validity: decode, duration, aspect ratio, resolution, blank frames, freezes, blur, and audio integrity.
-2. Reference checks: character, wardrobe, location, and key composition constraints.
-3. Model-assisted review: sampled frames or contact sheets for anatomy, identity, continuity, and intended action.
-4. Human review: acting, emotional effect, dialogue rhythm, edit quality, and final acceptance.
+1. Technical validity: decoding, duration, aspect ratio, resolution, blank frames, freezes, blur, and audio integrity.
+2. Structured checks: intended framing, number of people, location elements, wardrobe descriptors, screen direction, and action.
+3. Qwen-VL review of sampled frames/contact sheets.
+4. Human review of acting, continuity, emotional effect, dialogue rhythm, and edit quality.
 
-A language or vision model cannot be the sole acceptance authority.
-
-## Deferred decisions
-
-These should not be fixed until the golden-scene evidence exists:
-
-- primary video provider;
-- automated lip-sync provider;
-- web UI or dashboard framework;
-- cloud storage;
-- distributed queues;
-- autonomous model routing;
-- fine-tuning;
-- a full 10–12 minute episode.
+A model is never the sole acceptance authority.
 
 ## Definition of success
 
-The proof succeeds if it establishes, with complete provenance:
+The proof succeeds if it produces:
 
-- acceptable identity and environment continuity across four edited shots;
-- understandable action and emotional change;
-- credible enough dialogue timing for the intended format;
+- one coherent 15–30 second scene in one location;
+- a measurable continuity result rather than an unsupported claim;
+- a complete prompt, seed, model, cost, and hash trail;
 - a reproducible cost per accepted second;
-- clear evidence about which failure classes automation can reduce.
-
-A visually attractive isolated clip without continuity, provenance, or cost evidence does not satisfy the experiment.
+- clear evidence about whether DeepInfra-hosted OSS text-to-video is sufficient for the next stage.
