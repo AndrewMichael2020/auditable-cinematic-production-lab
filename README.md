@@ -29,6 +29,14 @@ A subscription is not assumed to include API credit. Gemini API, Vertex AI, Goog
 
 Before every video generation, record the displayed credit cost and balance. Stop if the interface requests a purchase, upgrade, billing activation, or additional credits.
 
+## Secrets right now
+
+**None.** Stages 0–3 require no repository secret.
+
+ChatGPT/Codex, Gemini/Flow, and GitHub Copilot subscriptions are interactive entitlements, not API keys. Do not store browser sessions or consumer-login credentials. Flow generation remains manually approved.
+
+Future provider secret names and their activation rules are defined in [docs/SECRETS.md](docs/SECRETS.md). The blank [.env.example](.env.example) is a contract for future adapters, not a request to add credentials now.
+
 ## Why this repository exists
 
 The durable product will be the orchestration and evidence layer, not a permanent dependency on one model. It should eventually own:
@@ -42,6 +50,8 @@ The durable product will be the orchestration and evidence layer, not a permanen
 ## Repository map
 
 - [docs/PLAN.md](docs/PLAN.md): staged implementation and experiment plan.
+- [docs/SECRETS.md](docs/SECRETS.md): exact credential contract and safety rules.
+- [.env.example](.env.example): blank future-provider variable names.
 - [project.json](project.json): machine-readable constraints and stop conditions.
 - [LICENSE](LICENSE): MIT licence.
 
