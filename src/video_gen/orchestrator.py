@@ -3,11 +3,11 @@ from __future__ import annotations
 import json
 import os
 import uuid
-from urllib.parse import urlsplit, urlunsplit
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit, urlunsplit
 
 from .config import ProjectConfig
 from .errors import PolicyError, UnknownBillingStatus

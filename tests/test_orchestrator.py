@@ -31,10 +31,12 @@ def test_final_requires_human_promotion(tmp_path):
 def test_live_reconciles_reported_cost(tmp_path):
     app, ledger = setup(tmp_path)
     response = {"video_url": "https://example/v.mp4?signature=secret", "inference_status": {"cost": "0.01"}}
+
     def transport(req, timeout):
         if req.full_url == "https://example/v.mp4?signature=secret":
             return 200, b"video bytes", {}
         return 200, json.dumps(response).encode(), {}
+
     client = DeepInfraClient("token", transport)
     result = app.run_video("draft_video", "prompt", live=True, confirmed=True, client=client, output_dir=tmp_path)
     assert result.dry_run is False
