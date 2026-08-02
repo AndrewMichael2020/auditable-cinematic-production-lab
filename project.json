@@ -1,0 +1,118 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "video-gen-test",
+  "status": "planning",
+  "updated_at": "2026-08-02",
+  "objective": "Produce a reproducible one-location AI drama proof before implementing a full orchestration engine.",
+  "budget": {
+    "currency": "CAD",
+    "initial_incremental_cash_limit": 0,
+    "paid_api_calls_allowed": false,
+    "google_api_allowed": false,
+    "vertex_ai_allowed": false,
+    "google_cloud_billing_allowed": false,
+    "automatic_credit_reload_must_be_inactive": true,
+    "generation_execution": "manual_human_approved",
+    "included_flow_credit_limit": {
+      "rule": "min(200, floor(displayed_monthly_balance * 0.20))",
+      "hard_stop": true
+    }
+  },
+  "subscriptions": {
+    "chatgpt_codex": {
+      "use": [
+        "planning",
+        "coding",
+        "reference_images",
+        "review"
+      ],
+      "api_credit_assumed": false
+    },
+    "gemini_flow": {
+      "use": [
+        "manual_video_generation"
+      ],
+      "api_credit_assumed": false,
+      "overage_allowed": false
+    },
+    "github_copilot": {
+      "use": [
+        "optional_implementation_support"
+      ],
+      "video_generation_credit_assumed": false
+    }
+  },
+  "proof": {
+    "finished_duration_seconds": {
+      "min": 15,
+      "max": 30
+    },
+    "location_count": 1,
+    "adult_character_count": 2,
+    "planned_shot_count": 4,
+    "max_initial_candidates_per_shot": 3,
+    "max_corrective_candidates_total": 2,
+    "credit_cap_overrides_candidate_caps": true,
+    "tests": [
+      "character_identity",
+      "wardrobe_continuity",
+      "location_continuity",
+      "screen_direction",
+      "intended_action",
+      "acting",
+      "dialogue_rhythm",
+      "edit_coherence"
+    ]
+  },
+  "preflight": [
+    "confirm_automatic_reload_inactive",
+    "confirm_no_billed_google_api_or_cloud_path",
+    "record_displayed_balance",
+    "record_displayed_generation_cost",
+    "confirm_projected_credit_use_within_cap",
+    "require_human_generation_approval"
+  ],
+  "stop_conditions": [
+    "purchase_upgrade_or_billing_prompt",
+    "insufficient_credit_prompt",
+    "missing_or_ambiguous_displayed_cost",
+    "automatic_reload_active",
+    "included_credit_cap_reached",
+    "candidate_cap_reached",
+    "repeated_failure_requires_redesign"
+  ],
+  "stages": [
+    {
+      "id": 0,
+      "name": "repository_foundation",
+      "implementation": "planning_only"
+    },
+    {
+      "id": 1,
+      "name": "golden_scene_design",
+      "implementation": "structured_artifacts"
+    },
+    {
+      "id": 2,
+      "name": "included_credit_proof",
+      "implementation": "manual_generation_with_ledger"
+    },
+    {
+      "id": 3,
+      "name": "minimal_local_orchestrator",
+      "implementation": "deferred"
+    },
+    {
+      "id": 4,
+      "name": "provider_adapters",
+      "implementation": "deferred"
+    }
+  ],
+  "automation_policy": {
+    "default_mode": "offline_dry_run",
+    "recursive_retries_allowed": false,
+    "unattended_paid_generation_allowed": false,
+    "provider_self_retry_allowed": false,
+    "human_review_required_for_final_acceptance": true
+  }
+}
