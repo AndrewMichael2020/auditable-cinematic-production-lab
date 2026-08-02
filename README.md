@@ -13,7 +13,8 @@ Produce one reproducible **15–30 second scene** before building a full engine:
 - credible action, dialogue rhythm, and editing;
 - complete cost and provenance records.
 
-This repository remains in the planning and experiment-design phase. No generation has run yet.
+The repository now contains the Stage 1 golden scene and a tested Stage 2 orchestrator. It defaults
+to dry-run mode; no billed generation has run yet.
 
 ## Programmatic model stack
 
@@ -79,12 +80,44 @@ ChatGPT/Codex and GitHub Copilot subscriptions may be used to develop and review
 
 Human approval remains required before promoting drafts to the more expensive final model and before final acceptance. The execution itself is programmatic.
 
+## Run locally
+
+The core has no runtime Python dependencies and supports Python 3.11 or later. Install the CLI and
+test dependency, then validate the complete dry-run path:
+
+```bash
+python -m pip install -e . pytest
+pytest -q
+video-gen preflight --profile cad_10
+video-gen validate-scene
+video-gen plan-video --profile cad_10 --role draft_video \
+  --prompt "A locked wide shot on the rainy platform" --seed 101
+```
+
+`plan-video` reserves the maximum expected charge in the local append-only SQLite ledger but does
+not contact DeepInfra. A paid request additionally requires both `--live` and `--confirm-live`, plus
+`DEEPINFRA_TOKEN` in the process environment. Final-model requests use the same confirmation as the
+human-promotion gate. Successful outputs are downloaded atomically, hashed, and recorded with the
+provider request ID and reported cost. Unknown billing status is terminal and is never retried.
+
+Generated ledgers and media live under ignored `runs/` and `outputs/` directories. Inspect and
+human-approve the four compiled prompts from `scenes/golden-scene.json` before any live draft run.
+
+For a repository-secret-backed smoke test, run **live DeepInfra smoke test** from GitHub Actions and
+enter `LIVE`. The manually dispatched workflow makes exactly one FastWan request (maximum reserved
+cost US$0.0125), never retries it, and retains the generated clip, append-only SQLite ledger,
+compiled prompt, command result, hashes, and JSON audit export as a workflow artifact for 30 days.
+Signed query parameters from provider output URLs are deliberately excluded from the ledger.
+
 ## Repository map
 
 - [docs/PLAN.md](docs/PLAN.md): staged architecture and proof plan.
 - [docs/SECRETS.md](docs/SECRETS.md): exact authentication and spending-control contract.
 - [.env.example](.env.example): local variable names without values.
 - [project.json](project.json): machine-readable models, budgets, and stop conditions.
+- [scenes/golden-scene.json](scenes/golden-scene.json): one-location, two-character, four-shot proof.
+- [`src/video_gen`](src/video_gen): CLI, policy, ledger, provider, production, and media modules.
+- [`tests`](tests): fail-closed budget, provider, scene, and orchestration tests.
 - [LICENSE](LICENSE): repository licence.
 
 No full episode, autonomous open-ended retry loop, or foundation-model training is in scope yet.

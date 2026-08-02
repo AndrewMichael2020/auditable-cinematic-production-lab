@@ -19,7 +19,7 @@ review-packets/
 
 # Ledgers and local state
 *.sqlite
-*.sqlite3
+*.sqlite3*
 *.db
 runs/
 logs/
