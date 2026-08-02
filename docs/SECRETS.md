@@ -1,56 +1,89 @@
 # Secrets and credentials
 
-## Current requirement
+## Required provider secret
 
-No repository secret is required for Stages 0–3.
+The programmatic proof requires exactly one user-created GitHub Actions secret:
 
-| Capability | Authentication now | Repository secret |
-|---|---|---|
-| ChatGPT/Codex planning, coding, reference work, and review | Andrew's interactive ChatGPT subscription | None |
-| Gemini/Flow included-credit video generation | Andrew's interactive Google subscription, with manual approval | None |
-| GitHub Copilot implementation support | Andrew's GitHub subscription | None |
-| Local orchestration, validation, FFmpeg checks, and assembly | Local execution | None |
-| GitHub Actions | GitHub supplies GITHUB_TOKEN automatically for each workflow run | Do not create a duplicate secret |
+```text
+DEEPINFRA_API_TOKEN
+```
 
-Consumer subscriptions are not API credentials. Do not copy browser cookies, session tokens, OAuth caches, or login exports into GitHub Secrets, repository files, CI variables, or automation code.
+It authenticates all approved DeepInfra models: Qwen planning, FastWan drafts, Wan 2.2 final candidates, Qwen-VL review, and Chatterbox speech.
 
-The present build can validate schemas, compile prompts, import manually generated media, run local checks, and assemble review packets without provider credentials. Actual Flow generation remains an interactive boundary because the included consumer credits do not provide a safe unattended API or a repository-secret contract.
+Add it at:
 
-## Reserved future secret names
+```text
+Repository Settings → Secrets and variables → Actions → New repository secret
+```
 
-These names are documented now so later provider adapters have a stable contract. None is required or permitted under the current zero-spend policy.
+Do not put the value in an issue, pull request, commit, workflow input, project manifest, generated ledger, screenshot, or log.
 
-| GitHub Actions secret | Future purpose | Present status |
-|---|---|---|
-| DEEPINFRA_API_TOKEN | Paid DeepInfra video inference adapter | Disabled until paid_api_calls_allowed becomes true and a cash cap is approved |
-| OPENAI_API_KEY | Separately billed OpenAI API evaluation or prompt-repair adapter | Disabled; the ChatGPT subscription does not supply this credit |
-| ELEVENLABS_API_KEY | ElevenLabs speech adapter | Disabled until the adapter, quota, and spending controls are approved |
+## Local variable
 
-The local equivalents appear as blank entries in .env.example. A real .env file remains ignored.
+Local code reads:
 
-## Deliberately absent Google credentials
+```text
+DEEPINFRA_TOKEN
+```
 
-Do not create GEMINI_API_KEY, GOOGLE_API_KEY, or GOOGLE_APPLICATION_CREDENTIALS for this proof.
+A GitHub Actions workflow maps the repository secret to that variable:
 
-Those credentials would use Gemini API, Vertex AI, or Google Cloud rather than the included Flow consumer-credit workflow. project.json explicitly prohibits those billed paths. If that policy changes later, Google authentication must be designed as a separate provider adapter with a verified project, quota, and hard budget gate.
+```yaml
+env:
+  DEEPINFRA_TOKEN: ${{ secrets.DEEPINFRA_API_TOKEN }}
+```
 
-## When a paid adapter is approved
+The real local `.env` file remains ignored. [.env.example](../.env.example) contains only blank variable names.
 
-Only then add the specific secret at:
+## Not required
 
-Settings → Secrets and variables → Actions → New repository secret
+Do not create these secrets for the initial proof:
 
-Never add all reserved secrets merely because they are listed here. Add only the credential required by the approved adapter. Keep secret values out of commits, logs, ledgers, prompts, screenshots, generated manifests, and issue text.
+- `OPENAI_API_KEY`;
+- `ELEVENLABS_API_KEY`;
+- `GEMINI_API_KEY`;
+- `GOOGLE_API_KEY`;
+- `GOOGLE_APPLICATION_CREDENTIALS`.
 
-Any workflow that needs a provider secret must:
+Gemini/Flow, Vertex AI, OpenAI API, and ElevenLabs are excluded. ChatGPT/Codex and GitHub Copilot subscriptions can support repository development interactively, but are not part of runtime authentication.
 
-1. fail closed when the secret is absent;
-2. remain dry-run by default;
-3. require an explicit provider-enable flag;
-4. enforce the approved budget before sending a request;
-5. redact authorization headers and provider responses;
-6. forbid unattended or recursive generation retries.
+GitHub supplies `GITHUB_TOKEN` automatically for each Actions run. Do not create a duplicate repository secret.
 
-## Important distinction
+## DeepInfra account control
 
-Building the engine requires no paid-provider secret. Running a future paid provider adapter will require the corresponding secret and a deliberate change to the budget policy.
+Before the first live run:
+
+1. Add a payment method or prepaid balance as required by DeepInfra.
+2. Set the DeepInfra account spending limit to no more than **US$13.00** for this proof.
+3. Select a lower application profile when appropriate:
+   - CAD 10 → US$6.50;
+   - CAD 15 → US$9.75;
+   - CAD 20 → US$13.00.
+4. Confirm the token belongs to the intended DeepInfra account.
+5. Run the repository's future preflight command in dry-run mode.
+6. Enable live generation only for the approved run.
+
+The account limit is a second guard. The application ledger and reservation logic remain mandatory.
+
+## Workflow requirements
+
+Any workflow that can access `DEEPINFRA_API_TOKEN` must:
+
+1. fail closed if the secret is absent;
+2. use dry-run by default;
+3. require an explicit budget profile;
+4. permit only models in the approved OSS registry;
+5. reserve maximum expected cost before each request;
+6. run one paid request at a time;
+7. record DeepInfra's reported `inference_status.cost`;
+8. redact authorization headers and token-shaped values;
+9. prohibit recursive retries and automatic partner-model fallback;
+10. avoid running on pull requests from forks;
+11. use the least GitHub permissions required;
+12. never upload the token inside an artifact or cache.
+
+A timeout with unknown billing status blocks automatic retry until the request is reconciled.
+
+## Rotation
+
+Rotate the token immediately if it appears in a commit, log, artifact, issue, pull request, screenshot, or copied terminal output. Removing exposed text does not make the old token safe.
