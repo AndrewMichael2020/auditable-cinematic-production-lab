@@ -1,9 +1,9 @@
 {
   "schema_version": "0.2.0",
   "project_id": "video-gen-test",
-  "status": "stage2_first_baseline_complete_second_sequence_pending",
+  "status": "generation_paused_for_m5_voice_persona_remediation",
   "updated_at": "2026-08-03",
-  "objective": "Produce a reproducible one-location AI drama proof through DeepInfra, defaulting to open-weight models with one explicit bounded partner lip-sync exception.",
+  "objective": "Resume production on an M5 Pro only after every speaker has a canonical approved voice realization and visible dialogue has a valid perceptual audiovisual-sync gate.",
   "provider_policy": {
     "allowed_providers": [
       "deepinfra"
@@ -20,7 +20,7 @@
       "requires_cli_override": true,
       "maximum_requests": 19,
       "licence_status": "not_reported_by_provider",
-      "promotion_status": "experimental_one_run_only"
+      "promotion_status": "paused_after_rejected_voice_persona_lipsync_run"
     },
     "gemini_allowed": true,
     "gemini_access_scope": "deepinfra_partner_models_only",
@@ -102,7 +102,7 @@
       "default_allowed": false,
       "price_usd_per_second": 0.10,
       "seconds": 5,
-      "allowed_seconds": [5, 6, 7],
+      "allowed_seconds": [5, 6, 7, 8],
       "resolution": "720P",
       "synchronized_audio_input_allowed": true,
       "request_timeout_seconds": 600,

@@ -1,5 +1,19 @@
 # Stage retrospective: lessons and next steps
 
+## Current status — generation paused
+
+Generation is paused for migration to an M5 Pro 64 GB machine. The most recent ad-hoc sequence,
+`clinic-full-sequence-20260803T184456Z`, is rejected after human playback found visible lip
+asynchrony and a female-sounding patient voice. Its successful Care Card action, technical encode,
+text recovery and motivated cuts remain useful evidence, but acceptance is conjunctive: a voice or
+sync block rejects the sequence.
+
+The decisive lesson is that a visual persona is not a production persona. Although the Stage 2
+series schema supports structured voices, the latest run bypassed it and created visual-only fresh
+personas. Voice aliases in a TTS request are implementation parameters, not canonical casting.
+Likewise, audio PSNR and shared duration prove transport, not mouth synchronization. The detailed
+audit and restart contract are in [CLINIC-FULL-SEQUENCE-POSTMORTEM.md](CLINIC-FULL-SEQUENCE-POSTMORTEM.md).
+
 ## Result
 
 This stage is a success. The pipeline produced a coherent 15-second scene with a wide master,
@@ -269,3 +283,34 @@ Next: run one contrasting sequence with the same gate and add at most one bounde
 reusable ambience mixer from independent speech assets. Objective lip-sync scoring may support but
 never replace normal-speed human review. Alternative models require current provider, control,
 licence and cost verification against a named failure before registry admission.
+
+## Full-sequence voice-persona postmortem — 2026-08-03
+
+The 43-second `clinic-full-sequence-20260803T184456Z` review artifact is not the contrasting accepted
+run. It demonstrated a good one-card transfer and preserved the intended clinic/picture continuity,
+but normal-speed review exposed two hard failures: the male patient sounds female and visible speech
+is out of sync.
+
+- **A voice must be inherited, not selected in a request.** The run's fresh `personas.json` has no
+  voice object. `am_michael` and `af_sarah` appear only in TTS provenance, with no audition reference,
+  perceived-gender/timbre decision, version lock or human casting approval.
+- **Schema capability is useless when a run bypasses it.** `series/surrey-care/series.json` already
+  owns structured voices, but the ad-hoc fresh cast did not inherit that series manifest. A run that
+  cannot resolve every speaker to one canonical persona version and voice realization must fail
+  before TTS or motion generation.
+- **Provider or alias names are not perceptual evidence.** A label that suggests a male or female
+  voice does not establish what a listener hears. Audition the rendered sample and record a human
+  decision for age, timbre, gender presentation, accent, diction, pace and dramatic suitability.
+- **Text accuracy is orthogonal.** ASR recovered the lines, but cannot prove speaker identity,
+  casting, timbre or lip sync.
+- **Audio integrity is orthogonal.** The high PCM PSNR only shows that the provider returned the
+  supplied audio. It cannot show whether generated lips followed it.
+- **Five fps is too sparse for sync acceptance.** Samples are 200 ms apart—more than twice the
+  80 ms target. Review every utterance at normal speed with sound and inspect timecoded phonetic
+  closures; add an objective offset/confidence result when local tooling is available.
+- **Human playback is the final authority.** If a reviewer sees persistent lead/lag or hears the
+  wrong voice, reject the take even when every automated technical check passes.
+
+The next run may start only after both personas have approved, hashed voice auditions and the local
+M5 Pro workflow can emit real audiovisual sync evidence. Do not spend on motion while either gate is
+missing.
