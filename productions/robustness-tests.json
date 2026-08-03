@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "id": "video-gen-robustness-tests",
+  "title": "Reusable multi-scene robustness production",
+  "continuity_state": {
+    "inheritance_fields": ["character", "wardrobe", "prop", "location", "narrative"],
+    "inheritance_is_explicit": true,
+    "completed_scenes_are_immutable": true,
+    "scene_replacement_does_not_regenerate_other_scenes": true
+  },
+  "scenes": [
+    {
+      "order": 1,
+      "id": "last-train-platform-cliffhanger",
+      "manifest": "runs/cliffhanger-20260802T235825Z/scene.json",
+      "status": "final",
+      "promotion_status": "final",
+      "artifact_root": "runs/cliffhanger-20260802T235825Z",
+      "final_media": "runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4"
+    },
+    {
+      "order": 2,
+      "id": "clinic-reception-coverage-check",
+      "manifest": "scenes/clinic-reception-coverage.json",
+      "status": "final",
+      "promotion_status": "final",
+      "artifact_root": "runs/clinic-20260803T011736Z",
+      "final_media": "runs/clinic-20260803T011736Z/final-clinic-coverage-check.mp4",
+      "inherits_from": null,
+      "continuity_scope": "new cast and location; production workflow and audit schema inherited"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "audit_type": "bounded_repair_authorization",
+  "audit_stage": "cheap_draft",
+  "scene_id": "clinic-reception-coverage-check",
+  "shot_id": "c08-card-check",
+  "authorization_allowed": true,
+  "attempt_limit": 1,
+  "attempts_used": 1,
+  "source_audit": "audits/c08-card-check-draft.json",
+  "source_audit_sha256": "fc560a2ea2101ce17ae1055904a2b6ab242726b7d1e6a7f3e83767e1be3f0809",
+  "source_audit_gate": "review",
+  "source_media_sha256": "ffaead6d32e3e891e2bb8036872ddd9a2543543533512bfb64649b8d44ce95ae",
+  "source_prompt_sha256": "eb9e2a399b05983e388691287c34fa1d9688a40f0bdfc36d218478c1ad0b8d11",
+  "repaired_prompt_sha256": "f78f5f723172375d50d4607f3d3be18c27c03ca1b079483d685d40777a074bee",
+  "repair_actions": [
+    "Restore the adult male patient and plain olive jacket.",
+    "Keep the warm-wood counter visibly separating public-left and staff-right.",
+    "Keep exactly one ordinary card face-down on the surface and never display it.",
+    "Use a lateral slide, release, then one mouse click beside a rear-facing monitor."
+  ],
+  "protected_constraints": ["same accepted master axis", "same male patient and female nurse roles", "no readable card or monitor", "no extra card", "no camera gaze"],
+  "suggested_next_pipeline_stage": "final_candidate",
+  "on_failure": "omit the action insert and carry the system-check pause through dialogue/reaction coverage; no retry"
+}

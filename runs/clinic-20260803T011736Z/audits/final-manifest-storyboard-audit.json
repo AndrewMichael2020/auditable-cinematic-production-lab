@@ -1,0 +1,180 @@
+{
+  "audit_stage": "storyboard",
+  "audit_type": "storyboard_spatial",
+  "blocking_findings": 0,
+  "findings": [],
+  "gate": "pass",
+  "promotion_status": "advance",
+  "prompt_sha256s": {
+    "c01-master": "6ede0d40453ee17ccf731cf9c90c41c55888ebe96c6d34d0f7c0971f5560b4d8",
+    "c02-foreshadow": "5d80b8c74acc92d9619d4f6dd4f9bf4c00ad545605b24763ebbf93c6a79dab7c",
+    "c03-nurse-greeting": "18f32439e95585319d10148be9eecc4904977473250116ff5d5a0a2b099d724d",
+    "c04-patient-history": "a6181e9c7d0f799460d825ada85b6b6e8a33d473ed57f935180cd936c3a61821",
+    "c05-nurse-red-flags": "e6c236ee6199f380d6738715c929dc7b9cee8490602c678595a8b52006613baf",
+    "c06-patient-stable": "7779d67d3c7a23a6a51969f6dd7bc034d1d162f50d1aff6edfcd41cc44f8def0",
+    "c07-nurse-card-request": "999de8e1188c9f718a20816074ec33734625d0282973ee76fab5a062f86e076d",
+    "c08-card-check": "f78f5f723172375d50d4607f3d3be18c27c03ca1b079483d685d40777a074bee",
+    "c09-nurse-coverage-result": "6f483c88d898f0a94c4844db8c50585136ceeae5fe6640373d6787a45c417d29",
+    "c10-patient-cost": "32d8e8294af50e3cf1d186c4ecc9976f064915d05f737c44b2ff719f7a8704cf",
+    "c11-nurse-uncertainty": "b50656694aca353ed5ed026725524044a5d8b8e474d2fee23411a6f401396612",
+    "c12-patient-reaction": "963ff5afe61f7b727178304226238f7572472dd4be09ba41bf168c3c797ab7a8"
+  },
+  "required_draft_criteria": [
+    {
+      "description": "Walls, counters, chairs, workstations, floors, and camera can physically coexist.",
+      "id": "room_geometry",
+      "label": "Room geometry"
+    },
+    {
+      "description": "Declared movement paths remain safe, visible, and unobstructed.",
+      "id": "circulation",
+      "label": "Circulation"
+    },
+    {
+      "description": "Doors, walls, counters, windows, seating, and workstations remain stable.",
+      "id": "spatial_anchors",
+      "label": "Spatial anchors"
+    },
+    {
+      "description": "A wide master establishes geography that all closer coverage preserves.",
+      "id": "master_coverage",
+      "label": "Master and coverage"
+    },
+    {
+      "description": "Speaking principals remain identifiable and no person is duplicated or fused.",
+      "id": "character_count_identity",
+      "label": "Character count and identity"
+    },
+    {
+      "description": "Occupancy and crowd placement stay within the planned range.",
+      "id": "background_population",
+      "label": "Background population"
+    },
+    {
+      "description": "Background people do not abruptly duplicate, disappear, intersect objects, or stare at the action.",
+      "id": "crowd_continuity",
+      "label": "Crowd continuity"
+    },
+    {
+      "description": "Positions, scale, screen direction, and framing follow the shot plan.",
+      "id": "blocking_and_framing",
+      "label": "Blocking and framing"
+    },
+    {
+      "description": "Actors look at planned story targets and never into the camera.",
+      "id": "gaze_and_eyeline",
+      "label": "Gaze and eyeline"
+    },
+    {
+      "description": "Hands, feet, limbs, body contact, and object contact are plausible.",
+      "id": "anatomy_contact",
+      "label": "Anatomy and contact"
+    },
+    {
+      "description": "Buttons, pockets, sleeves, closures, and accessories remain coherent.",
+      "id": "wardrobe_construction",
+      "label": "Wardrobe construction"
+    },
+    {
+      "description": "Props keep their shape, colour, owner, and planned location.",
+      "id": "prop_identity_ownership",
+      "label": "Prop identity and ownership"
+    },
+    {
+      "description": "Handoffs and manipulation preserve physical contact and object identity.",
+      "id": "prop_interaction",
+      "label": "Prop interaction"
+    },
+    {
+      "description": "Protected identifiers, card faces, and monitor content remain unreadable.",
+      "id": "privacy",
+      "label": "Privacy"
+    },
+    {
+      "description": "No malformed or unnecessary words, letters, numbers, signs, captions, or watermarks appear.",
+      "id": "unwanted_text",
+      "label": "Unwanted text"
+    },
+    {
+      "description": "Light direction, colour, and time of day remain coherent.",
+      "id": "lighting_continuity",
+      "label": "Lighting continuity"
+    },
+    {
+      "description": "Facial performance and physical action fit the dialogue and dramatic beat.",
+      "id": "performance_action_match",
+      "label": "Performance and action"
+    },
+    {
+      "description": "Dialogue audio remains synchronized with its generated picture.",
+      "id": "audio_sync",
+      "label": "Audio and lip sync"
+    },
+    {
+      "description": "Faces, wardrobe, location, props, narrative facts, and screen direction remain stable.",
+      "id": "continuity",
+      "label": "Continuity"
+    },
+    {
+      "description": "Meaning comes from restrained light, colour, distance, architecture, and sparse text-free symbols.",
+      "id": "symbolic_environment",
+      "label": "Symbolic environment"
+    },
+    {
+      "description": "The target occupancy is between 50% and 70%.",
+      "id": "occupancy_target",
+      "label": "Location occupancy"
+    },
+    {
+      "description": "No patient information is planned to be visible.",
+      "id": "patient_information_policy",
+      "label": "Patient information policy"
+    },
+    {
+      "description": "The workstation monitor faces away from or is occluded from camera.",
+      "id": "monitor_orientation",
+      "label": "Monitor orientation"
+    },
+    {
+      "description": "The counter maintains at least 0.8 metres between public and staff positions.",
+      "id": "counter_separation",
+      "label": "Counter separation"
+    },
+    {
+      "description": "Location screens are never readable.",
+      "id": "profile_screen_privacy",
+      "label": "Profile screen privacy"
+    },
+    {
+      "description": "Health-card faces are never readable.",
+      "id": "profile_card_privacy",
+      "label": "Profile card privacy"
+    }
+  ],
+  "results": [
+    {
+      "audit_stage": "storyboard",
+      "confidence": 1.0,
+      "expected_condition": "Faces, wardrobe, location, props, narrative facts, and screen direction remain stable.",
+      "observed_evidence": "All deterministic storyboard, spatial, privacy, and continuity checks passed.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "scene manifest",
+        "location profile",
+        "principal continuity",
+        "privacy policy"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "continuity",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cheap_draft"
+    }
+  ],
+  "scene_id": "clinic-reception-coverage-check",
+  "scene_sha256": "ab5be7174f92021974413afa59a15fcc01c2118a8d47343a6241591f573f6ad5",
+  "schema_version": "2.0",
+  "suggested_next_pipeline_stage": "cheap_draft"
+}

@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 
 import pytest
 
@@ -186,7 +187,7 @@ def test_partner_avatar_rejects_insecure_image_url_without_reserving(tmp_path):
     assert ledger.reserved_total() == 0
 
 
-def test_live_partner_avatar_uses_three_dollar_cap_and_persists_video(tmp_path):
+def test_live_partner_avatar_uses_partner_policy_cap_and_persists_video(tmp_path):
     app, ledger = setup(tmp_path)
     response = {
         "video_url": "data:video/mp4;base64,dmlkZW8=",
@@ -232,3 +233,13 @@ def test_partner_avatar_rejects_camera_or_missing_gaze(tmp_path):
             gaze_direction=None, allow_partner=True,
         )
     assert ledger.reserved_total() == 0
+
+
+def test_explicit_run_and_avatar_attempt_caps_are_enforced(tmp_path):
+    ledger = Ledger(tmp_path / "ledger.db")
+    app = Orchestrator(ProjectConfig.load(), ledger, "cad_10",
+                       run_cap_usd=Decimal("8"), partner_avatar_attempt_cap=8)
+    assert app.cap == Decimal("8")
+    assert app.partner_avatar_attempt_cap == 8
+    with pytest.raises(PolicyError, match="no higher than profile cap"):
+        Orchestrator(ProjectConfig.load(), ledger, "cad_10", run_cap_usd=Decimal("10.01"))

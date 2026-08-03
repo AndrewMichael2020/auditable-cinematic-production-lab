@@ -4,11 +4,11 @@ A budget-controlled, programmatic experiment toward an AI drama production engin
 
 ## Current goal
 
-Produce one reproducible **12–30 second scene** before building a full engine:
+Produce reproducible, independently replaceable **12–90 second scenes** before building a full engine:
 
 - one location;
 - two adult characters;
-- four to six necessary shots, including a wide master;
+- four to sixteen necessary shots, including a wide master;
 - consistent character descriptions, wardrobe, location, and screen direction;
 - credible action, dialogue rhythm, and editing;
 - complete cost and provenance records.
@@ -50,7 +50,7 @@ Choose exactly one run profile: **10, 15, or 20 dollars Canadian**, including a 
 
 | Profile | Application hard cap in US dollars |
 |---|---:|
-| CAD 10 | US$6.50 |
+| CAD 10 | US$10.00 |
 | CAD 15 | US$9.75 |
 | CAD 20 | US$13.00 |
 
@@ -107,7 +107,8 @@ not contact DeepInfra. A paid request additionally requires both `--live` and `-
 human-promotion gate. Successful outputs are downloaded atomically, hashed, and recorded with the
 provider request ID and reported cost. Unknown billing status is terminal and is never retried.
 
-Generated ledgers and media live under ignored `runs/` and `outputs/` directories. Inspect and
+Generated ledgers and media normally live under ignored `runs/` and `outputs/` directories. Selected
+auditable live runs may be force-added on a dedicated branch. Inspect and
 human-approve the four compiled prompts from `scenes/golden-scene.json` before any live draft run.
 
 The spatial gate runs before generation and checks platform/track geometry, safe blocking, object
@@ -118,7 +119,9 @@ contact-sheet observations with FFprobe facts. A failed or uncertain criterion b
 
 The optional partner lip-sync path requires `--allow-partner-avatar`, `--live`, and
 `--confirm-live` for each sequential speaker request. `plan-avatar` also requires a screen-left or
-screen-right gaze. `prepare-dialogue` applies bounded trims, a single picture-and-audio rate change,
+screen-right gaze. Live avatar images must be public HTTPS URLs; local/data images are rejected before
+any reservation because the provider does not fetch inline image data reliably. `prepare-dialogue`
+applies bounded trims, a single picture-and-audio rate change,
 and a crop without breaking synchronization. `assemble-scene` joins a 2–5 second wide master and
 three to five already-synchronized turns, normalizes dialogue to an EBU R128 target, pads only the
 final dramatic beat, and emits an output hash manifest. It never activates automatically.
@@ -149,6 +152,9 @@ Signed query parameters from provider output URLs are deliberately excluded from
 - [project.json](project.json): machine-readable models, budgets, and stop conditions.
 - [scenes/golden-scene.json](scenes/golden-scene.json): one-location, two-character, four-shot proof.
 - [scenes/platform-cliffhanger.json](scenes/platform-cliffhanger.json): 15-second master-plus-dialogue continuation.
+- [scenes/clinic-reception-coverage.json](scenes/clinic-reception-coverage.json): 56-second shot plan and 49.69-second robustness result.
+- [productions/robustness-tests.json](productions/robustness-tests.json): ordered multi-scene state and independent artifact roots.
+- [locations/clinic-reception.json](locations/clinic-reception.json): reusable data-driven clinic geometry and privacy rules.
 - [`src/video_gen`](src/video_gen): CLI, policy, ledger, provider, production, and media modules.
 - [`tests`](tests): fail-closed budget, provider, scene, and orchestration tests.
 - [LICENSE](LICENSE): repository licence.

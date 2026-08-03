@@ -1,0 +1,20 @@
+{
+  "reviewer": "human:codex-frame-review",
+  "rules": {
+    "room_geometry": {"status": "pass", "confidence": 0.9, "observed_evidence": "Visible counter, chairs, wall and floor remain plausible."},
+    "circulation": {"status": "fail", "confidence": 0.98, "observed_evidence": "Foreground bodies again block the room and no full public circulation path can be traced."},
+    "spatial_anchors": {"status": "fail", "confidence": 0.98, "observed_evidence": "The room's entry, seating, counter and workstation geography still cannot be established."},
+    "master_coverage": {"status": "fail", "confidence": 1.0, "observed_evidence": "The third result remains a frontal medium two-shot, not a room master."},
+    "background_population": {"status": "fail", "confidence": 0.99, "observed_evidence": "Only one or two background adults are readable, not eight to twelve."},
+    "blocking_and_framing": {"status": "fail", "confidence": 0.99, "observed_evidence": "Both principals stand together on the public side instead of being separated by the full counter."},
+    "gaze_and_eyeline": {"status": "fail", "confidence": 1.0, "observed_evidence": "Both principals look directly into the camera throughout the sampled frames."},
+    "wardrobe_construction": {"status": "pass", "confidence": 0.94, "observed_evidence": "Olive jacket, teal scrubs and open grey cardigan are stable."},
+    "privacy": {"status": "pass", "confidence": 0.98, "observed_evidence": "No patient information, card face or readable monitor is visible."},
+    "unwanted_text": {"status": "pass", "confidence": 0.95, "observed_evidence": "No readable text or malformed lettering is evident."},
+    "continuity": {"status": "fail", "confidence": 0.99, "observed_evidence": "This spatial arrangement cannot anchor the planned counter-axis close coverage."},
+    "occupancy_target": {"status": "fail", "confidence": 0.99, "observed_evidence": "Visible occupancy is far below the profile target."},
+    "patient_information_policy": {"status": "pass", "confidence": 0.98, "observed_evidence": "No patient information is visible."},
+    "profile_screen_privacy": {"status": "pass", "confidence": 0.95, "observed_evidence": "No readable screen content appears."},
+    "profile_card_privacy": {"status": "pass", "confidence": 1.0, "observed_evidence": "No card is shown."}
+  }
+}

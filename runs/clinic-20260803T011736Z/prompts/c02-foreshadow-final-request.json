@@ -1,0 +1,7 @@
+{
+  "dry_run": false,
+  "model": "Wan-AI/Wan2.2-T2V-A14B",
+  "prompt_sha256": "c6bd55f5b4f98e481e1ddaeadde93afb3b9ac7c82688a1a8e4a9fd7d355c34e8",
+  "request_id": "73125e2c-bf04-4a92-869f-f7afcc8f77d3",
+  "reserved_usd": "0.375"
+}

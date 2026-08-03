@@ -1,0 +1,31 @@
+{
+  "reviewer": "human:codex-frame-review",
+  "criteria": {
+    "room_geometry": {"status": "pass", "confidence": 0.98, "observed_evidence": "Counter, chairs, floor, walls, windows, door and work surfaces coexist plausibly."},
+    "circulation": {"status": "pass", "confidence": 0.97, "observed_evidence": "A wide clear path remains from entry through waiting area to the public counter."},
+    "spatial_anchors": {"status": "pass", "confidence": 0.97, "observed_evidence": "Warm-wood counter, teal chair rows, daylight windows and rear work area stay stable across the shot."},
+    "master_coverage": {"status": "pass", "confidence": 0.99, "observed_evidence": "Locked wide view establishes entry, waiting hall, counter, both principals and background circulation."},
+    "character_count_identity": {"status": "pass", "confidence": 0.95, "observed_evidence": "Patient and nurse remain distinct while background adults remain non-speaking."},
+    "background_population": {"status": "pass", "confidence": 0.94, "observed_evidence": "The hall reads near the planned sixty percent occupancy and within the acceptable framing range."},
+    "crowd_continuity": {"status": "pass", "confidence": 0.9, "observed_evidence": "Background adults remain seated or quietly active without obvious fusion or impossible crossings."},
+    "blocking_and_framing": {"status": "pass", "confidence": 0.98, "observed_evidence": "Patient remains public-side screen left and moves laterally toward the counter; nurse remains staff-side screen right."},
+    "gaze_and_eyeline": {"status": "pass", "confidence": 0.97, "observed_evidence": "The principals attend to each other/work targets and never address the camera."},
+    "anatomy_contact": {"status": "pass", "confidence": 0.93, "observed_evidence": "Walking, floor contact and the brief elbow/hand gesture remain plausible at wide scale."},
+    "wardrobe_construction": {"status": "pass", "confidence": 0.92, "observed_evidence": "Plain olive outerwear and teal clinical clothing remain stable; no readable badge is evident."},
+    "prop_identity_ownership": "pass",
+    "prop_interaction": "pass",
+    "privacy": {"status": "pass", "confidence": 0.99, "observed_evidence": "No card face, patient identifier or readable monitor content appears."},
+    "unwanted_text": {"status": "pass", "confidence": 0.98, "observed_evidence": "No facility name, logo, malformed lettering, caption or readable screen text is evident."},
+    "lighting_continuity": {"status": "pass", "confidence": 0.96, "observed_evidence": "Soft background window light combines coherently with warm neutral interior light."},
+    "performance_action_match": {"status": "pass", "confidence": 0.88, "observed_evidence": "Patient reads tired but stable and gives one restrained hand-to-elbow/face cough gesture while approaching."},
+    "audio_sync": "pass",
+    "continuity": {"status": "pass", "confidence": 0.97, "observed_evidence": "The master supplies a coherent public-left/staff-right axis for all planned close coverage."},
+    "symbolic_environment": {"status": "pass", "confidence": 0.92, "observed_evidence": "Ordinary daylight and normal clinic motion carry the tension without expository symbols or text."},
+    "occupancy_target": "pass",
+    "patient_information_policy": "pass",
+    "monitor_orientation": {"status": "pass", "confidence": 0.91, "observed_evidence": "Work surfaces remain too distant and oriented away enough that no screen content is readable."},
+    "counter_separation": {"status": "pass", "confidence": 0.98, "observed_evidence": "The full counter clearly separates public and staff zones."},
+    "profile_screen_privacy": "pass",
+    "profile_card_privacy": "pass"
+  }
+}

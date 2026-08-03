@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "audit_type": "bounded_repair_authorization",
+  "audit_stage": "cheap_draft",
+  "scene_id": "clinic-reception-coverage-check",
+  "shot_id": "c02-foreshadow",
+  "authorization_allowed": true,
+  "attempt_limit": 1,
+  "attempts_used": 1,
+  "source_audit": "audits/c02-foreshadow-draft.json",
+  "source_audit_sha256": "813e8981d2bec41eeffa2092c5d27c036a5e825f42a0d970b69f622050437161",
+  "source_audit_gate": "review",
+  "source_media_sha256": "1f40f836bb2fb2c565d0259815114de393b5630130162a15c8289129ed0ab005",
+  "source_prompt_sha256": "be3d73e400e16d0bca5c01c180443b2a6d1bc89add38eb68feff1d5b03f2915c",
+  "repaired_prompt_sha256": "5d80b8c74acc92d9619d4f6dd4f9bf4c00ad545605b24763ebbf93c6a79dab7c",
+  "repair_actions": [
+    "Keep the card at ordinary size under eight percent of frame area.",
+    "Complete only a small lateral counter handoff; never move the prop toward camera.",
+    "Restore teal scrubs and the open grey cardigan.",
+    "Keep the nurse in profile and add one understated background glance from card to pocket."
+  ],
+  "protected_constraints": ["card face unreadable", "no identifier or government typography", "public/staff counter separation", "patient remains background", "no camera gaze"],
+  "suggested_next_pipeline_stage": "final_candidate",
+  "on_failure": "use only the predeclared sub-second salvage interval if final-sequence review passes; otherwise omit the insert"
+}

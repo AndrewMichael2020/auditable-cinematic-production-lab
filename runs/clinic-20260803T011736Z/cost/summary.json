@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "currency": "USD",
+  "repository_hard_cap": "10.00",
+  "scenario_run_cap": "8.00",
+  "reserved_total": "3.0750",
+  "actual_total": "2.62500000000000003",
+  "paid_attempts": 21,
+  "completed_requests": 18,
+  "failed_requests": 3,
+  "models": [
+    {"id": "FastVideo/FastWan-QAD-FP8-1.3B", "attempts": 6, "actual_usd": "0.075"},
+    {"id": "Wan-AI/Wan2.2-T2V-A14B", "attempts": 3, "actual_usd": "1.125"},
+    {"id": "PrunaAI/p-video-avatar", "attempts": 12, "actual_usd": "1.42500000000000003"}
+  ],
+  "request_policy": {
+    "paid_parallelism": 1,
+    "unknown_billing_retry": false,
+    "bounded_attempt_cap_reached": true,
+    "additional_paid_requests_after_cap": 0
+  },
+  "ledger": "runs/clinic-20260803T011736Z/ledger.sqlite3",
+  "portable_event_export": "runs/clinic-20260803T011736Z/cost/ledger-audit.json",
+  "known_cost_reconciliation": "runs/clinic-20260803T011736Z/billing-reconciliation-c06.json"
+}

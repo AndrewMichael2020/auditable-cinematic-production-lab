@@ -1,0 +1,26 @@
+{
+  "crop": {
+    "height": 360,
+    "width": 640,
+    "x": 128,
+    "y": 100
+  },
+  "output": {
+    "bytes": 1464056,
+    "duration_seconds": 6.101,
+    "path": "runs/clinic-20260803T011736Z/edit/c04-patient-history.mp4",
+    "sha256": "267ffd609ee6dc9795af45e089691304877e3f8779a665d8a0858633caeb80dd"
+  },
+  "pacing_rate": 1.05,
+  "schema_version": "1.0",
+  "source": {
+    "duration_seconds": 6.68,
+    "path": "runs/clinic-20260803T011736Z/raw/e32bc4d2-e78a-41ea-97a2-90edc45ba4d5.mp4",
+    "sha256": "8def96bfe0f7d2fc83c628705e22b1bc152a63b9c77723056aa4c55203900729"
+  },
+  "sync_preserved": true,
+  "trim": {
+    "end_seconds": 6.5,
+    "start_seconds": 0.1
+  }
+}

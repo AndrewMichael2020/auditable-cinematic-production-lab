@@ -1,0 +1,31 @@
+{
+  "crop": {
+    "height": 315,
+    "width": 560,
+    "x": 0,
+    "y": 100
+  },
+  "output": {
+    "bytes": 983327,
+    "duration_seconds": 6.107,
+    "path": "runs/clinic-20260803T011736Z/edit/c11-nurse-uncertainty.mp4",
+    "sha256": "6549eb4068c38f0119f748208869222077f16e69f9adc9cb9a5c8f3a0279130a"
+  },
+  "pacing_rate": 1.05,
+  "postprocess": {
+    "action": "locally blur the far-right background notice region while stream-copying the synchronized AAC audio",
+    "preprocess_source": "runs/clinic-20260803T011736Z/rejected/c11-before-background-notice-blur.mp4",
+    "audio_stream_copied": true
+  },
+  "schema_version": "1.0",
+  "source": {
+    "duration_seconds": 7.76,
+    "path": "runs/clinic-20260803T011736Z/raw/cb31c5b8-9115-42f2-b66b-9e54ac227716.mp4",
+    "sha256": "8e8d3f8e113ca3e42c5123bf19961a8700b8853f347e3099849fc73bfcd87640"
+  },
+  "sync_preserved": true,
+  "trim": {
+    "end_seconds": 6.5,
+    "start_seconds": 0.1
+  }
+}

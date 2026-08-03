@@ -15,7 +15,7 @@ from .ledger import Ledger
 from .provider import DeepInfraClient, prompt_hash
 
 COST_COMPARISON_EPSILON = Decimal("0.000000000001")
-MAX_PARTNER_AVATAR_ATTEMPTS = 5
+DEFAULT_MAX_PARTNER_AVATAR_ATTEMPTS = 5
 
 
 def reported_cost_exceeds_reservation(reported: Decimal, reserved: Decimal) -> bool:
@@ -44,11 +44,20 @@ class PlannedRequest:
 
 
 class Orchestrator:
-    def __init__(self, config: ProjectConfig, ledger: Ledger, profile: str):
+    def __init__(self, config: ProjectConfig, ledger: Ledger, profile: str, *,
+                 run_cap_usd: Decimal | None = None,
+                 partner_avatar_attempt_cap: int = DEFAULT_MAX_PARTNER_AVATAR_ATTEMPTS):
         self.config = config
         self.ledger = ledger
         self.profile = profile
-        self.cap = config.profile_cap(profile)
+        profile_cap = config.profile_cap(profile)
+        if run_cap_usd is not None and (run_cap_usd <= 0 or run_cap_usd > profile_cap):
+            raise PolicyError(f"run cap must be positive and no higher than profile cap USD {profile_cap}")
+        if not 1 <= partner_avatar_attempt_cap <= 20:
+            raise PolicyError("partner avatar attempt cap must be between 1 and 20")
+        self.cap = min(profile_cap, run_cap_usd) if run_cap_usd is not None else profile_cap
+        self.explicit_run_cap = run_cap_usd is not None
+        self.partner_avatar_attempt_cap = partner_avatar_attempt_cap
 
     def run_video(self, role: str, prompt: str, *, seconds: int = 5, seed: int = 0,
                   live: bool = False, confirmed: bool = False,
@@ -203,7 +212,7 @@ class Orchestrator:
         if live and client is None:
             client = DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
         model = self.config.model("lip_sync_avatar")
-        if self.ledger.reservation_count(model.id) >= MAX_PARTNER_AVATAR_ATTEMPTS:
+        if self.ledger.reservation_count(model.id) >= self.partner_avatar_attempt_cap:
             raise PolicyError("partner avatar request cap reached")
         payload = {
             "image": image_input,
@@ -225,7 +234,12 @@ class Orchestrator:
         }
         reserved = model.reserve(seconds=max_seconds)
         request_id = str(uuid.uuid4())
-        self.ledger.reserve(request_id, model.id, reserved, min(self.cap, Decimal("3")))
+        partner_policy_cap = Decimal(str(
+            self.config.raw["provider_policy"]["explicit_partner_test_exception"]
+            ["additional_run_cap_usd"]
+        ))
+        reservation_cap = self.cap if self.explicit_run_cap else min(self.cap, partner_policy_cap)
+        self.ledger.reserve(request_id, model.id, reserved, reservation_cap)
         safe_payload = {key: value for key, value in payload.items() if key != "image"}
         # Persist only a digest of the input, never an inline image or a
         # temporary third-party transport URL.

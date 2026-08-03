@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "id": "daytime-primary-care-reception",
+  "location_type": "healthcare_reception_waiting_hall",
+  "description": "Unnamed contemporary community clinic reception with pale walls, restrained teal accents, warm wood, ordinary seating and soft daylight.",
+  "zones": [
+    {"id": "entry_left", "screen_position": -3, "purpose": "public arrival"},
+    {"id": "queue_left", "screen_position": -2, "purpose": "public waiting before counter"},
+    {"id": "counter_public_left", "screen_position": -1, "purpose": "patient side of counter"},
+    {"id": "handoff_center", "screen_position": 0, "purpose": "countertop handoff plane"},
+    {"id": "counter_staff_right", "screen_position": 1, "purpose": "staff side of counter"},
+    {"id": "workstation_right", "screen_position": 2, "purpose": "staff workstation"},
+    {"id": "waiting_background", "screen_position": 0, "purpose": "seated and circulating background adults"}
+  ],
+  "anchors": [
+    {"id": "reception_counter", "kind": "counter", "zone": "handoff_center", "support": "floor", "contains_text": false},
+    {"id": "workstation", "kind": "computer_workstation", "zone": "workstation_right", "support": "counter", "contains_text": false},
+    {"id": "waiting_chairs", "kind": "chair_groups", "zone": "waiting_background", "support": "floor", "contains_text": false},
+    {"id": "background_windows", "kind": "windows", "zone": "waiting_background", "support": "wall", "contains_text": false},
+    {"id": "entry_door", "kind": "door", "zone": "entry_left", "support": "wall", "contains_text": false},
+    {"id": "teal_bays", "kind": "architectural_bays", "zone": "waiting_background", "support": "built_in", "contains_text": false}
+  ],
+  "circulation_paths": [
+    {"id": "entry_to_queue", "from": "entry_left", "to": "queue_left", "minimum_width_m": 1.2, "blocked": false},
+    {"id": "queue_to_counter", "from": "queue_left", "to": "counter_public_left", "minimum_width_m": 1.1, "blocked": false},
+    {"id": "waiting_to_exit", "from": "waiting_background", "to": "entry_left", "minimum_width_m": 1.2, "blocked": false},
+    {"id": "staff_work_path", "from": "counter_staff_right", "to": "workstation_right", "minimum_width_m": 1.0, "blocked": false}
+  ],
+  "privacy": {
+    "workstation_screens_readable": false,
+    "card_face_readable": false,
+    "counter_preserves_public_staff_separation": true
+  },
+  "validation_rules": [
+    {
+      "rule_id": "occupancy_target",
+      "label": "Location occupancy",
+      "field": "scene.background_population.target_occupancy",
+      "operator": "between",
+      "values": [0.5, 0.7],
+      "severity": "block",
+      "expected_condition": "The target occupancy is between 50% and 70%.",
+      "recommended_repair_action": "Adjust the background population plan without changing the principals.",
+      "protected_constraints": ["ordinary clinic occupancy", "safe circulation"]
+    },
+    {
+      "rule_id": "patient_information_policy",
+      "label": "Patient information policy",
+      "field": "scene.privacy_policy.patient_information_visible",
+      "operator": "equals",
+      "value": false,
+      "severity": "block",
+      "expected_condition": "No patient information is planned to be visible.",
+      "recommended_repair_action": "Turn screens away and keep cards unreadable.",
+      "protected_constraints": ["no personal identifier", "no readable patient data"]
+    },
+    {
+      "rule_id": "monitor_orientation",
+      "label": "Monitor orientation",
+      "field": "scene.privacy_policy.monitor_orientation",
+      "operator": "one_of",
+      "values": ["away_from_camera", "occluded_from_camera"],
+      "severity": "block",
+      "expected_condition": "The workstation monitor faces away from or is occluded from camera.",
+      "recommended_repair_action": "Move the camera or rotate the monitor without changing counter geography.",
+      "protected_constraints": ["workstation orientation", "unreadable monitor"]
+    },
+    {
+      "rule_id": "counter_separation",
+      "label": "Counter separation",
+      "field": "scene.spatial_plan.counter.public_staff_separation_m",
+      "operator": "min",
+      "value": 0.8,
+      "severity": "block",
+      "expected_condition": "The counter maintains at least 0.8 metres between public and staff positions.",
+      "recommended_repair_action": "Restore the declared counter depth and handoff plane.",
+      "protected_constraints": ["counter geometry", "privacy separation"]
+    },
+    {
+      "rule_id": "profile_screen_privacy",
+      "label": "Profile screen privacy",
+      "field": "profile.privacy.workstation_screens_readable",
+      "operator": "equals",
+      "value": false,
+      "severity": "block",
+      "expected_condition": "Location screens are never readable.",
+      "recommended_repair_action": "Use rear-facing or defocused screens.",
+      "protected_constraints": ["no readable computer text"]
+    },
+    {
+      "rule_id": "profile_card_privacy",
+      "label": "Profile card privacy",
+      "field": "profile.privacy.card_face_readable",
+      "operator": "equals",
+      "value": false,
+      "severity": "block",
+      "expected_condition": "Health-card faces are never readable.",
+      "recommended_repair_action": "Keep card face-down, edge-on, occluded, moving, or out of focus.",
+      "protected_constraints": ["no name", "no PHN", "no barcode", "no government typography"]
+    }
+  ]
+}

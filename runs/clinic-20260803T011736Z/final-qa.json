@@ -1,0 +1,49 @@
+{
+  "schema_version": "2.0",
+  "scene_id": "clinic-reception-coverage-check",
+  "promotion_decision": "final",
+  "completion": "intended full narrative scene completed",
+  "final_media": {
+    "path": "runs/clinic-20260803T011736Z/final-clinic-coverage-check.mp4",
+    "sha256": "77c3a6259a9ad390031e184a7f320a4de03904a46acb34cd782475a1c10dfc05",
+    "bytes": 11408725,
+    "duration_seconds": 49.6875,
+    "video": "H.264 1280x720",
+    "audio": "AAC stereo 48000 Hz"
+  },
+  "contact_sheet": {
+    "path": "runs/clinic-20260803T011736Z/final/final-contact-sheet.png",
+    "sha256": "965fef34a1d230a24bd8e813eb3ea1d47e0d33db60dfb6dfeeb87ecd5deb3e9b"
+  },
+  "assessments": {
+    "visual": {"status": "pass", "evidence": "Naturalistic daytime clinic, restrained colour and performance, exactly two speaking principals, no lens address or readable text."},
+    "spatial": {"status": "pass", "evidence": "Wide master establishes waiting hall, counter and circulation; coverage keeps patient public-side left and nurse staff-side right."},
+    "privacy": {"status": "pass", "evidence": "Cards remain moving, face-down, edge-on, occluded or defocused; no identifier or monitor content is readable."},
+    "audio": {"status": "pass_with_known_limitation", "evidence": "Eight dialogue turns remain visibly synchronized over continuous nonverbal clinic room tone; measured integrated loudness is -16.9 LUFS and true peak -1.5 dBFS. The opening contains a restrained visual cough gesture but no separately audible cough effect."},
+    "continuity": {"status": "pass", "evidence": "Principal identity, wardrobe, screen direction, light, narrative order and prop ownership remain coherent across twelve intervals."}
+  },
+  "foreshadowing": {
+    "timeline_seconds": [5.0, 5.8125],
+    "realization": "A staff hand returns an ordinary restrained blue-and-white plastic card at the counter; it stays in motion and unreadable, then the scene continues without informational emphasis.",
+    "source_decision": "Only the safe 0.8125-second interval was admitted; the rest of the paid source was rejected for lingering on secondary blue-edged desk objects."
+  },
+  "bounded_repairs": [
+    "Three failed early wide drafts were rejected for empty or incoherent clinic geography; a fourth remained unsuitable before the accepted Wan master.",
+    "The first foreshadow draft made the card a hero object; a bounded interval from the final source replaced it.",
+    "The first card-check draft broke card/hand logic; the accepted Wan insert preserves one face-down card and ordinary workstation actions.",
+    "One patient turn was rephrased after two technical failures while preserving every clinical fact; its known over-reservation duration was reconciled without a new inference.",
+    "One nurse line was regenerated after an over-warm performance; small background notice regions were locally defocused without changing synchronized audio.",
+    "Two candidate ending reactions were rejected for warmth or lens risk; the final uses a neutral screen-right profile hold."
+  ],
+  "known_limitations": [
+    "The c06 portrait uses blurred same-frame side extensions, creating a modest framing discontinuity while preserving the full mouth and lip sync.",
+    "The final reaction is a restrained still hold rather than newly generated micro-motion.",
+    "No separate realistic cough sound effect was available within the bounded retained source set."
+  ],
+  "promotion_evidence": [
+    "audits/cross-shot-continuity.json",
+    "audits/cross-scene-continuity.json",
+    "audits/final-sequence-promotion.json",
+    "provenance/final-timeline-manifest.json"
+  ]
+}

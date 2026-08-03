@@ -1,0 +1,31 @@
+{
+  "reviewer": "human:codex-frame-review",
+  "criteria": {
+    "room_geometry": "pass",
+    "circulation": "pass",
+    "spatial_anchors": "pass",
+    "master_coverage": "pass",
+    "character_count_identity": "pass",
+    "background_population": "pass",
+    "crowd_continuity": "pass",
+    "blocking_and_framing": {"status": "fail", "confidence": 1.0, "observed_evidence": "The card rapidly fills the foreground and converts a subtle side insert into a hero-prop presentation.", "recommended_repair_action": "Lock the side angle and keep the card under eight percent of the frame; never move it toward camera."},
+    "gaze_and_eyeline": {"status": "fail", "confidence": 0.9, "observed_evidence": "The nurse becomes near-frontal and the background patient does not clearly glance toward his pocket.", "recommended_repair_action": "Keep the nurse in profile and show one small patient glance from card to jacket pocket."},
+    "anatomy_contact": "pass",
+    "wardrobe_construction": {"status": "fail", "confidence": 0.98, "observed_evidence": "The nurse changes to a blue uniform without the established teal scrubs and open grey cardigan.", "recommended_repair_action": "Restore the master-shot nurse wardrobe."},
+    "prop_identity_ownership": {"status": "fail", "confidence": 0.95, "observed_evidence": "The card grows from ordinary proportions into an oversized foreground rectangle.", "recommended_repair_action": "Keep ordinary plastic-card dimensions and consistent blue-white colour."},
+    "prop_interaction": {"status": "fail", "confidence": 0.92, "observed_evidence": "The handoff turns into holding the card outward rather than returning it naturally across the counter.", "recommended_repair_action": "Start at the counter handoff plane and complete one lateral return to the departing adult."},
+    "privacy": "pass",
+    "unwanted_text": "pass",
+    "lighting_continuity": "pass",
+    "performance_action_match": {"status": "fail", "confidence": 0.92, "observed_evidence": "The card moment is underlined and the patient's wallet/pocket recognition is absent."},
+    "audio_sync": "pass",
+    "continuity": {"status": "fail", "confidence": 0.96, "observed_evidence": "Nurse wardrobe and prop scale do not match the accepted master/prop plan."},
+    "symbolic_environment": {"status": "fail", "confidence": 0.9, "observed_evidence": "The oversized card becomes explanatory imagery instead of quiet environmental foreshadowing."},
+    "occupancy_target": "pass",
+    "patient_information_policy": "pass",
+    "monitor_orientation": "pass",
+    "counter_separation": "pass",
+    "profile_screen_privacy": "pass",
+    "profile_card_privacy": "pass"
+  }
+}

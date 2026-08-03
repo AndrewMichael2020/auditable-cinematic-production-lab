@@ -1,0 +1,7 @@
+{
+  "dry_run": true,
+  "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+  "prompt_sha256": "3539ffb65ba2718ec87e99b61190333f17d99d776d57dc8250a679233d7dbac9",
+  "request_id": "4f31dae8-17fe-471e-a10e-0ae9169de413",
+  "reserved_usd": "0.0125"
+}

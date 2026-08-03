@@ -1,0 +1,446 @@
+{
+  "events": [
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:21:26",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "a3e1cd1a-e596-40d2-a3ac-076039dc319a",
+      "reserved_usd": "0.0125",
+      "sequence": 1
+    },
+    {
+      "actual_usd": "0.0125",
+      "created_at": "2026-08-03 01:21:29",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/drafts/a3e1cd1a-e596-40d2-a3ac-076039dc319a.mp4\", \"output_sha256\": \"2c2c09fc874b1962f97e1b9b72f346f5b4e82eca0225d88849b89f3503f33bb7\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"c2a6e1c46771391dcca871cbc6b28273130797c9a94c4f3327ca492b4f4545e2\", \"provider_request_id\": \"RksqZ9ysowrzExCztOEemfkK\"}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "a3e1cd1a-e596-40d2-a3ac-076039dc319a",
+      "reserved_usd": "0.0125",
+      "sequence": 2
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:23:55",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "9b16d970-f6b4-4624-9695-a6e9a9953844",
+      "reserved_usd": "0.0125",
+      "sequence": 3
+    },
+    {
+      "actual_usd": "0.0125",
+      "created_at": "2026-08-03 01:23:58",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/drafts/9b16d970-f6b4-4624-9695-a6e9a9953844.mp4\", \"output_sha256\": \"881f80c8521033f9395fb8bed291fcd661c774fbfc7504a16fadde974b746d6f\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"3b5239d624e6f4a6a8b77fbc0bf092c35f71e1fc19f76f89d8b6b72ebccda683\", \"provider_request_id\": \"Rn7NeYOOTwOrZB1HU83hWj4y\"}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "9b16d970-f6b4-4624-9695-a6e9a9953844",
+      "reserved_usd": "0.0125",
+      "sequence": 4
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:25:51",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "98f1eac6-2ace-4330-9ae4-d16678662372",
+      "reserved_usd": "0.0125",
+      "sequence": 5
+    },
+    {
+      "actual_usd": "0.0125",
+      "created_at": "2026-08-03 01:25:54",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/drafts/98f1eac6-2ace-4330-9ae4-d16678662372.mp4\", \"output_sha256\": \"b46e2cbed3e48e91f781fb86d86c167459ba2a8b834804e173f6becd0c8f64b2\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"0d2e493d3b5b84eb656899dc969ab5aade33af00b2c8e1c47e589ee0486faa9b\", \"provider_request_id\": \"Rh7hDRYzR3VTuYwk2bkA4HRT\"}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "98f1eac6-2ace-4330-9ae4-d16678662372",
+      "reserved_usd": "0.0125",
+      "sequence": 6
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:28:39",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "fce436b7-56a3-4103-821a-9f49ad1af75e",
+      "reserved_usd": "0.0125",
+      "sequence": 7
+    },
+    {
+      "actual_usd": "0.0125",
+      "created_at": "2026-08-03 01:28:42",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/drafts/fce436b7-56a3-4103-821a-9f49ad1af75e.mp4\", \"output_sha256\": \"37bec3abf3b684d94b48a2eb9f67fafa17ecfb934a7d07fb8a320dfae29f0af6\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"f460b39565368d203d47082cd39756d81c1ab4ff9b139b5b2b677324ba1ce5ba\", \"provider_request_id\": \"RY99VsrmUAhEt1Fw6Z7G8J8p\"}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "fce436b7-56a3-4103-821a-9f49ad1af75e",
+      "reserved_usd": "0.0125",
+      "sequence": 8
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:32:43",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "Wan-AI/Wan2.2-T2V-A14B",
+      "request_id": "c2649504-170b-4c39-8df5-95e75bb4dedc",
+      "reserved_usd": "0.375",
+      "sequence": 9
+    },
+    {
+      "actual_usd": "0.375",
+      "created_at": "2026-08-03 01:37:14",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/raw/c2649504-170b-4c39-8df5-95e75bb4dedc.mp4\", \"output_sha256\": \"d9e8c8ae2a4a7f901740c46269a519d774c7dd02b7004679945c62c032cb6fdc\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"df72f376f2b9b002338fdf9031deb647e607ae59b85c66a73b6e0a0474dcf6d2\", \"provider_request_id\": \"RaWop0Hz4lAKzb0eNhYkFUDV\"}",
+      "model": "Wan-AI/Wan2.2-T2V-A14B",
+      "request_id": "c2649504-170b-4c39-8df5-95e75bb4dedc",
+      "reserved_usd": "0.375",
+      "sequence": 10
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:39:44",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "4515be35-9de0-44a6-8455-9e0fe3a9a718",
+      "reserved_usd": "0.0125",
+      "sequence": 11
+    },
+    {
+      "actual_usd": "0.0125",
+      "created_at": "2026-08-03 01:39:47",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/drafts/4515be35-9de0-44a6-8455-9e0fe3a9a718.mp4\", \"output_sha256\": \"1f40f836bb2fb2c565d0259815114de393b5630130162a15c8289129ed0ab005\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"d7e23cc718b09a5471c5cd3ea52725b44208a01bd13ae3e16ea0c9ff6a8474c9\", \"provider_request_id\": \"RKMVncR7SvmlJOcxQT9WKMyY\"}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "4515be35-9de0-44a6-8455-9e0fe3a9a718",
+      "reserved_usd": "0.0125",
+      "sequence": 12
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:42:02",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "Wan-AI/Wan2.2-T2V-A14B",
+      "request_id": "73125e2c-bf04-4a92-869f-f7afcc8f77d3",
+      "reserved_usd": "0.375",
+      "sequence": 13
+    },
+    {
+      "actual_usd": "0.375",
+      "created_at": "2026-08-03 01:46:32",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/raw/73125e2c-bf04-4a92-869f-f7afcc8f77d3.mp4\", \"output_sha256\": \"1d0c663520e76954811b38e56713d4d1af72db6339538742a045ed4f7672c3bd\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"c6bd55f5b4f98e481e1ddaeadde93afb3b9ac7c82688a1a8e4a9fd7d355c34e8\", \"provider_request_id\": \"RxTlv2UWj6reUHUZaptXo7cd\"}",
+      "model": "Wan-AI/Wan2.2-T2V-A14B",
+      "request_id": "73125e2c-bf04-4a92-869f-f7afcc8f77d3",
+      "reserved_usd": "0.375",
+      "sequence": 14
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:48:54",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "72daeee6-2f59-4bd4-aa7b-82a8a0f8254c",
+      "reserved_usd": "0.0125",
+      "sequence": 15
+    },
+    {
+      "actual_usd": "0.0125",
+      "created_at": "2026-08-03 01:48:57",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/drafts/72daeee6-2f59-4bd4-aa7b-82a8a0f8254c.mp4\", \"output_sha256\": \"ffaead6d32e3e891e2bb8036872ddd9a2543543533512bfb64649b8d44ce95ae\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"a81cd4adf5a3013f61f4e3aef1014a6fdd57d2db44c37fcb611d2b8160e1c8fc\", \"provider_request_id\": \"RuEDjFeAcDSwEeRBlaiQ4PhG\"}",
+      "model": "FastVideo/FastWan-QAD-FP8-1.3B",
+      "request_id": "72daeee6-2f59-4bd4-aa7b-82a8a0f8254c",
+      "reserved_usd": "0.0125",
+      "sequence": 16
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:50:53",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "Wan-AI/Wan2.2-T2V-A14B",
+      "request_id": "ce8198bb-da3b-49aa-a659-128d00e3ed04",
+      "reserved_usd": "0.375",
+      "sequence": 17
+    },
+    {
+      "actual_usd": "0.375",
+      "created_at": "2026-08-03 01:55:24",
+      "event": "completed",
+      "metadata": "{\"output_path\": \"runs/clinic-20260803T011736Z/raw/ce8198bb-da3b-49aa-a659-128d00e3ed04.mp4\", \"output_sha256\": \"49e99ff622e3faed5f499b1408fe6c5466cb33b97dd9fd900f4ebd485620845a\", \"output_url\": \"data:video/mp4;base64,[OMITTED]\", \"prompt_sha256\": \"f1992dd2c090e254360aed71863580472b822cbe6101714cd36db78191dd4eac\", \"provider_request_id\": \"RLfHj5QZhXsmf8DZDat5jvoj\"}",
+      "model": "Wan-AI/Wan2.2-T2V-A14B",
+      "request_id": "ce8198bb-da3b-49aa-a659-128d00e3ed04",
+      "reserved_usd": "0.375",
+      "sequence": 18
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:57:57",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "eabd945d-364a-4cb3-bd02-bed2f1a8d6d1",
+      "reserved_usd": "0.100",
+      "sequence": 19
+    },
+    {
+      "actual_usd": "0.07500000000000001",
+      "created_at": "2026-08-03 01:58:16",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_left\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/eabd945d-364a-4cb3-bd02-bed2f1a8d6d1.mp4\", \"output_sha256\": \"fb45252e751e878563191748ff450b717156f3a5c398ff6c2a380a98900cda7a\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/GDXRvUnDdfW0SCgZfpWW7aw5dUhe1okgvir5VB3IIzQi90ebB/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"75cf0af60dfa2327e440cb4b5060bd19c13956f2ba8b6d5ec892aa80b869bde4\", \"provider_request_id\": \"RqoOG7BtaBCHT0zw28ggk5EE\", \"request_sha256\": \"2154c84ff0dfa621c1cf1a2368eced090426fc370b26b99c22b3754dc0557b97\", \"script_sha256\": \"94d2486736bf4dff2f915e331c301dbd68b71554ba3d38db9c7bdbf3c8227c73\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "eabd945d-364a-4cb3-bd02-bed2f1a8d6d1",
+      "reserved_usd": "0.100",
+      "sequence": 20
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 01:59:02",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "e32bc4d2-e78a-41ea-97a2-90edc45ba4d5",
+      "reserved_usd": "0.200",
+      "sequence": 21
+    },
+    {
+      "actual_usd": "0.17500000000000002",
+      "created_at": "2026-08-03 01:59:46",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_right\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/e32bc4d2-e78a-41ea-97a2-90edc45ba4d5.mp4\", \"output_sha256\": \"8def96bfe0f7d2fc83c628705e22b1bc152a63b9c77723056aa4c55203900729\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/UzPazdBfeFvryU4nKvBaflFDwz93cmt2qLVHBdtrEhnaA1ebB/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"0c31ff40931b7ada8639cf0ecc76d902b7955370b8aa0e80dd699c77795cb319\", \"provider_request_id\": \"RD8wxU4utmSZAw6vnmdG3FnD\", \"request_sha256\": \"af95c3e3ebf71d2b761de001c8b25fc879ab4e81cab63589bc5ffeb3a0f41014\", \"script_sha256\": \"b55f2450e36a009b7c417e4fad496c29e0e1407ca6ad918c3855461935903c03\", \"voice\": \"Puck (Male)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "e32bc4d2-e78a-41ea-97a2-90edc45ba4d5",
+      "reserved_usd": "0.200",
+      "sequence": 22
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:00:34",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "a1467e21-5274-40fb-86bd-72fcc56b3014",
+      "reserved_usd": "0.125",
+      "sequence": 23
+    },
+    {
+      "actual_usd": "0.1",
+      "created_at": "2026-08-03 02:00:52",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_left\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/a1467e21-5274-40fb-86bd-72fcc56b3014.mp4\", \"output_sha256\": \"b534f5bc52611c7af5e6fdeb6ed00dc649fb8ef86f0abafca6ffd21f13b7523f\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/SkjZlwCVbzJgFZlTfWbAMBgZIwWES0CStMPStmexeVkcC1ebB/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"925dcc5f1d18f9c8201995f9c93c035db76deff22f3eac9f95117f0405644ece\", \"provider_request_id\": \"RNR2wlcuI3lPDSL7nUlAqBnJ\", \"request_sha256\": \"bf32d24b0b0d777e56a0db8a9638b1632b81fdf74177e76dcd3a8d00218ed43b\", \"script_sha256\": \"3843e6ee3394845ea2a71b3f35b25d53800c90146c54b44c10bf8b86c099ea78\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "a1467e21-5274-40fb-86bd-72fcc56b3014",
+      "reserved_usd": "0.125",
+      "sequence": 24
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:01:11",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "06951849-6269-44e7-aa97-25734deaa7be",
+      "reserved_usd": "0.125",
+      "sequence": 25
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:01:22",
+      "event": "failed",
+      "metadata": "{\"error_type\": \"ProviderError\", \"partner_exception\": true, \"reason\": \"provider_request_failed\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "06951849-6269-44e7-aa97-25734deaa7be",
+      "reserved_usd": "0.125",
+      "sequence": 26
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:02:06",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "61c358ad-2227-4e10-83dc-2e182c78afab",
+      "reserved_usd": "0.125",
+      "sequence": 27
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:02:17",
+      "event": "failed",
+      "metadata": "{\"error_type\": \"ProviderError\", \"partner_exception\": true, \"reason\": \"provider_request_failed\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "61c358ad-2227-4e10-83dc-2e182c78afab",
+      "reserved_usd": "0.125",
+      "sequence": 28
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:02:55",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "60b48e3d-50e7-42ee-8d54-2ff514946a95",
+      "reserved_usd": "0.125",
+      "sequence": 29
+    },
+    {
+      "actual_usd": "0.1",
+      "created_at": "2026-08-03 02:03:13",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_left\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/60b48e3d-50e7-42ee-8d54-2ff514946a95.mp4\", \"output_sha256\": \"adfbba4e57170570a37a28aa552fb0aa7676055a4641ed96b3a22890e114cd8b\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/WWjitiNil16QKhb94UZS6cHJItVejEoxdLuh31QZdYntRtfWA/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"9e7037c48441e6eb7491b4989989285764be74a078b297104b6d499118909aae\", \"provider_request_id\": \"RksaUYJxnb3jsJGfWqGyKJaR\", \"request_sha256\": \"6cfa87c3ec4f217bfbf0bf0b309592f3ff997de49a6cc11b7dca3d497281810c\", \"script_sha256\": \"bd99f9ebc906d3a2f646cb5d0a6f68dd8b768283c3f5d1a9e368456a360172ef\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "60b48e3d-50e7-42ee-8d54-2ff514946a95",
+      "reserved_usd": "0.125",
+      "sequence": 30
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:03:34",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "3f35ff38-30aa-48f9-a7da-e2e891c128ee",
+      "reserved_usd": "0.200",
+      "sequence": 31
+    },
+    {
+      "actual_usd": "0.2",
+      "created_at": "2026-08-03 02:03:57",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_left\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/3f35ff38-30aa-48f9-a7da-e2e891c128ee.mp4\", \"output_sha256\": \"933910731b064801463faa93dc0ad5156b82742778bdd19490a7aeaf59da26dc\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/axha3xB6PD5LFVLdffVMzIJiKpImJi3OyeUQ3fx0uaJrQq9bB/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"9087deea9553d826d7180447fc052eed122e3f4e156f20355ed4b2e6abc6342b\", \"provider_request_id\": \"RfoKjCD5cSXeTgmeKtxp5O91\", \"request_sha256\": \"98344507cc77170144da24c85948a87ad8311c7da6cbd8d41845f8a7dd7c9e94\", \"script_sha256\": \"f837da9375ed63cb3ebba110d61a5572bae90af364dd38a1762d30fca3e07562\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "3f35ff38-30aa-48f9-a7da-e2e891c128ee",
+      "reserved_usd": "0.200",
+      "sequence": 32
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:04:15",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "812bbfa2-e987-4347-96dd-c0cf8eb238f5",
+      "reserved_usd": "0.075",
+      "sequence": 33
+    },
+    {
+      "actual_usd": "0.05",
+      "created_at": "2026-08-03 02:04:27",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_right\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/812bbfa2-e987-4347-96dd-c0cf8eb238f5.mp4\", \"output_sha256\": \"183e2fb764c4a2c24c8b59071ddff123307d898fefc94e57e4fb4fb17c12730b\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/XGrzR0Cu4irLIhbU7tEFg7Yuys0cmqHgAuJQ1KQwzskKp2vF/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"e88c676a6fb05346b417c52d5b2fe7d5620ed38758a1d7d9498bc96c0a6421fb\", \"provider_request_id\": \"RFk7LFx7xq8ZZObaO3UXz2GP\", \"request_sha256\": \"ec438398ab453500b648538da778975862a66da53ef2e4c0c3ca2a0e253f6e06\", \"script_sha256\": \"3bed8c0f49db2b8b9167ec4ee520f6d661c3fcdc4f90e59c052b0f568a77e081\", \"voice\": \"Puck (Male)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "812bbfa2-e987-4347-96dd-c0cf8eb238f5",
+      "reserved_usd": "0.075",
+      "sequence": 34
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:04:51",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "08a37ef2-0d48-4448-b5a4-b4a2a9744385",
+      "reserved_usd": "0.200",
+      "sequence": 35
+    },
+    {
+      "actual_usd": "0.2",
+      "created_at": "2026-08-03 02:05:14",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_left\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/08a37ef2-0d48-4448-b5a4-b4a2a9744385.mp4\", \"output_sha256\": \"d25a7efad292b090948a2732097ea5e72e7df7515c13fa288fb6eb1c1b5af58b\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/J2jEXcpvx66XO1QCkKYXRv84fzfB90MgYAwk11T82ZfuK1ebB/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"95341099647e567904ecc8ee1996a29b6b8c3728c6203a3f85ba26565a4105f6\", \"provider_request_id\": \"R7waBwDZtOR4SmVAq3PFmIFv\", \"request_sha256\": \"574355bc6ea78d69877bd8d2af09ff50291fa67f847f70f6e7b8055241bcc229\", \"script_sha256\": \"b2522ba23e22617e3c022c5a6dd177d51b388554b059e54539cc7bf8985a057d\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "08a37ef2-0d48-4448-b5a4-b4a2a9744385",
+      "reserved_usd": "0.200",
+      "sequence": 36
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:08:04",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "99556569-8b06-422d-89a5-5e13e338fdf6",
+      "reserved_usd": "0.200",
+      "sequence": 37
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:08:05",
+      "event": "failed",
+      "metadata": "{\"error_type\": \"ProviderError\", \"partner_exception\": true, \"reason\": \"provider_request_failed\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "99556569-8b06-422d-89a5-5e13e338fdf6",
+      "reserved_usd": "0.200",
+      "sequence": 38
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:09:01",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "cb31c5b8-9115-42f2-b66b-9e54ac227716",
+      "reserved_usd": "0.200",
+      "sequence": 39
+    },
+    {
+      "actual_usd": "0.2",
+      "created_at": "2026-08-03 02:09:25",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_left\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/cb31c5b8-9115-42f2-b66b-9e54ac227716.mp4\", \"output_sha256\": \"8e8d3f8e113ca3e42c5123bf19961a8700b8853f347e3099849fc73bfcd87640\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/lcEj9P6CnPbiOlXy2bi7jSr4R01tNlswi6dtrozopiaUq2vF/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"181be5f974b2f3bc645523aa76811f2938a8b67df74a67c561d16eb2402826a2\", \"provider_request_id\": \"RwEKv1HKJndGvo6V4In8S5CG\", \"request_sha256\": \"d7b668ccd678b6de86fae0b16a210fb950e8234bb8f6e443f5edce2fef120b90\", \"script_sha256\": \"b2522ba23e22617e3c022c5a6dd177d51b388554b059e54539cc7bf8985a057d\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "cb31c5b8-9115-42f2-b66b-9e54ac227716",
+      "reserved_usd": "0.200",
+      "sequence": 40
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 02:09:44",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "6c8b3778-6fdf-4355-b644-cc316ec408f6",
+      "reserved_usd": "0.200",
+      "sequence": 41
+    },
+    {
+      "actual_usd": "0.325",
+      "created_at": "2026-08-03 02:10:18",
+      "event": "billing_unknown",
+      "metadata": "{\"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/UZneYTlA2cWel0Pa3roJesYVPFm13lu6jDYlqZaDNgsPU1ebB/output.mp4\", \"provider_request_id\": \"R2VdCrFLsfrkx2OT54mvnNcy\", \"reason\": \"reported_cost_exceeded_reservation\", \"request_sha256\": \"9c85b24ee7c9325283a3f46c0bcbd6050a964b51ce32fcd1a65769f0c7960a6e\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "6c8b3778-6fdf-4355-b644-cc316ec408f6",
+      "reserved_usd": "0.200",
+      "sequence": 42
+    },
+    {
+      "actual_usd": "0.325",
+      "created_at": "2026-08-03 02:11:44",
+      "event": "completed",
+      "metadata": "{\"authorization\": \"aggregate USD 8 run cap\", \"output_path\": \"runs/clinic-20260803T011736Z/raw/6c8b3778-6fdf-4355-b644-cc316ec408f6.mp4\", \"output_sha256\": \"6800af8a05f29fcc161f4acf108c7f9d37aa1631d604511b643a0da0b9f95e60\", \"provider_request_id\": \"R2VdCrFLsfrkx2OT54mvnNcy\", \"reconciliation\": \"existing output retrieved; no new inference\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "6c8b3778-6fdf-4355-b644-cc316ec408f6",
+      "reserved_usd": "0.200",
+      "sequence": 43
+    }
+  ],
+  "media": [
+    {
+      "bytes": 11408725,
+      "path": "runs/clinic-20260803T011736Z/final-clinic-coverage-check.mp4",
+      "sha256": "77c3a6259a9ad390031e184a7f320a4de03904a46acb34cd782475a1c10dfc05"
+    }
+  ],
+  "schema_version": "1.0",
+  "totals": {
+    "actual_usd": "2.62500000000000003",
+    "reserved_usd": "3.0750"
+  }
+}

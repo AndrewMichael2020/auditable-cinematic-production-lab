@@ -12,7 +12,7 @@
     "explicit_partner_test_exception": {
       "model": "PrunaAI/p-video-avatar",
       "requires_cli_override": true,
-      "additional_run_cap_usd": 3.0,
+      "additional_run_cap_usd": 8.0,
       "licence_status": "not_reported_by_provider"
     },
     "gemini_allowed": false,
@@ -27,7 +27,7 @@
     "assumed_tax_rate": 0.12,
     "profiles": {
       "cad_10": {
-        "application_hard_cap_usd": 6.5,
+        "application_hard_cap_usd": 10.0,
         "max_fastwan_5s_drafts": 40,
         "max_wan22_5s_finals": 12
       },
@@ -104,7 +104,7 @@
     }
   },
   "pricing": {
-    "verified_at": "2026-08-02",
+    "verified_at": "2026-08-03",
     "currency": "USD",
     "fail_if_unverified_or_increased": true,
     "price_refresh_requires_human_approval": true
@@ -130,11 +130,11 @@
   "proof": {
     "finished_duration_seconds": {
       "min": 12,
-      "max": 30
+      "max": 90
     },
     "location_count": 1,
     "adult_character_count": 2,
-    "planned_shot_count": {"min": 4, "max": 6},
+    "planned_shot_count": {"min": 4, "max": 16},
     "initial_shot_duration_seconds": 5,
     "video_capability": "text_to_video",
     "does_not_claim": [

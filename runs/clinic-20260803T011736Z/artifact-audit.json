@@ -1,0 +1,1790 @@
+{
+  "files": [
+    {
+      "bytes": 10443,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/artifact-prune-dry-run.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "artifact-prune-dry-run.json",
+      "sha256": "5f19f80e330fbd63220ec8bc54c3335dcc5a15d848cd53df2668b3fe42bb4bf7"
+    },
+    {
+      "bytes": 9539694,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audio/clinic-room-tone.wav",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "audio/clinic-room-tone.wav",
+      "sha256": "103590f064042eb5af0be60040ca62f24fedf2ae869991828b1dfaac3381bde5"
+    },
+    {
+      "bytes": 1555,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-bounded-final-repair-authorization.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c01-master-bounded-final-repair-authorization.json",
+      "sha256": "ba52603cbddd8ead568a2ba1def212bfda9ee6a85720681efb722b1f95c26b22"
+    },
+    {
+      "bytes": 5187,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-draft-1-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c01-master-draft-1-observations.json",
+      "sha256": "df894085c6fe8e08402389a633e7164054a3057b962d07f1859d05b2ad6868f8"
+    },
+    {
+      "bytes": 26357,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-draft-1.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c01-master-draft-1.json",
+      "sha256": "1980602fc28026e4bb4c2cd65751d4525f1134a0a29caa061e643385bc03fd87"
+    },
+    {
+      "bytes": 2503,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-draft-2-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c01-master-draft-2-observations.json",
+      "sha256": "752f1ae24edcebd8111a53b367ff38aec300c1168a6aed716391029af901c75a"
+    },
+    {
+      "bytes": 25089,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-draft-2.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c01-master-draft-2.json",
+      "sha256": "7c7ac94d30a556787e8aff567e43416eb8ba4f1572b4c2c0467bf4209b986b21"
+    },
+    {
+      "bytes": 2336,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-draft-3-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c01-master-draft-3-observations.json",
+      "sha256": "0dc865d8ef3e072e4e8167c088b07bf7e8a353568e64b61f02928cfc779ed969"
+    },
+    {
+      "bytes": 24926,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-draft-3.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c01-master-draft-3.json",
+      "sha256": "894fb20f4ecf9437a428b5bb23c512126453c82977ff022966d3ba4dcacba8ee"
+    },
+    {
+      "bytes": 3734,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-draft-4-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c01-master-draft-4-observations.json",
+      "sha256": "988052952412443ed9f1ef23de88e214549c36ffabd8a50478e15438ff813bde"
+    },
+    {
+      "bytes": 25599,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-draft-4.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c01-master-draft-4.json",
+      "sha256": "15b8069357671003649e9a063e824b07380623cae143be2bbfe2536bb16116c5"
+    },
+    {
+      "bytes": 3707,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-final-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c01-master-final-observations.json",
+      "sha256": "11a1e9e03be3010504b05f8ed3aea03fb107cfa07085000fc6f1cd99b5e5200a"
+    },
+    {
+      "bytes": 26067,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c01-master-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c01-master-final.json",
+      "sha256": "0d67f72acd29d74bd3f29fb90f85f24da788924dde6a938b28ccd462912e2b55"
+    },
+    {
+      "bytes": 1432,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c02-foreshadow-bounded-final-repair-authorization.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c02-foreshadow-bounded-final-repair-authorization.json",
+      "sha256": "1bccef9340f02cb096b046ca20e8d3ad4867b3259275216b7fa9cdc1f8d7cdc7"
+    },
+    {
+      "bytes": 2664,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c02-foreshadow-draft-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c02-foreshadow-draft-observations.json",
+      "sha256": "6878faf27f8cc2edc557302c3fbe167a24417dcb226a409527bca230b5d2e6a4"
+    },
+    {
+      "bytes": 25052,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c02-foreshadow-draft.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c02-foreshadow-draft.json",
+      "sha256": "813e8981d2bec41eeffa2092c5d27c036a5e825f42a0d970b69f622050437161"
+    },
+    {
+      "bytes": 24886,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c02-foreshadow-final-full-length.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c02-foreshadow-final-full-length.json",
+      "sha256": "e9beee96892790c2a308dede4e73a1cc3da9637d0adda5f9637f5131bf0c2e6e"
+    },
+    {
+      "bytes": 2064,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c02-foreshadow-final-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c02-foreshadow-final-observations.json",
+      "sha256": "8130b289731010b6cb4104e1bc8ac3cb50cae5d71e11a170fb8973141c7654ec"
+    },
+    {
+      "bytes": 27022,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c03-nurse-greeting-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c03-nurse-greeting-final.json",
+      "sha256": "c4f19b973db3f2cfb393118451158a11a909eca27f648c5f255d9ed71a713ab4"
+    },
+    {
+      "bytes": 27053,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c04-patient-history-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c04-patient-history-final.json",
+      "sha256": "0973722e8a258ff47973ce3598f2f75a70b01d48dbbfd4b4d2c6dc52c3e8d6c1"
+    },
+    {
+      "bytes": 27051,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c05-nurse-red-flags-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c05-nurse-red-flags-final.json",
+      "sha256": "3a8254bea0e50c000304ef780dee55664f48de866a817802f51ef67f50fa8ae2"
+    },
+    {
+      "bytes": 27033,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c06-patient-stable-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c06-patient-stable-final.json",
+      "sha256": "63868afac47f5281f260486b18a5e764f8dd58166c19e6f18e4acb1897fb028c"
+    },
+    {
+      "bytes": 27142,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c07-nurse-card-request-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c07-nurse-card-request-final.json",
+      "sha256": "f6ed8b68ebe5153afdd749f89546bef59f11fb01a03346970147ed9206632ad5"
+    },
+    {
+      "bytes": 1415,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c08-card-check-bounded-final-repair-authorization.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c08-card-check-bounded-final-repair-authorization.json",
+      "sha256": "24a1420ad21f2496dcecaf4c48b87c149f75f8a42d98229bc12c53c3c3e068d1"
+    },
+    {
+      "bytes": 2353,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c08-card-check-draft-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c08-card-check-draft-observations.json",
+      "sha256": "b61f9ec355730fbaed8dafac684953036b4a1f76a39ab132647bb36f54717c16"
+    },
+    {
+      "bytes": 24679,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c08-card-check-draft.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c08-card-check-draft.json",
+      "sha256": "fc560a2ea2101ce17ae1055904a2b6ab242726b7d1e6a7f3e83767e1be3f0809"
+    },
+    {
+      "bytes": 2569,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c08-card-check-final-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/c08-card-check-final-observations.json",
+      "sha256": "b57e030f6e9391321d2ddfc374739e22e92321dd750a2a5ec507c62438138f6d"
+    },
+    {
+      "bytes": 25181,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c08-card-check-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c08-card-check-final.json",
+      "sha256": "33b3b3e6b5e8097728935666efdfda5ff576b7d39040fb9d182434227f6c3689"
+    },
+    {
+      "bytes": 27233,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c09-nurse-coverage-result-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c09-nurse-coverage-result-final.json",
+      "sha256": "d8dc3bca2df920bd14efe400fb4054b8d09c24f67e54d4ca1a1ecbc24de0c2d2"
+    },
+    {
+      "bytes": 26959,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c10-patient-cost-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c10-patient-cost-final.json",
+      "sha256": "b9015009c14c539788392217369dd5d3b8754e06d1c2f0855e5aa01f06e9296d"
+    },
+    {
+      "bytes": 27112,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c11-nurse-uncertainty-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c11-nurse-uncertainty-final.json",
+      "sha256": "4f5ba6da48817fa4b92c8a9164676d0abc483a4b7b013cfadad0292c49d9a602"
+    },
+    {
+      "bytes": 27085,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/c12-patient-reaction-final.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/c12-patient-reaction-final.json",
+      "sha256": "a1572a4f1430505f0b04f5fff046eaa791ab94b554f0c44a9c1b257e4b8e8df2"
+    },
+    {
+      "bytes": 137,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/config-preflight.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/config-preflight.json",
+      "sha256": "5038a2ad36637a664741fe7b8045fbfe244f9232bdbbafffba6ca804771e22c4"
+    },
+    {
+      "bytes": 7806,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/cross-scene-continuity.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/cross-scene-continuity.json",
+      "sha256": "742504539ce77d97d5f531c2d3c2690abbe4613abd9d07d3f1fc7f42322dec0b"
+    },
+    {
+      "bytes": 1874,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/cross-scene-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/cross-scene-observations.json",
+      "sha256": "a813803672263751436c0a213477bf72564aea15436ab1ddfcb529125d659fbb"
+    },
+    {
+      "bytes": 8024,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/cross-shot-continuity.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/cross-shot-continuity.json",
+      "sha256": "9c4aa3396ab68256c3037c7042e15fad5b289618e7d9f829f26fb0cd828a87a5"
+    },
+    {
+      "bytes": 2021,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/cross-shot-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/cross-shot-observations.json",
+      "sha256": "b2ed5d9fc0d6b338a3f99756ce50b4b00a65ff0e9ca7bef2559e7d95a144b056"
+    },
+    {
+      "bytes": 5116,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/dialogue-final-observations.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/dialogue-final-observations.json",
+      "sha256": "2e1e1fce1a1d402b5186831f36794da8df2cac2b4529eec44542c8bc3c308f76"
+    },
+    {
+      "bytes": 238,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/dry-run-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/dry-run-request.json",
+      "sha256": "9244fab27fb7405e791418b942cd3158cb2c9ce21db305f0787c2fbd00ced27e"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/final-manifest-storyboard-audit.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "audits/final-manifest-storyboard-audit.json",
+      "sha256": "db82df19f357436b42762fb2561ffb6fc19b97e89b98c447c22ce6c8b3227c59"
+    },
+    {
+      "bytes": 7753,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/final-sequence-promotion.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/final-sequence-promotion.json",
+      "sha256": "5ea9eb8b9e139c3eff60dbebcc4c26daa98bed4d7168953001d3673dbabfb7bb"
+    },
+    {
+      "bytes": 205,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/audits/production-validation.stdout.json",
+      "reason": "duplicate CLI stdout; canonical JSON report is retained",
+      "relative_path": "audits/production-validation.stdout.json",
+      "sha256": "43327a98a0a9a6654fbae9edee285cf7d4b5a3bc381309ab57729d23e90bad9d"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/storyboard-preflight-v1.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/storyboard-preflight-v1.json",
+      "sha256": "8274c2111d9fbad5722ed924ad598826ecc124b3ac3da938ba99feefb246087a"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/storyboard-preflight-v2.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/storyboard-preflight-v2.json",
+      "sha256": "3eb3ef1c3700c23f5439bc0234a448ac48d4d082512bbe3bc66b0255248d525c"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/storyboard-preflight-v3.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/storyboard-preflight-v3.json",
+      "sha256": "88fc99f82fb909ad3b966b08ec3297d15fb29ba5627f9fe5550234fff4d87d7f"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/storyboard-preflight-v4.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/storyboard-preflight-v4.json",
+      "sha256": "cbb216b7176938af8775d810757f02678b800327871d750e1c81a9032e24d98a"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/storyboard-preflight-v5.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/storyboard-preflight-v5.json",
+      "sha256": "94b79501b09aca07706fd9300deab4aafd81c29f7387613c73e23949b8585f45"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/storyboard-preflight-v6.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/storyboard-preflight-v6.json",
+      "sha256": "1dfee2f5a1cba09c2537143a80ca4653db4c005a91c706446dcc0046752b52b2"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/storyboard-preflight-v7.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/storyboard-preflight-v7.json",
+      "sha256": "08ee552495024dfd785ae0d1df54cb3fe2860724ee832b1e96db18ce70b2d2c7"
+    },
+    {
+      "bytes": 6897,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/audits/storyboard-preflight.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "audits/storyboard-preflight.json",
+      "sha256": "4cfc86936a719acea85b89ebcb661709ee89d955a7dd99469505dc33692fa346"
+    },
+    {
+      "bytes": 950,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/billing-reconciliation-c06.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "billing-reconciliation-c06.json",
+      "sha256": "9b5613a22ef52beb2c14cceb86fe2732fc33fcbe4379e7aa9eaeb9c993a4c66a"
+    },
+    {
+      "bytes": 23586,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/cost/ledger-audit.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "cost/ledger-audit.json",
+      "sha256": "0893948c9babd598849de79cc35eb4eee5e560ac7252d68f432c1057252e1d66"
+    },
+    {
+      "bytes": 941,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/cost/summary.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "cost/summary.json",
+      "sha256": "4d2d6c5db708dc1b49504f51d08a5d4e85e9a200d03c852aa672ceee6d163843"
+    },
+    {
+      "bytes": 635599,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/drafts/4515be35-9de0-44a6-8455-9e0fe3a9a718.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "drafts/4515be35-9de0-44a6-8455-9e0fe3a9a718.mp4",
+      "sha256": "1f40f836bb2fb2c565d0259815114de393b5630130162a15c8289129ed0ab005"
+    },
+    {
+      "bytes": 865283,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/drafts/72daeee6-2f59-4bd4-aa7b-82a8a0f8254c.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "drafts/72daeee6-2f59-4bd4-aa7b-82a8a0f8254c.mp4",
+      "sha256": "ffaead6d32e3e891e2bb8036872ddd9a2543543533512bfb64649b8d44ce95ae"
+    },
+    {
+      "bytes": 681317,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/drafts/98f1eac6-2ace-4330-9ae4-d16678662372.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "drafts/98f1eac6-2ace-4330-9ae4-d16678662372.mp4",
+      "sha256": "b46e2cbed3e48e91f781fb86d86c167459ba2a8b834804e173f6becd0c8f64b2"
+    },
+    {
+      "bytes": 618168,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/drafts/9b16d970-f6b4-4624-9695-a6e9a9953844.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "drafts/9b16d970-f6b4-4624-9695-a6e9a9953844.mp4",
+      "sha256": "881f80c8521033f9395fb8bed291fcd661c774fbfc7504a16fadde974b746d6f"
+    },
+    {
+      "bytes": 702002,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/drafts/a3e1cd1a-e596-40d2-a3ac-076039dc319a.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "drafts/a3e1cd1a-e596-40d2-a3ac-076039dc319a.mp4",
+      "sha256": "2c2c09fc874b1962f97e1b9b72f346f5b4e82eca0225d88849b89f3503f33bb7"
+    },
+    {
+      "bytes": 539295,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/drafts/fce436b7-56a3-4103-821a-9f49ad1af75e.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "drafts/fce436b7-56a3-4103-821a-9f49ad1af75e.mp4",
+      "sha256": "37bec3abf3b684d94b48a2eb9f67fafa17ecfb934a7d07fb8a320dfae29f0af6"
+    },
+    {
+      "bytes": 263776,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c02-foreshadow-salvage.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c02-foreshadow-salvage.mp4",
+      "sha256": "45eab13f60294977293df9a03cecb154743eb58ecfd2b5bd4624988aff4aedb4"
+    },
+    {
+      "bytes": 666,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c03-nurse-greeting.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c03-nurse-greeting.manifest.json",
+      "sha256": "2f50563cb8f7ab406710c750942307c3d45a70d54b6cc85d51e119db9c1d20ab"
+    },
+    {
+      "bytes": 603789,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c03-nurse-greeting.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c03-nurse-greeting.mp4",
+      "sha256": "6a3b01972fce0552ec08aee4c10793ae987d39b1e9f42148a53dc6de6786017d"
+    },
+    {
+      "bytes": 671,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c04-patient-history.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c04-patient-history.manifest.json",
+      "sha256": "ba96c29f41e7ad3d569d9ada4568b113f21e7b2b2975986de32b5ad47c779aad"
+    },
+    {
+      "bytes": 1464056,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c04-patient-history.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c04-patient-history.mp4",
+      "sha256": "267ffd609ee6dc9795af45e089691304877e3f8779a665d8a0858633caeb80dd"
+    },
+    {
+      "bytes": 667,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c05-nurse-red-flags.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c05-nurse-red-flags.manifest.json",
+      "sha256": "8f3a7088dcc3e80deb5e54b301ad303ce905a5a303ce3d5f9e254ff5b66371a9"
+    },
+    {
+      "bytes": 830333,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c05-nurse-red-flags.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c05-nurse-red-flags.mp4",
+      "sha256": "eef9b0e1293fa45ebdf869f8f2e767b652e3816ff9fe914e988593cf4dcbd570"
+    },
+    {
+      "bytes": 2069610,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c06-patient-stable-portrait-segments.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c06-patient-stable-portrait-segments.mp4",
+      "sha256": "c4909ab0fcec6f47f9d807696c14fe132412e39816ffe80e2718e9018dd3f421"
+    },
+    {
+      "bytes": 1393186,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c06-patient-stable-rephrased.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c06-patient-stable-rephrased.mp4",
+      "sha256": "fafd4f54ac0493777b670827f1462fc3077bea7dc1430bb2c62d770465ccdd3f"
+    },
+    {
+      "bytes": 1098,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c06-patient-stable.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c06-patient-stable.manifest.json",
+      "sha256": "353881833f33adb5c0b6ebd3e2989d3685ece67a160b1f534fc180dabfc02603"
+    },
+    {
+      "bytes": 670,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c07-nurse-card-request.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c07-nurse-card-request.manifest.json",
+      "sha256": "bb5fb9b0b1f57b37d8afeff9d45c273b7d5d37fef2d22787d46884a232ac70ab"
+    },
+    {
+      "bytes": 882805,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c07-nurse-card-request.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c07-nurse-card-request.mp4",
+      "sha256": "4d7b48a6864535d3a6df84decee8f56e462210998d00695841a030279fe242d7"
+    },
+    {
+      "bytes": 953,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c09-nurse-coverage-result.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c09-nurse-coverage-result.manifest.json",
+      "sha256": "c274f7ec3a98dcd2045b6569a7b793a96768c05167b04294f8f8c4df8efeb155"
+    },
+    {
+      "bytes": 1348110,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c09-nurse-coverage-result.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c09-nurse-coverage-result.mp4",
+      "sha256": "11a24758ccf04768578047842c2b5d75777e70b74de4f53d1624630b324d1c5e"
+    },
+    {
+      "bytes": 664,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c10-patient-cost.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c10-patient-cost.manifest.json",
+      "sha256": "e5c0b3a5f1a9e5a436952e653832138efc5ee8f1c92948ec81518ac6537bb24d"
+    },
+    {
+      "bytes": 330662,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c10-patient-cost.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c10-patient-cost.mp4",
+      "sha256": "02d59998f82069a8c15e0ea39c82d134ca5484c2c2ecc4e7c7263181d9315fa7"
+    },
+    {
+      "bytes": 947,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c11-nurse-uncertainty.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c11-nurse-uncertainty.manifest.json",
+      "sha256": "ca4c6e8193fc8a0832ff5c3076c1cfe1ed770646dba3382b5797f5bfe92bed00"
+    },
+    {
+      "bytes": 983327,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c11-nurse-uncertainty.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c11-nurse-uncertainty.mp4",
+      "sha256": "6549eb4068c38f0119f748208869222077f16e69f9adc9cb9a5c8f3a0279130a"
+    },
+    {
+      "bytes": 663,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c12-patient-reaction.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c12-patient-reaction.manifest.json",
+      "sha256": "cde8873e3ac95bcdcf8c58ba6287e01b2ecf428d51c1784bc9af437c09790084"
+    },
+    {
+      "bytes": 116142,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/edit/c12-patient-reaction.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c12-patient-reaction.mp4",
+      "sha256": "2ac1699f1f15ffb8b0ac54593538ec0e575700d2e15cc52ec360fa376dcd74ca"
+    },
+    {
+      "bytes": 9602,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/fastwan-model-info.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "fastwan-model-info.json",
+      "sha256": "398575b506f78171cd89f955839612c63977f3141f3ffc38c646ab20d916dc32"
+    },
+    {
+      "bytes": 11408725,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/final/final-clinic-coverage-check.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "final/final-clinic-coverage-check.mp4",
+      "sha256": "77c3a6259a9ad390031e184a7f320a4de03904a46acb34cd782475a1c10dfc05"
+    },
+    {
+      "bytes": 4031225,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/final/final-contact-sheet.png",
+      "reason": "compact visual review evidence",
+      "relative_path": "final/final-contact-sheet.png",
+      "sha256": "965fef34a1d230a24bd8e813eb3ea1d47e0d33db60dfb6dfeeb87ecd5deb3e9b"
+    },
+    {
+      "bytes": 11408725,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/final-clinic-coverage-check.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "final-clinic-coverage-check.mp4",
+      "sha256": "77c3a6259a9ad390031e184a7f320a4de03904a46acb34cd782475a1c10dfc05"
+    },
+    {
+      "bytes": 3642,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/final-qa.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "final-qa.json",
+      "sha256": "8c79227499f3fc627fabc743fbb199096c9ac3265f53c6578a43b4d491cdca04"
+    },
+    {
+      "bytes": 32768,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/ledger.sqlite3",
+      "reason": "append-only cost and provenance ledger",
+      "relative_path": "ledger.sqlite3",
+      "sha256": "718526345b1134158d6a00f7ea373665d37eec25d14a79f21e254a3ffa7d67ee"
+    },
+    {
+      "bytes": 5415,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/location-profile.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "location-profile.json",
+      "sha256": "a4b4a1cff648192141873a33eb4eb5aba0329c94f9eb3118607ed3d0dbbe5256"
+    },
+    {
+      "bytes": 12157,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/p-video-avatar-model-info.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "p-video-avatar-model-info.json",
+      "sha256": "bf2d08e628cafd7f20a60823927c1a777886eed8084336d799b70d8379d9bfa9"
+    },
+    {
+      "bytes": 16384,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/preflight-ledger.sqlite3",
+      "reason": "append-only cost and provenance ledger",
+      "relative_path": "preflight-ledger.sqlite3",
+      "sha256": "6575bfc2daca17a8dc78f755ba9b2a565b11036f931731793e83fcf382d216d3"
+    },
+    {
+      "bytes": 1210,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/production.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "production.json",
+      "sha256": "cf49411de03fecc7f2e734afb0b03d177fed67715c414f16572f13041cebc8b5"
+    },
+    {
+      "bytes": 239,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c01-master-draft-redesign-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c01-master-draft-redesign-request.json",
+      "sha256": "dd4622302122deb23fd2e0e26ed1e8a7c96086cffd6cd275cd87b24538a59594"
+    },
+    {
+      "bytes": 239,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c01-master-draft-repair-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c01-master-draft-repair-request.json",
+      "sha256": "5c21600ce1d4e7c723db1b003ccbe4ca0b366c750b8cddc93cc58dfa77ad9f1c"
+    },
+    {
+      "bytes": 239,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c01-master-draft-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c01-master-draft-request.json",
+      "sha256": "aa3bfb616cfa9fab578cfd334c204268293ec20a981a087c6640ef96142d0091"
+    },
+    {
+      "bytes": 239,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c01-master-environment-master-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c01-master-environment-master-request.json",
+      "sha256": "a6f1bbf9db91b22ae8fc7b7f39d128bfe159e73e3ffceca55504368a833220ef"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c01-master-final-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c01-master-final-request.json",
+      "sha256": "8c14c0f7c963203bd66e6b6262b57f60ad25ffadc791356b1b3ae20d3a6fed81"
+    },
+    {
+      "bytes": 239,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c02-foreshadow-draft-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c02-foreshadow-draft-request.json",
+      "sha256": "5b255fa87816d3a383e401068a66d4cfa2e6e71ba6100b26885a972bd6344d5d"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c02-foreshadow-final-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c02-foreshadow-final-request.json",
+      "sha256": "e2f23765ac9e6b0aa24729554fe40994dafe0cd6c6a757013f66f7ec8b64a9f9"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c03-nurse-greeting-avatar-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c03-nurse-greeting-avatar-request.json",
+      "sha256": "07ae9cc8499e295dac89b2cb5671302abedf7ea4ab083142f900ac86019252f9"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c04-patient-history-avatar-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c04-patient-history-avatar-request.json",
+      "sha256": "49766d800888e3bb9d8d5109c1db071606f568f9aef490a9add39bf89acb8d57"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c05-nurse-red-flags-avatar-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c05-nurse-red-flags-avatar-request.json",
+      "sha256": "7349985bca3f74a0881b9579e01e7c6a5ace480f9529a5efe91f001fb49d2cb5"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c07-nurse-card-request-avatar-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c07-nurse-card-request-avatar-request.json",
+      "sha256": "d15639a06f67f3600148e77b117c25930d27b8688dafb11be0f9b699788cfffc"
+    },
+    {
+      "bytes": 239,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c08-card-check-draft-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c08-card-check-draft-request.json",
+      "sha256": "4c4aaab8540369573967c92bd7ab83c8d45b031660ba1cd286c48c70419a7073"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c08-card-check-final-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c08-card-check-final-request.json",
+      "sha256": "d54eb9f7bc59cc5818049c093f306c2a52f29efbe304653467a9c06f04b58e46"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c09-nurse-coverage-result-avatar-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c09-nurse-coverage-result-avatar-request.json",
+      "sha256": "6c6057faf025419d8aa33718db8481d4c6b8c2908e3ab54445c9d3514a24de30"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c10-patient-cost-avatar-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c10-patient-cost-avatar-request.json",
+      "sha256": "d14d9b88ac3b7859d2a2b763a4214b74a4952466ed79811219bbbd79691a1bb5"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c11-nurse-uncertainty-avatar-repair-https-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c11-nurse-uncertainty-avatar-repair-https-request.json",
+      "sha256": "43753cefd240769994eec2898e3588636e86262caafbe513f28eebb403ed1c6e"
+    },
+    {
+      "bytes": 230,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/c11-nurse-uncertainty-avatar-request.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/c11-nurse-uncertainty-avatar-request.json",
+      "sha256": "98dd32579731638d584e7121422f7b39c6f0f1f30e09dcf43ec8bc28d90d6c23"
+    },
+    {
+      "bytes": 43822,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/compiled-storyboard-prompts-v2.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/compiled-storyboard-prompts-v2.json",
+      "sha256": "7d8fb522c0e479eb3a46e1a9eccf7be449d5711614c737edebbf89ba59e8a6ee"
+    },
+    {
+      "bytes": 44218,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/compiled-storyboard-prompts-v3.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/compiled-storyboard-prompts-v3.json",
+      "sha256": "896a738462eb8f1f65218eaa9dade8999b97ad32b5523e2e609081453e326d49"
+    },
+    {
+      "bytes": 43192,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/compiled-storyboard-prompts-v4.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/compiled-storyboard-prompts-v4.json",
+      "sha256": "731885aa4df931a8eb46e16816e4e24b6b3d3fde0b362c39841c2991277ed7bb"
+    },
+    {
+      "bytes": 43429,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/compiled-storyboard-prompts-v5.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/compiled-storyboard-prompts-v5.json",
+      "sha256": "75d995b760983620a2f7ea5f8ce84c996c4e748a261978ba7a6b8972101d73ce"
+    },
+    {
+      "bytes": 42105,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/compiled-storyboard-prompts-v6.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/compiled-storyboard-prompts-v6.json",
+      "sha256": "bc761637776f20f2f451674eee5ff2b4973f4c6e8fdb4564799d1aeedbca9b23"
+    },
+    {
+      "bytes": 42579,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/compiled-storyboard-prompts-v7.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/compiled-storyboard-prompts-v7.json",
+      "sha256": "7a780204bdd83db18804d99202db970b07b66d0bad04b71a6ed994ea8ff7b10c"
+    },
+    {
+      "bytes": 42990,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/compiled-storyboard-prompts-v8.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/compiled-storyboard-prompts-v8.json",
+      "sha256": "df123ce360d8cb9e9a11c1386ff647a2cf82ac0f1456f730d482a1f3f48b9e6d"
+    },
+    {
+      "bytes": 43371,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/prompts/compiled-storyboard-prompts.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "prompts/compiled-storyboard-prompts.json",
+      "sha256": "2b884e3f5ad3e8487b4f9dfe6f6bad8bcd86c86f71f897df595747e26708adaf"
+    },
+    {
+      "bytes": 10153,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/provenance/final-timeline-manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "provenance/final-timeline-manifest.json",
+      "sha256": "298b73de447514032f2f946df52700788ab682de896d0ee6757a5a5ea617d517"
+    },
+    {
+      "bytes": 4336,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/provenance/final-timeline-plan.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "provenance/final-timeline-plan.json",
+      "sha256": "0ba6d4de2c128a69107803e35486c023dd26b3557d1ee2e3ba293c650a084b24"
+    },
+    {
+      "bytes": 535107,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c01-environment-master-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-environment-master-contact.png",
+      "sha256": "40ae67cb13972324d325ef9310e32edac8ee8ea8af125cd407800a5aed6d72d7"
+    },
+    {
+      "bytes": 552505,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c01-master-draft-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-draft-contact.png",
+      "sha256": "f2d4b2e7b3efe3217d87feaf11c16ba0d6e76970e482fb0e5791014f3ff97939"
+    },
+    {
+      "bytes": 532161,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c01-master-draft-redesign-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-draft-redesign-contact.png",
+      "sha256": "86e8113c81095e1fc6b67f467f82452cd6ff4ca6b8ad0d4a8db5ebab018af723"
+    },
+    {
+      "bytes": 558633,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c01-master-draft-repair-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-draft-repair-contact.png",
+      "sha256": "65f0a73c8b40cbff06dde9fbb60d5d58586ee71586948b9a163c78c206a371bd"
+    },
+    {
+      "bytes": 378210,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c01-master-final-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-final-contact.png",
+      "sha256": "725542e567c32016a55285cc064867088cab7b3a6273a46fe14551e1bcc60843"
+    },
+    {
+      "bytes": 872985,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-crop-preview-2.png",
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/c02-crop-preview-2.png",
+      "sha256": "e96df1555d45952860bf6df9cd93c94aceb0cb77f390760b40226b1b6b87c3f0"
+    },
+    {
+      "bytes": 763337,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-crop-preview-3.png",
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/c02-crop-preview-3.png",
+      "sha256": "cd60a44159cd397d7393edc3fa95d1a3160610448b1e904ace97cacc79ac5692"
+    },
+    {
+      "bytes": 870717,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-crop-preview.png",
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/c02-crop-preview.png",
+      "sha256": "78b22c3f1d02d65f2aacb26e4a7c90cbca966a8e99805a93c1cf7c0434d1fe12"
+    },
+    {
+      "bytes": 939625,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-early-frames.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c02-early-frames.png",
+      "sha256": "12aba7a65e28476895270a4507fac753c1fb580001590a706edcbdd6f1d76147"
+    },
+    {
+      "bytes": 2498247,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-foreshadow-draft-4fps.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c02-foreshadow-draft-4fps.png",
+      "sha256": "f277e557a2994f20b125e2288b92a4ca25edada526c462faedd25433ba509e86"
+    },
+    {
+      "bytes": 525868,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-foreshadow-draft-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-foreshadow-draft-contact.png",
+      "sha256": "55d263b49ab0b783f8b0b90fcf124a56e5a678a2d52ae1fca3e03153c94d4b9e"
+    },
+    {
+      "bytes": 529005,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-foreshadow-final-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-foreshadow-final-contact.png",
+      "sha256": "f77fcf6eddd4257c563409229516789fe718731315d424902da47f1f154a9a2a"
+    },
+    {
+      "bytes": 487019,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-foreshadow-salvage-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-foreshadow-salvage-contact.png",
+      "sha256": "876596a795fca57008391bf045c16843dd1752482850dbd6aa10a76805ee0aa7"
+    },
+    {
+      "bytes": 843662,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-frame-0.25.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c02-frame-0.25.png",
+      "sha256": "50a1b782b9a26b2b49b23485c9f7c2e72364dd432c9ee1eebcf9749a3eb05f25"
+    },
+    {
+      "bytes": 841647,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-frame-0.50.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c02-frame-0.50.png",
+      "sha256": "0a9885de0fded6d2f6d2f9b11ba835838390fcfb76cc04442fb29a7abb0b11a5"
+    },
+    {
+      "bytes": 847658,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-frame-0.75.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c02-frame-0.75.png",
+      "sha256": "d81f4ef91e2a6afdeb02b908940aa91801315f787caaf749532dbeb89e0a2958"
+    },
+    {
+      "bytes": 845472,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c02-frame-1.00.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c02-frame-1.00.png",
+      "sha256": "d7d59e32a52ada5b94211dbd87e28fc853626a1ccc8f6639860ff4d3c6b8679b"
+    },
+    {
+      "bytes": 448500,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c03-edit-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c03-edit-contact.png",
+      "sha256": "59d91f9938c9a85fef78666524d61adc0a1e78d20791497f6a4fc398c1399d3c"
+    },
+    {
+      "bytes": 968835,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c03-nurse-greeting-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c03-nurse-greeting-contact.png",
+      "sha256": "c96e9d6e2fb4f20ed38e3e62e48982c8b23891ba2e83ad09088f31996de2fab7"
+    },
+    {
+      "bytes": 757417,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-choice-0.5.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c04-choice-0.5.png",
+      "sha256": "55c5f596992daf258e592e6e7bb154abb494ef519a3a2f41b967797dcbc2a746"
+    },
+    {
+      "bytes": 893415,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-choice-1.5.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c04-choice-1.5.png",
+      "sha256": "f59968161a3f8d69385d4dd3ca5118bcb1b0a81e3594a3c69a899f7d0ce44fff"
+    },
+    {
+      "bytes": 948065,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-choice-2.5.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c04-choice-2.5.png",
+      "sha256": "3ddc60f37f76b5efe40a4c9faf8cd9a616909e5acc44bb09cb5c847ee773ff8a"
+    },
+    {
+      "bytes": 963705,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-choice-3.5.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c04-choice-3.5.png",
+      "sha256": "7b4a6d721dacebd37e3ae0bba48ac47bbb72fd63a4775b850b4823a3765d1d57"
+    },
+    {
+      "bytes": 982745,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-choice-4.5.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c04-choice-4.5.png",
+      "sha256": "21aacb08ea072ca88741beabe7d9efb4cb89647bc63b32d002971ba34221d69c"
+    },
+    {
+      "bytes": 997829,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-choice-5.5.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c04-choice-5.5.png",
+      "sha256": "5ea6e1264affe0bf54e59caddaedb2949b4743a32682b90bdcf95b77ecada6b3"
+    },
+    {
+      "bytes": 1001613,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-choice-6.3.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c04-choice-6.3.png",
+      "sha256": "1abc99bb9e3fb92598bcbae9ab471bdcb9b942c3384951db32e0a73ab3685c42"
+    },
+    {
+      "bytes": 1444136,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-patient-history-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c04-patient-history-contact.png",
+      "sha256": "b671d470f10eb9e6b1c19178f1ddb71a8c78335bc0edbc95b87ff549797c672e"
+    },
+    {
+      "bytes": 939161,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c04-reaction-choices.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c04-reaction-choices.png",
+      "sha256": "88c582526eb251c483f0e538b6b9075228c1583433c446e4acfb0dfc1d64b516"
+    },
+    {
+      "bytes": 830396,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c05-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c05-contact.png",
+      "sha256": "6287f27bc6889cb652a37fd100a832cf98ff57651635795d766f3185734640aa"
+    },
+    {
+      "bytes": 539736,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c06-edit-contact-v2.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c06-edit-contact-v2.png",
+      "sha256": "106e08ca104dc83e6399765e8fcbb4d9a5f3b3dd24ec12d88e597236787cbcc7"
+    },
+    {
+      "bytes": 656277,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c06-edit-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c06-edit-contact.png",
+      "sha256": "b4d0efd96b91d9bde7adbf7831caf4727c9d10afa8ba2e360cf3c67d5b1ffe8a"
+    },
+    {
+      "bytes": 788863,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c06-raw-frame.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c06-raw-frame.png",
+      "sha256": "2219e018403b6fde7bd43842f96db2c1de24f9e0121d34bd251027fbd7a7746d"
+    },
+    {
+      "bytes": 909050,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c06-rephrased-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c06-rephrased-contact.png",
+      "sha256": "10fb0eb18cb607acb5a023250fb6d5db37cbebe60b5c1c93ffe6c91949d5c3c8"
+    },
+    {
+      "bytes": 688144,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c07-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c07-contact.png",
+      "sha256": "dd1e31abe09996648a08e40088ad56ad4ae0edb9a808eb04e1b1182a391c1f13"
+    },
+    {
+      "bytes": 559024,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c08-card-check-draft-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c08-card-check-draft-contact.png",
+      "sha256": "317cf995edfd0488cac8fca93c03f655d2676ad85fec88fde875da74aabead8b"
+    },
+    {
+      "bytes": 563044,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c08-card-check-final-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c08-card-check-final-contact.png",
+      "sha256": "c72e4d74b4aa6c0eb8a0bcf1c8320608837415cde81aa11482fb5101dd198b64"
+    },
+    {
+      "bytes": 1210781,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c08-reference-frame.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c08-reference-frame.png",
+      "sha256": "4c89e80e488c83b5c3f05097e8c30e2bb0eb9f96708bcf5e427683f9cb8cd308"
+    },
+    {
+      "bytes": 968470,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c09-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c09-contact.png",
+      "sha256": "8d2f99f6e6c372ab29b47a993a35c911a48b5cb2bf46c53023117c2b466c22f9"
+    },
+    {
+      "bytes": 694797,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c10-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c10-contact.png",
+      "sha256": "650ce7d1630462b948d13afbbc201dd13e193afc96bf1952cdfd4e7f6528044e"
+    },
+    {
+      "bytes": 1058928,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c11-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c11-contact.png",
+      "sha256": "76b1d7a01c24faabc3643530cc0b0671682556c9f56eb92b03e042652b8dd47b"
+    },
+    {
+      "bytes": 536558,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c11-edit-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c11-edit-contact.png",
+      "sha256": "6ff1e4a69a3bee28656a841db984db06f688c82445c9ee9f6c3bd99fc0459af0"
+    },
+    {
+      "bytes": 1186438,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c11-repair-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c11-repair-contact.png",
+      "sha256": "92396c1fd2dfaceb381a7995632f9f9974fbd05b00b0d550cd7207023174591b"
+    },
+    {
+      "bytes": 484780,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/c12-reaction-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c12-reaction-contact.png",
+      "sha256": "9a007048a6042d629dbbd145065f6fcd60537bda324291deb680fd07f81caf36"
+    },
+    {
+      "bytes": 834520,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/c12-reaction-final-frame.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/c12-reaction-final-frame.png",
+      "sha256": "829c3668b8759db3df0298638eb9e029d318cf755c38d81a77a092f7f63ccb01"
+    },
+    {
+      "bytes": 171425,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c03-nurse-greeting-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c03-nurse-greeting-contact-sheet.png",
+      "sha256": "72b1661bf35bd42c535fd79bd49676b84a656c7b7652c1f97df7190fac71ea31"
+    },
+    {
+      "bytes": 538363,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c04-patient-history-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c04-patient-history-contact-sheet.png",
+      "sha256": "861cee8a43fcefdcbe61fe1ca5d60d18a4ca9212e0d413c9ae2ffb5414539102"
+    },
+    {
+      "bytes": 273462,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c05-nurse-red-flags-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c05-nurse-red-flags-contact-sheet.png",
+      "sha256": "80bd544a422426b60e7f23ab97af65fd2255743ae75e1fa9f452dfc102d5a059"
+    },
+    {
+      "bytes": 457036,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c06-patient-stable-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c06-patient-stable-contact-sheet.png",
+      "sha256": "f17015f5e778131caa16dc1a863bd1a05ecffbb9f94e65e0ca7a647c170ca22f"
+    },
+    {
+      "bytes": 250826,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c07-nurse-card-request-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c07-nurse-card-request-contact-sheet.png",
+      "sha256": "3a6dcaf96ba28318d0bffd0386b179a447367442c044f09302c0fe8e250ab65d"
+    },
+    {
+      "bytes": 544724,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c09-nurse-coverage-result-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c09-nurse-coverage-result-contact-sheet.png",
+      "sha256": "36b0f5e0024fc2b04022d715d7d05ef4714f701e3466ad4b20416c71b2ef9dbe"
+    },
+    {
+      "bytes": 97234,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c10-patient-cost-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c10-patient-cost-contact-sheet.png",
+      "sha256": "c525fc7a30e00d8fdc9e48d2ef239842f2b7c03c8212bf8e8f0cf9ad45892c3d"
+    },
+    {
+      "bytes": 411953,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c11-nurse-uncertainty-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c11-nurse-uncertainty-contact-sheet.png",
+      "sha256": "2e7433a31cd2eac481d3db5a22fc0074047402b6466634ce113477edc3e711bb"
+    },
+    {
+      "bytes": 105609,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/qa/final-c12-patient-reaction-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c12-patient-reaction-contact-sheet.png",
+      "sha256": "90e8d49a68900abd990b3303c2922350590900d6513ab95f085c6e98dd42f817"
+    },
+    {
+      "bytes": 743204,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/final-frame-40.2.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/final-frame-40.2.png",
+      "sha256": "27a7e7d3109d5c265ad00ebd552d5c549436cf0d94366008d195f744ee5e9a07"
+    },
+    {
+      "bytes": 414258,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/final-frame-42.5.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/final-frame-42.5.png",
+      "sha256": "09e51f679e9af6f1bc101f569b81b58ba9bb82b24ab11ed640f9a7e3409e0c28"
+    },
+    {
+      "bytes": 832272,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/final-frame-48.5.png",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/final-frame-48.5.png",
+      "sha256": "0ffb323bac19b43311a2f6cd37d3568177f14c72be8086db2ace1e89ba54baf1"
+    },
+    {
+      "bytes": 17662,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/platform-scene-validation.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "qa/platform-scene-validation.json",
+      "sha256": "ac8e6c8d2046db089112987bc40f9b98621c2116b951a7c8b8b70e84ade7558e"
+    },
+    {
+      "bytes": 5179,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/platform-storyboard-regression.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "qa/platform-storyboard-regression.json",
+      "sha256": "29f0f8104d687bcfb2897c6832c47064c41175f046690ccd2088a9618c80f284"
+    },
+    {
+      "bytes": 6420,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/pytest-full.xml",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "qa/pytest-full.xml",
+      "sha256": "8f43428518c6c25d6287e2cebfd35495b8cd28b49913b1b4c3cdfec7edcb63af"
+    },
+    {
+      "bytes": 1593,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/qa/pytest-platform-regression.xml",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "qa/pytest-platform-regression.xml",
+      "sha256": "df8fcc9716be18c13a7566dd066ac4114e8522b4ce54473d06128eb5020f3bfe"
+    },
+    {
+      "bytes": 2348056,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/08a37ef2-0d48-4448-b5a4-b4a2a9744385.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/08a37ef2-0d48-4448-b5a4-b4a2a9744385.mp4",
+      "sha256": "d25a7efad292b090948a2732097ea5e72e7df7515c13fa288fb6eb1c1b5af58b"
+    },
+    {
+      "bytes": 2155600,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/3f35ff38-30aa-48f9-a7da-e2e891c128ee.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/3f35ff38-30aa-48f9-a7da-e2e891c128ee.mp4",
+      "sha256": "933910731b064801463faa93dc0ad5156b82742778bdd19490a7aeaf59da26dc"
+    },
+    {
+      "bytes": 910421,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/60b48e3d-50e7-42ee-8d54-2ff514946a95.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/60b48e3d-50e7-42ee-8d54-2ff514946a95.mp4",
+      "sha256": "adfbba4e57170570a37a28aa552fb0aa7676055a4641ed96b3a22890e114cd8b"
+    },
+    {
+      "bytes": 2961295,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/6c8b3778-6fdf-4355-b644-cc316ec408f6.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/6c8b3778-6fdf-4355-b644-cc316ec408f6.mp4",
+      "sha256": "6800af8a05f29fcc161f4acf108c7f9d37aa1631d604511b643a0da0b9f95e60"
+    },
+    {
+      "bytes": 1360790,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/73125e2c-bf04-4a92-869f-f7afcc8f77d3.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/73125e2c-bf04-4a92-869f-f7afcc8f77d3.mp4",
+      "sha256": "1d0c663520e76954811b38e56713d4d1af72db6339538742a045ed4f7672c3bd"
+    },
+    {
+      "bytes": 443068,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/812bbfa2-e987-4347-96dd-c0cf8eb238f5.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/812bbfa2-e987-4347-96dd-c0cf8eb238f5.mp4",
+      "sha256": "183e2fb764c4a2c24c8b59071ddff123307d898fefc94e57e4fb4fb17c12730b"
+    },
+    {
+      "bytes": 995755,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/a1467e21-5274-40fb-86bd-72fcc56b3014.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/a1467e21-5274-40fb-86bd-72fcc56b3014.mp4",
+      "sha256": "b534f5bc52611c7af5e6fdeb6ed00dc649fb8ef86f0abafca6ffd21f13b7523f"
+    },
+    {
+      "bytes": 1078081,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/c2649504-170b-4c39-8df5-95e75bb4dedc.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/c2649504-170b-4c39-8df5-95e75bb4dedc.mp4",
+      "sha256": "d9e8c8ae2a4a7f901740c46269a519d774c7dd02b7004679945c62c032cb6fdc"
+    },
+    {
+      "bytes": 1800826,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/cb31c5b8-9115-42f2-b66b-9e54ac227716.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/cb31c5b8-9115-42f2-b66b-9e54ac227716.mp4",
+      "sha256": "8e8d3f8e113ca3e42c5123bf19961a8700b8853f347e3099849fc73bfcd87640"
+    },
+    {
+      "bytes": 1768272,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/ce8198bb-da3b-49aa-a659-128d00e3ed04.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/ce8198bb-da3b-49aa-a659-128d00e3ed04.mp4",
+      "sha256": "49e99ff622e3faed5f499b1408fe6c5466cb33b97dd9fd900f4ebd485620845a"
+    },
+    {
+      "bytes": 1615799,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/e32bc4d2-e78a-41ea-97a2-90edc45ba4d5.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/e32bc4d2-e78a-41ea-97a2-90edc45ba4d5.mp4",
+      "sha256": "8def96bfe0f7d2fc83c628705e22b1bc152a63b9c77723056aa4c55203900729"
+    },
+    {
+      "bytes": 786913,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/raw/eabd945d-364a-4cb3-bd02-bed2f1a8d6d1.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/eabd945d-364a-4cb3-bd02-bed2f1a8d6d1.mp4",
+      "sha256": "fb45252e751e878563191748ff450b717156f3a5c398ff6c2a380a98900cda7a"
+    },
+    {
+      "bytes": 837471,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/references/architecture-inspiration-compact.png",
+      "reason": "selected compact actor reference",
+      "relative_path": "references/architecture-inspiration-compact.png",
+      "sha256": "80e432d4d0b4c531c3aa02961b70a18e67f7359af63a2e253f1b943f5088d0af"
+    },
+    {
+      "bytes": 806,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/references/inspiration-provenance.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "references/inspiration-provenance.json",
+      "sha256": "b61ad1509d6beecaf657c4542591abbe247c6a3135799f8f45346b1ef6e3e1f2"
+    },
+    {
+      "bytes": 52957,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/references/nurse-reference-compact.jpg",
+      "reason": "selected compact actor reference",
+      "relative_path": "references/nurse-reference-compact.jpg",
+      "sha256": "21722a72839a14cd07bffbf836ffc21bdedfcfd04d7296fd217613a440425c7a"
+    },
+    {
+      "bytes": 46783,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/references/patient-reference-compact.jpg",
+      "reason": "selected compact actor reference",
+      "relative_path": "references/patient-reference-compact.jpg",
+      "sha256": "9683e515c33c1a9df84dc097d11976d5e93c1de0dcb88f9da7e724b8727bf2e4"
+    },
+    {
+      "bytes": 18652,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c01-master-draft-1-scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "rejected/c01-master-draft-1-scene.json",
+      "sha256": "98fccfffbcd275db7d49688d05c677698118fbc399d72c5bd4d36a00135e1ac3"
+    },
+    {
+      "bytes": 703,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c01-master-draft-1.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c01-master-draft-1.json",
+      "sha256": "38587c82ebe667f460c563c66d12a2419499567930cf743a4caff479dd3bf9e0"
+    },
+    {
+      "bytes": 19103,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c01-master-draft-2-scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "rejected/c01-master-draft-2-scene.json",
+      "sha256": "601c8513d33a3324113175966349165bbb5f0b0c6307b611906d6c4af47ce527"
+    },
+    {
+      "bytes": 711,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c01-master-draft-2.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c01-master-draft-2.json",
+      "sha256": "db34b11065db1ee5f00c85fdc79356b8c0291efe0f2fbb22a69af2d7d2ccc758"
+    },
+    {
+      "bytes": 19499,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c01-master-draft-3-scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "rejected/c01-master-draft-3-scene.json",
+      "sha256": "7ab4539cb51d8ac0afb74e7b5c34f6b96df6779a064440a0943e5f687f4c7409"
+    },
+    {
+      "bytes": 639,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c01-master-draft-3.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c01-master-draft-3.json",
+      "sha256": "b39579bd8716bc96cfbd0787651d727e95a93276ba5a44b79dd7d90df0178319"
+    },
+    {
+      "bytes": 19782,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c01-master-draft-4-scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "rejected/c01-master-draft-4-scene.json",
+      "sha256": "db9f2c3428b4a50cbcdd93760bf746c86cf24940941b6b78f38a4054fbbef1c7"
+    },
+    {
+      "bytes": 574,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c01-master-draft-4.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c01-master-draft-4.json",
+      "sha256": "3dedeedc5e624a4099df7243bae5a832170d7c32b80c34b008eccecda12da34b"
+    },
+    {
+      "bytes": 21151,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c02-foreshadow-draft-1-scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "rejected/c02-foreshadow-draft-1-scene.json",
+      "sha256": "0b0e867295af0fc0e522c2b15a57c35b769be661a0945963df7b45f850016eea"
+    },
+    {
+      "bytes": 591,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c02-foreshadow-draft-1.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c02-foreshadow-draft-1.json",
+      "sha256": "da28c040a38845f517a645d9d2d121188b4575e2335871d383cef2f275ef1df6"
+    },
+    {
+      "bytes": 667,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c02-foreshadow-final-full-length.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c02-foreshadow-final-full-length.json",
+      "sha256": "d74315caee04ce70e9cea22de66560b5d310a7398dfe3f2702713f2d86cd6319"
+    },
+    {
+      "bytes": 2257198,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c06-patient-stable-mouth-cropped.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "rejected/c06-patient-stable-mouth-cropped.mp4",
+      "sha256": "4b2c42e659559d0bd63f1da3e12159282d66baa8648574c4a55e321cac2e4aee"
+    },
+    {
+      "bytes": 434,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c06-patient-stable-technical-failure.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c06-patient-stable-technical-failure.json",
+      "sha256": "1f275236bf3efd6ec12687e8c4de65fc47c8dcd1679025419159ec2782460157"
+    },
+    {
+      "bytes": 21625,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c08-card-check-draft-1-scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "rejected/c08-card-check-draft-1-scene.json",
+      "sha256": "0082fe0a417a4e33c15c0c6d38ee5e301e29e5e92508fd4dadd37df403969809"
+    },
+    {
+      "bytes": 419,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c08-card-check-draft-1.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c08-card-check-draft-1.json",
+      "sha256": "15c65482d00f2962ee3a626cfa2d9bbf849988ba91cb09fba7798aa166e33b77"
+    },
+    {
+      "bytes": 1592994,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c09-before-background-notice-blur.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "rejected/c09-before-background-notice-blur.mp4",
+      "sha256": "f590c7906a4270201681c023cfdf30c0cbe7c68ffc9fba36487869aaaecb9c41"
+    },
+    {
+      "bytes": 1191678,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c11-before-background-notice-blur.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "rejected/c11-before-background-notice-blur.mp4",
+      "sha256": "018db0c56d8b81d385e32a3c9b33b6cc055491e2d2f9a033825eef25802e887a"
+    },
+    {
+      "bytes": 511,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c11-nurse-uncertainty-avatar-1.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "rejected/c11-nurse-uncertainty-avatar-1.json",
+      "sha256": "f3a6219fc6a34bc5a8d6c69059ae5666380704c584002f9bb48ab19cca633af9"
+    },
+    {
+      "bytes": 213756,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c12-reaction-centered-eyeline.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "rejected/c12-reaction-centered-eyeline.mp4",
+      "sha256": "1661652739c2cc41c0fa78d2ec49cecbc17be2368033491704d726223c2521af"
+    },
+    {
+      "bytes": 236381,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/c12-reaction-cost-tail-lens-risk.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "rejected/c12-reaction-cost-tail-lens-risk.mp4",
+      "sha256": "7aee5c2bd756ef8d7f6e2e8ed0d82de32bbff7f736fb313041959a9aeec1c261"
+    },
+    {
+      "bytes": 11704197,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/final-v1-before-spatial-reframe.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "rejected/final-v1-before-spatial-reframe.mp4",
+      "sha256": "d43216cdd79ac001cc45628a0b1e3e8f6847489d37e7107e94cde339dd45bfe3"
+    },
+    {
+      "bytes": 4205044,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/rejected/final-v1-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "rejected/final-v1-contact-sheet.png",
+      "sha256": "119c8ab9086a3a34877cfb1ae9ad5da5dc6e4f065fecb1baa28cb98a3f4a8eb5"
+    },
+    {
+      "bytes": 10124,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/final-v1-timeline-manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "rejected/final-v1-timeline-manifest.json",
+      "sha256": "7b14b9d073271f653b29108f8172d06ecc019961bcc13bf1cb38ff0ce0f0a1b4"
+    },
+    {
+      "bytes": 11826267,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/final-v2-before-notice-and-reaction-repair.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "rejected/final-v2-before-notice-and-reaction-repair.mp4",
+      "sha256": "3a341165cdbc879bcb2c79c63bd241c464fe6aebb532f78b09dd3f2a6461797e"
+    },
+    {
+      "bytes": 4143886,
+      "category": "recomputable",
+      "path": "runs/clinic-20260803T011736Z/rejected/final-v2-contact-sheet.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "rejected/final-v2-contact-sheet.png",
+      "sha256": "2c44a385e9688c8e71c215c5d609336e63e5da0fda0ccfcadaf50c16ebfc6d06"
+    },
+    {
+      "bytes": 10124,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/rejected/final-v2-timeline-manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "rejected/final-v2-timeline-manifest.json",
+      "sha256": "b2fcb046c085b2311807b69b346eaba8587b1403f95462370ee31572f43e8fd4"
+    },
+    {
+      "bytes": 608,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/repository-state-before-live.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "repository-state-before-live.json",
+      "sha256": "151853bcc900e6ff99645156b2fe9c9610c88e377a343b8c56001199d3c4895f"
+    },
+    {
+      "bytes": 803,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/run-policy.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "run-policy.json",
+      "sha256": "08b4126a9308242757e1e91953fdb5894d8efad12581bd525e1a450b618c64e6"
+    },
+    {
+      "bytes": 22201,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "scene.json",
+      "sha256": "3882610dd35c75ccea83f2a6602ae3882822e6cb41ccc75a614f220f74c832e3"
+    },
+    {
+      "bytes": 11348,
+      "category": "retain",
+      "path": "runs/clinic-20260803T011736Z/wan22-model-info.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "wan22-model-info.json",
+      "sha256": "64900fa202b6a262991580ad97a6745068a78b98ce872e4b12ea801690db176e"
+    }
+  ],
+  "policy": "retain source/final media plus compact audit evidence; prune only deterministic derivatives",
+  "run": "runs/clinic-20260803T011736Z",
+  "schema_version": "1.0",
+  "summary": {
+    "file_count": 222,
+    "recomputable_bytes": 30342427,
+    "recomputable_count": 39,
+    "retain_bytes": 119322818,
+    "retain_count": 183
+  }
+}

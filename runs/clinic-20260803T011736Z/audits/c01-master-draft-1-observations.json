@@ -1,0 +1,31 @@
+{
+  "reviewer": "human:codex-frame-review",
+  "rules": {
+    "room_geometry": {"status": "pass", "confidence": 0.9, "observed_evidence": "Visible chairs, floor, counter edge and walls are physically plausible."},
+    "circulation": {"status": "fail", "confidence": 0.92, "observed_evidence": "Medium framing does not expose a clear entry-to-counter or waiting-to-exit path.", "recommended_repair_action": "Move to a much wider public-side corner master that exposes the full floor path.", "protected_constraints": ["public-side camera", "counter orientation"]},
+    "spatial_anchors": {"status": "fail", "confidence": 0.95, "observed_evidence": "The counter, entry, workstations and waiting zones cannot all be located in this framing.", "recommended_repair_action": "Include entry frame left, waiting rows centre-left and full counter/workstations frame right."},
+    "master_coverage": {"status": "fail", "confidence": 1.0, "observed_evidence": "This is a medium two-shot, not a geography-establishing wide master.", "recommended_repair_action": "Make both principals small full-body figures within a wide room composition."},
+    "character_count_identity": {"status": "pass", "confidence": 0.94, "observed_evidence": "Two clear foreground principals remain distinct."},
+    "background_population": {"status": "fail", "confidence": 0.98, "observed_evidence": "Only about two background adults are evident; the planned 8–12 and roughly 60% occupancy do not read.", "recommended_repair_action": "Show eight to twelve ordinary background adults distributed across chairs and safe walkways."},
+    "crowd_continuity": {"status": "review", "confidence": 0.55, "observed_evidence": "Too few background adults and too little room coverage to assess crowd continuity."},
+    "blocking_and_framing": {"status": "fail", "confidence": 1.0, "observed_evidence": "The patient and nurse are staged beside each other in the waiting area rather than separated by the reception counter.", "recommended_repair_action": "Keep patient on the public side screen left and nurse behind the counter screen right."},
+    "gaze_and_eyeline": {"status": "fail", "confidence": 0.86, "observed_evidence": "The opening poses are close to frontal/lens-axis attention before the pair turn toward each other.", "recommended_repair_action": "Use distant three-quarter profiles and keep pupils on the interlocutor or work target."},
+    "anatomy_contact": {"status": "pass", "confidence": 0.9, "observed_evidence": "Visible limbs and floor contact are plausible."},
+    "wardrobe_construction": {"status": "fail", "confidence": 0.9, "observed_evidence": "The nurse lacks the planned open warm-grey cardigan construction.", "recommended_repair_action": "Restore the plain grey open cardigan over slate-teal scrubs."},
+    "prop_identity_ownership": {"status": "pass", "confidence": 0.9, "observed_evidence": "No featured prop was planned in this shot."},
+    "prop_interaction": {"status": "pass", "confidence": 0.9, "observed_evidence": "No featured prop handoff occurs."},
+    "privacy": {"status": "pass", "confidence": 0.95, "observed_evidence": "No patient identifier or readable monitor content is evident."},
+    "unwanted_text": {"status": "review", "confidence": 0.65, "observed_evidence": "A small illuminated background fixture is present but too small to determine whether it violates the zero-icon policy."},
+    "lighting_continuity": {"status": "pass", "confidence": 0.9, "observed_evidence": "Warm interior light is coherent, though the background daylight is weak."},
+    "performance_action_match": {"status": "review", "confidence": 0.65, "observed_evidence": "The patient approaches, but the intended natural elbow cough is not clearly readable in the contact sheet."},
+    "audio_sync": {"status": "pass", "confidence": 1.0, "observed_evidence": "No dialogue or source audio is required for this text-to-video draft."},
+    "continuity": {"status": "fail", "confidence": 0.95, "observed_evidence": "The depicted blocking cannot seed the planned counter-based coverage.", "recommended_repair_action": "Repair the wide geography before creating character references."},
+    "symbolic_environment": {"status": "pass", "confidence": 0.8, "observed_evidence": "Teal seating and warm wood communicate an ordinary clinic without overt exposition."},
+    "occupancy_target": {"status": "fail", "confidence": 0.98, "observed_evidence": "Visible occupancy is materially below the 50–70% profile target."},
+    "patient_information_policy": {"status": "pass", "confidence": 0.95, "observed_evidence": "No patient information is visible."},
+    "monitor_orientation": {"status": "review", "confidence": 0.6, "observed_evidence": "The workstation is not established clearly enough to verify orientation."},
+    "counter_separation": {"status": "fail", "confidence": 0.95, "observed_evidence": "The principals appear on the same side of the counter."},
+    "profile_screen_privacy": {"status": "pass", "confidence": 0.9, "observed_evidence": "No readable screen appears."},
+    "profile_card_privacy": {"status": "pass", "confidence": 1.0, "observed_evidence": "No health card is shown in this shot."}
+  }
+}

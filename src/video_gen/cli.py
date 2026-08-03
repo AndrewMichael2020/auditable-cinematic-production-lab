@@ -5,17 +5,20 @@ import base64
 import json
 import mimetypes
 import sys
+from decimal import Decimal
 from pathlib import Path
 
-from .auditor import (audit_draft, audit_scene, verify_promotion_authorization,
+from .auditor import (audit_continuity, audit_draft, audit_final_candidate, audit_scene,
+                      verify_bounded_repair_authorization, verify_promotion_authorization,
                       verify_storyboard_authorization)
 from .config import ProjectConfig
 from .errors import VideoGenError
 from .ledger import Ledger
 from .media import (assemble_lipsynced_dialogue, assemble_master_dialogue_scene,
-                    assemble_with_audio, contact_sheet, prepare_dialogue_clip)
+                    assemble_timeline, assemble_with_audio, contact_sheet,
+                    generate_room_tone, prepare_dialogue_clip)
 from .orchestrator import Orchestrator
-from .production import compile_prompt, load_scene
+from .production import compile_prompt, load_production, load_scene
 from .retention import audit_run_artifacts, prune_recomputable_artifacts
 
 
@@ -23,11 +26,18 @@ def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(prog="video-gen")
     result.add_argument("--config", default="project.json")
     result.add_argument("--ledger", default="runs/ledger.sqlite3")
+    result.add_argument("--run-cap-usd", type=Decimal)
+    result.add_argument("--partner-avatar-attempt-cap", type=int, default=5)
     commands = result.add_subparsers(dest="command", required=True)
     preflight = commands.add_parser("preflight", help="validate configuration without spending")
     preflight.add_argument("--profile", default="cad_10")
+    preflight.add_argument("--output")
     validate = commands.add_parser("validate-scene", help="validate and compile the golden scene")
     validate.add_argument("scene", nargs="?", default="scenes/golden-scene.json")
+    validate.add_argument("--output")
+    validate_production = commands.add_parser(
+        "validate-production", help="validate an ordered, independently resumable production")
+    validate_production.add_argument("production")
     audit_storyboard = commands.add_parser("audit-scene", help="run the pre-generation spatial gate")
     audit_storyboard.add_argument("scene", nargs="?", default="scenes/golden-scene.json")
     audit_storyboard.add_argument("--output")
@@ -38,22 +48,40 @@ def parser() -> argparse.ArgumentParser:
     audit_media.add_argument("--observations")
     audit_media.add_argument("--contact-sheet")
     audit_media.add_argument("--output")
+    audit_stage = commands.add_parser("audit-stage", help="run a staged media or continuity audit")
+    audit_stage.add_argument("--stage", choices=["cheap_draft", "final_candidate",
+                                                  "cross_shot_continuity",
+                                                  "cross_scene_continuity", "final_sequence"],
+                             required=True)
+    audit_stage.add_argument("--scene", required=True)
+    audit_stage.add_argument("--shot")
+    audit_stage.add_argument("--video")
+    audit_stage.add_argument("--observations", required=True)
+    audit_stage.add_argument("--contact-sheet")
+    audit_stage.add_argument("--output")
     plan = commands.add_parser("plan-video", help="reserve and print a dry-run video request")
     plan.add_argument("--profile", default="cad_10")
     plan.add_argument("--role", choices=["draft_video", "final_video"], required=True)
-    plan.add_argument("--prompt", required=True)
+    prompt_source = plan.add_mutually_exclusive_group(required=True)
+    prompt_source.add_argument("--prompt")
+    prompt_source.add_argument("--prompt-file")
+    prompt_source.add_argument("--scene-manifest")
     plan.add_argument("--seed", type=int, default=0)
     plan.add_argument("--live", action="store_true")
     plan.add_argument("--confirm-live", action="store_true")
     plan.add_argument("--scene-audit")
     plan.add_argument("--shot-id")
     plan.add_argument("--draft-audit")
+    plan.add_argument("--repair-authorization")
+    plan.add_argument("--result")
+    plan.add_argument("--output-dir", default="outputs")
     speech = commands.add_parser("plan-speech", help="reserve or generate one bounded speech line")
     speech.add_argument("--profile", default="cad_10")
     speech.add_argument("--text", required=True)
     speech.add_argument("--seed", type=int, default=0)
     speech.add_argument("--live", action="store_true")
     speech.add_argument("--confirm-live", action="store_true")
+    speech.add_argument("--result")
     avatar = commands.add_parser("plan-avatar", help="generate one explicitly approved partner lip-sync clip")
     avatar.add_argument("--profile", default="cad_10")
     avatar.add_argument("--image", required=True)
@@ -67,6 +95,7 @@ def parser() -> argparse.ArgumentParser:
     avatar.add_argument("--allow-partner-avatar", action="store_true")
     avatar.add_argument("--live", action="store_true")
     avatar.add_argument("--confirm-live", action="store_true")
+    avatar.add_argument("--result")
     assembly = commands.add_parser("assemble-proof", help="mux speech into a 6–10 second proof clip")
     assembly.add_argument("--video", required=True)
     assembly.add_argument("--audio", required=True)
@@ -101,6 +130,15 @@ def parser() -> argparse.ArgumentParser:
     prepare.add_argument("--rate", type=float, default=1.0)
     prepare.add_argument("--crop", required=True, help="width:height:x:y")
     prepare.add_argument("--manifest")
+    room_tone = commands.add_parser("generate-room-tone", help="create deterministic non-verbal ambience")
+    room_tone.add_argument("--output", required=True)
+    room_tone.add_argument("--seconds", type=float, required=True)
+    room_tone.add_argument("--transient", action="append", type=float, default=[])
+    timeline = commands.add_parser("assemble-timeline", help="assemble a reusable provenance timeline")
+    timeline.add_argument("--timeline", required=True)
+    timeline.add_argument("--output", required=True)
+    timeline.add_argument("--ambience")
+    timeline.add_argument("--manifest")
     return result
 
 
@@ -113,9 +151,14 @@ def emit_json(packet: dict, destination: str | None = None) -> None:
     print(rendered, end="")
 
 
-def avatar_image_input(value: str | Path) -> str:
+def avatar_image_input(value: str | Path, *, live: bool = False) -> str:
     if str(value).startswith("https://"):
         return str(value)
+    if live:
+        raise VideoGenError(
+            "live partner-avatar generation requires a public HTTPS image URL; "
+            "local/data images are rejected before reservation"
+        )
     source = Path(value)
     media_type = mimetypes.guess_type(source.name)[0]
     if media_type not in {"image/jpeg", "image/png", "image/webp"}:
@@ -129,8 +172,11 @@ def main(argv: list[str] | None = None) -> int:
         config = ProjectConfig.load(args.config)
         if args.command == "preflight":
             cap = config.profile_cap(args.profile)
-            print(json.dumps({"ok": True, "profile": args.profile, "cap_usd": str(cap),
-                              "mode": "dry_run", "approved_models": len(config.raw["approved_models"])}, indent=2))
+            emit_json({"ok": True, "profile": args.profile, "cap_usd": str(cap),
+                       "explicit_run_cap_usd": (str(args.run_cap_usd)
+                                                if args.run_cap_usd is not None else None),
+                       "mode": "dry_run", "approved_models": len(config.raw["approved_models"])},
+                      args.output)
             return 0
         if args.command == "validate-scene":
             scene = load_scene(args.scene)
@@ -141,7 +187,13 @@ def main(argv: list[str] | None = None) -> int:
                 )
             prompts = {shot["id"]: compile_prompt(scene, shot["id"]) for shot in scene["shots"]}
             emit_json({"ok": True, "scene": scene["id"], "prompts": prompts,
-                       "spatial_audit": spatial_audit})
+                       "spatial_audit": spatial_audit}, args.output)
+            return 0
+        if args.command == "validate-production":
+            production = load_production(args.production)
+            emit_json({"ok": True, "production": production["id"],
+                       "ordered_scene_ids": [item["id"] for item in production["scenes"]],
+                       "independently_resumable": True})
             return 0
         if args.command == "audit-scene":
             report = audit_scene(load_scene(args.scene))
@@ -154,6 +206,20 @@ def main(argv: list[str] | None = None) -> int:
             observations = (json.loads(Path(args.observations).read_text(encoding="utf-8"))
                             if args.observations else None)
             report = audit_draft(scene, args.shot, args.video, observations, sheet)
+            emit_json(report, args.output)
+            return 0 if report["promotion_allowed"] else 2
+        if args.command == "audit-stage":
+            scene = load_scene(args.scene)
+            observations = json.loads(Path(args.observations).read_text(encoding="utf-8"))
+            if args.stage in {"cheap_draft", "final_candidate"}:
+                if not args.video or not args.shot:
+                    raise VideoGenError("media audit stages require --video and --shot")
+                sheet = args.contact_sheet or f"{args.video}.contact-sheet.png"
+                contact_sheet(args.video, sheet)
+                function = audit_draft if args.stage == "cheap_draft" else audit_final_candidate
+                report = function(scene, args.shot, args.video, observations, sheet)
+            else:
+                report = audit_continuity(scene, observations, stage=args.stage)
             emit_json(report, args.output)
             return 0 if report["promotion_allowed"] else 2
         if args.command == "audit-artifacts":
@@ -195,36 +261,69 @@ def main(argv: list[str] | None = None) -> int:
             )
             emit_json(report, args.manifest)
             return 0
+        if args.command == "generate-room-tone":
+            report = generate_room_tone(args.output, duration=args.seconds,
+                                        transient_times=args.transient)
+            emit_json(report)
+            return 0
+        if args.command == "assemble-timeline":
+            timeline_packet = json.loads(Path(args.timeline).read_text(encoding="utf-8"))
+            report = assemble_timeline(
+                timeline_packet["intervals"], args.output,
+                ambience=args.ambience or timeline_packet.get("ambience"),
+                target_seconds=timeline_packet.get("target_seconds"),
+            )
+            emit_json(report, args.manifest)
+            return 0
         ledger = Ledger(args.ledger)
+        orchestrator = Orchestrator(
+            config, ledger, args.profile, run_cap_usd=args.run_cap_usd,
+            partner_avatar_attempt_cap=args.partner_avatar_attempt_cap,
+        )
         if args.command == "plan-speech":
-            request = Orchestrator(config, ledger, args.profile).run_speech(
+            request = orchestrator.run_speech(
                 args.text, seed=args.seed, live=args.live, confirmed=args.confirm_live)
-            print(json.dumps({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, indent=2))
+            emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
             return 0
         if args.command == "plan-avatar":
-            request = Orchestrator(config, ledger, args.profile).run_avatar(
-                avatar_image_input(args.image), args.script, args.voice, seed=args.seed,
+            request = orchestrator.run_avatar(
+                avatar_image_input(args.image, live=args.live), args.script, args.voice,
+                seed=args.seed,
                 max_seconds=args.max_seconds, gaze_direction=args.gaze_direction,
                 performance_direction=args.performance, live=args.live, confirmed=args.confirm_live,
                 allow_partner=args.allow_partner_avatar, output_dir=args.output_dir)
-            print(json.dumps({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, indent=2))
+            emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
             return 0
+        if args.prompt_file:
+            prompt = Path(args.prompt_file).read_text(encoding="utf-8").strip()
+        elif args.scene_manifest:
+            if not args.shot_id:
+                raise VideoGenError("--scene-manifest requires --shot-id")
+            prompt = compile_prompt(load_scene(args.scene_manifest), args.shot_id)
+        else:
+            prompt = args.prompt
         if args.live:
             if not args.scene_audit or not args.shot_id:
                 raise VideoGenError("live video requires --scene-audit and --shot-id")
             try:
                 scene_packet = json.loads(Path(args.scene_audit).read_text(encoding="utf-8"))
-                verify_storyboard_authorization(scene_packet, args.shot_id, args.prompt)
+                verify_storyboard_authorization(scene_packet, args.shot_id, prompt)
                 if args.role == "final_video":
-                    if not args.draft_audit:
-                        raise ValueError("final live video requires --draft-audit")
-                    draft_packet = json.loads(Path(args.draft_audit).read_text(encoding="utf-8"))
-                    verify_promotion_authorization(draft_packet, args.prompt)
+                    if args.draft_audit:
+                        draft_packet = json.loads(Path(args.draft_audit).read_text(encoding="utf-8"))
+                        verify_promotion_authorization(draft_packet, prompt)
+                    elif args.repair_authorization:
+                        repair_packet = json.loads(Path(args.repair_authorization).read_text(encoding="utf-8"))
+                        verify_bounded_repair_authorization(repair_packet, prompt)
+                    else:
+                        raise ValueError(
+                            "final live video requires --draft-audit or --repair-authorization")
             except (OSError, json.JSONDecodeError, ValueError) as exc:
                 raise VideoGenError(str(exc)) from exc
-        request = Orchestrator(config, ledger, args.profile).run_video(
-            args.role, args.prompt, seed=args.seed, live=args.live, confirmed=args.confirm_live)
-        print(json.dumps({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, indent=2))
+        request = orchestrator.run_video(
+            args.role, prompt, seed=args.seed, live=args.live, confirmed=args.confirm_live,
+            output_dir=args.output_dir)
+        emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
         return 0
     except VideoGenError as exc:
         print(f"error: {exc}", file=sys.stderr)

@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "shot_id": "c11-nurse-uncertainty",
+  "source": "raw/08a37ef2-0d48-4448-b5a4-b4a2a9744385.mp4",
+  "decision": "rejected_with_one_bounded_visual_repair",
+  "reason": "Lip sync and wording succeed, but the nurse turns near-frontal and briefly smiles, risking camera gaze and an advertisement-like emotional read.",
+  "repair_actions": ["fix head and pupils screen left", "remove smile", "lower motion and affect", "preserve exact dialogue and voice"],
+  "repair_attempt_limit": 1
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "captured_at": "2026-08-03T01:19:00Z",
+  "branch": "agent/clinic-robustness-run",
+  "head": "55c3e2897131e63115197450eeae2943a8eb260b",
+  "main_was_not_checked_out_for_new_work": true,
+  "workflows_invoked": false,
+  "working_tree_expected_changes": [
+    "project.json",
+    "src/video_gen/auditor.py",
+    "src/video_gen/cli.py",
+    "src/video_gen/media.py",
+    "src/video_gen/orchestrator.py",
+    "src/video_gen/production.py",
+    "locations/clinic-reception.json",
+    "productions/robustness-tests.json",
+    "scenes/clinic-reception-coverage.json",
+    "tests"
+  ]
+}

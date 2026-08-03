@@ -4,7 +4,8 @@ import subprocess
 import pytest
 
 from video_gen.media import (assemble_lipsynced_dialogue, assemble_master_dialogue_scene,
-                             assemble_with_audio, prepare_dialogue_clip, probe)
+                             assemble_timeline, assemble_with_audio, generate_room_tone,
+                             prepare_dialogue_clip, probe)
 
 
 @pytest.mark.skipif(not shutil.which("ffmpeg") or not shutil.which("ffprobe"),
@@ -100,3 +101,32 @@ def test_prepares_dialogue_with_sync_preserving_trim_rate_and_crop(tmp_path):
     packet = probe(output)
     video = next(item for item in packet["streams"] if item["codec_type"] == "video")
     assert (video["width"], video["height"]) == (1280, 720)
+
+
+@pytest.mark.skipif(not shutil.which("ffmpeg") or not shutil.which("ffprobe"),
+                    reason="FFmpeg tools are required")
+def test_flexible_timeline_preserves_interval_provenance_and_room_tone(tmp_path):
+    sources = []
+    for index in range(4):
+        source = tmp_path / f"source-{index}.mp4"
+        sources.append(source)
+        subprocess.run([
+            "ffmpeg", "-y", "-v", "error", "-f", "lavfi", "-i",
+            f"color=c=0x{index + 2}{index + 2}3344:s=128x72:d=1:r=16",
+            "-f", "lavfi", "-i", f"sine=frequency={330 + index * 55}:duration=1",
+            "-shortest", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+            str(source),
+        ], check=True)
+    ambience = tmp_path / "room-tone.wav"
+    tone = generate_room_tone(ambience, duration=12.0, transient_times=[2.0, 8.0])
+    output = tmp_path / "timeline.mp4"
+    intervals = [{"id": f"i{index}", "path": str(path), "start": 0, "end": 1,
+                  "hold_after": 2, "include_audio": True, "sync_locked": True,
+                  "scene_id": "scene", "shot_id": f"s{index}", "audit_decision": "pass"}
+                 for index, path in enumerate(sources)]
+    report = assemble_timeline(intervals, output, ambience=ambience, target_seconds=12.0)
+    assert tone["contains_intelligible_speech"] is False
+    assert report["actual_seconds"] == pytest.approx(12.0, abs=0.1)
+    assert len(report["provenance"]) == 4
+    assert all(item["source"]["sha256"] for item in report["provenance"])
+    assert {item["codec_type"] for item in probe(output)["streams"]} == {"video", "audio"}

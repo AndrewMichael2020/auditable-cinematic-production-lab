@@ -77,3 +77,35 @@ wide master is worth paying for only when the setting or blocking genuinely chan
 - broad model comparisons without a specific failure the new model is meant to solve.
 
 The stage gate is now **repeatable quality under a small budget**, not a larger feature surface.
+
+## Clinic robustness result
+
+The contrasting clinic test completed a 49.69-second, twelve-interval scene for US$2.625 actual
+against US$3.075 reserved. The final, paid sources, rejected takes, dialogue edits, append-only
+ledger, hashes, staged audits and timeline provenance are in `runs/clinic-20260803T011736Z/`.
+
+Lessons that generalize:
+
+- Generate the room first. A dedicated environment-master prompt improved crowd, counter and
+  circulation geometry because it stopped asking one request to solve close face detail too.
+- Treat privacy props as states, not descriptions: face-down, edge-on, moving, occluded or defocused.
+  Admit only the safe interval when a longer take starts inventing card-like objects.
+- Audit transitions after local repair. Crops, background blurs and reaction-tail selection can fix
+  one defect while introducing lens gaze, missing mouths or an inconsistent frame shape.
+- Reserve avatar cost from provider output risk, not only requested dialogue length. A nominal
+  eight-second turn returned 12.2 seconds; its exact known cost was reconciled without retrying.
+- Live partner-avatar references need public HTTPS transport. Reject inline/local images before
+  reservation instead of paying for a request the provider cannot fetch.
+- Longer scenes remain cheapest when only the master and physical-action insert use video models;
+  compact stable character references can carry the dialogue coverage.
+
+Pareto next steps:
+
+1. Add one small, licensed cough/foley library and a deterministic cue track; this run had a visual
+   cough but no separate audible cough effect.
+2. Preserve subtle motion in the final reaction rather than holding a still frame, but regenerate
+   only when the ending is a story-critical performance beat.
+3. Record exact internal edit boundaries at edit time. Hash-to-hash provenance is present here, but
+   segment-level timecodes should be emitted automatically for every multi-segment repair.
+4. Repeat one more contrasting location before adding dashboards, automated aesthetic scoring or
+   more providers.

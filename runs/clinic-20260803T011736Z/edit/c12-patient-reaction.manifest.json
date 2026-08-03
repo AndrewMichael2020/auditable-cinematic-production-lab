@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "path": "runs/clinic-20260803T011736Z/edit/c04-patient-history.mp4",
+    "sha256": "267ffd609ee6dc9795af45e089691304877e3f8779a665d8a0858633caeb80dd",
+    "selected_frame_seconds": 4.5
+  },
+  "edit": {
+    "policy": "Hold a neutral screen-right patient profile after rejecting warmer or lens-risk reaction tails.",
+    "audio_included": false,
+    "timeline_ambience_continues": true
+  },
+  "output": {
+    "path": "runs/clinic-20260803T011736Z/edit/c12-patient-reaction.mp4",
+    "sha256": "2ac1699f1f15ffb8b0ac54593538ec0e575700d2e15cc52ec360fa376dcd74ca",
+    "bytes": 116142,
+    "duration_seconds": 2.875
+  }
+}
