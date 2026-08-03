@@ -1,0 +1,180 @@
+{
+  "id": "last-train-platform-cliffhanger",
+  "title": "The Call",
+  "duration_seconds": 15,
+  "location": {
+    "name": "covered rural railway platform",
+    "time": "blue hour after rain, moments after the previous meeting",
+    "layout": "bench against the far platform wall, tracks beyond the platform edge behind the actors, one wall-mounted amber lamp, otherwise plain blue wall",
+    "axis": "camera remains on the platform safe side; Mara is screen left and Eli screen right; reverse close-ups preserve their inward eyelines",
+    "light": "cool blue sky fill, wet reflections, and one warm practical lamp"
+  },
+  "visual_policy": {
+    "text_policy": "forbid",
+    "camera_gaze_policy": "never_look_at_camera",
+    "public_space_symbols": {
+      "max_icons": 0,
+      "allowed_icons": []
+    },
+    "environmental_metaphors": [
+      "wet reflections hold the unresolved past",
+      "the distance between the actors contracts as Mara confesses",
+      "the warm lamp becomes uneasy against the cold blue wall after the final line"
+    ]
+  },
+  "spatial_plan": {
+    "camera": {
+      "side": "platform_safe_side",
+      "axis_rule": "never cross the Mara-left and Eli-right 180-degree line"
+    },
+    "platform": {
+      "tracks_relation": "beyond_platform_edge",
+      "minimum_character_edge_distance_m": 1.5
+    },
+    "objects": [
+      {
+        "id": "bench",
+        "kind": "bench",
+        "zone": "far_platform_wall",
+        "support": "ground",
+        "orientation": "parallel_to_tracks",
+        "minimum_edge_distance_m": 3.0,
+        "contains_text": false
+      },
+      {
+        "id": "amber_lamp",
+        "kind": "lamp",
+        "zone": "far_wall_left",
+        "support": "wall_mounted",
+        "contains_text": false
+      }
+    ]
+  },
+  "characters": [
+    {
+      "id": "mara",
+      "age": 34,
+      "description": "South Asian woman, oval face, shoulder-length black curls",
+      "wardrobe": "mustard raincoat, charcoal trousers, brown satchel",
+      "reference_asset": "runs/cliffhanger-20260802T235825Z/sources/mara-reference-compact.jpg",
+      "wardrobe_visual": [
+        {"item": "raincoat", "color": "mustard", "construction": "single straight row of evenly spaced dark buttons, two stable sleeves and pockets"},
+        {"item": "satchel", "color": "brown", "construction": "one continuous strap resting naturally on her shoulder without merging into the coat"}
+      ]
+    },
+    {
+      "id": "eli",
+      "age": 37,
+      "description": "light-skinned man, angular face, short dark hair",
+      "wardrobe": "navy wool coat, pale grey scarf, dark jeans",
+      "reference_asset": "runs/cliffhanger-20260802T235825Z/sources/eli-reference-compact.jpg",
+      "wardrobe_visual": [
+        {"item": "wool coat", "color": "navy", "construction": "single-breasted front with aligned dark buttons, two stable sleeves and pockets"},
+        {"item": "scarf", "color": "pale grey", "construction": "one continuous scarf draped naturally around his neck"}
+      ]
+    }
+  ],
+  "emotion_arc": [
+    "guarded distance",
+    "Eli challenges Mara",
+    "Mara chooses disclosure over retreat",
+    "Eli's certainty breaks into shock"
+  ],
+  "shots": [
+    {
+      "id": "c01",
+      "seconds": 3,
+      "framing": "locked wide full-body master two-shot",
+      "spatial_role": "master",
+      "camera": {"movement": "locked", "framing": "wide_master"},
+      "blocking": {
+        "mara": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "eli": {"start": "off_screen_right", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "Eli enters from screen right and stops; Mara turns from the tracks toward him; neither acknowledges the camera",
+      "dialogue": null
+    },
+    {
+      "id": "c02",
+      "seconds": 3,
+      "framing": "Mara three-quarter profile close-up facing screen right",
+      "spatial_role": "coverage",
+      "camera": {"movement": "locked", "framing": "profile_close_up"},
+      "blocking": {
+        "mara": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "Mara tightens her grip on the satchel but holds Eli's eyeline",
+      "dialogue": {"speaker": "mara", "line": "I didn't come for the train.", "performance": "Guarded resolve; a small breath before train, eyes fixed on Eli."}
+    },
+    {
+      "id": "c03",
+      "seconds": 3,
+      "framing": "Eli reverse three-quarter profile close-up facing screen left",
+      "spatial_role": "coverage",
+      "camera": {"movement": "locked", "framing": "profile_close_up"},
+      "blocking": {
+        "mara": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "Eli's relief hardens into suspicion",
+      "dialogue": {"speaker": "eli", "line": "Then why are you here?", "performance": "Quiet suspicion, clipped and controlled, eyes locked on Mara."}
+    },
+    {
+      "id": "c04",
+      "seconds": 3,
+      "framing": "matching Mara three-quarter profile close-up facing screen right",
+      "spatial_role": "coverage",
+      "camera": {"movement": "locked", "framing": "profile_close_up"},
+      "blocking": {
+        "mara": {"start": "left_safe_zone", "end": "center_left_safe_zone"},
+        "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 0.75
+      },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "Mara takes one small step toward Eli and lets the confession land",
+      "dialogue": {"speaker": "mara", "line": "Your brother called me.", "performance": "Voice drops with guilt; restrained urgency, eyes remain on Eli."}
+    },
+    {
+      "id": "c05",
+      "seconds": 3,
+      "framing": "matching Eli three-quarter profile close-up facing screen left",
+      "spatial_role": "cliffhanger",
+      "camera": {"movement": "locked", "framing": "profile_close_up"},
+      "blocking": {
+        "mara": {"start": "center_left_safe_zone", "end": "center_left_safe_zone"},
+        "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 0.75
+      },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "Eli goes completely still; the warm lamp flickers behind him",
+      "dialogue": {"speaker": "eli", "line": "My brother died last winter.", "performance": "Barely audible shock; one involuntary breath, eyes never leave Mara."}
+    }
+  ],
+  "acceptance": {
+    "technical": ["one decodable 12–15 second landscape scene", "one master shot plus four dialogue turns", "continuous normalized audio", "no accidental black or frozen sequence"],
+    "continuity": ["Mara remains screen left and Eli screen right", "all close-up eyelines point toward the scene partner", "neither actor looks into the camera", "wardrobe and blue-hour wall remain stable", "no generated text"],
+    "human": ["physical entrance establishes movement", "guarded relief changes into suspicion, guilt, and shock", "the final contradiction lands as a cliffhanger"]
+  }
+}

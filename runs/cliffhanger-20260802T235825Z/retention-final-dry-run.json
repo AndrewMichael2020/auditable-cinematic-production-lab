@@ -1,0 +1,390 @@
+{
+  "files": [
+    {
+      "bytes": 7211,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/cost-provenance-audit.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "cost-provenance-audit.json",
+      "sha256": "2ad1f2a3f8a6fd667b3cf79d2329deb78396c2154b856ed16113a7067d168c5e"
+    },
+    {
+      "bytes": 671,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c02-mara.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c02-mara.manifest.json",
+      "sha256": "df3e5e312bb9726a78a4e45771bf4830088f5bbb30bae0330a930c329d866c3b"
+    },
+    {
+      "bytes": 395817,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c02-mara.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c02-mara.mp4",
+      "sha256": "63a29ade5b9e7ecd7eb027c1169f8bdf878d711499eff1f3318dd192a9cac8d0"
+    },
+    {
+      "bytes": 669,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c03-eli.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c03-eli.manifest.json",
+      "sha256": "a15e6711e3093a709c6cd92d60ee37577579592f60c4c1123831888c01c50456"
+    },
+    {
+      "bytes": 423859,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c03-eli.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c03-eli.mp4",
+      "sha256": "3995c53f67a4cda6dd97214e9fe84d3b29e59ba3a281734d5c489f45187f55ed"
+    },
+    {
+      "bytes": 667,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c04-mara.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c04-mara.manifest.json",
+      "sha256": "80280271ab6a85d24c9fda2df7324354fc71e8b6d530940d7695613e0d38aec0"
+    },
+    {
+      "bytes": 337146,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c04-mara.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c04-mara.mp4",
+      "sha256": "bb16d170d13e0579c2242c0ccd17a288b04fcd8f42c7131a9029ea4d05b3af09"
+    },
+    {
+      "bytes": 668,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c05-eli.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "edit/c05-eli.manifest.json",
+      "sha256": "a8893f98b35338906d1cc67b47beb68415e8510e62806d8ca52374d7f0ed4287"
+    },
+    {
+      "bytes": 959366,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c05-eli.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "edit/c05-eli.mp4",
+      "sha256": "7fc05e310f04b269194840033c6e0712ff41500745b6e7e2336ce4ea28016702"
+    },
+    {
+      "bytes": 3173,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/final-qa.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "final-qa.json",
+      "sha256": "d8b5c74af05cd349569c4c360c4385289612d0034a2ce948808d55160b1b19f5"
+    },
+    {
+      "bytes": 1466,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/final-the-call-15s.manifest.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "final-the-call-15s.manifest.json",
+      "sha256": "13cbe8fd6fcca7f8fded90412f9d6a686499fb4f458ec81c151b3a9a543cf003"
+    },
+    {
+      "bytes": 2428050,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "final-the-call-15s.mp4",
+      "sha256": "2d255b94f2f89dbfbe5a15b73954ffb62266a8b6d2fdaaedc31bbe7549a8a198"
+    },
+    {
+      "bytes": 24576,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/ledger.sqlite3",
+      "reason": "append-only cost and provenance ledger",
+      "relative_path": "ledger.sqlite3",
+      "sha256": "4877454547767fb716054111a82f38ee9fe0fb86dfa4975136ea560708b6df88"
+    },
+    {
+      "bytes": 12157,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/p-video-avatar-model-info.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "p-video-avatar-model-info.json",
+      "sha256": "bf2d08e628cafd7f20a60823927c1a777886eed8084336d799b70d8379d9bfa9"
+    },
+    {
+      "bytes": 748153,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c01-master-all-frames.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-all-frames.png",
+      "sha256": "6b613f55fe0ad3799c2393d9323ac9b779ab2c7b5ecf2d1f2efd0e5cce011b81"
+    },
+    {
+      "bytes": 342851,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c02-mara-all-frames.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-mara-all-frames.png",
+      "sha256": "b60f3e65dbc216caf65098a55285b3569429840d8670d383ce08710d2a5fa5bd"
+    },
+    {
+      "bytes": 406958,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c02-mara-every-other-frame.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-mara-every-other-frame.png",
+      "sha256": "cdc882d716ceb9aa8498f18570b0171146a764d74a788d341d588f6024281ee6"
+    },
+    {
+      "bytes": 375538,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c03-eli-all-frames.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c03-eli-all-frames.png",
+      "sha256": "c67cc3ed2972c212dd3aa8605ae12b9bd4a2bf1b029b5f1242fa592460c7ef08"
+    },
+    {
+      "bytes": 429419,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c03-eli-every-other-frame.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c03-eli-every-other-frame.png",
+      "sha256": "bfb5f9d4d846ba13cc7a8f11df074e208fd682758381930ec27944976ecda05d"
+    },
+    {
+      "bytes": 306709,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c04-mara-all-frames.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c04-mara-all-frames.png",
+      "sha256": "4dd38e3a1ea2269b434643cd25f3731edafbb2f9aa04811729b5229dc1ffbbb9"
+    },
+    {
+      "bytes": 348645,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c04-mara-every-other-frame.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c04-mara-every-other-frame.png",
+      "sha256": "808422b238c8494b4a59525ae4b60edf2d623c7882f5c58d063e0cbf1d6a330b"
+    },
+    {
+      "bytes": 974485,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c05-eli-all-frames.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c05-eli-all-frames.png",
+      "sha256": "79865de8ed1fc74adc3cdd9ae5889e9f9afc45b83dccf154a5c7bb4eaf3153fc"
+    },
+    {
+      "bytes": 1114082,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/c05-eli-every-other-frame.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c05-eli-every-other-frame.png",
+      "sha256": "a54b67bd208b43c88dd75778d9a3f56c7649ef339541668574b56f2485171e09"
+    },
+    {
+      "bytes": 292584,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/eli-crop-preview-2.png",
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/eli-crop-preview-2.png",
+      "sha256": "ae1acf158013f69049b126d72173ff3a6954f657193a83cf68ad4a44481139ec"
+    },
+    {
+      "bytes": 469818,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/eli-crop-preview.png",
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/eli-crop-preview.png",
+      "sha256": "20e3be4baff88de7f2b552d246f1bebf557cdf9c0bb4e2e13501c2889accdb5b"
+    },
+    {
+      "bytes": 309615,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/eli-turn2-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/eli-turn2-contact.png",
+      "sha256": "3879d34ba915682d3504f7cd2e4590ca701a2417a35369bd33c3e81f39de2a26"
+    },
+    {
+      "bytes": 419036,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/eli-turn4-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/eli-turn4-contact.png",
+      "sha256": "5175e6d4fb985e772fd8e3d9169b050e001653e65fad72c3c4bfa443ca592e33"
+    },
+    {
+      "bytes": 517257,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/eli-turn4-full-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/eli-turn4-full-contact.png",
+      "sha256": "59488834c205bc8908071dafb1a959d980125bd354c0f0b448bf09c26a00162d"
+    },
+    {
+      "bytes": 1381361,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/final-contact-sheet-2fps.png",
+      "reason": "compact visual review evidence",
+      "relative_path": "qa/final-contact-sheet-2fps.png",
+      "sha256": "dc4011668e272e15ff71d0c59b885715dab16eb4939ed99579489fe088ff43da"
+    },
+    {
+      "bytes": 232624,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/mara-crop-preview-2.png",
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/mara-crop-preview-2.png",
+      "sha256": "95bb46beee0f60c2debd3255308cbe8778d7de9b5f44b71b26f01c5f0174ca3c"
+    },
+    {
+      "bytes": 123204,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/mara-crop-preview.png",
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/mara-crop-preview.png",
+      "sha256": "ff7abbf3b17e8af0f0e5eadbaa718a06ab436da036a2c298b8bbf9d0efe6be5c"
+    },
+    {
+      "bytes": 284134,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/mara-turn1-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/mara-turn1-contact.png",
+      "sha256": "93905f818eb7d783707438dbb8415d9d5e775dee0118333ea5d05d34470303ac"
+    },
+    {
+      "bytes": 285769,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/mara-turn1-retry-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/mara-turn1-retry-contact.png",
+      "sha256": "baf15cdafc439b9d06be726663e5b3c94ffc9a8c4a47e03616165f399f61cba3"
+    },
+    {
+      "bytes": 222297,
+      "category": "recomputable",
+      "path": "runs/cliffhanger-20260802T235825Z/qa/mara-turn3-contact.png",
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/mara-turn3-contact.png",
+      "sha256": "432020246d585c215ad3c6a544e8cf49b28f5f396a9f57ff31ab4c2a5b83879e"
+    },
+    {
+      "bytes": 491684,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/raw/131603b8-d748-4f05-b468-ed057d933bb9.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/131603b8-d748-4f05-b468-ed057d933bb9.mp4",
+      "sha256": "cd0f14df3aa8b223f11ce915928304740ebdf9484ee10b4a85eae19e4f5e535f"
+    },
+    {
+      "bytes": 590250,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/raw/61164085-6652-45ae-9600-756f16a53ea8.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/61164085-6652-45ae-9600-756f16a53ea8.mp4",
+      "sha256": "0678358f2ff2b9bd559acc6e014c3bbedfb00318b52edb302b10e7480320c318"
+    },
+    {
+      "bytes": 404841,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/raw/7dc36518-6639-4c65-908f-77d7ddcf1c12.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/7dc36518-6639-4c65-908f-77d7ddcf1c12.mp4",
+      "sha256": "318750edcf0efea2924961247cf138b1ac6974f663cf1e0b61a8142702d2ce70"
+    },
+    {
+      "bytes": 975744,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/raw/bb40fd9d-615e-4d18-9c28-aa26f54d612e.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/bb40fd9d-615e-4d18-9c28-aa26f54d612e.mp4",
+      "sha256": "9e9b1fbf0e8aa80d0c33e04cdda8fbf8b6d943a7d26bb1803f299d96025f6bc7"
+    },
+    {
+      "bytes": 615186,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/raw/bd5e3dda-067f-4f46-9575-ca7d0332ed0f.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "raw/bd5e3dda-067f-4f46-9575-ca7d0332ed0f.mp4",
+      "sha256": "df572618052e67c0708b106f177f8735cb924196f3e01026e62e62e6874c88b2"
+    },
+    {
+      "bytes": 1326,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/retention-before-live.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "retention-before-live.json",
+      "sha256": "0150d12032c19c3f6f25e42c4858b782d093339232d486d001ec2a7a5bfeb556"
+    },
+    {
+      "bytes": 14491,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/retention-final-dry-run.json",
+      "reason": "unclassified; retained fail-closed",
+      "relative_path": "retention-final-dry-run.json",
+      "sha256": "a7ce7357bdf3d50a76819172ee29cd4e6f85d4fadaef38dbb2e101619ed60ee6"
+    },
+    {
+      "bytes": 8236,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "scene.json",
+      "sha256": "8f1881f2b64e02dd789c4f4f7956baa4e74c4b4e900b116b1c041cd1b8581228"
+    },
+    {
+      "bytes": 570884,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/sources/c01-master.mp4",
+      "reason": "source or accepted media required for playback and re-editing",
+      "relative_path": "sources/c01-master.mp4",
+      "sha256": "681d587138cec4d44d19e443c2aa50877095db8240feab6ac251a787182c5396"
+    },
+    {
+      "bytes": 13247,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/sources/eli-reference-compact.jpg",
+      "reason": "selected compact actor reference",
+      "relative_path": "sources/eli-reference-compact.jpg",
+      "sha256": "a955f4d64f0e956b854af9a443ca3f4dce097142715cb6b74f9e6f52d47bee61"
+    },
+    {
+      "bytes": 13160,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/sources/mara-reference-compact.jpg",
+      "reason": "selected compact actor reference",
+      "relative_path": "sources/mara-reference-compact.jpg",
+      "sha256": "2da7009300bcc9b4dd2301e301830202f9838aef1b8032fa477e33af7e0b6856"
+    },
+    {
+      "bytes": 2835,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/storyboard-audit-final.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "storyboard-audit-final.json",
+      "sha256": "78987669466dcf371c76b0be8b3c5335a08b2e3fec88e68ee3daa9e2e5b85c7d"
+    },
+    {
+      "bytes": 2835,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/storyboard-audit.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "storyboard-audit.json",
+      "sha256": "c1c87173655a6ebd6772ecd4ea7a071c2332cee8878ccf67155c52a7a0216e4e"
+    }
+  ],
+  "policy": "retain source/final media plus compact audit evidence; prune only deterministic derivatives",
+  "run": "runs/cliffhanger-20260802T235825Z",
+  "schema_version": "1.0",
+  "summary": {
+    "file_count": 47,
+    "recomputable_bytes": 8203178,
+    "recomputable_count": 19,
+    "retain_bytes": 9681576,
+    "retain_count": 28
+  }
+}

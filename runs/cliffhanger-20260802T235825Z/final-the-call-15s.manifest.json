@@ -1,0 +1,44 @@
+{
+  "actual_seconds": 15.0,
+  "audio_normalization": {
+    "filter": "EBU R128 loudnorm",
+    "integrated_lufs_target": -16,
+    "loudness_range_lu": 11,
+    "true_peak_dbtp_max": -1.5
+  },
+  "clips": [
+    {
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c02-mara.mp4",
+      "sha256": "63a29ade5b9e7ecd7eb027c1169f8bdf878d711499eff1f3318dd192a9cac8d0"
+    },
+    {
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c03-eli.mp4",
+      "sha256": "3995c53f67a4cda6dd97214e9fe84d3b29e59ba3a281734d5c489f45187f55ed"
+    },
+    {
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c04-mara.mp4",
+      "sha256": "bb16d170d13e0579c2242c0ccd17a288b04fcd8f42c7131a9029ea4d05b3af09"
+    },
+    {
+      "path": "runs/cliffhanger-20260802T235825Z/edit/c05-eli.mp4",
+      "sha256": "7fc05e310f04b269194840033c6e0712ff41500745b6e7e2336ce4ea28016702"
+    }
+  ],
+  "dialogue_turns": 4,
+  "held_final_frame_seconds": 0.7315000000000005,
+  "master": {
+    "path": "runs/cliffhanger-20260802T235825Z/sources/c01-master.mp4",
+    "sha256": "681d587138cec4d44d19e443c2aa50877095db8240feab6ac251a787182c5396"
+  },
+  "master_present": true,
+  "master_seconds": 2.2,
+  "output": {
+    "bytes": 2428050,
+    "path": "runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4",
+    "sha256": "2d255b94f2f89dbfbe5a15b73954ffb62266a8b6d2fdaaedc31bbe7549a8a198"
+  },
+  "schema_version": "1.0",
+  "source_seconds": 14.2685,
+  "target_seconds": 15.0,
+  "visible_lip_sync": true
+}

@@ -1,0 +1,73 @@
+{
+  "audit_type": "storyboard_spatial",
+  "blocking_findings": 0,
+  "findings": [],
+  "gate": "pass",
+  "prompt_sha256s": {
+    "c01": "d69fe109ebede2bbb35298bd59a8e82c5e5401b9820714f12256333d8250d480",
+    "c02": "e9beb83416e94157e1cd94122ab91596e6b7ec5759f9efe76fc719eb9e28d609",
+    "c03": "cf992cd6b230bdd639f85f7d65e01ff78e7936a83ab600ef3d8cfbe48e9e1969",
+    "c04": "63948e895bb85312bdbd317e1752b3a6ba535e7b4f463f1b7ad24f9444728319",
+    "c05": "183746af942fb3c1ec0cd015de4aab56eb052eab10d3eecbca4ed00f15a63140"
+  },
+  "required_draft_criteria": [
+    {
+      "description": "The platform edge, tracks, safe standing area, and background could physically coexist.",
+      "id": "platform_geometry",
+      "label": "Platform geometry"
+    },
+    {
+      "description": "Characters remain on the platform safe side with clear edge and track relationships.",
+      "id": "safe_character_placement",
+      "label": "Safe character placement"
+    },
+    {
+      "description": "Benches, lamps, bags, and architecture have plausible support, mounting, and contact.",
+      "id": "object_support",
+      "label": "Object support"
+    },
+    {
+      "description": "Hands, feet, limbs, body contact, and object contact are anatomically plausible.",
+      "id": "anatomy_contact",
+      "label": "Anatomy and contact"
+    },
+    {
+      "description": "Buttons, closures, pockets, sleeves, scarves, straps, and accessories remain coherent.",
+      "id": "wardrobe_construction",
+      "label": "Wardrobe construction"
+    },
+    {
+      "description": "People and objects retain plausible relative scale and perspective.",
+      "id": "character_scale",
+      "label": "Character scale"
+    },
+    {
+      "description": "Entrances, exits, screen direction, spacing, shot size, and camera movement match the plan.",
+      "id": "blocking_and_framing",
+      "label": "Blocking and framing"
+    },
+    {
+      "description": "Every visible actor looks toward the planned scene partner or story object and never into the camera.",
+      "id": "gaze_and_eyeline",
+      "label": "Gaze and eyeline"
+    },
+    {
+      "description": "Faces, wardrobe, layout, lighting, axis, and object anchors remain stable.",
+      "id": "continuity",
+      "label": "Continuity"
+    },
+    {
+      "description": "No malformed or unnecessary words, letters, numbers, captions, signs, or watermarks appear.",
+      "id": "unwanted_text",
+      "label": "Unwanted text"
+    },
+    {
+      "description": "Meaning comes from light, weather, colour, distance, and architecture; icons are sparse and text-free.",
+      "id": "symbolic_environment",
+      "label": "Symbolic environment"
+    }
+  ],
+  "scene_id": "last-train-platform-cliffhanger",
+  "scene_sha256": "46177128ea56b1eafe2706cec87f7c78f06a6aa9ce25cb57d517482b2f951ca2",
+  "schema_version": "1.0"
+}

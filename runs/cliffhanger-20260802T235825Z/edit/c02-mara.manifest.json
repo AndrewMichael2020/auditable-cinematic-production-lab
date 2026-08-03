@@ -1,0 +1,26 @@
+{
+  "crop": {
+    "height": 338,
+    "width": 600,
+    "x": 360,
+    "y": 220
+  },
+  "output": {
+    "bytes": 395817,
+    "duration_seconds": 2.9375,
+    "path": "runs/cliffhanger-20260802T235825Z/edit/c02-mara.mp4",
+    "sha256": "63a29ade5b9e7ecd7eb027c1169f8bdf878d711499eff1f3318dd192a9cac8d0"
+  },
+  "pacing_rate": 1.16,
+  "schema_version": "1.0",
+  "source": {
+    "duration_seconds": 3.76,
+    "path": "runs/cliffhanger-20260802T235825Z/raw/131603b8-d748-4f05-b468-ed057d933bb9.mp4",
+    "sha256": "cd0f14df3aa8b223f11ce915928304740ebdf9484ee10b4a85eae19e4f5e535f"
+  },
+  "sync_preserved": true,
+  "trim": {
+    "end_seconds": 3.55,
+    "start_seconds": 0.2
+  }
+}

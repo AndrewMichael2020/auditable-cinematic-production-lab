@@ -143,6 +143,7 @@ Signed query parameters from provider output URLs are deliberately excluded from
 ## Repository map
 
 - [docs/PLAN.md](docs/PLAN.md): staged architecture and proof plan.
+- [docs/LESSONS-AND-NEXT-STEPS.md](docs/LESSONS-AND-NEXT-STEPS.md): live-run lessons, reusable guardrails, and Pareto next steps.
 - [docs/SECRETS.md](docs/SECRETS.md): exact authentication and spending-control contract.
 - [.env.example](.env.example): local variable names without values.
 - [project.json](project.json): machine-readable models, budgets, and stop conditions.

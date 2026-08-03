@@ -1,0 +1,144 @@
+{
+  "candidate_count": 19,
+  "candidates": [
+    {
+      "bytes": 748153,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-all-frames.png",
+      "sha256": "6b613f55fe0ad3799c2393d9323ac9b779ab2c7b5ecf2d1f2efd0e5cce011b81"
+    },
+    {
+      "bytes": 342851,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-mara-all-frames.png",
+      "sha256": "b60f3e65dbc216caf65098a55285b3569429840d8670d383ce08710d2a5fa5bd"
+    },
+    {
+      "bytes": 406958,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-mara-every-other-frame.png",
+      "sha256": "cdc882d716ceb9aa8498f18570b0171146a764d74a788d341d588f6024281ee6"
+    },
+    {
+      "bytes": 375538,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c03-eli-all-frames.png",
+      "sha256": "c67cc3ed2972c212dd3aa8605ae12b9bd4a2bf1b029b5f1242fa592460c7ef08"
+    },
+    {
+      "bytes": 429419,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c03-eli-every-other-frame.png",
+      "sha256": "bfb5f9d4d846ba13cc7a8f11df074e208fd682758381930ec27944976ecda05d"
+    },
+    {
+      "bytes": 306709,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c04-mara-all-frames.png",
+      "sha256": "4dd38e3a1ea2269b434643cd25f3731edafbb2f9aa04811729b5229dc1ffbbb9"
+    },
+    {
+      "bytes": 348645,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c04-mara-every-other-frame.png",
+      "sha256": "808422b238c8494b4a59525ae4b60edf2d623c7882f5c58d063e0cbf1d6a330b"
+    },
+    {
+      "bytes": 974485,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c05-eli-all-frames.png",
+      "sha256": "79865de8ed1fc74adc3cdd9ae5889e9f9afc45b83dccf154a5c7bb4eaf3153fc"
+    },
+    {
+      "bytes": 1114082,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c05-eli-every-other-frame.png",
+      "sha256": "a54b67bd208b43c88dd75778d9a3f56c7649ef339541668574b56f2485171e09"
+    },
+    {
+      "bytes": 292584,
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/eli-crop-preview-2.png",
+      "sha256": "ae1acf158013f69049b126d72173ff3a6954f657193a83cf68ad4a44481139ec"
+    },
+    {
+      "bytes": 469818,
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/eli-crop-preview.png",
+      "sha256": "20e3be4baff88de7f2b552d246f1bebf557cdf9c0bb4e2e13501c2889accdb5b"
+    },
+    {
+      "bytes": 309615,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/eli-turn2-contact.png",
+      "sha256": "3879d34ba915682d3504f7cd2e4590ca701a2417a35369bd33c3e81f39de2a26"
+    },
+    {
+      "bytes": 419036,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/eli-turn4-contact.png",
+      "sha256": "5175e6d4fb985e772fd8e3d9169b050e001653e65fad72c3c4bfa443ca592e33"
+    },
+    {
+      "bytes": 517257,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/eli-turn4-full-contact.png",
+      "sha256": "59488834c205bc8908071dafb1a959d980125bd354c0f0b448bf09c26a00162d"
+    },
+    {
+      "bytes": 232624,
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/mara-crop-preview-2.png",
+      "sha256": "95bb46beee0f60c2debd3255308cbe8778d7de9b5f44b71b26f01c5f0174ca3c"
+    },
+    {
+      "bytes": 123204,
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/mara-crop-preview.png",
+      "sha256": "ff7abbf3b17e8af0f0e5eadbaa718a06ab436da036a2c298b8bbf9d0efe6be5c"
+    },
+    {
+      "bytes": 284134,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/mara-turn1-contact.png",
+      "sha256": "93905f818eb7d783707438dbb8415d9d5e775dee0118333ea5d05d34470303ac"
+    },
+    {
+      "bytes": 285769,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/mara-turn1-retry-contact.png",
+      "sha256": "baf15cdafc439b9d06be726663e5b3c94ffc9a8c4a47e03616165f399f61cba3"
+    },
+    {
+      "bytes": 222297,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/mara-turn3-contact.png",
+      "sha256": "432020246d585c215ad3c6a544e8cf49b28f5f396a9f57ff31ab4c2a5b83879e"
+    }
+  ],
+  "mode": "applied",
+  "reclaimable_bytes": 8203178,
+  "removed": [
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c01-master-all-frames.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c02-mara-all-frames.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c02-mara-every-other-frame.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c03-eli-all-frames.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c03-eli-every-other-frame.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c04-mara-all-frames.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c04-mara-every-other-frame.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c05-eli-all-frames.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/c05-eli-every-other-frame.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/eli-crop-preview-2.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/eli-crop-preview.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/eli-turn2-contact.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/eli-turn4-contact.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/eli-turn4-full-contact.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/mara-crop-preview-2.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/mara-crop-preview.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/mara-turn1-contact.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/mara-turn1-retry-contact.png",
+    "/workspaces/video-gen-test/runs/cliffhanger-20260802T235825Z/qa/mara-turn3-contact.png"
+  ],
+  "run": "runs/cliffhanger-20260802T235825Z",
+  "schema_version": "1.0"
+}

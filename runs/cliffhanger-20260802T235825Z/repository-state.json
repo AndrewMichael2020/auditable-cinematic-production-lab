@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "head_commit": "4b17b10",
+  "head_subject": "first scene donw",
+  "observed_branch": "main",
+  "observed_origin_main": "4b17b10",
+  "relevant_uncommitted_paths": [
+    "README.md",
+    "docs/LESSONS-AND-NEXT-STEPS.md"
+  ],
+  "preserved_unrelated_path": "docs/ideas_for_scenario_testing/Screenshot for scenario 2 - clinic reception.png",
+  "github_actions_initiated_by_this_run": false,
+  "note": "This records the source baseline before artifact publication. The source snapshot in audit-bundle.tar.gz captures the verified implementation and the run lessons document."
+}
