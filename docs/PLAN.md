@@ -18,8 +18,8 @@ The first deliverable is a reproducible one-location scene and its evidence trai
 | DeepInfra application cap | US$6.50, US$9.75, or US$13.00 |
 | Location | One |
 | Characters | Two adults |
-| Finished duration | 15–30 seconds |
-| Planned shots | Four 5-second shots initially |
+| Finished duration | 12–30 seconds; live continuation target 12–15 seconds |
+| Planned shots | Four to six shots with at least one wide master |
 | Provider | DeepInfra only |
 | Runtime models | OSS models in the approved registry only |
 | Concurrency | One paid request at a time |
@@ -114,7 +114,7 @@ Cost: negligible DeepInfra text inference, or zero incremental cost when authore
 
 Create:
 
-- a 15–30 second script with one emotional turn;
+- a 12–30 second script with one emotional turn;
 - two character cards;
 - one location card with layout, light, time, and camera-axis rules;
 - four shot records;
@@ -122,6 +122,9 @@ Create:
 - per-shot and assembled-scene acceptance criteria.
 - an early spatial audit covering platform geometry, safe blocking, object support, anatomy/contact,
   wardrobe construction, scale, continuity, unwanted text, and sparse environmental metaphors.
+- an explicit gaze map for every character in every shot, with a named interlocutor target, stable
+  screen direction, and direct camera gaze forbidden.
+- one wide master that proves geography before close coverage.
 
 Exit gate:
 
@@ -185,8 +188,13 @@ Exit gate: all budget and fail-closed tests pass.
 5. Human-approve only selected prompts for Wan 2.2.
 6. Generate bounded final candidates.
 7. Generate dialogue audio.
-8. Assemble and review the 15–30 second scene.
+8. Assemble and review the 12–30 second scene.
 9. Export the complete manifest and cost report.
+
+For local development, persist raw paid outputs and the append-only ledger, then retain only the
+minimal useful evidence set: final/source media, compact references, manifests, final contact sheet,
+QA decisions, hashes, model metadata, and cost provenance. Intermediate previews and sampled-frame
+sheets are deterministic and may be pruned after the final audit report exists.
 
 The CAD 15 and CAD 20 profiles are used only if the CAD 10 evidence justifies a new run.
 
@@ -215,7 +223,7 @@ A model is never the sole acceptance authority.
 
 The proof succeeds if it produces:
 
-- one coherent 15–30 second scene in one location;
+- one coherent 12–30 second scene in one location;
 - a measurable continuity result rather than an unsupported claim;
 - a complete prompt, seed, model, cost, and hash trail;
 - a reproducible cost per accepted second;

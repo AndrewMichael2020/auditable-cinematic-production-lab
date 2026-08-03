@@ -56,7 +56,7 @@
       "age": 34,
       "description": "South Asian woman, oval face, shoulder-length black curls",
       "wardrobe": "mustard raincoat, charcoal trousers, brown satchel",
-      "reference_asset": "runs/full-proof-20260802T230059Z/portraits/mara-compact.jpg",
+      "reference_asset": "runs/cliffhanger-20260802T235825Z/sources/mara-reference-compact.jpg",
       "wardrobe_visual": [
         {"item": "raincoat", "color": "mustard", "construction": "single straight row of evenly spaced dark buttons, two stable sleeves and pockets"},
         {"item": "satchel", "color": "brown", "construction": "one continuous strap resting naturally on her shoulder without merging into the coat"}
@@ -67,7 +67,7 @@
       "age": 37,
       "description": "light-skinned man, angular face, short dark hair",
       "wardrobe": "navy wool coat, pale grey scarf, dark jeans",
-      "reference_asset": "runs/full-proof-20260802T230059Z/portraits/eli-compact.jpg",
+      "reference_asset": "runs/cliffhanger-20260802T235825Z/sources/eli-reference-compact.jpg",
       "wardrobe_visual": [
         {"item": "wool coat", "color": "navy", "construction": "single-breasted front with aligned dark buttons, two stable sleeves and pockets"},
         {"item": "scarf", "color": "pale grey", "construction": "one continuous scarf draped naturally around his neck"}

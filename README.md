@@ -4,16 +4,17 @@ A budget-controlled, programmatic experiment toward an AI drama production engin
 
 ## Current goal
 
-Produce one reproducible **15–30 second scene** before building a full engine:
+Produce one reproducible **12–30 second scene** before building a full engine:
 
 - one location;
 - two adult characters;
-- four 5-second shots;
+- four to six necessary shots, including a wide master;
 - consistent character descriptions, wardrobe, location, and screen direction;
 - credible action, dialogue rhythm, and editing;
 - complete cost and provenance records.
 
-The repository contains the Stage 1 golden scene and a live-tested Stage 2 orchestrator. It still
+The repository contains the Stage 1 golden scene, a 15-second dialogue continuation, and a
+live-tested Stage 2 orchestrator. It still
 defaults to dry-run mode. A bounded CAD 10 smoke campaign has validated Data URL media persistence,
 cost reconciliation, technical inspection, and human candidate selection against DeepInfra.
 
@@ -80,7 +81,7 @@ ChatGPT/Codex and GitHub Copilot subscriptions may be used to develop and review
 5. Human-select prompts worth promoting.
 6. Generate bounded Wan 2.2 final candidates.
 7. Generate dialogue audio with Chatterbox.
-8. Assemble with FFmpeg and produce a manifest containing every model, prompt, seed, cost, output hash, and decision.
+8. Assemble 12–30 seconds with FFmpeg and produce a manifest containing every model, prompt, seed, cost, output hash, and decision.
 9. Stop automatically when the budget, candidate, or retry limit is reached.
 
 Human approval remains required before promoting drafts to the more expensive final model and before final acceptance. The execution itself is programmatic.
@@ -110,14 +111,27 @@ Generated ledgers and media live under ignored `runs/` and `outputs/` directorie
 human-approve the four compiled prompts from `scenes/golden-scene.json` before any live draft run.
 
 The spatial gate runs before generation and checks platform/track geometry, safe blocking, object
-support, wardrobe construction, scale, continuity anchors, unwanted text, and sparse environmental
-symbolism. `audit-draft` then combines explicit contact-sheet observations with FFprobe facts. A
-failed or uncertain criterion blocks promotion.
+support, wardrobe construction, scale, continuity anchors, unwanted text, sparse environmental
+symbolism, a required wide master, and explicit interlocutor eyelines. Every planned gaze has a
+screen direction and a fail-closed `camera_look_forbidden` flag. `audit-draft` then combines explicit
+contact-sheet observations with FFprobe facts. A failed or uncertain criterion blocks promotion.
 
 The optional partner lip-sync path requires `--allow-partner-avatar`, `--live`, and
-`--confirm-live` for each sequential speaker request. `assemble-dialogue` joins exactly two
-already-synchronized speaker clips, normalizes dialogue to an EBU R128 target, pads only the final
-dramatic beat, and emits an output hash manifest. It never activates automatically.
+`--confirm-live` for each sequential speaker request. `plan-avatar` also requires a screen-left or
+screen-right gaze. `prepare-dialogue` applies bounded trims, a single picture-and-audio rate change,
+and a crop without breaking synchronization. `assemble-scene` joins a 2–5 second wide master and
+three to five already-synchronized turns, normalizes dialogue to an EBU R128 target, pads only the
+final dramatic beat, and emits an output hash manifest. It never activates automatically.
+
+The bounded 15-second continuation in `scenes/platform-cliffhanger.json` used four dialogue turns
+and one rejected gaze-calibration take. Its five sequential partner attempts cost US$0.55 actual
+against US$1.00 reserved. The final output is 1280×720 with stereo audio; ElevenLabs was not needed.
+The ignored run folder retains raw source takes, edit masters, compact actor references, a cost
+ledger, manifests, per-shot defect evidence, final QA, and the final contact sheet.
+
+Use `audit-artifacts` before cleanup. `prune-artifacts` is a dry run unless `--apply` is supplied and
+only removes previews, sampled-frame sheets, and other deterministic derivatives. It retains raw and
+final media, ledgers, manifests, reports, hashes, and compact references fail-closed.
 
 The repository workflows are manual-dispatch only; development pushes and pull requests do not
 start generation. If a human later chooses to run **live DeepInfra smoke test** and enters `LIVE`,
@@ -133,6 +147,7 @@ Signed query parameters from provider output URLs are deliberately excluded from
 - [.env.example](.env.example): local variable names without values.
 - [project.json](project.json): machine-readable models, budgets, and stop conditions.
 - [scenes/golden-scene.json](scenes/golden-scene.json): one-location, two-character, four-shot proof.
+- [scenes/platform-cliffhanger.json](scenes/platform-cliffhanger.json): 15-second master-plus-dialogue continuation.
 - [`src/video_gen`](src/video_gen): CLI, policy, ledger, provider, production, and media modules.
 - [`tests`](tests): fail-closed budget, provider, scene, and orchestration tests.
 - [LICENSE](LICENSE): repository licence.
