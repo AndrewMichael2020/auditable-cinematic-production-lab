@@ -60,6 +60,10 @@ prevents a generated file, camera plan and final screen interval from all being 
 | **Episode character state** | The inherited state entering an episode plus explicit episode-local changes. | Records what changes during the episode and what is carried forward. |
 | **Performance directive** | Beat-, scene-, setup- or take-specific instruction for emotion, intention, energy, gaze, pace or action. | Directs a performance without changing canonical identity, voice, accent or backstory. |
 | **Casting realization** | The approved face/body/voice realization selected to portray the persona. | Must remain tied to the persona version and reference pack; a recast or voice change is explicit, reviewed and effective-dated. |
+| **Voice persona** | The canonical perceptual and performance specification for a character's speech: perceived age range, gender presentation, timbre, register, accent/language history, diction, pace, energy and durable vocal manner. | Belongs to the canonical persona. It is not a provider voice alias, prompt string or one-off TTS setting. |
+| **Voice realization** | One immutable provider/model/voice-version and synthesis configuration selected to realize a voice persona. | Has a stable `voice_realization_id`, approved audition hash and effective persona version. Every line resolves to it; an ad-hoc request override is a hard failure. |
+| **Voice audition** | A short rendered sample used to judge whether a proposed voice realization matches the voice persona. | Retain the audio, script, model/voice/settings, SHA-256, reviewer and decision before generating visible speech. A provider label is not an audition. |
+| **Audiovisual sync evidence** | Time-aligned evidence that visible mouth/jaw motion matches the delivered dialogue audio. | Requires normal-speed human review with sound and timecoded utterance checks; objective offset/confidence supports but does not replace that review. Audio integrity, ASR and sparse stills are not sync evidence. |
 
 Persona control follows this inheritance rule:
 
@@ -69,6 +73,12 @@ Lower levels may add context and performance state. They may not silently change
 A character's appearance, cultural background, language history, accent, base voice and durable
 manner belong to the series persona; wardrobe for a particular day, current emotion, injury,
 knowledge and immediate objective belong to episode/sequence/scene state as appropriate.
+
+The required voice lineage is:
+
+`character_id → persona_version → voice persona → voice_realization_id → audition SHA-256 → dialogue line/performance master → synchronized take`
+
+If any link is absent or conflicting, the dialogue request is not production-ready.
 
 ## Coverage and sound terms
 

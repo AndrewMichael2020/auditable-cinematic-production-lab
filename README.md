@@ -20,6 +20,27 @@ orientation checks, face/mouth and action gates, perceptible ambience, outer fad
 human acceptance. The clinic v3 package is the first accepted Stage 2 delivery candidate; a second
 contrasting sequence is still required to exit the stage.
 
+## Current pause and latest-run decision
+
+New generation is paused while production moves to an M5 Pro machine with 64 GB of memory. The
+latest ad-hoc expansion, `runs/clinic-full-sequence-20260803T184456Z/`, is **rejected**, not a second
+accepted Stage 2 sequence. Normal-speed review found perceptible lip asynchrony and a female-sounding
+voice on the male patient.
+
+The failure was architectural. That run created fresh visual personas outside the series-owned
+Stage 2 persona manifest. Its `personas.json` describes faces, wardrobe and acting but contains no
+voice persona, approved audition, immutable character-to-voice binding or voice-reference hash.
+TTS voice names were assigned only inside request provenance, and the run called Kokoro directly
+instead of inheriting the configured series casting realization. The previous QA then mistook intact
+audio transport and five-fps mouth samples for proof of lip sync. They are not proof: five fps has
+200 ms spacing, while the project targets an absolute offset within 80 ms.
+
+Before any new paid or local motion generation, every speaking character must have a versioned voice
+persona and approved audition reference, every line must resolve to that exact voice realization,
+and every visible utterance must pass normal-speed human review with sound. ASR proves words only;
+audio hashes/PSNR prove transport only; neither proves voice identity or audiovisual synchronization.
+See [the latest-run postmortem](docs/CLINIC-FULL-SEQUENCE-POSTMORTEM.md).
+
 ## Programmatic model stack
 
 The default proof uses one DeepInfra API token and OSS models. A separately gated,
@@ -85,9 +106,15 @@ explicitly registered DeepInfra partner model; no direct Google API credential i
 4. Run FFmpeg checks and Qwen-VL contact-sheet review.
 5. Human-select prompts worth promoting.
 6. Generate bounded Wan 2.2 final candidates.
-7. Generate dialogue audio with Chatterbox.
-8. Assemble 12–30 seconds with FFmpeg and produce a manifest containing every model, prompt, seed, cost, output hash, and decision.
-9. Stop automatically when the budget, candidate, or retry limit is reached.
+7. Resolve each speaker to the series persona's immutable voice realization and verify an approved,
+   hashed dry audition before generating dialogue.
+8. Generate one sequence-wide performance master per persona where practical; never select a voice
+   ad hoc inside a request script.
+9. Run visible dialogue through normal-speed audiovisual review and an objective offset check when
+   available. A voice mismatch or perceptible lead/lag blocks assembly.
+10. Assemble 12–30 seconds with FFmpeg and produce a manifest containing every model, prompt, seed,
+    cost, output hash, voice binding, audition decision, sync evidence and admission decision.
+11. Stop automatically when the budget, candidate, retry, voice-persona or sync gate fails.
 
 Human approval remains required before promoting drafts to the more expensive final model and before final acceptance. The execution itself is programmatic.
 
@@ -124,6 +151,12 @@ stitch integrity all have explicit human evidence.
 Generated ledgers and media normally live under ignored `runs/` and `outputs/` directories. Selected
 auditable live runs may be force-added on a dedicated branch. Inspect and
 human-approve the four compiled prompts from `scenes/golden-scene.json` before any live draft run.
+
+When moving to another machine, transfer ignored run folders separately from Git and verify their
+final/source hashes after copying. Do not commit `.env`, provider tokens or signed media URLs. On the
+M5 Pro, first install Python 3.11+, FFmpeg and the editable package, run `pytest -q`, validate the
+series/sequence manifests, and perform only offline voice auditions until the user approves both
+canonical voices. Passing hardware or dependency checks does not authorize generation.
 
 The spatial gate runs before generation and checks platform/track geometry, safe blocking, object
 support, wardrobe construction, scale, continuity anchors, unwanted text, sparse environmental
@@ -162,6 +195,7 @@ Signed query parameters from provider output URLs are deliberately excluded from
 - [docs/PLAN.md](docs/PLAN.md): staged architecture and proof plan.
 - [docs/PRODUCTION-VOCABULARY.md](docs/PRODUCTION-VOCABULARY.md): normative generation and editing terminology for Stage 2 records.
 - [docs/LESSONS-AND-NEXT-STEPS.md](docs/LESSONS-AND-NEXT-STEPS.md): live-run lessons, reusable guardrails, and Pareto next steps.
+- [docs/CLINIC-FULL-SEQUENCE-POSTMORTEM.md](docs/CLINIC-FULL-SEQUENCE-POSTMORTEM.md): rejection audit for the latest voice-persona and lip-sync failure, plus the M5 Pro restart gate.
 - [docs/SECRETS.md](docs/SECRETS.md): exact authentication and spending-control contract.
 - [.env.example](.env.example): local variable names without values.
 - [project.json](project.json): machine-readable models, budgets, and stop conditions.

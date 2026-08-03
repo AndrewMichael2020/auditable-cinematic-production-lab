@@ -11,6 +11,27 @@ Google Gemini/Flow billing, Vertex AI, OpenAI API, and ElevenLabs remain exclude
 
 The first deliverable is a reproducible one-location scene and its evidence trail, not a large application.
 
+## Execution pause and M5 Pro restart gate
+
+Generation is paused for migration to an M5 Pro machine with 64 GB of memory. The latest ad-hoc
+43-second clinic sequence is rejected because the male patient has a female-sounding voice and
+visible dialogue is perceptibly asynchronous. No new paid or local motion request is authorized by
+this plan until all of the following exist:
+
+1. every speaker resolves to one series-owned persona version and immutable voice realization;
+2. the voice realization records provider/model/voice version, language and performance direction;
+3. a short rendered audition is retained with SHA-256 and human approval for perceived age, timbre,
+   gender presentation, accent, diction, pace and dramatic fit;
+4. every dialogue line carries character ID, persona version, voice-realization ID and audition hash;
+5. visible utterances pass normal-speed review with sound, timecoded closure/plosive checks and an
+   objective offset/confidence result when a suitable local tool is available;
+6. a perceptual voice mismatch, persistent lead/lag, speech on a still mouth or mouth motion during
+   silence fails closed before assembly.
+
+The M5 Pro migration changes the compute environment, not these gates. Secrets remain outside Git;
+ignored run assets are copied separately and hash-verified; tests and dry preflight run before any
+model is loaded. Hardware readiness never implies generation approval.
+
 ## Constraints
 
 | Constraint                  | Rule                                                       |
@@ -350,6 +371,11 @@ invisible. If the handoff is skipped, ambiguous or begins after transfer, reject
 
 - Treat generation sync and edit sync as separate questions. Identical picture/audio trims and rate
   changes preserve source timing but do not prove that the generated mouth ever matched the voice.
+- Resolve the dialogue speaker through the series manifest before audio generation. The request must
+  carry character ID, persona version, voice-realization ID and approved audition hash. A CLI voice
+  alias or prompt-local voice string is not a persona and may not override the inherited binding.
+- Compare the rendered voice to the approved audition by human listening. ASR, waveform hashes,
+  PCM PSNR and provider metadata cannot establish perceived gender, age, timbre, accent or casting.
 - Review every spoken interval at normal speed with sound. Then inspect representative plosives and
   closed-mouth consonants frame by frame, including the start and end of each utterance. Reject a
   persistent audible lead/lag, mouth movement during silence or speech with a still/closed mouth.
@@ -403,6 +429,10 @@ accept the overall environmental resemblance. Technical continuity within the wr
 - Audition and human-approve the voice with a short dry sample before paid lip-sync. Record the
   selected voice, language/accent direction and reviewer decision in the run manifest. If the model
   cannot produce the intended accent convincingly, revise the casting/voice plan before generation.
+- Give the approved casting realization a stable `voice_realization_id`. Retain the audition audio,
+  SHA-256, provider/model/voice version, synthesis settings and human perceptual decision. Bind every
+  line and sequence-wide performance master to that ID. Reject missing, conflicting or ad-hoc voice
+  assignments before any paid motion request.
 - Evaluate representation across the run set, not with a rigid quota inside one scene. Casting must
   remain story-plausible and principals must be fully realized characters rather than tokens.
 
