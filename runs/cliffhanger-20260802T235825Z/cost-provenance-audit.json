@@ -1,0 +1,116 @@
+{
+  "events": [
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-02 23:59:42",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "bd5e3dda-067f-4f46-9575-ca7d0332ed0f",
+      "reserved_usd": "0.200",
+      "sequence": 1
+    },
+    {
+      "actual_usd": "0.125",
+      "created_at": "2026-08-03 00:00:01",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_right\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/cliffhanger-20260802T235825Z/raw/bd5e3dda-067f-4f46-9575-ca7d0332ed0f.mp4\", \"output_sha256\": \"df572618052e67c0708b106f177f8735cb924196f3e01026e62e62e6874c88b2\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/XXp3piBExz6HJV61upQOYyHcbK2GXTelLCX46HMaKFn9XsfWA/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"e98538ee973f99e1e516eb2a3dd156dadff28ea509c9e5b0c94d8ee078fd1ca2\", \"provider_request_id\": \"RJgArIdRwL5PRs6qXt5aNaL5\", \"request_sha256\": \"f75afb54cb095dccc61d27d10e652692ce2dfa47438bb02de1c85412aae35740\", \"script_sha256\": \"b796e0f4efcb203897e7b39059aca18ba7552a16c9bcf811894e7606c5aae00b\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "bd5e3dda-067f-4f46-9575-ca7d0332ed0f",
+      "reserved_usd": "0.200",
+      "sequence": 2
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 00:01:34",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "131603b8-d748-4f05-b468-ed057d933bb9",
+      "reserved_usd": "0.200",
+      "sequence": 3
+    },
+    {
+      "actual_usd": "0.1",
+      "created_at": "2026-08-03 00:01:52",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_right\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/cliffhanger-20260802T235825Z/raw/131603b8-d748-4f05-b468-ed057d933bb9.mp4\", \"output_sha256\": \"cd0f14df3aa8b223f11ce915928304740ebdf9484ee10b4a85eae19e4f5e535f\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/S604QZjvFao5CB0RCge5RR4h3NCrCVb5pzSwfy1NXt6rxYftA/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"e98538ee973f99e1e516eb2a3dd156dadff28ea509c9e5b0c94d8ee078fd1ca2\", \"provider_request_id\": \"RSXvvfcpjzaTS02IYagi2oMj\", \"request_sha256\": \"afe3fca0e58a90a9849ef0784a88fc38ea68db40218420a17dd8e2a257709f40\", \"script_sha256\": \"b796e0f4efcb203897e7b39059aca18ba7552a16c9bcf811894e7606c5aae00b\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "131603b8-d748-4f05-b468-ed057d933bb9",
+      "reserved_usd": "0.200",
+      "sequence": 4
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 00:02:30",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "61164085-6652-45ae-9600-756f16a53ea8",
+      "reserved_usd": "0.200",
+      "sequence": 5
+    },
+    {
+      "actual_usd": "0.1",
+      "created_at": "2026-08-03 00:02:47",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_left\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/cliffhanger-20260802T235825Z/raw/61164085-6652-45ae-9600-756f16a53ea8.mp4\", \"output_sha256\": \"0678358f2ff2b9bd559acc6e014c3bbedfb00318b52edb302b10e7480320c318\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/KNOKL23ebdyOLC8ZmMRwNSDsfdSrnLeU4XOpdC6eUT7HKj9bB/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"673c6b9e05c1f9b7dc43956110739b2d3a17f8d1b8d4c848179326edc5b0270d\", \"provider_request_id\": \"RwQ8fUgqdUui8gCFBYgASG6V\", \"request_sha256\": \"a3ea0223e48e264d70bd9ca2bb4451261ddd8f587f4592aa6e2cc41d557f8f5e\", \"script_sha256\": \"ea68911d9c71dcbffcdfefa6b7252a7756db6f0ebf07f5b7fd3d085a4f4e0ac7\", \"voice\": \"Puck (Male)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "61164085-6652-45ae-9600-756f16a53ea8",
+      "reserved_usd": "0.200",
+      "sequence": 6
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 00:03:17",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "7dc36518-6639-4c65-908f-77d7ddcf1c12",
+      "reserved_usd": "0.200",
+      "sequence": 7
+    },
+    {
+      "actual_usd": "0.07500000000000001",
+      "created_at": "2026-08-03 00:03:30",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_right\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/cliffhanger-20260802T235825Z/raw/7dc36518-6639-4c65-908f-77d7ddcf1c12.mp4\", \"output_sha256\": \"318750edcf0efea2924961247cf138b1ac6974f663cf1e0b61a8142702d2ce70\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/qeGF82BSPMUgPKUz5ztj1L174TMbz7IusdvGPQ10wOZoZsfWA/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"3a19c474328e2099a0a5d99c8a361066a39352cd808d75a7077ddf1090cbbef7\", \"provider_request_id\": \"Rt3OJGm2Nbvds6JcqZqFuGe0\", \"request_sha256\": \"0c8f569a5074c558a76c889e4c479f46ee6ede3306f1023cc6da242c930336f2\", \"script_sha256\": \"4962614a5905de5f66df174b09aaedb69f76ebc907fa9678262f135e8a0e0216\", \"voice\": \"Kore (Female)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "7dc36518-6639-4c65-908f-77d7ddcf1c12",
+      "reserved_usd": "0.200",
+      "sequence": 8
+    },
+    {
+      "actual_usd": null,
+      "created_at": "2026-08-03 00:04:06",
+      "event": "reserved",
+      "metadata": "{}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "bb40fd9d-615e-4d18-9c28-aa26f54d612e",
+      "reserved_usd": "0.200",
+      "sequence": 9
+    },
+    {
+      "actual_usd": "0.15000000000000002",
+      "created_at": "2026-08-03 00:05:17",
+      "event": "completed",
+      "metadata": "{\"gaze_direction\": \"screen_left\", \"licence_status\": \"not_reported_by_provider\", \"output_path\": \"runs/cliffhanger-20260802T235825Z/raw/bb40fd9d-615e-4d18-9c28-aa26f54d612e.mp4\", \"output_sha256\": \"9e9b1fbf0e8aa80d0c33e04cdda8fbf8b6d943a7d26bb1803f299d96025f6bc7\", \"output_url\": \"https://api.pruna.ai/v1/predictions/delivery/xezq/dcDUms0224pVKpg7e2OewwpnmiCAT6E037PO2qJN9BC60YftA/output.mp4\", \"partner_exception\": true, \"performance_sha256\": \"662cee5b5d02ca2e3b9ab8bce0728146d4c9de0296eab66107666daa2bd5ec9a\", \"provider_request_id\": \"ROMBztHcEL5plwnn5MUzLVpa\", \"request_sha256\": \"320b77f1ba65f2ca506393ebb25eb099da003ab03c74551c504e99d0ac17abc0\", \"script_sha256\": \"d3e041f5222a51d112fffdb29da4ae76c07378fecd094cbcd411d92a22a4f3c9\", \"voice\": \"Puck (Male)\"}",
+      "model": "PrunaAI/p-video-avatar",
+      "request_id": "bb40fd9d-615e-4d18-9c28-aa26f54d612e",
+      "reserved_usd": "0.200",
+      "sequence": 10
+    }
+  ],
+  "media": [
+    {
+      "bytes": 2428050,
+      "path": "runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4",
+      "sha256": "2d255b94f2f89dbfbe5a15b73954ffb62266a8b6d2fdaaedc31bbe7549a8a198"
+    }
+  ],
+  "schema_version": "1.0",
+  "totals": {
+    "actual_usd": "0.55000000000000003",
+    "reserved_usd": "1.000"
+  }
+}

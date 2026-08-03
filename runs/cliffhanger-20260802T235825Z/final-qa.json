@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "decision": "pass_with_disclosed_source_defects",
+  "final_media": {
+    "path": "runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4",
+    "sha256": "2d255b94f2f89dbfbe5a15b73954ffb62266a8b6d2fdaaedc31bbe7549a8a198",
+    "bytes": 2428050,
+    "duration_seconds": 15.0,
+    "video": "H.264, 1280x720, 16 fps",
+    "audio": "AAC, 48000 Hz, stereo",
+    "full_decode": "pass",
+    "black_frames": "none detected"
+  },
+  "edit": {
+    "wide_master_seconds": 2.2,
+    "dialogue_turns": 4,
+    "dialogue_rate": 1.16,
+    "rate_method": "picture and audio accelerated together; no internal dialogue cuts",
+    "held_final_reaction_seconds": 0.7315,
+    "visible_lip_sync": true,
+    "objective_sync_measurement": "not run; preservation is structural rather than a SyncNet score"
+  },
+  "audio_qa": {
+    "integrated_loudness_lufs": -16.6,
+    "loudness_range_lu": 5.0,
+    "true_peak_dbfs": -1.4,
+    "initial_silence_seconds": 2.36642,
+    "initial_silence_intent": "silent wide geography followed by Mara's first line",
+    "final_silence_seconds": 0.811042,
+    "final_silence_intent": "cliffhanger reaction hold"
+  },
+  "visual_spatial_qa": {
+    "review_method": "every encoded source-edit frame represented in per-shot sheets; final scene sampled at 2 fps",
+    "wide_geography": "pass: Mara screen-left, Eli enters screen-right, bench remains parallel to the tracks on the far platform, both remain in safe zones",
+    "camera_gaze": "pass in final: Mara maintains screen-right interlocutor eyeline; Eli maintains screen-left interlocutor eyeline; no direct lens address",
+    "identity_count": "pass in final: exactly the intended visible actor(s); no duplicate man survives the crop",
+    "text": "pass: no readable signs, captions, labels, or generated lettering",
+    "continuity": "pass: mustard coat, navy coat, pale scarf, blue wall, wet platform, and screen direction remain stable",
+    "movement_and_emotion": "pass: Eli enters in the master; guarded exchange shifts through suspicion and guilt to a held contradiction"
+  },
+  "disclosed_source_defects": [
+    {
+      "path": "raw/bd5e3dda-067f-4f46-9575-ca7d0332ed0f.mp4",
+      "decision": "rejected",
+      "reason": "Mara turns from profile toward the lens and breaks her Eli eyeline",
+      "final_usage": "none"
+    },
+    {
+      "path": "raw/61164085-6652-45ae-9600-756f16a53ea8.mp4",
+      "decision": "accepted_only_after_bounded_crop",
+      "reason": "the uncropped source hallucinates a second man at frame left; this is not Mara",
+      "mitigation": "crop 600:338:150:110 excludes the duplicate for every encoded edit frame",
+      "final_usage": "cropped c03-eli.mp4 only"
+    }
+  ],
+  "cost": {
+    "this_run_reserved_usd": "1.000",
+    "this_run_actual_usd": "0.55000000000000003",
+    "known_coding_day_actual_usd": "1.52503500000000004",
+    "approved_test_cap_usd": "3.00",
+    "approved_coding_day_cap_usd": "20.00",
+    "additional_paid_calls_after_successful_dialogue_generation": 0
+  },
+  "external_services": {
+    "deepinfra": "used for five sequential p-video-avatar attempts",
+    "elevenlabs": "not used",
+    "github_actions": "not used"
+  }
+}

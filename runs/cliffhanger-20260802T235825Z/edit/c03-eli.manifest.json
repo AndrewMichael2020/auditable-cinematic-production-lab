@@ -1,0 +1,26 @@
+{
+  "crop": {
+    "height": 338,
+    "width": 600,
+    "x": 150,
+    "y": 110
+  },
+  "output": {
+    "bytes": 423859,
+    "duration_seconds": 2.631,
+    "path": "runs/cliffhanger-20260802T235825Z/edit/c03-eli.mp4",
+    "sha256": "3995c53f67a4cda6dd97214e9fe84d3b29e59ba3a281734d5c489f45187f55ed"
+  },
+  "pacing_rate": 1.16,
+  "schema_version": "1.0",
+  "source": {
+    "duration_seconds": 3.44,
+    "path": "runs/cliffhanger-20260802T235825Z/raw/61164085-6652-45ae-9600-756f16a53ea8.mp4",
+    "sha256": "0678358f2ff2b9bd559acc6e014c3bbedfb00318b52edb302b10e7480320c318"
+  },
+  "sync_preserved": true,
+  "trim": {
+    "end_seconds": 3.2,
+    "start_seconds": 0.15
+  }
+}

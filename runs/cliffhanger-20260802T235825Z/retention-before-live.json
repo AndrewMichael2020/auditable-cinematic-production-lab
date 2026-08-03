@@ -1,0 +1,38 @@
+{
+  "files": [
+    {
+      "bytes": 12157,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/p-video-avatar-model-info.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "p-video-avatar-model-info.json",
+      "sha256": "bf2d08e628cafd7f20a60823927c1a777886eed8084336d799b70d8379d9bfa9"
+    },
+    {
+      "bytes": 8218,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/scene.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "scene.json",
+      "sha256": "bef09ff3751de803ab7f2cd570c73a58bea29780b7850bb3c793147c9c9f0d9f"
+    },
+    {
+      "bytes": 2835,
+      "category": "retain",
+      "path": "runs/cliffhanger-20260802T235825Z/storyboard-audit.json",
+      "reason": "compact reproducibility or audit evidence",
+      "relative_path": "storyboard-audit.json",
+      "sha256": "c1c87173655a6ebd6772ecd4ea7a071c2332cee8878ccf67155c52a7a0216e4e"
+    }
+  ],
+  "policy": "retain source/final media plus compact audit evidence; prune only deterministic derivatives",
+  "run": "runs/cliffhanger-20260802T235825Z",
+  "schema_version": "1.0",
+  "summary": {
+    "file_count": 3,
+    "recomputable_bytes": 0,
+    "recomputable_count": 0,
+    "retain_bytes": 23210,
+    "retain_count": 3
+  }
+}
