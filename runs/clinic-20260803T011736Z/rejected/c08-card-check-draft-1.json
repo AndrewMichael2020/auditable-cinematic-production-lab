@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "shot_id": "c08-card-check",
+  "source": "drafts/72daeee6-2f59-4bd4-aa7b-82a8a0f8254c.mp4",
+  "decision": "rejected_with_one_bounded_final_repair",
+  "reason": "Patient gender/wardrobe changed, public/staff separation disappeared, and the oversized card was displayed upright instead of transferred face-down.",
+  "cheap_retries_remaining": 0,
+  "final_candidate_repairs_authorized": 1
+}
