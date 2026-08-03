@@ -9,17 +9,23 @@ from decimal import Decimal
 from pathlib import Path
 
 from .auditor import (audit_continuity, audit_draft, audit_final_candidate, audit_scene,
+                      text_sha256,
                       verify_bounded_repair_authorization, verify_promotion_authorization,
                       verify_storyboard_authorization)
 from .config import ProjectConfig
 from .errors import VideoGenError
 from .ledger import Ledger
 from .media import (assemble_lipsynced_dialogue, assemble_master_dialogue_scene,
-                    assemble_timeline, assemble_with_audio, contact_sheet,
-                    generate_room_tone, prepare_dialogue_clip)
+                    assemble_stage2_timeline, assemble_timeline, assemble_with_audio,
+                    contact_sheet, generate_clinic_ambience, generate_room_tone,
+                    prepare_dialogue_clip, prepare_stage2_dialogue_clip,
+                    prepare_stage2_square_dialogue_clip)
 from .orchestrator import Orchestrator
 from .production import compile_prompt, load_production, load_scene
 from .retention import audit_run_artifacts, prune_recomputable_artifacts
+from .stage2 import (audit_stage2_sequence, compile_stage2_prompt,
+                     compile_stage2_take_prompt,
+                     load_stage2_sequence)
 
 
 def parser() -> argparse.ArgumentParser:
@@ -38,6 +44,17 @@ def parser() -> argparse.ArgumentParser:
     validate_production = commands.add_parser(
         "validate-production", help="validate an ordered, independently resumable production")
     validate_production.add_argument("production")
+    validate_stage2 = commands.add_parser(
+        "validate-stage2", help="validate and compile a typed Stage 2 sequence package")
+    validate_stage2.add_argument("sequence")
+    validate_stage2.add_argument("--output")
+    audit_stage2 = commands.add_parser(
+        "audit-stage2", help="audit Stage 2 lineage, native format, edit rhythm, sound, and human gates")
+    audit_stage2.add_argument("--sequence", required=True)
+    audit_stage2.add_argument("--timeline", required=True)
+    audit_stage2.add_argument("--final")
+    audit_stage2.add_argument("--observations")
+    audit_stage2.add_argument("--output")
     audit_storyboard = commands.add_parser("audit-scene", help="run the pre-generation spatial gate")
     audit_storyboard.add_argument("scene", nargs="?", default="scenes/golden-scene.json")
     audit_storyboard.add_argument("--output")
@@ -75,6 +92,24 @@ def parser() -> argparse.ArgumentParser:
     plan.add_argument("--repair-authorization")
     plan.add_argument("--result")
     plan.add_argument("--output-dir", default="outputs")
+    image_video = commands.add_parser(
+        "plan-image-video",
+        help="animate one approved storyboard plate through the bounded Stage 2 partner exception",
+    )
+    image_video.add_argument("--profile", default="cad_10")
+    image_video.add_argument("--image", required=True)
+    image_video.add_argument("--audio")
+    image_video.add_argument("--prompt-file", required=True)
+    image_video.add_argument("--seed", type=int, default=0)
+    image_video.add_argument("--seconds", type=int, default=5)
+    image_video.add_argument("--output-dir", default="outputs")
+    image_video.add_argument("--allow-partner-i2v", action="store_true")
+    image_video.add_argument("--live", action="store_true")
+    image_video.add_argument("--confirm-live", action="store_true")
+    image_video.add_argument("--scene-audit")
+    image_video.add_argument("--take-id")
+    image_video.add_argument("--repair-authorization")
+    image_video.add_argument("--result")
     speech = commands.add_parser("plan-speech", help="reserve or generate one bounded speech line")
     speech.add_argument("--profile", default="cad_10")
     speech.add_argument("--text", required=True)
@@ -88,6 +123,15 @@ def parser() -> argparse.ArgumentParser:
     avatar.add_argument("--script", required=True)
     avatar.add_argument("--voice", required=True)
     avatar.add_argument("--gaze-direction", choices=["screen_left", "screen_right"], required=True)
+    avatar.add_argument(
+        "--speaker-position", choices=["only_person", "frame_left", "frame_right"],
+        default="only_person",
+        help="identify the sole speaker when the reference contains two people",
+    )
+    avatar.add_argument(
+        "--response-anticipation", action="store_true",
+        help="hold polite partner eyeline after a question while awaiting the answer",
+    )
     avatar.add_argument("--performance", default="Restrained natural dramatic delivery, conversational pace.")
     avatar.add_argument("--seed", type=int, default=0)
     avatar.add_argument("--max-seconds", type=int, default=8)
@@ -130,15 +174,46 @@ def parser() -> argparse.ArgumentParser:
     prepare.add_argument("--rate", type=float, default=1.0)
     prepare.add_argument("--crop", required=True, help="width:height:x:y")
     prepare.add_argument("--manifest")
+    prepare_stage2 = commands.add_parser(
+        "prepare-stage2-dialogue", help="trim native 16:9 dialogue without crop or padding")
+    prepare_stage2.add_argument("--input", required=True)
+    prepare_stage2.add_argument("--output", required=True)
+    prepare_stage2.add_argument("--start", type=float, required=True)
+    prepare_stage2.add_argument("--end", type=float, required=True)
+    prepare_stage2.add_argument("--rate", type=float, default=1.0)
+    prepare_stage2.add_argument("--manifest")
+    prepare_stage2_square = commands.add_parser(
+        "prepare-stage2-square-dialogue",
+        help="convert one approved square avatar performance to a safe native-16:9 dialogue clip",
+    )
+    prepare_stage2_square.add_argument("--input", required=True)
+    prepare_stage2_square.add_argument("--reference-origin", required=True)
+    prepare_stage2_square.add_argument("--output", required=True)
+    prepare_stage2_square.add_argument("--start", type=float, required=True)
+    prepare_stage2_square.add_argument("--end", type=float, required=True)
+    prepare_stage2_square.add_argument("--rate", type=float, default=1.0)
+    prepare_stage2_square.add_argument("--crop", required=True, help="width:height:x:y")
+    prepare_stage2_square.add_argument("--manifest")
     room_tone = commands.add_parser("generate-room-tone", help="create deterministic non-verbal ambience")
     room_tone.add_argument("--output", required=True)
     room_tone.add_argument("--seconds", type=float, required=True)
     room_tone.add_argument("--transient", action="append", type=float, default=[])
+    clinic_ambience = commands.add_parser(
+        "generate-clinic-ambience", help="create an audible Stage 2 clinic ambience bed")
+    clinic_ambience.add_argument("--output", required=True)
+    clinic_ambience.add_argument("--seconds", type=float, required=True)
+    clinic_ambience.add_argument("--fade-seconds", type=float, default=0.5)
     timeline = commands.add_parser("assemble-timeline", help="assemble a reusable provenance timeline")
     timeline.add_argument("--timeline", required=True)
     timeline.add_argument("--output", required=True)
     timeline.add_argument("--ambience")
     timeline.add_argument("--manifest")
+    stage2_timeline = commands.add_parser(
+        "assemble-stage2", help="assemble a native-16:9 typed Stage 2 timeline")
+    stage2_timeline.add_argument("--timeline", required=True)
+    stage2_timeline.add_argument("--output", required=True)
+    stage2_timeline.add_argument("--ambience")
+    stage2_timeline.add_argument("--manifest")
     return result
 
 
@@ -163,6 +238,36 @@ def avatar_image_input(value: str | Path, *, live: bool = False) -> str:
     media_type = mimetypes.guess_type(source.name)[0]
     if media_type not in {"image/jpeg", "image/png", "image/webp"}:
         raise VideoGenError("avatar image must be JPEG, PNG, or WebP")
+    return f"data:{media_type};base64,{base64.b64encode(source.read_bytes()).decode()}"
+
+
+def image_video_input(value: str | Path, *, live: bool = False) -> str:
+    if str(value).startswith("https://"):
+        return str(value)
+    if live:
+        raise VideoGenError(
+            "live partner-I2V generation requires a public HTTPS image URL; "
+            "local/data images are rejected before reservation"
+        )
+    source = Path(value)
+    media_type = mimetypes.guess_type(source.name)[0]
+    if media_type not in {"image/jpeg", "image/png", "image/webp"}:
+        raise VideoGenError("I2V image must be JPEG, PNG, or WebP")
+    return f"data:{media_type};base64,{base64.b64encode(source.read_bytes()).decode()}"
+
+
+def image_video_audio_input(value: str | Path, *, live: bool = False) -> str:
+    if str(value).startswith("https://"):
+        return str(value)
+    if live:
+        raise VideoGenError(
+            "live partner-I2V generation requires a public HTTPS audio URL; "
+            "local/data audio is rejected before reservation"
+        )
+    source = Path(value)
+    media_type = mimetypes.guess_type(source.name)[0]
+    if media_type not in {"audio/wav", "audio/x-wav", "audio/mpeg", "audio/mp4", "audio/aac"}:
+        raise VideoGenError("I2V audio must be WAV, MP3, MP4 audio, or AAC")
     return f"data:{media_type};base64,{base64.b64encode(source.read_bytes()).decode()}"
 
 
@@ -195,6 +300,61 @@ def main(argv: list[str] | None = None) -> int:
                        "ordered_scene_ids": [item["id"] for item in production["scenes"]],
                        "independently_resumable": True})
             return 0
+        if args.command == "validate-stage2":
+            sequence = load_stage2_sequence(args.sequence)
+            prompts = {
+                shot["shot_id"]: compile_stage2_prompt(sequence, shot["shot_id"])
+                for scene in sequence["scenes"] for shot in scene["planned_shots"]
+            }
+            source_take_prompts = {
+                take["take_id"]: compile_stage2_take_prompt(sequence, take["take_id"])
+                for take in sequence["planned_source_takes"]
+            }
+            authorization_prompts = {**prompts, **source_take_prompts}
+            spatial_audit = {
+                "schema_version": "2.0",
+                "audit_type": "storyboard_spatial",
+                "audit_stage": "storyboard",
+                "hierarchy": sequence["hierarchy"],
+                "prompt_sha256s": {
+                    prompt_id: text_sha256(prompt)
+                    for prompt_id, prompt in authorization_prompts.items()
+                },
+                "blocking_findings": 0,
+                "gate": "pass",
+                "evidence": (
+                    "Stage 2 schema, hierarchy, series persona inheritance, reference anchors, "
+                    "typed setups, native 16:9 declarations, face-safe dialogue composition, "
+                    "essential action states, sound plan and edit policy validated."
+                ),
+            }
+            emit_json({
+                "ok": True,
+                "hierarchy": sequence["hierarchy"],
+                "canonical_persona_versions": {
+                    item["character_id"]: item["persona_version"]
+                    for item in sequence["_series"]["canonical_personas"]
+                },
+                "prompts": prompts,
+                "source_take_prompts": source_take_prompts,
+                "spatial_audit": spatial_audit,
+            }, args.output)
+            return 0
+        if args.command == "audit-stage2":
+            sequence = load_stage2_sequence(args.sequence)
+            timeline_packet = json.loads(Path(args.timeline).read_text(encoding="utf-8"))
+            observations = (json.loads(Path(args.observations).read_text(encoding="utf-8"))
+                            if args.observations else None)
+            report = audit_stage2_sequence(
+                sequence, timeline_packet, final_media=args.final, observations=observations,
+                forbidden_generation_models=set(
+                    config.raw.get("stage2_contract", {}).get(
+                        "forbidden_cinematic_generation_models", []
+                    )
+                ),
+            )
+            emit_json(report, args.output)
+            return 0 if report["promotion_allowed"] else 2
         if args.command == "audit-scene":
             report = audit_scene(load_scene(args.scene))
             emit_json(report, args.output)
@@ -249,6 +409,25 @@ def main(argv: list[str] | None = None) -> int:
             )
             emit_json(report, args.manifest)
             return 0
+        if args.command == "prepare-stage2-dialogue":
+            report = prepare_stage2_dialogue_clip(
+                args.input, args.output, start=args.start, end=args.end, rate=args.rate,
+            )
+            emit_json(report, args.manifest)
+            return 0
+        if args.command == "prepare-stage2-square-dialogue":
+            try:
+                crop = tuple(int(item) for item in args.crop.split(":"))
+                if len(crop) != 4:
+                    raise ValueError
+            except ValueError as exc:
+                raise VideoGenError("--crop must be width:height:x:y") from exc
+            report = prepare_stage2_square_dialogue_clip(
+                args.input, args.output, reference_origin=args.reference_origin,
+                start=args.start, end=args.end, rate=args.rate, crop=crop,
+            )
+            emit_json(report, args.manifest)
+            return 0
         if args.command == "assemble-dialogue":
             report = assemble_lipsynced_dialogue(args.clip, args.output,
                                                  target_seconds=args.seconds)
@@ -266,12 +445,30 @@ def main(argv: list[str] | None = None) -> int:
                                         transient_times=args.transient)
             emit_json(report)
             return 0
+        if args.command == "generate-clinic-ambience":
+            report = generate_clinic_ambience(
+                args.output, duration=args.seconds, fade_seconds=args.fade_seconds,
+            )
+            emit_json(report)
+            return 0
         if args.command == "assemble-timeline":
             timeline_packet = json.loads(Path(args.timeline).read_text(encoding="utf-8"))
             report = assemble_timeline(
                 timeline_packet["intervals"], args.output,
                 ambience=args.ambience or timeline_packet.get("ambience"),
                 target_seconds=timeline_packet.get("target_seconds"),
+            )
+            emit_json(report, args.manifest)
+            return 0
+        if args.command == "assemble-stage2":
+            timeline_packet = json.loads(Path(args.timeline).read_text(encoding="utf-8"))
+            ambience = args.ambience or timeline_packet.get("ambience")
+            if not ambience:
+                raise VideoGenError("Stage 2 assembly requires an ambience bed")
+            report = assemble_stage2_timeline(
+                timeline_packet["intervals"], args.output, ambience=ambience,
+                target_seconds=float(timeline_packet["target_seconds"]),
+                fade_seconds=float(timeline_packet.get("fade_seconds", 0.5)),
             )
             emit_json(report, args.manifest)
             return 0
@@ -290,8 +487,36 @@ def main(argv: list[str] | None = None) -> int:
                 avatar_image_input(args.image, live=args.live), args.script, args.voice,
                 seed=args.seed,
                 max_seconds=args.max_seconds, gaze_direction=args.gaze_direction,
+                speaker_position=args.speaker_position,
+                response_anticipation=args.response_anticipation,
                 performance_direction=args.performance, live=args.live, confirmed=args.confirm_live,
                 allow_partner=args.allow_partner_avatar, output_dir=args.output_dir)
+            emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
+            return 0
+        if args.command == "plan-image-video":
+            prompt = Path(args.prompt_file).read_text(encoding="utf-8").strip()
+            if args.live:
+                if not args.scene_audit or not args.take_id or not args.repair_authorization:
+                    raise VideoGenError(
+                        "live I2V requires --scene-audit, --take-id, and --repair-authorization"
+                    )
+                try:
+                    scene_packet = json.loads(Path(args.scene_audit).read_text(encoding="utf-8"))
+                    verify_storyboard_authorization(scene_packet, args.take_id, prompt)
+                    repair_packet = json.loads(
+                        Path(args.repair_authorization).read_text(encoding="utf-8")
+                    )
+                    verify_bounded_repair_authorization(repair_packet, prompt)
+                except (OSError, json.JSONDecodeError, ValueError) as exc:
+                    raise VideoGenError(str(exc)) from exc
+            request = orchestrator.run_image_video(
+                image_video_input(args.image, live=args.live), prompt,
+                audio_input=(image_video_audio_input(args.audio, live=args.live)
+                             if args.audio else None),
+                seconds=args.seconds, seed=args.seed,
+                live=args.live, confirmed=args.confirm_live,
+                allow_partner=args.allow_partner_i2v, output_dir=args.output_dir,
+            )
             emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
             return 0
         if args.prompt_file:

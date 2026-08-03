@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "request_id": "7ba32eb5-48b5-478d-a7d1-d98160a584a9",
+  "provider": "DeepInfra",
+  "endpoint": "/payment/usage",
+  "interval_unix_seconds": {"from": 1785755040, "to": 1785755134},
+  "provider_reported_model": "Wan-AI/Wan2.6-I2V",
+  "provider_reported_units": 1,
+  "provider_reported_total_cost_cents": 50,
+  "media_persisted": false,
+  "conclusion": "The provider billed the greeting render but the local transport exited before its media URL was persisted. The charge is recorded as a failed paid attempt. One transport retry is authorized within the user's explicit US$5 final-regeneration allowance."
+}

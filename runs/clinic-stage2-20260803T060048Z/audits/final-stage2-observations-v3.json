@@ -1,0 +1,15 @@
+{
+  "cinematic_composition": {"status": "pass", "evidence": "The final contact sheet shows native 16:9 wide, medium and action coverage with complete faces, safe headroom, motivated look room and the approved flat pastel teal-neutral grade."},
+  "mouth_visibility": {"status": "pass", "evidence": "Every on-screen speaker has a complete unobstructed mouth; Daniel's short cost question is intentionally off screen over a silent nurse listener."},
+  "lip_sync": {"status": "pass", "evidence": "All four visible Amrit turns were newly rendered through Wan2.6-I2V from four lossless segments of one 19.2-second performance master; every segment remains source-locked in the timeline. Daniel's existing visible line also remains audio-conditioned and source-locked."},
+  "essential_action": {"status": "pass", "evidence": "Accepted take16 visibly carries one privacy-safe card from Daniel to Amrit and then to the separate reader."},
+  "reference_fidelity": {"status": "pass", "evidence": "The final retains the approved Surrey clinic teal, pale neutral, light wood and open-service-plane anchors, with no glass divider."},
+  "functional_environment_logic": {"status": "pass", "evidence": "Take16 shows the monitor supported behind and aligned with a separate keyboard, a separate reader beside it, and clear handoff space."},
+  "anatomy_contact": {"status": "pass", "evidence": "The accepted handoff uses take16, whose dense anatomy review shows shoulder-connected arms, plausible left/right hands and stable contact throughout the card transfer; dialogue singles do not feature hand action."},
+  "response_anticipation_eyeline": {"status": "pass", "evidence": "Question and answer coverage uses the screen-right partner axis. The card-request silent tail is trimmed before the final downward glance while preserving the complete spoken line."},
+  "motion_stability": {"status": "pass", "evidence": "No portrait wrappers, freezes, jittery insert, object buzz, monitor movement or concealed visible stitch remains in the final timeline."},
+  "persona_voice": {"status": "pass", "evidence": "Amrit's four turns come from one seeded continuous performance master with a single dramatic arc; Daniel retains one consistent Puck performance. No separately voiced Amrit closing line remains."},
+  "background_population_continuity": {"status": "pass", "evidence": "The same two established patients occupy the visible waiting-area positions in the opening, accepted handoff coverage and living outro. Reverse singles face away from that waiting area rather than showing the positions empty."},
+  "ambient_audibility": {"status": "pass", "evidence": "One persisted clinic-specific ambience amalgamation is faint but present: intro mean -32.0 dBFS and outro mean -45.3 dBFS. It contains no principal dialogue."},
+  "stitch_integrity": {"status": "pass", "evidence": "Nine source-locked intervals use motivated straight cuts only, with 0.5-second outer fades and no crossfades or concealed mid-take stitches."}
+}

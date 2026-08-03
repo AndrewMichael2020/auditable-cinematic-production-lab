@@ -1,0 +1,102 @@
+{
+  "audit_type": "stage2_sequence",
+  "blocking_findings": 0,
+  "gate": "pass",
+  "hierarchy": {
+    "episode_id": "ep01",
+    "season_id": "ssn01",
+    "sequence_id": "seq-clinic-care-card",
+    "series_id": "ser-surrey-care"
+  },
+  "promotion_allowed": true,
+  "results": [
+    {
+      "evidence": "Every existing timeline source is native square-pixel 16:9 landscape.",
+      "gate_id": "native_format",
+      "status": "pass"
+    },
+    {
+      "evidence": "Every interval originates from native square-pixel 16:9 generation.",
+      "gate_id": "native_origin",
+      "status": "pass"
+    },
+    {
+      "evidence": "No interval uses a quarantined non-cinematic model.",
+      "gate_id": "cinematic_source_model",
+      "status": "pass"
+    },
+    {
+      "evidence": "Every interval has typed production and edit lineage.",
+      "gate_id": "typed_lineage",
+      "status": "pass"
+    },
+    {
+      "evidence": "Intro mean -32.4 dBFS; outro mean -44.9 dBFS.",
+      "gate_id": "ambience_level",
+      "status": "pass"
+    },
+    {
+      "evidence": "The final contact sheet shows native 16:9 wide, medium and action coverage with complete faces, safe headroom, motivated look room and the approved flat pastel teal-neutral grade.",
+      "gate_id": "cinematic_composition",
+      "status": "pass"
+    },
+    {
+      "evidence": "Every on-screen speaker has a complete unobstructed mouth; Daniel's short cost question is intentionally off screen over a silent nurse listener.",
+      "gate_id": "mouth_visibility",
+      "status": "pass"
+    },
+    {
+      "evidence": "All four visible Amrit turns were newly rendered through Wan2.6-I2V from four lossless segments of one 19.2-second performance master; every segment remains source-locked in the timeline. Daniel's existing visible line also remains audio-conditioned and source-locked.",
+      "gate_id": "lip_sync",
+      "status": "pass"
+    },
+    {
+      "evidence": "Accepted take16 visibly carries one privacy-safe card from Daniel to Amrit and then to the separate reader.",
+      "gate_id": "essential_action",
+      "status": "pass"
+    },
+    {
+      "evidence": "The final retains the approved Surrey clinic teal, pale neutral, light wood and open-service-plane anchors, with no glass divider.",
+      "gate_id": "reference_fidelity",
+      "status": "pass"
+    },
+    {
+      "evidence": "Take16 shows the monitor supported behind and aligned with a separate keyboard, a separate reader beside it, and clear handoff space.",
+      "gate_id": "functional_environment_logic",
+      "status": "pass"
+    },
+    {
+      "evidence": "The accepted handoff uses take16, whose dense anatomy review shows shoulder-connected arms, plausible left/right hands and stable contact throughout the card transfer; dialogue singles do not feature hand action.",
+      "gate_id": "anatomy_contact",
+      "status": "pass"
+    },
+    {
+      "evidence": "Question and answer coverage uses the screen-right partner axis. The card-request silent tail is trimmed before the final downward glance while preserving the complete spoken line.",
+      "gate_id": "response_anticipation_eyeline",
+      "status": "pass"
+    },
+    {
+      "evidence": "No portrait wrappers, freezes, jittery insert, object buzz, monitor movement or concealed visible stitch remains in the final timeline.",
+      "gate_id": "motion_stability",
+      "status": "pass"
+    },
+    {
+      "evidence": "Amrit's four turns come from one seeded continuous performance master with a single dramatic arc; Daniel retains one consistent Puck performance. No separately voiced Amrit closing line remains.",
+      "gate_id": "persona_voice",
+      "status": "pass"
+    },
+    {
+      "evidence": "One persisted clinic-specific ambience amalgamation is faint but present: intro mean -32.0 dBFS and outro mean -45.3 dBFS. It contains no principal dialogue.",
+      "gate_id": "ambient_audibility",
+      "status": "pass"
+    },
+    {
+      "evidence": "Nine source-locked intervals use motivated straight cuts only, with 0.5-second outer fades and no crossfades or concealed mid-take stitches.",
+      "gate_id": "stitch_integrity",
+      "status": "pass"
+    }
+  ],
+  "review_findings": 0,
+  "schema_version": "2.0",
+  "sequence_manifest": "sequences/clinic-reception-stage2.json"
+}

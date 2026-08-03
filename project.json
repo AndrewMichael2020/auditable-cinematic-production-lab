@@ -1,8 +1,8 @@
 {
   "schema_version": "0.2.0",
   "project_id": "video-gen-test",
-  "status": "live_smoke_validated",
-  "updated_at": "2026-08-02",
+  "status": "stage2_first_baseline_complete_second_sequence_pending",
+  "updated_at": "2026-08-03",
   "objective": "Produce a reproducible one-location AI drama proof through DeepInfra, defaulting to open-weight models with one explicit bounded partner lip-sync exception.",
   "provider_policy": {
     "allowed_providers": [
@@ -15,7 +15,16 @@
       "additional_run_cap_usd": 8.0,
       "licence_status": "not_reported_by_provider"
     },
-    "gemini_allowed": false,
+    "explicit_i2v_stage2_exception": {
+      "model": "Wan-AI/Wan2.6-I2V",
+      "requires_cli_override": true,
+      "maximum_requests": 19,
+      "licence_status": "not_reported_by_provider",
+      "promotion_status": "experimental_one_run_only"
+    },
+    "gemini_allowed": true,
+    "gemini_access_scope": "deepinfra_partner_models_only",
+    "direct_google_gemini_api_allowed": false,
     "vertex_ai_allowed": false,
     "openai_api_allowed": false,
     "elevenlabs_allowed": false
@@ -29,21 +38,24 @@
       "cad_10": {
         "application_hard_cap_usd": 10.0,
         "max_fastwan_5s_drafts": 40,
-        "max_wan22_5s_finals": 12
+        "max_wan22_5s_finals": 12,
+        "max_wan26_i2v_requests": 19
       },
       "cad_15": {
         "application_hard_cap_usd": 9.75,
         "max_fastwan_5s_drafts": 80,
-        "max_wan22_5s_finals": 20
+        "max_wan22_5s_finals": 20,
+        "max_wan26_i2v_requests": 19
       },
       "cad_20": {
-        "application_hard_cap_usd": 13.0,
+        "application_hard_cap_usd": 15.0,
         "max_fastwan_5s_drafts": 120,
-        "max_wan22_5s_finals": 28
+        "max_wan22_5s_finals": 28,
+        "max_wan26_i2v_requests": 19
       }
     },
     "default_profile": "cad_10",
-    "deepinfra_account_spending_limit_usd_max": 13.0,
+    "deepinfra_account_spending_limit_usd_max": 20.0,
     "monetary_cap_overrides_count_caps": true,
     "provider_reported_cost_field": "inference_status.cost",
     "reservation_required_before_request": true,
@@ -67,7 +79,9 @@
       "orientations": [
         "landscape",
         "portrait"
-      ]
+      ],
+      "cinematic_stage2_allowed": false,
+      "allowed_use": "disposable non-cinematic staging or cartoon experiments only; never aesthetic reference, source, persona reference, lip-sync input, promotion candidate, or final media"
     },
     "final_video": {
       "id": "Wan-AI/Wan2.2-T2V-A14B",
@@ -76,7 +90,23 @@
       "price_usd_per_second": 0.075,
       "seconds": 5,
       "resolution": "720p",
-      "orientation": "landscape"
+      "orientation": "landscape",
+      "request_timeout_seconds": 600,
+      "negative_prompt": "advertisement, commercial, corporate promotional video, product showcase, beauty campaign, glamour key light, glossy plastic skin, stock-photo pose, presenter smile, cartoon, animation, 3D render, illustration, continuous cyan wall, long dark-wood reception counter, auditorium chair rows, portrait frame, extreme close crop, cut-off face, readable text, logo, badge, watermark, malformed hands, extra fingers, duplicate person, fused bodies"
+    },
+    "image_to_video": {
+      "id": "Wan-AI/Wan2.6-I2V",
+      "licence": "provider-metadata-unspecified",
+      "endpoint_type": "deepinfra_partner_inference",
+      "partner": true,
+      "default_allowed": false,
+      "price_usd_per_second": 0.10,
+      "seconds": 5,
+      "allowed_seconds": [5, 6, 7],
+      "resolution": "720P",
+      "synchronized_audio_input_allowed": true,
+      "request_timeout_seconds": 600,
+      "negative_prompt": "camera cut, angle change, zoom, reframing, object morph, moving monitor, moving keyboard, disappearing card reader, extra card, flat blue paper, unreadable anatomy, malformed hands, extra fingers, fused hands, duplicate person, new person, identity change, wardrobe change, glass divider, transparent barrier, readable text, logo, watermark, advertisement, commercial gloss, presenter smile, cartoon, animation, illustration, CGI, 3D render"
     },
     "visual_qa": {
       "id": "Qwen/Qwen3-VL-30B-A3B-Instruct",
@@ -100,7 +130,11 @@
       "default_allowed": false,
       "price_usd_per_second": 0.025,
       "max_reserved_seconds_per_request": 8,
-      "resolution": "720p"
+      "resolution": "720p",
+      "single_subject_prompt": "Exactly one person appears in every frame: the reference adult. No second face, body, shoulder, reflection, silhouette, or person enters the image. Only the reference adult speaks and moves their lips and jaw.",
+      "paired_subject_prompt_template": "This is one paired landscape conversation plate containing exactly the two reference adults and no third person. Only the adult on {speaker_side} speaks and moves their lips and jaw. The adult on {listener_side} remains visible and silent with restrained listening micro-movements. Never merge, replace, duplicate, crop out, or reposition either reference adult.",
+      "gaze_lock_prompt_template": "Locked camera and static side-profile conversation framing facing {gaze_direction}. For every frame, preserve the reference head angle and keep the nose, face, and pupils aimed at one fixed point just beyond the {gaze_direction} frame edge. No head turn, frontal pose, or camera gaze. Only lips, jaw, eyebrows, restrained breathing, and subtle expression move; the camera is an unnoticed observer.",
+      "response_anticipation_prompt": "This line asks a question and expects an answer. Keep the established head angle, eyes, and pupils aimed toward the same fixed {gaze_direction} point throughout the line and through the final response-anticipation handle. Do not lower the eyes, glance at equipment, look away, or disengage after speaking."
     }
   },
   "pricing": {
@@ -151,6 +185,42 @@
       "acting",
       "dialogue_rhythm",
       "edit_coherence"
+    ]
+  },
+  "stage2_contract": {
+    "status": "active",
+    "production_vocabulary": "docs/PRODUCTION-VOCABULARY.md",
+    "series_manifest": "series/surrey-care/series.json",
+    "clinic_sequence_manifest": "sequences/clinic-reception-stage2.json",
+    "native_accepted_aspect_ratio": "16:9",
+    "portrait_origin_allowed": false,
+    "square_avatar_performance_exception": {
+      "allowed": true,
+      "raw_aspect_ratio": "1:1",
+      "requires_native_16_9_scene_origin": true,
+      "requires_exact_16_9_crop": true,
+      "minimum_crop_width_fraction": 0.75,
+      "minimum_crop_height_fraction": 0.45,
+      "padding_allowed": false,
+      "every_frame_face_mouth_review_required": true
+    },
+    "generation_origin_provenance_required": true,
+    "outer_fade_seconds": 0.5,
+    "intro_min_seconds": 2.0,
+    "outro_min_seconds": 3.0,
+    "ambient_sound_required": true,
+    "forbidden_cinematic_generation_models": [
+      "FastVideo/FastWan-QAD-FP8-1.3B"
+    ],
+    "human_gates": [
+      "cinematic_composition",
+      "mouth_visibility",
+      "lip_sync",
+      "essential_action",
+      "reference_fidelity",
+      "persona_voice",
+      "ambient_audibility",
+      "stitch_integrity"
     ]
   },
   "execution_policy": {
@@ -212,6 +282,11 @@
       "id": 4,
       "name": "live_cad_10_proof",
       "implementation": "in_progress_live_smoke_validated"
+    },
+    {
+      "id": 5,
+      "name": "stage2_cinematic_robustness",
+      "implementation": "code_complete_live_run_blocked_unknown_billing"
     }
   ]
 }

@@ -13,10 +13,12 @@ Produce reproducible, independently replaceable **12–90 second scenes** before
 - credible action, dialogue rhythm, and editing;
 - complete cost and provenance records.
 
-The repository contains the Stage 1 golden scene, a 15-second dialogue continuation, and a
-live-tested Stage 2 orchestrator. It still
-defaults to dry-run mode. A bounded CAD 10 smoke campaign has validated Data URL media persistence,
-cost reconciliation, technical inspection, and human candidate selection against DeepInfra.
+The repository contains the Stage 1 golden scene, a 15-second dialogue continuation, and the
+implemented Stage 2 cinematic-robustness workflow. It still defaults to dry-run mode. Stage 2 adds
+series-owned personas and cinematic intent, typed sequence-to-shot lineage, native-generation
+orientation checks, face/mouth and action gates, perceptible ambience, outer fades and explicit
+human acceptance. The clinic v3 package is the first accepted Stage 2 delivery candidate; a second
+contrasting sequence is still required to exit the stage.
 
 ## Programmatic model stack
 
@@ -33,9 +35,10 @@ user-approved partner exception exists only for the bounded lip-sync avatar test
 | Lip-sync test | `PrunaAI/p-video-avatar` | Provider metadata unspecified | Explicit partner exception; disabled by default |
 | Assembly | FFmpeg | LGPL/GPL by build | Editing, audio mix, and technical validation |
 
-Wan 2.6, Wan 2.7, PixVerse, Veo, Gemini API, Vertex AI, OpenAI API, and ElevenLabs
-remain outside the runtime proof. The local ElevenLabs key, when present, is optional and was not used
-for the validated clip.
+Unregistered Wan 2.6/Wan 2.7 variants, PixVerse, Veo, direct Gemini API, Vertex AI, OpenAI API, and
+ElevenLabs remain outside the runtime proof. A Gemini partner model exposed by DeepInfra may be used
+only after its exact ID, role, current price, request limit, and reservation basis are registered.
+The local ElevenLabs key, when present, is optional and was not used for the validated clip.
 
 The DeepInfra video endpoint is:
 
@@ -70,7 +73,9 @@ DEEPINFRA_API_TOKEN
 
 For local runs, expose the same value as `DEEPINFRA_TOKEN`. Never commit the token. See [docs/SECRETS.md](docs/SECRETS.md).
 
-ChatGPT/Codex and GitHub Copilot subscriptions may be used to develop and review the repository, but the production workflow does not pretend they are API credits. Gemini is not used.
+ChatGPT/Codex and GitHub Copilot subscriptions may be used to develop and review the repository, but
+the production workflow does not pretend they are API credits. Gemini may be called only as an
+explicitly registered DeepInfra partner model; no direct Google API credential is required or allowed.
 
 ## Intended workflow
 
@@ -97,6 +102,8 @@ pytest -q
 video-gen preflight --profile cad_10
 video-gen validate-scene
 video-gen audit-scene --output runs/storyboard-spatial-audit.json
+video-gen validate-stage2 sequences/clinic-reception-stage2.json \
+  --output runs/clinic-stage2-plan.json
 video-gen plan-video --profile cad_10 --role draft_video \
   --prompt "A locked wide shot on the rainy platform" --seed 101
 ```
@@ -106,6 +113,13 @@ not contact DeepInfra. A paid request additionally requires both `--live` and `-
 `DEEPINFRA_TOKEN` in the process environment. Final-model requests use the same confirmation as the
 human-promotion gate. Successful outputs are downloaded atomically, hashed, and recorded with the
 provider request ID and reported cost. Unknown billing status is terminal and is never retried.
+
+Stage 2 assembly uses `prepare-stage2-dialogue`, `generate-clinic-ambience`,
+`assemble-stage2`, and `audit-stage2`. These commands reject portrait-origin dialogue and require
+the original provider-generation path for every accepted interval; a 16:9 wrapper around a vertical
+take cannot pass. The final audit remains in `review` until composition, complete-mouth visibility,
+perceptual lip sync, essential action, reference fidelity, persona/voice, ambience audibility and
+stitch integrity all have explicit human evidence.
 
 Generated ledgers and media normally live under ignored `runs/` and `outputs/` directories. Selected
 auditable live runs may be force-added on a dedicated branch. Inspect and
@@ -146,6 +160,7 @@ Signed query parameters from provider output URLs are deliberately excluded from
 ## Repository map
 
 - [docs/PLAN.md](docs/PLAN.md): staged architecture and proof plan.
+- [docs/PRODUCTION-VOCABULARY.md](docs/PRODUCTION-VOCABULARY.md): normative generation and editing terminology for Stage 2 records.
 - [docs/LESSONS-AND-NEXT-STEPS.md](docs/LESSONS-AND-NEXT-STEPS.md): live-run lessons, reusable guardrails, and Pareto next steps.
 - [docs/SECRETS.md](docs/SECRETS.md): exact authentication and spending-control contract.
 - [.env.example](.env.example): local variable names without values.
@@ -153,6 +168,8 @@ Signed query parameters from provider output URLs are deliberately excluded from
 - [scenes/golden-scene.json](scenes/golden-scene.json): one-location, two-character, four-shot proof.
 - [scenes/platform-cliffhanger.json](scenes/platform-cliffhanger.json): 15-second master-plus-dialogue continuation.
 - [scenes/clinic-reception-coverage.json](scenes/clinic-reception-coverage.json): 56-second shot plan and 49.69-second robustness result.
+- [series/surrey-care/series.json](series/surrey-care/series.json): series canon, cinematic intent, versioned Surrey personas and voice direction.
+- [sequences/clinic-reception-stage2.json](sequences/clinic-reception-stage2.json): typed ten-shot clinic sequence and Stage 2 acceptance contract.
 - [productions/robustness-tests.json](productions/robustness-tests.json): ordered multi-scene state and independent artifact roots.
 - [locations/clinic-reception.json](locations/clinic-reception.json): reusable data-driven clinic geometry and privacy rules.
 - [`src/video_gen`](src/video_gen): CLI, policy, ledger, provider, production, and media modules.

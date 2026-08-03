@@ -1,0 +1,7 @@
+{
+  "dry_run": false,
+  "model": "Wan-AI/Wan2.6-I2V",
+  "prompt_sha256": "9bb2eb8af4742cabbed2e101295db64639d735a99d3d7cc2bd9f6944b4d4efef",
+  "request_id": "f3580447-0591-4a51-853a-af0118c94759",
+  "reserved_usd": "0.6"
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Independent clinic-reception background chatter; no principal dialogue is reused.",
+  "voices": [
+    {
+      "id": "visitor-checkin",
+      "seed": 117,
+      "text": "Hi, I am here for my ten thirty appointment. Yes, I can confirm my address at the desk. Thank you."
+    },
+    {
+      "id": "reception-pharmacy",
+      "seed": 281,
+      "text": "The pharmacy is through the corridor on your right. Please take the requisition with you when you go."
+    },
+    {
+      "id": "visitor-lab-hours",
+      "seed": 433,
+      "text": "Excuse me, does the lab still accept walk-ins this afternoon, or should I book a time online?"
+    },
+    {
+      "id": "reception-forms",
+      "seed": 619,
+      "text": "You can complete the first page in the waiting area. Bring it back when your name is called."
+    }
+  ]
+}

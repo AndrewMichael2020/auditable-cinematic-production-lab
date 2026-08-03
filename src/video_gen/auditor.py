@@ -73,6 +73,28 @@ BASE_RULES: dict[str, dict[str, Any]] = {
                                 "expected": "Props keep their shape, colour, owner, and planned location."},
     "prop_interaction": {"label": "Prop interaction", "severity": "block",
                          "expected": "Handoffs and manipulation preserve physical contact and object identity."},
+    "functional_environment_logic": {
+        "label": "Functional environment logic", "severity": "block",
+        "expected": (
+            "Furniture, equipment and props form a usable real-world arrangement: screens face their "
+            "operators, keyboards align with screens, readers are reachable, bases are supported, and "
+            "interaction paths do not collide or cross implausibly."
+        ),
+    },
+    "response_anticipation_eyeline": {
+        "label": "Response-anticipation eyeline", "severity": "block",
+        "expected": (
+            "After asking a question or inviting a response, the speaker sustains polite partner "
+            "eyeline for a usable answer handle instead of looking down or disengaging."
+        ),
+    },
+    "motion_stability": {
+        "label": "Motion stability", "severity": "block",
+        "expected": (
+            "Intended locked or restrained shots remain stable without camera jitter, object buzz, "
+            "edge shimmer, or erratic hand/prop motion that disrupts cinematic continuity."
+        ),
+    },
     "privacy": {"label": "Privacy", "severity": "block",
                 "expected": "Protected identifiers, card faces, and monitor content remain unreadable."},
     "unwanted_text": {"label": "Unwanted text", "severity": "block",

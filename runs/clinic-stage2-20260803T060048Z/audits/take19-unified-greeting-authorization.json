@@ -1,0 +1,14 @@
+{
+  "schema_version": "2.0",
+  "audit_type": "bounded_repair_authorization",
+  "shot_id": "take19",
+  "source_audit_gate": "block",
+  "source_candidate": "previous shot02 nurse greeting",
+  "source_evidence": "The prior nurse dialogue was recorded separately from the closing line, causing a sequence-level voice and prosody mismatch.",
+  "authorization_allowed": true,
+  "attempt_limit": 1,
+  "attempts_used": 0,
+  "protected_constraints": ["Wan-AI/Wan2.6-I2V only", "native 1280x720 nurse medium single", "canonical Amrit pv01 identity and wardrobe", "complete face and sustained screen-right eyeline", "first segment of the unified synchronized performance master"],
+  "repair_actions": ["replace the separately generated performance with the unified master segment", "preserve response-anticipation eye contact", "hold flat pastel narrative-film colour and natural adult skin texture"],
+  "repaired_prompt_sha256": "ea98d8e47873343f92d0d20934aa5287178ce3728fce960d61a6fc5b9cc635df"
+}

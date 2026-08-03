@@ -1,0 +1,14 @@
+{
+  "schema_version": "2.0",
+  "audit_type": "bounded_repair_authorization",
+  "shot_id": "take19",
+  "source_audit_gate": "block",
+  "source_candidate": "DeepInfra request 7ba32eb5-48b5-478d-a7d1-d98160a584a9",
+  "source_evidence": "The paid provider attempt returned no locally persisted media because the local transport was interrupted after billing.",
+  "authorization_allowed": true,
+  "attempt_limit": 1,
+  "attempts_used": 0,
+  "protected_constraints": ["identical approved take19 prompt", "identical unified greeting audio segment", "same Wan2.6-I2V model, reference, seed family and native 1280x720 output", "no other visual or performance variant"],
+  "repair_actions": ["repeat only the failed transport-bound greeting request", "use a longer local polling window", "persist and hash returned media before proceeding"],
+  "repaired_prompt_sha256": "ea98d8e47873343f92d0d20934aa5287178ce3728fce960d61a6fc5b9cc635df"
+}
