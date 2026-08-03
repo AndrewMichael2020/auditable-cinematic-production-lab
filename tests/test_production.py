@@ -20,3 +20,13 @@ def test_invalid_scene_is_rejected(tmp_path):
     path.write_text('{"id":"bad"}')
     with pytest.raises(PolicyError, match="missing"):
         load_scene(path)
+
+
+def test_cliffhanger_scene_has_master_multiple_turns_and_gaze_control():
+    scene = load_scene("scenes/platform-cliffhanger.json")
+    assert scene["duration_seconds"] == 15
+    assert len([shot for shot in scene["shots"] if shot.get("dialogue")]) == 4
+    assert any(shot.get("spatial_role") == "master" for shot in scene["shots"])
+    prompt = compile_prompt(scene, "c03")
+    assert "no actor looks into the camera" in prompt
+    assert "toward mara" in prompt

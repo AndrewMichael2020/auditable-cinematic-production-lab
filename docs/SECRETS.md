@@ -35,12 +35,17 @@ env:
 
 The real local `.env` file remains ignored. [.env.example](../.env.example) contains only blank variable names.
 
+## Optional local fallback
+
+`ELEVENLABS_API_KEY` may exist in an ignored local `.env` as a user-supplied fallback. No current
+runtime command reads it, it must never be copied to GitHub Actions or audit artifacts, and it was
+not used in the validated lip-sync run.
+
 ## Not required
 
 Do not create these secrets for the initial proof:
 
 - `OPENAI_API_KEY`;
-- `ELEVENLABS_API_KEY`;
 - `GEMINI_API_KEY`;
 - `GOOGLE_API_KEY`;
 - `GOOGLE_APPLICATION_CREDENTIALS`.

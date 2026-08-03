@@ -176,6 +176,8 @@ class Orchestrator:
 
     def run_avatar(self, image_input: str, voice_script: str, voice: str, *,
                    seed: int = 0, max_seconds: int = 8,
+                   gaze_direction: str | None = None,
+                   performance_direction: str = "Restrained natural dramatic delivery, conversational pace.",
                    live: bool = False, confirmed: bool = False,
                    allow_partner: bool = False,
                    client: DeepInfraClient | None = None,
@@ -190,6 +192,10 @@ class Orchestrator:
             raise PolicyError("avatar input must be an image Data URL or public HTTPS URL")
         if not voice_script.strip() or len(voice_script) > 100:
             raise PolicyError("avatar script must contain 1–100 characters")
+        if gaze_direction not in {"screen_left", "screen_right"}:
+            raise PolicyError("avatar gaze must be screen_left or screen_right; camera gaze is forbidden")
+        if not performance_direction.strip() or len(performance_direction) > 160:
+            raise PolicyError("avatar performance direction must contain 1–160 characters")
         if not 2 <= max_seconds <= 8:
             raise PolicyError("avatar reservation must cover 2–8 seconds")
         if live and not confirmed:
@@ -204,12 +210,18 @@ class Orchestrator:
             "voice_script": voice_script,
             "voice": voice,
             "voice_language": "English (US)",
-            "voice_prompt": "Restrained natural dramatic delivery, conversational pace.",
-            "video_prompt": "Locked camera, subtle natural facial and head movement.",
+            "voice_prompt": performance_direction,
+            "video_prompt": (
+                f"Locked camera, strict static side-profile conversation shot facing {gaze_direction.replace('_', ' ')}. "
+                f"For every frame the nose, face, and pupils remain aimed {gaze_direction.replace('_', ' ')} "
+                "at the off-camera scene partner. Preserve the reference head angle. No head turn. "
+                "No frontal pose. No eye contact with the camera, lens, viewer, or center lens axis. "
+                "Only the lips, jaw, eyebrows, and breathing move; the camera is an unnoticed observer."
+            ),
             "resolution": "720p",
             "seed": seed,
             "disable_safety_filter": False,
-            "disable_prompt_upsampling": True,
+            "disable_prompt_upsampling": False,
         }
         reserved = model.reserve(seconds=max_seconds)
         request_id = str(uuid.uuid4())
@@ -250,6 +262,8 @@ class Orchestrator:
             "output_path": str(destination),
             "request_sha256": planned.prompt_sha256,
             "voice": voice,
+            "gaze_direction": gaze_direction,
+            "performance_sha256": prompt_hash({"performance_direction": performance_direction}),
             "script_sha256": prompt_hash({"voice_script": voice_script}),
             "partner_exception": True,
             "licence_status": "not_reported_by_provider",

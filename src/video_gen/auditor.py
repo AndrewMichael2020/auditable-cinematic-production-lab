@@ -19,6 +19,15 @@ SAFE_CHARACTER_ZONES = {
     "center_right_safe_zone", "right_safe_zone", "off_screen_left",
     "off_screen_right",
 }
+ZONE_POSITION = {
+    "off_screen_left": -3,
+    "left_safe_zone": -2,
+    "center_left_safe_zone": -1,
+    "center_safe_zone": 0,
+    "center_right_safe_zone": 1,
+    "right_safe_zone": 2,
+    "off_screen_right": 3,
+}
 PLAUSIBLE_SUPPORTS = {
     "ground", "wall_mounted", "post_mounted", "ceiling_mounted",
     "structure_mounted",
@@ -39,6 +48,8 @@ DRAFT_CRITERIA = (
      "People and objects retain plausible relative scale and perspective."),
     ("blocking_and_framing", "Blocking and framing",
      "Entrances, exits, screen direction, spacing, shot size, and camera movement match the plan."),
+    ("gaze_and_eyeline", "Gaze and eyeline",
+     "Every visible actor looks toward the planned scene partner or story object and never into the camera."),
     ("continuity", "Continuity",
      "Faces, wardrobe, layout, lighting, axis, and object anchors remain stable."),
     ("unwanted_text", "Unwanted text",
@@ -111,6 +122,12 @@ def audit_scene(scene: dict[str, Any]) -> dict[str, Any]:
             "environmental_metaphor_density",
             "Provide one to four environmental metaphors using light, weather, colour, distance, or architecture.",
             "visual_policy.environmental_metaphors",
+        ))
+    if visual.get("camera_gaze_policy") != "never_look_at_camera":
+        findings.append(_finding(
+            "camera_gaze_policy",
+            "visual_policy.camera_gaze_policy must forbid every actor from looking into the camera.",
+            "visual_policy.camera_gaze_policy",
         ))
 
     platform = spatial.get("platform", {})
@@ -188,8 +205,17 @@ def audit_scene(scene: dict[str, Any]) -> dict[str, Any]:
                     f"characters[{index}].wardrobe_visual[{item_index}]",
                 ))
 
+    master_shots = 0
     for index, shot in enumerate(scene.get("shots", [])):
         path = f"shots[{index}]"
+        if shot.get("spatial_role") == "master":
+            master_shots += 1
+            if shot.get("camera", {}).get("framing") not in {"wide_master", "wide_full_body"}:
+                findings.append(_finding(
+                    "invalid_master_framing",
+                    "The master shot must be a wide framing that establishes both actors and geography.",
+                    f"{path}.camera.framing",
+                ))
         blocking = shot.get("blocking") if isinstance(shot, dict) else None
         if not isinstance(blocking, dict):
             findings.append(_finding("missing_blocking", "Every shot requires structured character blocking.",
@@ -222,6 +248,56 @@ def audit_scene(scene: dict[str, Any]) -> dict[str, Any]:
         if "locked" in str(shot.get("framing", "")).lower() and shot_camera.get("movement") != "locked":
             findings.append(_finding("camera_movement_conflict", "Locked framing requires movement=locked.",
                                      f"{path}.camera.movement"))
+
+        gaze = shot.get("gaze")
+        if not isinstance(gaze, dict) or set(gaze) != character_ids:
+            findings.append(_finding(
+                "missing_gaze_plan",
+                "Every shot must define gaze for every and only scene character.",
+                f"{path}.gaze",
+            ))
+            continue
+        for character_id in character_ids:
+            instruction = gaze.get(character_id, {})
+            gaze_path = f"{path}.gaze.{character_id}"
+            if not isinstance(instruction, dict):
+                findings.append(_finding("invalid_gaze_plan", "Gaze instruction must be an object.", gaze_path))
+                continue
+            target = instruction.get("target")
+            direction = instruction.get("screen_direction")
+            if target == "camera" or instruction.get("camera_look_forbidden") is not True:
+                findings.append(_finding(
+                    "camera_look",
+                    "Actors must explicitly be forbidden from looking at the camera.",
+                    gaze_path,
+                ))
+            if not str(target or "").strip():
+                findings.append(_finding("missing_gaze_target", "Gaze target is required.", f"{gaze_path}.target"))
+            if direction not in {"screen_left", "screen_right", "down"}:
+                findings.append(_finding(
+                    "invalid_eyeline_direction",
+                    "Eyeline must be screen_left, screen_right, or down.",
+                    f"{gaze_path}.screen_direction",
+                ))
+            if target in character_ids and target != character_id:
+                actor_zone = blocking.get(character_id, {}).get("end")
+                target_zone = blocking.get(target, {}).get("end")
+                if actor_zone in ZONE_POSITION and target_zone in ZONE_POSITION:
+                    expected = ("screen_right" if ZONE_POSITION[target_zone] > ZONE_POSITION[actor_zone]
+                                else "screen_left")
+                    if direction != expected:
+                        findings.append(_finding(
+                            "eyeline_axis_conflict",
+                            f"{character_id} should look {expected} toward {target} from the planned blocking.",
+                            f"{gaze_path}.screen_direction",
+                        ))
+
+    if master_shots < 1:
+        findings.append(_finding(
+            "missing_master_shot",
+            "At least one wide master shot must establish both actors, the safe platform, and the scene axis.",
+            "shots",
+        ))
 
     prompt_hashes = {
         shot["id"]: text_sha256(compile_prompt(scene, shot["id"]))

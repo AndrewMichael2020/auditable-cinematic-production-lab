@@ -19,7 +19,8 @@ cost reconciliation, technical inspection, and human candidate selection against
 
 ## Programmatic model stack
 
-The first proof uses one DeepInfra API token and OSS models only.
+The default proof uses one DeepInfra API token and OSS models. A separately gated,
+user-approved partner exception exists only for the bounded lip-sync avatar test.
 
 | Stage | DeepInfra model | Licence | Role |
 |---|---|---|---|
@@ -28,9 +29,12 @@ The first proof uses one DeepInfra API token and OSS models only.
 | Final candidates | `Wan-AI/Wan2.2-T2V-A14B` | Apache 2.0 | Selected 5-second 720p generations |
 | Visual QA | `Qwen/Qwen3-VL-30B-A3B-Instruct` | Apache 2.0 | Contact-sheet scoring and defect labels |
 | Dialogue audio | `ResembleAI/chatterbox-turbo` | MIT | Speech generation and expressive timing |
+| Lip-sync test | `PrunaAI/p-video-avatar` | Provider metadata unspecified | Explicit partner exception; disabled by default |
 | Assembly | FFmpeg | LGPL/GPL by build | Editing, audio mix, and technical validation |
 
-Wan 2.6, Wan 2.7, PixVerse, Veo, Gemini API, Vertex AI, OpenAI API, and ElevenLabs are outside the initial proof.
+Wan 2.6, Wan 2.7, PixVerse, Veo, Gemini API, Vertex AI, OpenAI API, and ElevenLabs
+remain outside the runtime proof. The local ElevenLabs key, when present, is optional and was not used
+for the validated clip.
 
 The DeepInfra video endpoint is:
 
@@ -91,6 +95,7 @@ python -m pip install -e . pytest
 pytest -q
 video-gen preflight --profile cad_10
 video-gen validate-scene
+video-gen audit-scene --output runs/storyboard-spatial-audit.json
 video-gen plan-video --profile cad_10 --role draft_video \
   --prompt "A locked wide shot on the rainy platform" --seed 101
 ```
@@ -104,8 +109,19 @@ provider request ID and reported cost. Unknown billing status is terminal and is
 Generated ledgers and media live under ignored `runs/` and `outputs/` directories. Inspect and
 human-approve the four compiled prompts from `scenes/golden-scene.json` before any live draft run.
 
-For a repository-secret-backed smoke test, run **live DeepInfra smoke test** from GitHub Actions and
-enter `LIVE`. The manually dispatched workflow makes exactly one FastWan request (maximum reserved
+The spatial gate runs before generation and checks platform/track geometry, safe blocking, object
+support, wardrobe construction, scale, continuity anchors, unwanted text, and sparse environmental
+symbolism. `audit-draft` then combines explicit contact-sheet observations with FFprobe facts. A
+failed or uncertain criterion blocks promotion.
+
+The optional partner lip-sync path requires `--allow-partner-avatar`, `--live`, and
+`--confirm-live` for each sequential speaker request. `assemble-dialogue` joins exactly two
+already-synchronized speaker clips, normalizes dialogue to an EBU R128 target, pads only the final
+dramatic beat, and emits an output hash manifest. It never activates automatically.
+
+The repository workflows are manual-dispatch only; development pushes and pull requests do not
+start generation. If a human later chooses to run **live DeepInfra smoke test** and enters `LIVE`,
+the workflow makes exactly one FastWan request (maximum reserved
 cost US$0.0125), never retries it, and retains the generated clip, append-only SQLite ledger,
 compiled prompt, command result, hashes, and JSON audit export as a workflow artifact for 30 days.
 Signed query parameters from provider output URLs are deliberately excluded from the ledger.

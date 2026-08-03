@@ -169,7 +169,7 @@ def test_partner_avatar_accepts_public_https_without_persisting_url(tmp_path):
     app, ledger = setup(tmp_path)
     result = app.run_avatar(
         "https://temporary.example/portrait.jpg", "Hello", "Kore (Female)",
-        allow_partner=True,
+        gaze_direction="screen_right", allow_partner=True,
     )
     assert result.dry_run is True
     events = ledger.db.execute("SELECT metadata FROM events ORDER BY sequence").fetchall()
@@ -181,7 +181,7 @@ def test_partner_avatar_rejects_insecure_image_url_without_reserving(tmp_path):
     with pytest.raises(PolicyError, match="public HTTPS"):
         app.run_avatar(
             "http://temporary.example/portrait.jpg", "Hello", "Kore (Female)",
-            allow_partner=True,
+            gaze_direction="screen_right", allow_partner=True,
         )
     assert ledger.reserved_total() == 0
 
@@ -199,7 +199,8 @@ def test_live_partner_avatar_uses_three_dollar_cap_and_persists_video(tmp_path):
     )
     result = app.run_avatar(
         "data:image/png;base64,aW1hZ2U=", "Hello", "Kore (Female)",
-        live=True, confirmed=True, allow_partner=True, client=client, output_dir=tmp_path,
+        gaze_direction="screen_right", live=True, confirmed=True,
+        allow_partner=True, client=client, output_dir=tmp_path,
     )
     assert result.reserved_usd == app.config.model("lip_sync_avatar").reserve(seconds=8)
     assert (tmp_path / f"{result.request_id}.mp4").read_bytes() == b"video"
@@ -219,5 +220,15 @@ def test_partner_avatar_attempt_cap_is_five(tmp_path):
     with pytest.raises(PolicyError, match="avatar request cap"):
         app.run_avatar(
             "https://temporary.example/portrait.jpg", "Hello", "Kore (Female)",
-            allow_partner=True,
+            gaze_direction="screen_right", allow_partner=True,
         )
+
+
+def test_partner_avatar_rejects_camera_or_missing_gaze(tmp_path):
+    app, ledger = setup(tmp_path)
+    with pytest.raises(PolicyError, match="camera gaze is forbidden"):
+        app.run_avatar(
+            "https://temporary.example/portrait.jpg", "Hello", "Kore (Female)",
+            gaze_direction=None, allow_partner=True,
+        )
+    assert ledger.reserved_total() == 0

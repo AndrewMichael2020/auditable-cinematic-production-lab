@@ -14,6 +14,8 @@ def test_golden_storyboard_passes_spatial_gate_and_avoids_text_objects():
     assert "timetable" not in prompt.lower()
     assert "wall-mounted amber lamp" in prompt
     assert "five evenly spaced buttons" in prompt
+    assert "no actor looks into the camera" in prompt
+    assert "mara looks screen right toward eli" in prompt
 
 
 def test_storyboard_blocks_text_conflict_and_unsafe_bench():
@@ -26,6 +28,19 @@ def test_storyboard_blocks_text_conflict_and_unsafe_bench():
     codes = {item["code"] for item in report["findings"]}
     assert "text_environment_conflict" in codes
     assert "unsafe_bench_placement" in codes
+
+
+def test_storyboard_blocks_missing_master_and_camera_gaze():
+    scene = load_scene("scenes/golden-scene.json")
+    broken = copy.deepcopy(scene)
+    broken["shots"][0]["spatial_role"] = "coverage"
+    broken["shots"][1]["gaze"]["mara"] = {
+        "target": "camera", "screen_direction": "screen_right", "camera_look_forbidden": False,
+    }
+    report = audit_scene(broken)
+    codes = {item["code"] for item in report["findings"]}
+    assert "missing_master_shot" in codes
+    assert "camera_look" in codes
 
 
 def test_draft_blocks_pending_review_and_passes_complete_review(tmp_path, monkeypatch):

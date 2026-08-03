@@ -12,9 +12,11 @@ from .auditor import (audit_draft, audit_scene, verify_promotion_authorization,
 from .config import ProjectConfig
 from .errors import VideoGenError
 from .ledger import Ledger
-from .media import assemble_lipsynced_dialogue, assemble_with_audio, contact_sheet
+from .media import (assemble_lipsynced_dialogue, assemble_master_dialogue_scene,
+                    assemble_with_audio, contact_sheet, prepare_dialogue_clip)
 from .orchestrator import Orchestrator
 from .production import compile_prompt, load_scene
+from .retention import audit_run_artifacts, prune_recomputable_artifacts
 
 
 def parser() -> argparse.ArgumentParser:
@@ -57,8 +59,11 @@ def parser() -> argparse.ArgumentParser:
     avatar.add_argument("--image", required=True)
     avatar.add_argument("--script", required=True)
     avatar.add_argument("--voice", required=True)
+    avatar.add_argument("--gaze-direction", choices=["screen_left", "screen_right"], required=True)
+    avatar.add_argument("--performance", default="Restrained natural dramatic delivery, conversational pace.")
     avatar.add_argument("--seed", type=int, default=0)
     avatar.add_argument("--max-seconds", type=int, default=8)
+    avatar.add_argument("--output-dir", default="outputs")
     avatar.add_argument("--allow-partner-avatar", action="store_true")
     avatar.add_argument("--live", action="store_true")
     avatar.add_argument("--confirm-live", action="store_true")
@@ -74,6 +79,28 @@ def parser() -> argparse.ArgumentParser:
     dialogue.add_argument("--output", required=True)
     dialogue.add_argument("--seconds", type=float, default=8.0)
     dialogue.add_argument("--manifest")
+    scene_assembly = commands.add_parser("assemble-scene", help="join a wide master and 3–5 lip-synced turns")
+    scene_assembly.add_argument("--master", required=True)
+    scene_assembly.add_argument("--clip", action="append", required=True)
+    scene_assembly.add_argument("--master-seconds", type=float, default=3.0)
+    scene_assembly.add_argument("--output", required=True)
+    scene_assembly.add_argument("--seconds", type=float, default=15.0)
+    scene_assembly.add_argument("--manifest")
+    artifact_audit = commands.add_parser("audit-artifacts", help="classify a run's durable and recomputable files")
+    artifact_audit.add_argument("run")
+    artifact_audit.add_argument("--output")
+    artifact_prune = commands.add_parser("prune-artifacts", help="remove only files classified as recomputable")
+    artifact_prune.add_argument("run")
+    artifact_prune.add_argument("--apply", action="store_true")
+    artifact_prune.add_argument("--output")
+    prepare = commands.add_parser("prepare-dialogue", help="trim, pace, and reframe one synchronized turn")
+    prepare.add_argument("--input", required=True)
+    prepare.add_argument("--output", required=True)
+    prepare.add_argument("--start", type=float, required=True)
+    prepare.add_argument("--end", type=float, required=True)
+    prepare.add_argument("--rate", type=float, default=1.0)
+    prepare.add_argument("--crop", required=True, help="width:height:x:y")
+    prepare.add_argument("--manifest")
     return result
 
 
@@ -129,15 +156,43 @@ def main(argv: list[str] | None = None) -> int:
             report = audit_draft(scene, args.shot, args.video, observations, sheet)
             emit_json(report, args.output)
             return 0 if report["promotion_allowed"] else 2
+        if args.command == "audit-artifacts":
+            report = audit_run_artifacts(args.run)
+            emit_json(report, args.output)
+            return 0
+        if args.command == "prune-artifacts":
+            report = prune_recomputable_artifacts(args.run, apply=args.apply)
+            emit_json(report, args.output)
+            return 0
         if args.command == "assemble-proof":
             report = assemble_with_audio(args.video, args.audio, args.output,
                                          target_seconds=args.seconds,
                                          audio_delay_seconds=args.audio_delay)
             emit_json(report, args.manifest)
             return 0
+        if args.command == "prepare-dialogue":
+            try:
+                crop = tuple(int(value) for value in args.crop.split(":"))
+                if len(crop) != 4:
+                    raise ValueError
+            except ValueError as exc:
+                raise VideoGenError("--crop must be width:height:x:y") from exc
+            report = prepare_dialogue_clip(
+                args.input, args.output, start=args.start, end=args.end,
+                rate=args.rate, crop=crop,
+            )
+            emit_json(report, args.manifest)
+            return 0
         if args.command == "assemble-dialogue":
             report = assemble_lipsynced_dialogue(args.clip, args.output,
                                                  target_seconds=args.seconds)
+            emit_json(report, args.manifest)
+            return 0
+        if args.command == "assemble-scene":
+            report = assemble_master_dialogue_scene(
+                args.master, args.clip, args.output, target_seconds=args.seconds,
+                master_seconds=args.master_seconds,
+            )
             emit_json(report, args.manifest)
             return 0
         ledger = Ledger(args.ledger)
@@ -149,8 +204,9 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "plan-avatar":
             request = Orchestrator(config, ledger, args.profile).run_avatar(
                 avatar_image_input(args.image), args.script, args.voice, seed=args.seed,
-                max_seconds=args.max_seconds, live=args.live, confirmed=args.confirm_live,
-                allow_partner=args.allow_partner_avatar)
+                max_seconds=args.max_seconds, gaze_direction=args.gaze_direction,
+                performance_direction=args.performance, live=args.live, confirmed=args.confirm_live,
+                allow_partner=args.allow_partner_avatar, output_dir=args.output_dir)
             print(json.dumps({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, indent=2))
             return 0
         if args.live:

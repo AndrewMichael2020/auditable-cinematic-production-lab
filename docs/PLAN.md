@@ -2,7 +2,10 @@
 
 ## Decision
 
-Use DeepInfra as the single inference provider for the first proof. All selected runtime models have publicly available weights and permissive licences. Gemini/Flow, Vertex AI, OpenAI API, ElevenLabs, and proprietary DeepInfra partner video models are excluded.
+Use DeepInfra as the single inference gateway for the first proof. The default registry remains
+open-weight and permissively licensed. One user-approved, CLI-gated exception permits
+`PrunaAI/p-video-avatar` for a bounded two-speaker lip-sync test; provider metadata does not report
+its licence. Gemini/Flow, Vertex AI, OpenAI API, and ElevenLabs remain excluded from runtime.
 
 The first deliverable is a reproducible one-location scene and its evidence trail, not a large application.
 
@@ -36,14 +39,19 @@ The US-dollar caps conservatively assume 1 USD = 1.37 CAD and 12% tax. Before a 
 | Final text-to-video | `Wan-AI/Wan2.2-T2V-A14B` | Apache 2.0 | US$0.075/second |
 | Frame/contact-sheet QA | `Qwen/Qwen3-VL-30B-A3B-Instruct` | Apache 2.0 | US$0.15 input / US$0.60 output per 1M tokens |
 | Dialogue audio | `ResembleAI/chatterbox-turbo` | MIT | US$1.00 per 1M characters |
+| Explicit lip-sync exception | `PrunaAI/p-video-avatar` | Not reported by provider | US$0.025/second reservation basis |
 
 Model names and prices are configuration data. A live run must fail closed if DeepInfra no longer exposes the exact model, the price is unknown, or the configured reservation price is lower than the currently verified price.
 
 ## Honest limitation
 
-The two approved video models are text-to-video. They do not provide the reference-conditioned identity control of a strong image-to-video or reference-to-video model.
+The two default video models are text-to-video. They do not provide the reference-conditioned
+identity control of a strong image-to-video or reference-to-video model.
 
-Therefore, this proof tests how far structured prompts, one controlled location, shot design, selection, and editing can push continuity. It must not claim solved face identity or lip-sync. Dialogue can be placed over reaction shots, profiles, over-the-shoulder compositions, or off-screen beats so the first experiment evaluates drama and editing without pretending visible speech is synchronized.
+Therefore, the main proof tests how far structured prompts, one controlled location, shot design,
+selection, and editing can push continuity. It must not claim solved face identity. The separate
+partner test may claim visible synchronized speech only for its generated close-up clips; it does
+not by itself prove wide-shot continuity or objective SyncNet accuracy.
 
 If continuity remains inadequate, the result is useful evidence. The engine remains provider-independent so a later permissively licensed I2V/R2V adapter can replace the video stage when one is available within budget.
 
@@ -112,6 +120,8 @@ Create:
 - four shot records;
 - dialogue audio plan that does not depend on unverified visible lip-sync;
 - per-shot and assembled-scene acceptance criteria.
+- an early spatial audit covering platform geometry, safe blocking, object support, anatomy/contact,
+  wardrobe construction, scale, continuity, unwanted text, and sparse environmental metaphors.
 
 Exit gate:
 
@@ -135,7 +145,7 @@ Implement only:
 - FFmpeg/ffprobe validation;
 - contact-sheet creation;
 - Qwen-VL QA;
-- Chatterbox audio generation;
+- Chatterbox audio generation and an explicit partner-avatar exception for visible speech;
 - deterministic final assembly.
 
 Default behavior is dry-run. A live command requires the token, a selected budget profile, and explicit confirmation.

@@ -3,7 +3,7 @@
   "project_id": "video-gen-test",
   "status": "live_smoke_validated",
   "updated_at": "2026-08-02",
-  "objective": "Produce a reproducible one-location AI drama proof through DeepInfra-hosted OSS models before implementing a full production engine.",
+  "objective": "Produce a reproducible one-location AI drama proof through DeepInfra, defaulting to open-weight models with one explicit bounded partner lip-sync exception.",
   "provider_policy": {
     "allowed_providers": [
       "deepinfra"
@@ -129,12 +129,12 @@
   },
   "proof": {
     "finished_duration_seconds": {
-      "min": 15,
+      "min": 12,
       "max": 30
     },
     "location_count": 1,
     "adult_character_count": 2,
-    "planned_shot_count": 4,
+    "planned_shot_count": {"min": 4, "max": 6},
     "initial_shot_duration_seconds": 5,
     "video_capability": "text_to_video",
     "does_not_claim": [

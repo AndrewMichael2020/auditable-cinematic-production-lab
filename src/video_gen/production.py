@@ -15,14 +15,14 @@ def load_scene(path: str | Path) -> dict[str, Any]:
         raise PolicyError(f"scene missing: {', '.join(sorted(missing))}")
     if len(scene["characters"]) != 2 or any(int(c.get("age", 0)) < 18 for c in scene["characters"]):
         raise PolicyError("scene requires exactly two adult characters")
-    if len(scene["shots"]) != 4:
-        raise PolicyError("scene requires exactly four shots")
+    if not 4 <= len(scene["shots"]) <= 6:
+        raise PolicyError("scene requires four to six shots")
     ids = [shot.get("id") for shot in scene["shots"]]
     if len(set(ids)) != len(ids):
         raise PolicyError("shot ids must be unique")
     duration = sum(int(shot.get("seconds", 0)) for shot in scene["shots"])
-    if duration != int(scene["duration_seconds"]) or not 15 <= duration <= 30:
-        raise PolicyError("shot durations must equal a 15–30 second scene duration")
+    if duration != int(scene["duration_seconds"]) or not 12 <= duration <= 30:
+        raise PolicyError("shot durations must equal a 12–30 second scene duration")
     for character in scene["characters"]:
         for field in ("id", "description", "wardrobe"):
             if not str(character.get(field, "")).strip():
@@ -51,11 +51,16 @@ def compile_prompt(scene: dict[str, Any], shot_id: str) -> str:
         f'to {blocking.get(character["id"], {}).get("end", "unspecified").replace("_", " ")}'
         for character in scene["characters"]
     )
+    gaze_text = "; ".join(
+        f'{character["id"]} looks {shot.get("gaze", {}).get(character["id"], {}).get("screen_direction", "unspecified").replace("_", " ")} '
+        f'toward {shot.get("gaze", {}).get(character["id"], {}).get("target", "unspecified")}'
+        for character in scene["characters"]
+    )
     metaphors = "; ".join(scene.get("visual_policy", {}).get("environmental_metaphors", []))
     return (f'Cinematic naturalistic drama. Location: {location["name"]}; {location["time"]}; '
             f'{location["layout"]}; lighting: {location["light"]}. Characters: {people}. '
             f'Continuity: {location["axis"]}. Shot: {shot["framing"]}. Action: {shot["action"]}. '
-            f'Blocking: {blocking_text}. Environmental storytelling: {metaphors}. '
+            f'Blocking: {blocking_text}. Eyelines: {gaze_text}. Environmental storytelling: {metaphors}. '
             'The platform geometry, object supports, anatomy, scale, garment closures, and physical contact must remain plausible. '
             'Exactly two adults, stable wardrobe and setting, plain surfaces, no signs, no labels, no letters, no numbers, '
-            'no subtitles, no watermark, no visible lip-sync.')
+            'no subtitles, no watermark, no actor looks into the camera, the lens remains an unnoticed observer, no visible lip-sync.')

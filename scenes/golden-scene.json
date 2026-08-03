@@ -11,6 +11,7 @@
   },
   "visual_policy": {
     "text_policy": "forbid",
+    "camera_gaze_policy": "never_look_at_camera",
     "public_space_symbols": {
       "max_icons": 0,
       "allowed_icons": []
@@ -72,12 +73,16 @@
   ],
   "shots": [
     {
-      "id": "s01", "seconds": 5, "framing": "locked wide full-body two-shot",
+      "id": "s01", "seconds": 5, "framing": "locked wide full-body two-shot", "spatial_role": "master",
       "camera": {"movement": "locked", "framing": "wide_full_body"},
       "blocking": {
         "mara": {"start": "left_safe_zone", "end": "left_safe_zone"},
         "eli": {"start": "off_screen_right", "end": "right_safe_zone"},
         "minimum_separation_m": 1.5
+      },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
       },
       "action": "Mara waits left; Eli enters from right and stops", "dialogue": null
     },
@@ -89,6 +94,10 @@
         "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
         "minimum_separation_m": 1.5
       },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
       "action": "Mara grips the satchel and looks away", "dialogue": {"speaker": "mara", "line": "I wrote back. I just never sent it."}
     },
     {
@@ -99,6 +108,10 @@
         "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
         "minimum_separation_m": 1.5
       },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
       "action": "Eli absorbs the admission; restrained relief", "dialogue": {"speaker": "eli", "line": "Then don't miss this train."}
     },
     {
@@ -108,6 +121,10 @@
         "mara": {"start": "left_safe_zone", "end": "center_left_safe_zone"},
         "eli": {"start": "right_safe_zone", "end": "right_safe_zone"},
         "minimum_separation_m": 0.75
+      },
+      "gaze": {
+        "mara": {"target": "eli", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "eli": {"target": "mara", "screen_direction": "screen_left", "camera_look_forbidden": true}
       },
       "action": "Mara crosses one step toward Eli as train light blooms off-screen", "dialogue": null
     }
