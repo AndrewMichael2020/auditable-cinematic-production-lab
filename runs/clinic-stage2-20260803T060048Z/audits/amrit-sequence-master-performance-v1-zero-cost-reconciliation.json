@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "request_id": "0b1ca649-4394-4723-9b4f-3f22f4711b21",
+  "provider": "DeepInfra",
+  "endpoint": "/payment/usage",
+  "interval_unix_seconds": {"from": 1785754360, "to": 1785754590},
+  "provider_reported_items": [],
+  "provider_reported_total_cost_cents": 0,
+  "conclusion": "The interrupted unified nurse-performance request returned no media and the official provider usage ledger reports zero cost for the containing interval. One bounded retry is authorized by the user-provided final-regeneration allowance."
+}

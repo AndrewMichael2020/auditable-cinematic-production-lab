@@ -8,7 +8,7 @@ from video_gen.errors import PolicyError
 
 def test_registry_and_costs():
     config = ProjectConfig.load()
-    assert config.profile_cap("cad_10") == Decimal("6.5")
+    assert config.profile_cap("cad_10") == Decimal("10.0")
     assert config.model("draft_video").reserve(seconds=5) == Decimal("0.0125")
     assert config.model("final_video").reserve(seconds=5) == Decimal("0.375")
     assert config.model("lip_sync_avatar").reserve(seconds=8) == Decimal("0.200")

@@ -1,0 +1,79 @@
+{
+  "schema_version": "2.0",
+  "series_id": "ser-surrey-care",
+  "title": "Surrey Care",
+  "premise": "Short naturalistic dramas about ordinary residents navigating health, work, family, and public services across Surrey, British Columbia.",
+  "style_bible": "High-production-value narrative cinema with rigorous motivated composition and unpolished emotional truth; native 16:9 landscape; humane performances; location-specific daylight, architecture and ambience; never commercial or beauty-advertising imagery.",
+  "cinematic_intent": {
+    "dramatic_mode": "Serious auteur-informed contemporary Canadian drama; every framing, colour and duration choice serves character, space and story.",
+    "composition": "Thought-through, motivated and spatially legible compositions with deliberate headroom, look room, depth and negative space.",
+    "light": "Natural practical daylight and soft clinical overhead light with dimensional faces; no glamour key light or product-display sheen.",
+    "colour": "Controlled turquoise, pale neutral and light-wood production design derived from the clinic reference, with natural skin colour and restrained contrast.",
+    "performance": "Quiet, behaviorally specific adult acting with pauses, imperfect micro-expression and no promotional smiling or presenter energy.",
+    "exclusions": "No advertising gloss, beauty campaign, corporate promotional video, stock-photo staging, fashion polish, animation, 3D-render appearance, plastic skin or illustration."
+  },
+  "canonical_personas": [
+    {
+      "character_id": "nurse-amrit",
+      "persona_id": "persona-amrit-kaur",
+      "persona_version": "pv01",
+      "display_name": "Amrit Kaur",
+      "age_baseline": 35,
+      "cultural_background": "Punjabi-Canadian woman raised in Surrey, British Columbia",
+      "local_history": "Born in British Columbia, raised in Newton, and now works in a South Surrey urgent and primary care clinic.",
+      "language_history": "English-dominant and conversational Punjabi; uses natural Lower Mainland clinical English at work.",
+      "accent": "Natural Lower Mainland Canadian English with a subtle Punjabi-Canadian family cadence; never exaggerated or performed as a stereotype.",
+      "appearance": "South Asian woman with warm medium-brown skin, expressive dark-brown eyes, oval face, and dark hair secured in a practical low bun.",
+      "manner": "Calm, observant and economical; professional warmth without over-smiling.",
+      "backstory": "An experienced primary-care nurse who is practiced at explaining administrative uncertainty without making patients feel dismissed.",
+      "relationships": "Meets Daniel for the first time during this episode.",
+      "voice": {
+        "provider_voice": "Unified Chatterbox performance master, seed 3407",
+        "language": "English (US provider setting), directed as Canadian English",
+        "accent_direction": "Natural Lower Mainland Canadian English; composed clinical pacing; no generic American announcer tone and no stylized Punjabi accent.",
+        "performance_baseline": "Low-key, clear and empathetic with a restrained dramatic arc: professional warmth, precise B.C. Services Card diction, concerned weight on inactive M.S.P., then compassionate but firm uncertainty. Generate the sequence in one continuous take and split only at deliberate pauses."
+      },
+      "reference_pack": {
+        "version": "rp01",
+        "visual_references": [
+          {
+            "kind": "native_16_9_landscape_medium_closeup",
+            "status": "planned_generation",
+            "path": "runs/clinic-stage2-current/references/nurse-amrit-landscape.png"
+          }
+        ]
+      }
+    },
+    {
+      "character_id": "patient-daniel",
+      "persona_id": "persona-daniel-kim",
+      "persona_version": "pv01",
+      "display_name": "Daniel Kim",
+      "age_baseline": 42,
+      "cultural_background": "Korean-Canadian man who has lived in Surrey since adolescence",
+      "local_history": "Moved to Guildford with his family at age twelve and now lives near Fleetwood.",
+      "language_history": "Korean first language and fluent English since adolescence; uses English in daily life and at work.",
+      "accent": "Natural Lower Mainland Canadian English with only mild, consistent Korean-influenced cadence when the voice can render it respectfully.",
+      "appearance": "East Asian man with a lean tired face, warm light-medium skin, short dark slightly wavy hair, gentle under-eye fatigue, and stable ambulatory posture.",
+      "manner": "Polite and contained; minimizes discomfort until cost uncertainty lands.",
+      "backstory": "A self-employed Surrey resident whose persistent cough has finally outweighed his reluctance to lose work time.",
+      "relationships": "Meets Amrit for the first time during this episode.",
+      "voice": {
+        "provider_voice": "Puck (Male)",
+        "language": "English (US provider setting), directed as Canadian English",
+        "accent_direction": "Natural Lower Mainland Canadian English with restrained Korean-influenced cadence only if stable; no caricature and no accent switching.",
+        "performance_baseline": "Quiet, tired and direct, with short breaths and no theatrical distress."
+      },
+      "reference_pack": {
+        "version": "rp01",
+        "visual_references": [
+          {
+            "kind": "native_16_9_landscape_medium_closeup",
+            "status": "planned_generation",
+            "path": "runs/clinic-stage2-current/references/patient-daniel-landscape.png"
+          }
+        ]
+      }
+    }
+  ]
+}

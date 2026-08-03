@@ -1,0 +1,9 @@
+{
+  "independently_resumable": true,
+  "ok": true,
+  "ordered_scene_ids": [
+    "last-train-platform-cliffhanger",
+    "clinic-reception-coverage-check"
+  ],
+  "production": "video-gen-robustness-tests"
+}

@@ -73,7 +73,199 @@ wide master is worth paying for only when the setting or blocking genuinely chan
 - multi-location episodes and long-form continuity;
 - automatic paid retries or provider fallback;
 - dashboards, orchestration services, and asset-management UI;
-- new TTS providers while the current synchronized speech is satisfactory;
+- broad TTS/provider expansion; first prove mouth-visible, persona-matched, perceptually synchronized
+  speech with one deliberately selected path;
 - broad model comparisons without a specific failure the new model is meant to solve.
 
-The stage gate is now **repeatable quality under a small budget**, not a larger feature surface.
+The stage gate is now **repeatable quality under a small budget with gradual, evidence-backed
+feature growth**. Add one bounded feature at a time, keep the existing quality gates green, and
+promote it into the baseline only after it succeeds in two accepted runs.
+
+## Clinic robustness result
+
+The contrasting clinic test completed a 49.69-second, twelve-interval scene for US$2.625 actual
+against US$3.075 reserved. The final, paid sources, rejected takes, dialogue edits, append-only
+ledger, hashes, staged audits and timeline provenance are in `runs/clinic-20260803T011736Z/`.
+
+A later cinematic re-audit found that this is a pipeline and evidence success, but not an accepted
+Stage 2 scene. The earlier `pass` decisions remain evidence for geography, privacy, identity,
+screen direction and provenance only. They did not evaluate several requirements that are now hard
+gates, and the earlier lip-sync pass is withdrawn.
+
+Lessons that generalize:
+
+- Generate the room first. A dedicated environment-master prompt improved crowd, counter and
+  circulation geometry because it stopped asking one request to solve close face detail too.
+- Treat privacy props as states, not descriptions: face-down, edge-on, moving, occluded or defocused.
+  Admit only the safe interval when a longer take starts inventing card-like objects.
+- Audit transitions after local repair. Crops, background blurs and reaction-tail selection can fix
+  one defect while introducing lens gaze, missing mouths or an inconsistent frame shape.
+- Reserve avatar cost from provider output risk, not only requested dialogue length. A nominal
+  eight-second turn returned 12.2 seconds; its exact known cost was reconciled without retrying.
+- Live partner-avatar references need public HTTPS transport. Reject inline/local images before
+  reservation instead of paying for a request the provider cannot fetch.
+- Longer scenes remain cheapest when only the master and physical-action insert use video models;
+  compact stable character references can carry the dialogue coverage.
+
+### Clinic cinematic re-audit — 2026-08-03
+
+What held up:
+
+- The opening wide establishes the counter, waiting area, public/staff sides and general geography.
+- Principal identity, wardrobe, light direction and conversational screen direction are reasonably
+  coherent. Picture and audio received matching edit transforms, although that does not establish
+  generated lip sync.
+- Card and screen details remain unreadable, with strong cost, source, hash and timeline provenance.
+- Paid failures were bounded and reconciled rather than hidden or retried recursively.
+
+What failed the new Stage 2 bar:
+
+| Finding | Evidence | Decision |
+|---|---|---|
+| Portrait footage inside a landscape wrapper | All nine accepted raw avatar outputs are 768×1152. Dialogue coverage plus the derived reaction accounts for 38.873 of 49.686 seconds, or 78.2% of the delivery master. Most clips were tightly cropped; `c06` used blurred same-frame side extensions. | Block |
+| Accidental face cuts and weak composition | `final-c07-nurse-card-request-contact-sheet.png` reduces the nurse to partial face/eyes in several samples. The final sheet also shows abrupt scale jumps, partial faces in `c03` and `c11`, dominant foreground obstructions, repeated profile close-ups and too little environmental/shoulder context. | Block |
+| Lip sync is hidden or visibly off | Several dialogue crops remove or obscure the mouth, so synchronization cannot be assessed. Where the mouth is visible, the final has perceptible voice/mouth offset. The previous audit treated identical audio/video trim and rate transforms as proof; those transforms only preserve the source timing, including any generated offset. | Block |
+| Environment does not closely match the supplied reference | The reference is bright and airy, with dominant turquoise clinical bays, pale ceiling/floor, light modular desks and open small seating groups. The result is a dimmer beige hospital hall with one long warm-wood counter and rows of teal chairs. The recorded use policy explicitly treated the image as loose inspiration, did not send it as a generation reference and excluded source-composition reproduction. | Block |
+| Surrey casting and accent intent is incomplete | Separate nurse and patient descriptions and visual references were controlled within the run, which helped identity continuity. However, they are not series-owned/versioned personas, omit cultural/community, language-history and accent fields, and the retained request records do not establish persona-matched voice selection or audition. Background diversity cannot substitute for protagonist diversity. | Block |
+| The BC Care Card handoff is not legible | `c07` verbally asks for the card, but the following insert does not clearly show the patient owning, presenting and transferring it to the nurse before the check. Existing prop audits infer continuity from states; the action itself is not readable at normal speed. | Block |
+| Ambience exists but is effectively inaudible where it matters | A room-tone file is present, yet the final opening measures about -82.5 dBFS mean/-69.5 dBFS max and the outro about -74.0 dBFS mean/-55.7 dBFS max. This is technical non-silence, not a perceptible clinic environment. | Block |
+| Outro and finishing rhythm are under-resolved | The last interval is a 2.851-second still-frame hold derived from earlier footage, with effectively inaudible ambience and no planned matched picture/sound fade. It does not provide a living, cinematic resolution. | Block |
+| The audit schema over-promoted the cut | `blocking_and_framing` checked axis and orientation, not cinematic composition or face safety. No hard rules covered native source orientation, reference similarity, persona/voice authenticity, essential action legibility or ambience audibility. The final audit therefore reported `pass` for conditions it never tested. | Block |
+
+Lessons to carry forward:
+
+- **Quarantine model/style classes that fail the medium.** `shot05-draft-v2-contact.png` traces to
+  "`FastVideo/FastWan-QAD-FP8-1.3B`". Its simplified glossy/cartoon-like people are not a lower-cost
+  preview of the intended cinema; they are a different aesthetic class. Stage 2 now rejects that
+  model as a source, reference, lip-sync input or final interval regardless of technical validity.
+- **Reuse the station lip-sync contract exactly.** The accepted station scene used 512×512
+  single-person references, 960×960 synchronized avatar outputs and preplanned 16:9 crops with
+  identical picture/audio trim and rate transforms. Native landscape inputs returned HTTP 500,
+  while the square path reproduced the good synchronization. Stage 2 therefore permits this one
+  auditable square-performance exception—never portrait footage, side fill or a crop that cuts a
+  face—and requires the square reference to derive from an approved paired 16:9 scene.
+
+- **Validate source orientation, not the final wrapper.** Scaling, cropping or side-filling a
+  portrait source into 1280×720 does not make it cinematic landscape footage.
+- **Do not use crop repair to manufacture a shot.** A crop is admissible only from a landscape
+  source with safe overscan, intentional composition and an every-frame face/anatomy pass.
+- **Separate continuity compliance from cinematic acceptance.** Correct axis, identity and privacy
+  are necessary, but a badly composed close-up still fails.
+- **Prove lip sync from the mouth and sound, not the edit recipe.** Keep the complete lips and jaw in
+  frame, review every utterance perceptually and inspect consonant closures. Shared trims cannot
+  convert an off-sync source into an accepted shot.
+- **Turn visual references into weighted anchors.** Record which architectural features define the
+  target, compare them side by side and require human resemblance approval. Loose colour borrowing
+  is insufficient when the brief asks for a close environmental match.
+- **Story actions must read on screen.** Prop state and ownership records cannot replace visible
+  initiation, transfer/contact and completion. Privacy-safe does not mean narratively invisible.
+- **Promote controlled run personas into series canon.** Keep the useful separate character
+  references, but own and version canonical persona, cultural/local context, language history,
+  accent direction, casting realization, audition and approval at series level. Episodes inherit
+  that canon and add explicit state; they do not redefine it. Never infer an accent from appearance
+  or direct a caricature.
+- **Mix for perception, not track existence.** Measure the ambience-only opening and ending, then
+  listen on headphones and ordinary speakers. Preserve a faint clinic bed through pauses and add
+  synchronized foley for required visible actions.
+- **Finish the outer edges and hide only technical seams.** Establish the environment before the
+  first line, hold a living final beat for at least three seconds, and default to matched picture
+  and ambience fades of about 0.5 seconds. Inspect every repair stitch frame by frame and at normal
+  speed; when it remains perceptible, use a motivated editorial cut or reject the shot.
+- **A hard visual or sound failure cannot become a known limitation.** Repair within the bounded
+  policy or reject the shot/run; successful billing and provenance do not promote it.
+
+Pareto next steps:
+
+1. Reject portrait output at source admission and prove one complete scene with native 16:9
+   dialogue coverage before optimizing anything else.
+2. Re-run the clinic only from a reference-anchor brief that prioritizes the supplied turquoise,
+   bright, modular South Surrey reception environment.
+3. Recast with written Surrey-representative personas and audition persona-matched voices before
+   lip-sync generation.
+4. Storyboard and shoot the BC Care Card handoff as a complete privacy-safe action, including
+   patient ownership, transfer and nurse receipt.
+5. Add a location-specific ambience/foley cue track and verify that it is faint but audible in the
+   intro, gaps and longer outro on two playback devices; apply matched approximately 0.5-second
+   outer picture/sound fades.
+6. Emit exact internal edit boundaries, reject perceptible stitch seams and run the new Stage 2
+   gates—including utterance-level mouth-visibility and lip-sync review—before any final promotion.
+# Functional layout is a blocking visual property
+
+A wider desk is not sufficient if the objects on it do not form a usable workstation. The review of
+`edf-corrected-workstation-card-reference-v2.png` exposed an awkward monitor placement that an earlier
+pass incorrectly accepted. Stage 2 screenshot and contact-sheet audits must now treat practical
+operability as spatial continuity: monitor screen orientation and supported base, monitor–keyboard
+alignment, operator reach, reader placement, and an unobstructed handoff path all require explicit
+evidence. A frame that merely contains the requested objects remains blocked.
+
+# A synchronized question still fails if the actor abandons the listener
+
+`d7b36f56-d634-4700-a973-e2ccbdad3cd8.mp4` preserved the new nurse-side composition and visible
+speech, but Amrit lowered her gaze after asking what brought Daniel in. A question beat must include
+the anticipation of an answer: polite partner eyeline continues through the post-line handle. Stage 2
+now blocks question takes that end on a keyboard glance, downward gaze, camera gaze, or other visible
+disengagement, even when their lip sync is otherwise acceptable.
+
+# Dialogue model choice depends on the required shot, not lip sync alone
+
+`PrunaAI/p-video-avatar` retained good synchronized speech for a single-person train-station setup,
+but the clinic tests showed two different failure modes: a single-person reference caused invented
+listeners when strong response-eyeline language was added, while a paired landscape reference was
+reframed as an over-close split screen with a black divider. `Wan-AI/Wan2.6-I2V` with its documented
+synchronized audio input preserved the native paired clinic composition in the bounded greeting
+test. The run may therefore expand that path only to nine sequential candidates under the existing
+monetary cap. Each request is explicitly limited to 5, 6 or 7 seconds and reserved at the verified
+per-second rate so complete persona audio is never clipped or time-compressed merely to fit a five-
+second default. Perceptual and human lip-sync review remain mandatory.
+
+## Clinic Stage 2 completion retrospective — 2026-08-03
+
+The corrected 38.51-second clinic sequence passes the Stage 2 gate at US$11.800723 actual. It is the
+first accepted Stage 2 run, not yet the two-run exit condition.
+
+- **Give each reference one job.** `8dc…` governs facial texture, eye light and intimate acting;
+  `edf…` governs composition, spatial depth and restrained colour but not its underexposed faces;
+  `shot03-patient-symptom-contact-sheet.png` governs the whole-cut clinic palette.
+- **Cinematic is not high contrast.** Boundary QA rejected a contrast-heavy plastic finish. The
+  accepted master lifts shadows, compresses contrast and saturation, uses pastel teal/neutrals and
+  fine grain, and keeps both faces readable.
+- **A negative prompt cannot rescue a glossy plate.** Begin with textured, non-advertising source
+  imagery, then direct practical light, visible adult skin, asymmetric micro-expression and framing.
+- **Workstation logic is a depth contract.** Audit monitor support and operator axis, keyboard
+  separation, reader reach and an unobstructed card path—not merely whether all objects exist.
+- **Anatomy means the whole kinetic chain.** Inspect shoulder→elbow→wrist connection, palm
+  orientation, handedness, ownership, contact and release at dense time samples.
+- **Background people are continuity state.** They may be off screen in a tighter setup, but must
+  persist whenever the established waiting-room depth returns.
+- **A question needs eye contact and a narrative answer.** Amrit holds the listener after asking;
+  Daniel's “How much?” is followed by her truthful uncertainty before the living outro.
+- **Off-screen dialogue is honest when the mouth is unverified.** It must never hide a required
+  action. The card remains visible; only Daniel's short question moves off screen.
+- **Lip sync is sequence-wide.** Every visible line uses audio-conditioned picture; picture and
+  audio remain source-locked through identical trims. Palette, identity, wardrobe, pose/posture,
+  screen direction, gaze and acting restraint are also checked across every cut, not shot by shot.
+- **Voice continuity begins before lip sync.** Four separately rendered nurse lines produced a
+  conspicuous closing-voice mismatch even though the final line itself was clear. The accepted v3
+  records one 19.2-second dramatic Amrit performance, uses spoken B.C./M.S.P. diction, splits only at
+  deliberate pauses and conditions all four visible turns from that master. A shared voice label is
+  not proof of shared timbre, prosody or emotional arc.
+- **Extras are spatial state, not decoration.** The same two waiting patients persist whenever the
+  opening waiting-area depth returns. Singles may omit them only when the declared reverse angle
+  places their positions outside frame; an empty established position is a blocking discontinuity.
+- **Noise is not chatter, and principal dialogue is not ambience.** Use separately generated,
+  location-specific conversations, diffuse them, keep them secondary and measure after mastering.
+- **Master loudness can overturn the premix.** The first intro became too loud after normalization.
+  The final was remeasured at -31.5 dBFS intro and -44.7 dBFS outro.
+- **Prefer motivated cuts over technical camouflage.** The final has straight cuts only and
+  0.5-second outer fades; no crop, stitch or transition conceals failed sync or anatomy.
+- **Put content in manifests.** Personas, lines, visible characters, gaze, environment and layout
+  live in series/sequence/prompt-policy data. Generic code enforces schema and invariants.
+- **Retain evidence, not preview sprawl.** Keep paid sources, accepted references, prompts, ledger,
+  final timeline/master/manifest, final QA and decisions; prune recomputable samples and drafts.
+- **Persist sound masters, not component clutter.** Keep the final ambience amalgamation and its
+  script/provenance; discard individual background-voice and noise stems after mix verification.
+
+Next: run one contrasting sequence with the same gate and add at most one bounded feature. Build a
+reusable ambience mixer from independent speech assets. Objective lip-sync scoring may support but
+never replace normal-speed human review. Alternative models require current provider, control,
+licence and cost verification against a named failure before registry admission.

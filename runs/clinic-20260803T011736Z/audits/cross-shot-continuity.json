@@ -1,0 +1,203 @@
+{
+  "audit_stage": "cross_shot_continuity",
+  "audit_type": "cross_shot_continuity",
+  "gate": "pass",
+  "promotion_allowed": true,
+  "promotion_status": "advance",
+  "results": [
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.96,
+      "expected_condition": "A wide master establishes geography that all closer coverage preserves.",
+      "observed_evidence": "The opening wide establishes entry, occupied waiting hall, counter, nurse, patient and safe circulation before close coverage.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "master_coverage",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.99,
+      "expected_condition": "Speaking principals remain identifiable and no person is duplicated or fused.",
+      "observed_evidence": "Exactly two speaking principals remain identifiable throughout.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "character_count_identity",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.9,
+      "expected_condition": "Background people do not abruptly duplicate, disappear, intersect objects, or stare at the action.",
+      "observed_evidence": "Background occupancy varies only with framing and shows no conspicuous fusion or impossible crossing.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "crowd_continuity",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.95,
+      "expected_condition": "Positions, scale, screen direction, and framing follow the shot plan.",
+      "observed_evidence": "Patient remains public-side/screen-left and nurse staff-side/screen-right; the counter and interlocutor foreground preserve orientation.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "blocking_and_framing",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.96,
+      "expected_condition": "Actors look at planned story targets and never into the camera.",
+      "observed_evidence": "Both actors use interlocutor/work-surface eyelines; the final patient reaction remains off-camera screen-right.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "gaze_and_eyeline",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.95,
+      "expected_condition": "Buttons, pockets, sleeves, closures, and accessories remain coherent.",
+      "observed_evidence": "Olive patient outerwear and teal nurse clothing remain stable without changing closures or accessories.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "wardrobe_construction",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.92,
+      "expected_condition": "Props keep their shape, colour, owner, and planned location.",
+      "observed_evidence": "The card remains a single blue-and-white ordinary plastic prop through the foreshadow and face-down system check.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "prop_identity_ownership",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.99,
+      "expected_condition": "Protected identifiers, card faces, and monitor content remain unreadable.",
+      "observed_evidence": "Card faces, workstation content and patient identifiers stay unreadable in every interval.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "privacy",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.95,
+      "expected_condition": "Light direction, colour, and time of day remain coherent.",
+      "observed_evidence": "Daylight direction and warm-neutral interior light remain consistent.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "lighting_continuity",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    },
+    {
+      "audit_stage": "cross_shot_continuity",
+      "confidence": 0.93,
+      "expected_condition": "Faces, wardrobe, location, props, narrative facts, and screen direction remain stable.",
+      "observed_evidence": "Geography, narrative order, identity, attire, room tone and the coverage-result emotional turn remain coherent.",
+      "promotion_blocked": false,
+      "protected_constraints": [
+        "accepted prior interval",
+        "principal identity",
+        "scene geography"
+      ],
+      "recommended_repair_action": "none",
+      "rule_id": "continuity",
+      "scene_id": "clinic-reception-coverage-check",
+      "severity": "block",
+      "shot_id": null,
+      "status": "pass",
+      "suggested_next_pipeline_stage": "cross_scene_continuity"
+    }
+  ],
+  "scene_id": "clinic-reception-coverage-check",
+  "scene_sha256": "ab5be7174f92021974413afa59a15fcc01c2118a8d47343a6241591f573f6ad5",
+  "schema_version": "2.0",
+  "suggested_next_pipeline_stage": "cross_scene_continuity"
+}

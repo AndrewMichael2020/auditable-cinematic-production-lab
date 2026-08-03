@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "source_path": "docs/ideas_for_scenario_testing/Screenshot for scenario 2 - clinic reception.png",
+  "source_sha256": "92baff3c338880c9b14901fdf1cd6b5fbb4f5747d3c055a34906ac414f985542",
+  "compact_reference_path": "references/architecture-inspiration-compact.png",
+  "compact_reference_sha256": "80e432d4d0b4c531c3aa02961b70a18e67f7359af63a2e253f1b943f5088d0af",
+  "use_policy": "Architectural, colour, occupancy and daylight inspiration only. The source image is not sent as a generation frame.",
+  "borrowed_cues": ["teal architectural accents", "pale walls", "warm wood", "waiting-seat density", "soft daylight geometry"],
+  "protected_exclusions": ["source logo", "facility identity", "readable wall text", "readable screen content", "source composition reproduction"]
+}

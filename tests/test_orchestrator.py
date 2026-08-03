@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 
 import pytest
 
@@ -33,9 +34,12 @@ def test_live_reconciles_reported_cost(tmp_path):
     app, ledger = setup(tmp_path)
     response = {"video_url": "https://example/v.mp4?signature=secret", "inference_status": {"cost": "0.01"}}
 
+    request_payloads = []
+
     def transport(req, timeout):
         if req.full_url == "https://example/v.mp4?signature=secret":
             return 200, b"video bytes", {}
+        request_payloads.append(json.loads(req.data))
         return 200, json.dumps(response).encode(), {}
 
     client = DeepInfraClient("token", transport)
@@ -45,6 +49,36 @@ def test_live_reconciles_reported_cost(tmp_path):
     event = ledger.db.execute("SELECT metadata FROM events WHERE event='completed'").fetchone()[0]
     assert "output_sha256" in event
     assert "signature" not in event
+    assert request_payloads == [{
+        "prompt": "prompt", "seconds": 5, "resolution": "480p",
+        "orientation": "landscape", "seed": 0,
+    }]
+
+
+def test_final_uses_approved_negative_prompt_and_native_landscape_parameters(tmp_path):
+    app, _ = setup(tmp_path)
+    payloads = []
+    response = {"video_url": "data:video/mp4;base64,dmlkZW8=",
+                "inference_status": {"cost": "0.375"}}
+
+    def transport(req, timeout):
+        if req.full_url.startswith("data:video"):
+            return None, b"video", {}
+        payloads.append((json.loads(req.data), timeout))
+        return 200, json.dumps(response).encode(), {}
+
+    app.run_video(
+        "final_video", "cinematic clinic", live=True, confirmed=True,
+        client=DeepInfraClient("token", transport), output_dir=tmp_path,
+    )
+
+    payload, timeout = payloads[0]
+    assert payload["seconds"] == 5
+    assert payload["resolution"] == "720p"
+    assert payload["orientation"] == "landscape"
+    assert "advertisement" in payload["negative_prompt"]
+    assert "Vibrant colors" not in payload["negative_prompt"]
+    assert timeout == 600
 
 
 def test_audit_safe_url_removes_query_and_fragment():
@@ -165,6 +199,60 @@ def test_partner_avatar_requires_explicit_override_without_reserving(tmp_path):
     assert ledger.reserved_total() == 0
 
 
+def test_partner_i2v_requires_explicit_override_without_reserving(tmp_path):
+    app, ledger = setup(tmp_path)
+    with pytest.raises(PolicyError, match="allow-partner-i2v"):
+        app.run_image_video(
+            "data:image/png;base64,aW1hZ2U=", "Preserve the exact locked composition."
+        )
+    assert ledger.reserved_total() == 0
+
+
+def test_live_partner_i2v_uses_locked_payload_and_persists_video(tmp_path):
+    app, ledger = setup(tmp_path)
+    payloads = []
+    response = {
+        "video_url": "data:video/mp4;base64,dmlkZW8=",
+        "request_id": "i2v-provider-1",
+        "inference_status": {"cost": "0.50"},
+    }
+
+    def transport(req, timeout):
+        if req.full_url.startswith("data:video"):
+            return None, b"video", {}
+        payloads.append((json.loads(req.data), timeout))
+        return 200, json.dumps(response).encode(), {}
+
+    result = app.run_image_video(
+        "https://temporary.example/wide-clinic.png",
+        "Preserve the exact locked composition and animate one card handoff.",
+        audio_input="https://temporary.example/greeting.wav",
+        live=True, confirmed=True, allow_partner=True,
+        client=DeepInfraClient("token", transport), output_dir=tmp_path,
+    )
+
+    assert result.reserved_usd == Decimal("0.50")
+    assert (tmp_path / f"{result.request_id}.mp4").read_bytes() == b"video"
+    payload, timeout = payloads[0]
+    assert payload["resolution"] == "720P"
+    assert payload["duration"] == 5
+    assert payload["shot_type"] == "single"
+    assert payload["prompt_extend"] is False
+    assert payload["watermark"] is False
+    assert payload["img_url"] == "https://temporary.example/wide-clinic.png"
+    assert payload["audio_url"] == "https://temporary.example/greeting.wav"
+    assert "moving keyboard" in payload["negative_prompt"]
+    assert timeout == 600
+    metadata = ledger.db.execute(
+        "SELECT metadata FROM events WHERE event='completed'"
+    ).fetchone()[0]
+    assert "i2v-provider-1" in metadata
+    assert "temporary.example" not in metadata
+    assert '"image_sha256"' in metadata
+    assert '"audio_sha256"' in metadata
+    assert str(ledger.actual_total()) == "0.50"
+
+
 def test_partner_avatar_accepts_public_https_without_persisting_url(tmp_path):
     app, ledger = setup(tmp_path)
     result = app.run_avatar(
@@ -186,7 +274,7 @@ def test_partner_avatar_rejects_insecure_image_url_without_reserving(tmp_path):
     assert ledger.reserved_total() == 0
 
 
-def test_live_partner_avatar_uses_three_dollar_cap_and_persists_video(tmp_path):
+def test_live_partner_avatar_uses_partner_policy_cap_and_persists_video(tmp_path):
     app, ledger = setup(tmp_path)
     response = {
         "video_url": "data:video/mp4;base64,dmlkZW8=",
@@ -212,6 +300,68 @@ def test_live_partner_avatar_uses_three_dollar_cap_and_persists_video(tmp_path):
     assert "data:image" not in metadata
 
 
+def test_partner_avatar_targets_one_speaker_in_a_paired_landscape_plate(tmp_path):
+    app, ledger = setup(tmp_path)
+    payloads = []
+    response = {
+        "video_url": "data:video/mp4;base64,dmlkZW8=",
+        "request_id": "avatar-provider-paired",
+        "inference_status": {"cost": "0.10"},
+    }
+
+    def transport(req, timeout):
+        if req.full_url.startswith("data:video"):
+            return None, b"video", {}
+        payloads.append(json.loads(req.data))
+        return 200, json.dumps(response).encode(), {}
+
+    app.run_avatar(
+        "data:image/png;base64,aW1hZ2U=", "Hello", "Kore (Female)",
+        gaze_direction="screen_left", speaker_position="frame_right",
+        live=True, confirmed=True, allow_partner=True,
+        client=DeepInfraClient("token", transport), output_dir=tmp_path,
+    )
+
+    prompt = payloads[0]["video_prompt"]
+    expected = app.config.model("lip_sync_avatar").data[
+        "paired_subject_prompt_template"
+    ].format(speaker_side="frame right", listener_side="frame left")
+    assert expected in prompt
+    metadata = ledger.db.execute(
+        "SELECT metadata FROM events WHERE event='completed'"
+    ).fetchone()[0]
+    assert '"speaker_position": "frame_right"' in metadata
+
+
+def test_partner_avatar_question_holds_partner_eyeline(tmp_path):
+    app, _ = setup(tmp_path)
+    payloads = []
+    response = {
+        "video_url": "data:video/mp4;base64,dmlkZW8=",
+        "request_id": "avatar-provider-question",
+        "inference_status": {"cost": "0.05"},
+    }
+
+    def transport(req, timeout):
+        if req.full_url.startswith("data:video"):
+            return None, b"video", {}
+        payloads.append(json.loads(req.data))
+        return 200, json.dumps(response).encode(), {}
+
+    app.run_avatar(
+        "data:image/png;base64,aW1hZ2U=", "How much?", "Kore (Female)",
+        gaze_direction="screen_right", response_anticipation=True,
+        live=True, confirmed=True, allow_partner=True,
+        client=DeepInfraClient("token", transport), output_dir=tmp_path,
+    )
+
+    prompt = payloads[0]["video_prompt"]
+    expected = app.config.model("lip_sync_avatar").data[
+        "response_anticipation_prompt"
+    ].format(gaze_direction="screen right")
+    assert expected in prompt
+
+
 def test_partner_avatar_attempt_cap_is_five(tmp_path):
     app, ledger = setup(tmp_path)
     model = app.config.model("lip_sync_avatar")
@@ -232,3 +382,13 @@ def test_partner_avatar_rejects_camera_or_missing_gaze(tmp_path):
             gaze_direction=None, allow_partner=True,
         )
     assert ledger.reserved_total() == 0
+
+
+def test_explicit_run_and_avatar_attempt_caps_are_enforced(tmp_path):
+    ledger = Ledger(tmp_path / "ledger.db")
+    app = Orchestrator(ProjectConfig.load(), ledger, "cad_10",
+                       run_cap_usd=Decimal("8"), partner_avatar_attempt_cap=8)
+    assert app.cap == Decimal("8")
+    assert app.partner_avatar_attempt_cap == 8
+    with pytest.raises(PolicyError, match="no higher than profile cap"):
+        Orchestrator(ProjectConfig.load(), ledger, "cad_10", run_cap_usd=Decimal("10.01"))

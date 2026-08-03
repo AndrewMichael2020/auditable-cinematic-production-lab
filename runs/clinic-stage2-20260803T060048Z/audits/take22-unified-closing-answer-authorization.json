@@ -1,0 +1,14 @@
+{
+  "schema_version": "2.0",
+  "audit_type": "bounded_repair_authorization",
+  "shot_id": "take22",
+  "source_audit_gate": "block",
+  "source_candidate": "Wan I2V request 35d99fa0-1562-4abe-8ce6-389e7593bda7",
+  "source_evidence": "The closing picture used a different independently generated voice, breaking persona continuity and the dramatic performance arc.",
+  "authorization_allowed": true,
+  "attempt_limit": 1,
+  "attempts_used": 0,
+  "protected_constraints": ["Wan-AI/Wan2.6-I2V only", "native 1280x720 nurse medium single", "canonical Amrit pv01 identity and wardrobe", "complete face and polite screen-right eyeline", "final segment of the unified synchronized performance master"],
+  "repair_actions": ["synchronize the closing answer to the final unified-master segment", "carry compassionate uncertainty through the final quiet handle", "hold matching flat pastel narrative-film colour, pose and facial texture"],
+  "repaired_prompt_sha256": "307302185ad4a1548fba6e4a4625ac714a4fd0cd41ae26cea675d042011b3b5d"
+}

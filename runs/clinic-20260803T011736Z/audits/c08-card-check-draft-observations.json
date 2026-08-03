@@ -1,0 +1,20 @@
+{
+  "reviewer": "human:codex-frame-review",
+  "criteria": {
+    "room_geometry": "pass", "circulation": "pass", "spatial_anchors": "pass", "master_coverage": "pass",
+    "character_count_identity": {"status": "fail", "confidence": 1.0, "observed_evidence": "The adult male patient changes into a second woman.", "recommended_repair_action": "Restore the male patient in his plain olive jacket on the public side."},
+    "background_population": "pass", "crowd_continuity": "pass",
+    "blocking_and_framing": {"status": "fail", "confidence": 1.0, "observed_evidence": "Both people appear together on the workstation side with no counter barrier between them.", "recommended_repair_action": "Keep the counter visibly separating patient public-left from nurse staff-right."},
+    "gaze_and_eyeline": "pass", "anatomy_contact": "pass",
+    "wardrobe_construction": {"status": "fail", "confidence": 1.0, "observed_evidence": "Patient identity and wardrobe are replaced."},
+    "prop_identity_ownership": {"status": "fail", "confidence": 1.0, "observed_evidence": "The card becomes an oversized upright rectangle held by the nurse.", "recommended_repair_action": "Keep one ordinary-size card face-down on the counter surface throughout."},
+    "prop_interaction": {"status": "fail", "confidence": 1.0, "observed_evidence": "No plausible patient-to-counter-to-nurse transfer occurs; the card is displayed instead.", "recommended_repair_action": "Patient slides face-down card; nurse drags the same card laterally, releases it, then uses mouse."},
+    "privacy": "pass", "unwanted_text": "pass", "lighting_continuity": "pass",
+    "performance_action_match": {"status": "fail", "confidence": 0.98, "observed_evidence": "The intended quiet system check is replaced by a card presentation."},
+    "audio_sync": "pass",
+    "continuity": {"status": "fail", "confidence": 1.0, "observed_evidence": "Patient identity, wardrobe, public/staff geography and prop scale contradict the accepted master."},
+    "symbolic_environment": "pass", "occupancy_target": "pass", "patient_information_policy": "pass",
+    "monitor_orientation": "pass", "counter_separation": {"status": "fail", "confidence": 1.0, "observed_evidence": "The visible arrangement does not preserve public/staff separation."},
+    "profile_screen_privacy": "pass", "profile_card_privacy": "pass"
+  }
+}

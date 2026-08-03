@@ -1,7 +1,8 @@
 import copy
 
 import video_gen.auditor as auditor
-from video_gen.auditor import DRAFT_CRITERIA, audit_draft, audit_scene
+from video_gen.auditor import (DRAFT_CRITERIA, audit_continuity, audit_draft, audit_scene,
+                               text_sha256, verify_bounded_repair_authorization)
 from video_gen.production import compile_prompt, load_scene
 
 
@@ -64,3 +65,40 @@ def test_draft_blocks_pending_review_and_passes_complete_review(tmp_path, monkey
     passed = audit_draft(scene, "s02", video, observations)
     assert passed["promotion_allowed"] is True
     assert passed["reviewer"] == "human:test"
+
+
+def test_clinic_profile_passes_and_results_are_machine_actionable():
+    scene = load_scene("scenes/clinic-reception-coverage.json")
+    report = audit_scene(scene)
+    assert report["gate"] == "pass"
+    result = report["results"][0]
+    assert {"audit_stage", "scene_id", "shot_id", "rule_id", "severity", "confidence",
+            "observed_evidence", "expected_condition", "status", "promotion_blocked",
+            "recommended_repair_action", "protected_constraints",
+            "suggested_next_pipeline_stage"}.issubset(result)
+
+
+def test_uncertain_continuity_routes_to_review_without_retry():
+    scene = load_scene("scenes/clinic-reception-coverage.json")
+    observations = {"criteria": {
+        "master_coverage": {"status": "pass", "confidence": 0.95},
+    }}
+    report = audit_continuity(scene, observations)
+    assert report["gate"] == "review"
+    assert report["promotion_allowed"] is False
+    assert report["suggested_next_pipeline_stage"] == "human_review"
+
+
+def test_bounded_repair_requires_exact_prompt_and_one_attempt():
+    prompt = "repaired prompt"
+    packet = {
+        "audit_type": "bounded_repair_authorization", "authorization_allowed": True,
+        "attempt_limit": 1, "attempts_used": 0, "source_audit_gate": "block",
+        "repair_actions": ["widen frame"], "protected_constraints": ["no camera gaze"],
+        "repaired_prompt_sha256": text_sha256(prompt),
+    }
+    verify_bounded_repair_authorization(packet, prompt)
+    packet["attempts_used"] = 1
+    import pytest
+    with pytest.raises(ValueError, match="exhausted"):
+        verify_bounded_repair_authorization(packet, prompt)

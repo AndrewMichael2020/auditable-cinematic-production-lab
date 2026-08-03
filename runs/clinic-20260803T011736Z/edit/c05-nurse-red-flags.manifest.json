@@ -1,0 +1,26 @@
+{
+  "crop": {
+    "height": 315,
+    "width": 560,
+    "x": 0,
+    "y": 100
+  },
+  "output": {
+    "bytes": 830333,
+    "duration_seconds": 3.25,
+    "path": "runs/clinic-20260803T011736Z/edit/c05-nurse-red-flags.mp4",
+    "sha256": "eef9b0e1293fa45ebdf869f8f2e767b652e3816ff9fe914e988593cf4dcbd570"
+  },
+  "pacing_rate": 1.0,
+  "schema_version": "1.0",
+  "source": {
+    "duration_seconds": 3.52,
+    "path": "runs/clinic-20260803T011736Z/raw/a1467e21-5274-40fb-86bd-72fcc56b3014.mp4",
+    "sha256": "b534f5bc52611c7af5e6fdeb6ed00dc649fb8ef86f0abafca6ffd21f13b7523f"
+  },
+  "sync_preserved": true,
+  "trim": {
+    "end_seconds": 3.35,
+    "start_seconds": 0.1
+  }
+}

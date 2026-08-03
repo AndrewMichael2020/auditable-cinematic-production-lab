@@ -1,0 +1,31 @@
+{
+  "schema_version": "2.0",
+  "sequence_id": "seq-clinic-care-card",
+  "status": "final_review_candidate",
+  "path": "runs/clinic-stage2-20260803T060048Z/final/clinic-stage2-sequence-v3.mp4",
+  "sha256": "d133cd89d9c9b0ac90ff7db6fe88e68ec64f46ebece2fa964af44c6577259593",
+  "duration_seconds": 38.513,
+  "video": {"codec": "h264", "width": 1280, "height": 720, "fps": 24, "pixel_aspect_ratio": "1:1", "display_aspect_ratio": "16:9"},
+  "audio": {"codec": "aac", "sample_rate": 48000, "channels": 2, "integrated_lufs": -17.0},
+  "timeline": "runs/clinic-stage2-20260803T060048Z/final/final-timeline.json",
+  "performance_master": {
+    "path": "runs/clinic-stage2-20260803T060048Z/audio/amrit-sequence-master-performance-v2.wav",
+    "sha256": "abf02c5a048fa05da4ec6edd0ebe3099b57288b59a5a9055a6c53dbeb71d77bf",
+    "policy": "one continuous dramatic Amrit performance, split only at deliberate pauses and supplied picture-locked to takes19-22"
+  },
+  "ambience_master": {
+    "path": "runs/clinic-stage2-20260803T060048Z/audio/final-clinic-ambience-v6.wav",
+    "sha256": "3740363ab0093e302474a4f3b9922cdebabf51a1241fbecc0a28ba34e177304f",
+    "policy": "single persisted clinic-specific chatter and mechanical-room-tone amalgamation; no principal dialogue"
+  },
+  "nurse_sync_sources": {
+    "shot02": "d0ba42aa-227d-4893-8d32-5687f593f01c",
+    "shot04": "f3580447-0591-4a51-853a-af0118c94759",
+    "shot06": "4bcf6a3a-b46f-495d-8d31-ed34f86226b6",
+    "shot10": "8bedd9b0-29df-4198-8a10-9d77a5c6f5b3"
+  },
+  "grade": "flat pastel teal-neutral narrative-film pass: contrast 0.94, brightness 0.018, saturation 0.86, gamma 1.03, subtle temporal grain",
+  "outer_fades_seconds": 0.5,
+  "transition_policy": "straight motivated cuts only; no transition effects or concealed within-take stitches",
+  "cost": {"actual_run_total_usd": 11.800723, "user_authorized_increment_usd": 5.0, "failed_paid_transport_attempt_usd": 0.5}
+}

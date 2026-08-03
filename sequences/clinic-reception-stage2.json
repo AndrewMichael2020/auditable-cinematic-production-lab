@@ -1,0 +1,426 @@
+{
+  "schema_version": "2.0",
+  "hierarchy": {
+    "series_id": "ser-surrey-care",
+    "season_id": "ssn01",
+    "episode_id": "ep01",
+    "sequence_id": "seq-clinic-care-card"
+  },
+  "title": "The Care Card",
+  "series_manifest": "../series/surrey-care/series.json",
+  "generation_prompt_policy": {
+    "source_path": "../prompts/policies/stage2-generation-policy.json",
+    "source_sha256": "2ab2e31b0a50f12452cd406b76fd653a8a465fc5960b06f2d0191b8dd4fdc2ec"
+  },
+  "episode": {
+    "standalone_story": "A Surrey resident seeks help for a persistent cough and learns that inactive MSP may make the visit chargeable.",
+    "character_states": [
+      {
+        "character_id": "nurse-amrit",
+        "persona_version": "pv01",
+        "wardrobe": "Plain teal clinical scrub top and trousers with a lightweight warm-grey cardigan; no badge, logo or readable text.",
+        "knowledge": "Understands clinic intake and MSP status but cannot quote the final visit charge.",
+        "objective": "Triage Daniel safely and explain administrative uncertainty without shaming him.",
+        "emotional_state": "Calm and professionally attentive, becoming carefully apologetic at the coverage result."
+      },
+      {
+        "character_id": "patient-daniel",
+        "persona_version": "pv01",
+        "wardrobe": "Muted olive field jacket over a charcoal crew-neck shirt and dark trousers; no logo or lettering.",
+        "knowledge": "Knows his cough has persisted but does not know his MSP is inactive or what the visit may cost.",
+        "objective": "Get assessed without losing control of an unknown expense.",
+        "emotional_state": "Tired but stable, then quietly unsettled by the unknown charge."
+      }
+    ]
+  },
+  "reference_brief": {
+    "source_path": "../docs/ideas_for_scenario_testing/Screenshot for scenario 2 - clinic reception.png",
+    "source_sha256": "92baff3c338880c9b14901fdf1cd6b5fbb4f5747d3c055a34906ac414f985542",
+    "supplemental_sources": [
+      {
+        "source_path": "../docs/ideas_for_scenario_testing/2 - Screenshot for scenario 2 - clinic reception.jpg",
+        "source_sha256": "7f5de15f34a12100ecd06dec1ddf009e1601973a3b74335d4f9042de01174fa5",
+        "use": "open circulation, bright neutral exposure and legible public-to-staff service zoning"
+      },
+      {
+        "source_path": "../docs/ideas_for_scenario_testing/3 - Screenshot for scenario 2 - clinic reception.jpg",
+        "source_sha256": "8380e09d83dd1eaa831787badef873a3ebd05219ee3ef43a30ec24dd43caa744",
+        "use": "open-area scale and reception zoning only; explicitly exclude its glass enclosure, signs and decals"
+      }
+    ],
+    "approved_cinematic_style_references": [
+      {
+        "source_path": "../runs/clinic-stage2-20260803T060048Z/raw/recovered/dialogue/8dc92252-59e0-4499-9e78-20725232517f.mp4",
+        "contact_sheet_path": "../runs/clinic-stage2-20260803T060048Z/qa/8dc92252-cinematic-baseline-contact-sheet.png",
+        "use": "facial texture, readable eye light, intimate performance naturalism and non-advertising close-coverage behaviour; do not copy its square crop"
+      },
+      {
+        "source_path": "../runs/clinic-stage2-20260803T060048Z/raw/recovered/edf7664d-ad58-4280-8af1-b68ede0e82d5.mp4",
+        "contact_sheet_path": "../runs/clinic-stage2-20260803T060048Z/qa/edf-cinematic-baseline-contact-sheet.png",
+        "use": "wide composition, muted teal-neutral colour restraint, practical spatial depth and paired staging; do not copy its underexposed faces or incomplete workstation"
+      }
+    ],
+    "preservation_policy": "Match the supplied South Surrey clinic design language closely while omitting facility identity, logos and readable signs.",
+    "high_weight_anchors": [
+      "bright contemporary South Surrey urgent and primary care interior",
+      "turquoise confined to three distinct portal-like triage bay frames and partial partitions surrounded by pale neutral walls",
+      "pale acoustic-tile ceiling and pale clean flooring with airy neutral daylight",
+      "separate waist-high light-maple modular desks inside the triage bays with open space between stations",
+      "broad unobstructed public circulation, a central aisle, small teal-and-neutral waiting-chair clusters and a clearly legible open patient-to-staff service plane with no glass divider"
+    ],
+    "minimum_anchor_pass": 4,
+    "functional_layout_checks": [
+      "the monitor base is fully supported on the staff worktop, its screen faces Amrit, and its centreline is naturally aligned with her operating position",
+      "the keyboard sits directly in front of and on the same usable axis as the monitor, within Amrit's comfortable reach",
+      "the compact BC Services Card reader sits beside the keyboard within Amrit's reach and near the handoff edge without blocking the keyboard, card path, monitor, or either person's body",
+      "the staff worktop is wide and deep enough for all three devices with clear separation, while the public-to-staff handoff plane and clinic circulation remain unobstructed"
+    ],
+    "prohibited_substitutions": [
+      "dim beige generic hospital corridor",
+      "one long dark-wood reception counter",
+      "rows of auditorium-style waiting chairs",
+      "glass divider, glazed partition or transparent barrier between patient and nurse",
+      "monitor turned away from the nurse, monitor base at an edge, keyboard misaligned with its monitor, or card reader placed across the keyboard or handoff path",
+      "readable facility names, logos, patient information or monitor text"
+    ]
+  },
+  "sound_plan": {
+    "ambience_kind": "one persisted final amalgamation of faint low mechanical clinic room tone and independently scripted clinic-specific reception conversations, rendered distant, overlapping and semantically indistinct; component noise or chatter stems are disposable after mix verification",
+    "opening_region": "continuous ambience under the 4-second establishing master",
+    "pause_regions": ["between each dialogue turn", "through the silent Care Card handoff"],
+    "outro_region": "continuous clinic-specific background chatter and room tone through the full 3.5-second final reaction",
+    "fade_seconds": 0.5,
+    "ambience_only_target": "mean above -50 dBFS; approximately -38 to -30 LUFS short-term by ear",
+    "foley": ["one restrained cough", "one soft plastic card slide at the transfer point"],
+    "prohibited_ambience_sources": [
+      "repeated or filtered principal dialogue",
+      "synthetic white, pink or brown noise presented as human chatter",
+      "foreground-intelligible background speech competing with the principals"
+    ]
+  },
+  "edit_policy": {
+    "native_aspect_ratio": "16:9",
+    "square_pixels_required": true,
+    "portrait_sources_allowed": false,
+    "crop_repairs_allowed": false,
+    "planned_native_reframing_allowed": true,
+    "planned_native_reframing_minimum_linear_retention": 0.55,
+    "planned_native_reframing_rule": "A deliberate 16:9 editorial reframe may create closer coverage only when its native-landscape source remains recorded in lineage and every complete face, hairline, chin and shoulder contour stays safely inside the result.",
+    "side_fill_allowed": false,
+    "intro_min_seconds": 2.0,
+    "outro_min_seconds": 3.0,
+    "freeze_holds_allowed": false,
+    "imperceptible_stitches_required": true,
+    "outer_fade_seconds": 0.5
+  },
+  "essential_action": {
+    "prop": "one privacy-safe pale blue-and-white fictional BC Services Card facsimile with a completely unreadable face",
+    "initiation": "Daniel visibly owns the card on the public side and extends it across the counter handoff plane.",
+    "contact_transfer": "Amrit visibly receives the same card from Daniel while both hands remain physically plausible.",
+    "completion": "The same card finishes face-down on the staff side before Amrit checks coverage.",
+    "privacy_rule": "The card face remains down, edge-on, moving, occluded or defocused throughout."
+  },
+  "planned_source_takes": [
+    {
+      "take_id": "take01",
+      "setup_id": "set01",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["nurse-amrit", "patient-daniel"],
+      "supports_shots": ["shot01", "shot08"],
+      "framing": "eye-level 32mm wide two-shot from five metres away; both principals remain complete and roughly one-quarter frame height while the three modular triage bays and open aisle remain readable",
+      "action": "Daniel walks two quiet steps toward Amrit's separate light-maple triage desk and stops; Amrit looks up naturally; exactly two diverse adult patients remain soft and secondary in the same waiting positions.",
+      "purpose": "native landscape environment master with both canonical principals already inhabiting the same reference-faithful world"
+    },
+    {
+      "take_id": "take19",
+      "setup_id": "set02",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["nurse-amrit"],
+      "supports_shots": ["shot02"],
+      "framing": "locked eye-level 50mm nurse medium single derived from the approved 8dc cinematic facial-texture baseline; complete head, shoulders and forearms with generous screen-right look-room",
+      "action": "Amrit opens the intake with quiet warmth, keeps polite screen-right eye contact through the response-anticipation handle and speaks the first segment of one sequence-wide synchronized performance master.",
+      "purpose": "consistent dramatic voice, facial texture, palette and axis for the opening nurse turn"
+    },
+    {
+      "take_id": "take03",
+      "setup_id": "set04",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["nurse-amrit", "patient-daniel"],
+      "supports_shots": ["shot05"],
+      "framing": "locked 40mm waist-up two-shot with Amrit staff-side frame left and Daniel public-side frame right; both complete faces, torsos, forearms, hands and the wide operable desk handoff plane remain visible",
+      "action": "Exactly one wallet-sized pale blue-white fictional BC Services Card facsimile exists. Daniel begins holding it on screen-right, extends it right-to-left and releases only when Amrit grips it; she moves the same continuously visible card to the compact reader beside her aligned keyboard. The transfer has a clear beginning, contact and completion.",
+      "purpose": "complete privacy-safe BC Services Card handoff performed by the same paired principals at one logically operable workstation in the same clinic"
+    },
+    {
+      "take_id": "take20",
+      "setup_id": "set02",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["nurse-amrit"],
+      "supports_shots": ["shot04"],
+      "framing": "locked eye-level 50mm nurse single; Amrit remains waist-up on frame-left with complete head, mouth, forearms and hands, practical workstation context, and generous screen-right look-room",
+      "action": "Amrit requests the card from Daniel just beyond the screen-right edge, maintains the declared eyeline through the response-anticipation handle and speaks the second segment of the same sequence-wide synchronized performance master.",
+      "purpose": "matching clean medium nurse coverage and unified dramatic voice without a synthetic second face, split screen or divider line"
+    },
+    {
+      "take_id": "take06",
+      "setup_id": "set03",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["patient-daniel"],
+      "supports_shots": ["shot03"],
+      "framing": "locked eye-level 50mm patient single; Daniel remains waist-up on frame-right with complete head, mouth, forearms and hands, clinic context, and generous screen-left look-room",
+      "action": "Daniel addresses Amrit just beyond the screen-left edge, first explaining the cough and later holding his worried question and reaction with restrained movement.",
+      "purpose": "clean medium patient coverage and living outro without a synthetic second face, split screen or divider line"
+    },
+    {
+      "take_id": "take07",
+      "setup_id": "set06",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["nurse-amrit", "patient-daniel"],
+      "supports_shots": ["shot09"],
+      "framing": "locked native-16:9 close insert of Daniel's hand, Amrit's receiving hand, the one card, aligned keyboard and fixed reader; no face is required",
+      "action": "The single continuously visible card passes from Daniel's hand to Amrit's hand and moves to the reader with plausible fingers and no camera jitter, object buzz, edge shimmer or card morph.",
+      "purpose": "stable close action detail that clarifies ownership, contact and placement while the surrounding medium shot preserves geography"
+    },
+    {
+      "take_id": "take08",
+      "setup_id": "set07",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["nurse-amrit"],
+      "supports_shots": ["shot07"],
+      "framing": "planned 16:9 medium nurse listener reframe from a native 16:9 paired source, retaining at least 55 percent of each source dimension with complete hairline, face, chin and shoulders",
+      "action": "Amrit listens silently toward Daniel beyond screen-right while his short cost question is heard off screen; her mouth remains closed and no hand interaction is featured.",
+      "purpose": "honest off-screen question coverage without showing unsynchronized lips or the rejected malformed-hand insert"
+    },
+    {
+      "take_id": "take21",
+      "setup_id": "set02",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["nurse-amrit"],
+      "supports_shots": ["shot06"],
+      "framing": "locked eye-level 50mm nurse medium single derived from the approved 8dc cinematic facial-texture baseline; complete head, shoulders and forearms with generous screen-right look-room",
+      "action": "Amrit explains the inactive MSP status with sustained polite eyeline, softened brow, slight tension around the eyes and mouth and no smile; the supplied dialogue audio remains picture-locked.",
+      "purpose": "replace the glossy, overly cheerful coverage-result performance with grounded dramatic-film naturalism and controlled concern"
+    },
+    {
+      "take_id": "take22",
+      "setup_id": "set02",
+      "native_aspect_ratio": "16:9",
+      "visible_characters": ["nurse-amrit"],
+      "supports_shots": ["shot10"],
+      "framing": "matching locked eye-level 50mm nurse medium single from the same cinematic reference and established axis",
+      "action": "After Daniel asks how much, Amrit explains that reception cannot confirm the exact amount and that the clinic will state the charge before he is seen; she keeps eye contact and controlled concern while speaking the final segment of the same sequence-wide synchronized performance master.",
+      "purpose": "complete the missing final narrative answer with synchronized audio before the living outro"
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "scn-clinic-reception",
+      "time": "weekday late morning",
+      "place": "bright South Surrey urgent and primary care reception and triage area",
+      "setups": [
+        {
+          "setup_id": "set01",
+          "camera_position": "public-side corner showing triage bays, modular desks and open waiting clusters",
+          "camera_height": "natural standing eye level, never a surveillance-like high corner",
+          "lens_intent": "32mm wide establishing perspective without fisheye distortion or tiny principals",
+          "lighting": "bright neutral daylight with soft clinical overhead fill",
+          "axis": "Daniel remains public-side screen left; Amrit remains staff-side screen right"
+        },
+        {
+          "setup_id": "set04",
+          "camera_position": "waist-height three-quarter two-shot across the handoff plane",
+          "camera_height": "counter and hands clearly visible below both complete faces",
+          "lens_intent": "35mm medium two-shot showing initiation, contact and completion",
+          "lighting": "bright neutral clinic daylight with card kept non-reflective",
+          "axis": "Daniel transfers right-to-left; Amrit receives frame-left on the staff side"
+        },
+        {
+          "setup_id": "set02",
+          "camera_position": "staff-side three-quarter nurse single with Daniel fully off screen to camera-right",
+          "camera_height": "natural standing eye level with complete waist-up performance and workstation context",
+          "lens_intent": "50mm medium single, neither a wide master nor a close-up",
+          "lighting": "natural airy daylight and restrained practical clinical fill",
+          "axis": "Amrit remains frame-left and looks screen-right toward Daniel"
+        },
+        {
+          "setup_id": "set03",
+          "camera_position": "public-side three-quarter patient single with Amrit fully off screen to camera-left",
+          "camera_height": "natural standing eye level with complete waist-up performance and clinic context",
+          "lens_intent": "50mm medium single, neither a wide master nor a close-up",
+          "lighting": "natural airy daylight and restrained practical clinical fill",
+          "axis": "Daniel remains frame-right and looks screen-left toward Amrit"
+        },
+        {
+          "setup_id": "set06",
+          "camera_position": "locked close insert over the staff worktop centred on the card transfer and reader",
+          "camera_height": "slightly above hand level so card ownership and contact remain legible",
+          "lens_intent": "stable 70mm close action insert without macro distortion",
+          "lighting": "soft non-reflective clinic daylight preserving card and finger edges",
+          "axis": "Daniel's hand enters from screen-right; Amrit receives toward screen-left and moves to the fixed reader"
+        },
+        {
+          "setup_id": "set05",
+          "camera_position": "public-side three-quarter view of Amrit frame left and Daniel frame right at one small modular triage desk",
+          "camera_height": "natural seated-to-standing conversation eye level",
+          "lens_intent": "40mm paired medium two-shot with complete faces, shoulders and environment",
+          "lighting": "natural airy daylight and soft practical clinical overhead light with dimensional, unvarnished faces",
+          "axis": "Amrit remains screen-left facing right; Daniel remains screen-right facing left; both remain visible in the same established scene"
+        },
+        {
+          "setup_id": "set07",
+          "camera_position": "planned medium reframe on Amrit from the established public-side paired axis with Daniel fully off screen to camera-right",
+          "camera_height": "natural conversation eye level with complete hairline, face, chin, neck and shoulders",
+          "lens_intent": "editorial 16:9 medium listener framing retaining at least 55 percent of each native source dimension",
+          "lighting": "the same natural clinic daylight and restrained practical overhead fill as the paired master",
+          "axis": "Amrit remains frame-left and looks screen-right toward Daniel; the waiting-area depth remains continuous wherever visible"
+        }
+      ],
+      "planned_shots": [
+        {
+          "shot_id": "shot01",
+          "setup_id": "set01",
+          "visible_characters": ["nurse-amrit", "patient-daniel"],
+          "seconds": 4.0,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "wide",
+          "shot_size": "wide geography-establishing master",
+          "headroom": "both complete principals remain roughly one-quarter frame height with deliberate ceiling and floor context",
+          "look_room": "open public circulation leads toward the modular triage bays",
+          "edit_purpose": "establish the reference-faithful environment, axis and faint clinic ambience before dialogue",
+          "action": "Daniel approaches Amrit's separate light-maple modular triage desk while she looks up; exactly two diverse adult patients remain secondary in the same waiting positions."
+        },
+        {
+          "shot_id": "shot02",
+          "setup_id": "set02",
+          "visible_characters": ["nurse-amrit"],
+          "seconds": 2.5,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "medium",
+          "shot_size": "landscape nurse medium single with Daniel just off screen right",
+          "headroom": "full hair, forehead, face, chin, neck and shoulders safely inside frame",
+          "look_room": "generous screen-right room toward Daniel",
+          "edit_purpose": "begin the intake with calm professional warmth",
+          "action": "Amrit gives one small professional nod and keeps her eyes on Daniel just off screen right through the response-anticipation handle. This tighter reverse angle faces away from the waiting area, so no established background patient position is visible or contradicted.",
+          "mouth_visible_required": true,
+          "response_anticipation_required": true,
+          "dialogue": {"speaker": "nurse-amrit", "line": "Hi. What brings you in today?"}
+        },
+        {
+          "shot_id": "shot03",
+          "setup_id": "set03",
+          "visible_characters": ["patient-daniel"],
+          "seconds": 4.5,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "medium",
+          "shot_size": "landscape patient medium single with Amrit fully off screen",
+          "headroom": "full hair, forehead, face, chin, neck and shoulders safely inside frame",
+          "look_room": "generous screen-right room toward Amrit",
+          "edit_purpose": "state the persistent symptom with tired restraint",
+          "action": "Daniel speaks steadily toward Amrit just beyond the screen-left edge, stable and not in acute distress; no second face, split or divider appears.",
+          "mouth_visible_required": true,
+          "dialogue": {"speaker": "patient-daniel", "line": "I've had a cough for six weeks. It's worse at night."}
+        },
+        {
+          "shot_id": "shot04",
+          "setup_id": "set02",
+          "visible_characters": ["nurse-amrit"],
+          "seconds": 2.5,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "medium",
+          "shot_size": "matching landscape nurse medium single with Daniel fully off screen",
+          "headroom": "full hair, forehead, face, chin, neck and shoulders safely inside frame",
+          "look_room": "generous screen-left room toward Daniel",
+          "edit_purpose": "motivate the essential Care Card handoff",
+          "action": "Amrit keeps polite screen-right eye contact while requesting the card; no card appears yet and no synthetic listener enters frame.",
+          "mouth_visible_required": true,
+          "response_anticipation_required": true,
+          "dialogue": {"speaker": "nurse-amrit", "line": "May I see your B.C. Services Card?"}
+        },
+        {
+          "shot_id": "shot05",
+          "setup_id": "set04",
+          "visible_characters": ["nurse-amrit", "patient-daniel"],
+          "seconds": 5.0,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "medium",
+          "shot_size": "medium two-shot with complete faces, torsos, counter and hands",
+          "headroom": "both heads and both hand paths remain safely inside frame",
+          "look_room": "balanced space across the public/staff counter plane",
+          "edit_purpose": "show the complete privacy-safe Care Card transfer without inference",
+          "action": "Exactly one pale blue-white wallet-sized fictional BC Services Card facsimile exists. Daniel begins holding it on screen-right, extends it right-to-left and releases only when Amrit grips it; Amrit then moves the same continuously visible card to the compact reader beside her keyboard. All personal details remain unreadable; no second card, legible writing, logo or numbers."
+        },
+        {
+          "shot_id": "shot09",
+          "setup_id": "set06",
+          "visible_characters": ["nurse-amrit", "patient-daniel"],
+          "seconds": 2.5,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "close",
+          "shot_size": "close action insert of both plausible hands, one wallet-sized card, keyboard and reader",
+          "headroom": "not applicable to the insert; all finger tips, card edges and the complete reader remain safely inside frame",
+          "look_room": "clear right-to-left card path with stable negative space around contact",
+          "edit_purpose": "make card ownership, transfer and reader placement unmistakable without repeating the medium geography",
+          "action": "The same single pale blue-white fictional BC Services Card facsimile passes from Daniel's screen-right hand to Amrit's screen-left hand and then to the fixed reader. No jitter, object buzz, edge shimmer, duplicate card, morph, malformed fingers or camera movement."
+        },
+        {
+          "shot_id": "shot06",
+          "setup_id": "set02",
+          "visible_characters": ["nurse-amrit"],
+          "seconds": 4.5,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "medium",
+          "shot_size": "nurse medium single",
+          "headroom": "full hair, forehead, face, chin, neck and shoulders safely inside frame",
+          "look_room": "generous screen-left room toward Daniel",
+          "edit_purpose": "deliver the coverage result with controlled empathy",
+          "action": "Amrit pauses once, then explains the inactive coverage without defensiveness toward Daniel just beyond screen-right; no synthetic listener enters frame.",
+          "mouth_visible_required": true,
+          "dialogue": {"speaker": "nurse-amrit", "line": "Your MSP isn't active. Today's visit may have a charge."}
+        },
+        {
+          "shot_id": "shot07",
+          "setup_id": "set07",
+          "visible_characters": ["nurse-amrit"],
+          "seconds": 1.5,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "medium",
+          "shot_size": "medium nurse listener with Daniel fully off screen",
+          "headroom": "complete hairline, forehead, face, chin, neck and shoulders remain safe with no edge contact",
+          "look_room": "generous screen-right room toward the off-screen Daniel",
+          "edit_purpose": "hear Daniel's immediate cost question off screen without showing an unsynchronized or incorrectly cropped mouth",
+          "action": "Amrit listens silently toward Daniel beyond screen-right while he asks the question off screen; her mouth remains closed, her gaze stays polite, no hands are featured, and no synthetic listener or split appears.",
+          "mouth_visible_required": false,
+          "dialogue": {"speaker": "patient-daniel", "presentation": "offscreen", "line": "How much?"}
+        },
+        {
+          "shot_id": "shot10",
+          "setup_id": "set02",
+          "visible_characters": ["nurse-amrit"],
+          "seconds": 6.0,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "medium",
+          "shot_size": "matching nurse medium answer single",
+          "headroom": "complete hairline, forehead, face, chin, neck, shoulders and forearms remain safe",
+          "look_room": "generous screen-right room toward Daniel off screen",
+          "edit_purpose": "answer the cost question instead of ending the sequence on unresolved dialogue",
+          "action": "Amrit maintains polite eye contact and controlled concern while explaining the exact amount is not available at reception; she gives a small apologetic finish without smiling or looking down.",
+          "mouth_visible_required": true,
+          "dialogue": {"speaker": "nurse-amrit", "line": "I cannot confirm the exact amount at reception. The clinic will tell you the charge before you are seen."}
+        },
+        {
+          "shot_id": "shot08",
+          "setup_id": "set01",
+          "visible_characters": ["nurse-amrit", "patient-daniel"],
+          "seconds": 3.5,
+          "native_aspect_ratio": "16:9",
+          "shot_size_class": "wide",
+          "shot_size": "held wide reaction with living micro-motion and persistent background patients",
+          "headroom": "full hair, forehead, face, chin, neck and shoulders safely inside frame",
+          "look_room": "generous screen-right room toward Amrit before Daniel lowers his eyes",
+          "edit_purpose": "provide a longer living outro under audible ambience and the 0.5-second fade-out",
+          "action": "Daniel and Amrit hold the unresolved question across the desk with restrained breathing; the two background patients remain soft and secondary, and the shot stays naturally alive without a freeze."
+        }
+      ]
+    }
+  ]
+}

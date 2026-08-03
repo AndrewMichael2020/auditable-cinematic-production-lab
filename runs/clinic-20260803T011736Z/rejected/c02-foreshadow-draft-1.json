@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "shot_id": "c02-foreshadow",
+  "source": "drafts/4515be35-9de0-44a6-8455-9e0fe3a9a718.mp4",
+  "decision": "rejected_with_one_bounded_final_repair",
+  "reason": "The blank card stayed unreadable but became an oversized hero prop; nurse wardrobe changed and the patient's pocket glance was absent.",
+  "cheap_retries_remaining": 0,
+  "final_candidate_repairs_authorized": 1,
+  "possible_salvage_interval_seconds": [0.0, 0.75],
+  "salvage_note": "Retain only if the Wan repair fails and final-sequence review confirms the brief lateral handoff remains subtle."
+}

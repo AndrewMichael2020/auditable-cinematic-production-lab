@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "path": "runs/clinic-20260803T011736Z/raw/6c8b3778-6fdf-4355-b644-cc316ec408f6.mp4",
+    "sha256": "6800af8a05f29fcc161f4acf108c7f9d37aa1631d604511b643a0da0b9f95e60",
+    "duration_seconds": 12.2
+  },
+  "edit": {
+    "policy": "Five speech-bearing source sections were joined with identical audio/video boundaries, long internal silence was removed, pacing remained within the 1.10x bound, and the portrait was centred over a blurred extension of the same source frame.",
+    "intermediate": {
+      "path": "runs/clinic-20260803T011736Z/edit/c06-patient-stable-portrait-segments.mp4",
+      "sha256": "c4909ab0fcec6f47f9d807696c14fe132412e39816ffe80e2718e9018dd3f421",
+      "bytes": 2069610,
+      "duration_seconds": 6.964
+    },
+    "audio_video_transforms_identical": true,
+    "lip_sync_preserved": true
+  },
+  "output": {
+    "path": "runs/clinic-20260803T011736Z/edit/c06-patient-stable-rephrased.mp4",
+    "sha256": "fafd4f54ac0493777b670827f1462fc3077bea7dc1430bb2c62d770465ccdd3f",
+    "bytes": 1393186,
+    "duration_seconds": 6.976
+  }
+}

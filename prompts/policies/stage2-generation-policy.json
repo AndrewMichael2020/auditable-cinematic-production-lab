@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "policy_id": "stage2-generation-v1",
+  "functional_environment_clause_template": "Functional environment requirements from the sequence manifest: {requirements}.",
+  "response_anticipation_clause": "After a question or response invitation, maintain polite partner eye contact through a usable response-anticipation handle; do not lower the gaze, look toward equipment, or disengage."
+}

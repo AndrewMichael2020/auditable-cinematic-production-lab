@@ -50,7 +50,10 @@ Do not create these secrets for the initial proof:
 - `GOOGLE_API_KEY`;
 - `GOOGLE_APPLICATION_CREDENTIALS`.
 
-Gemini/Flow, Vertex AI, OpenAI API, and ElevenLabs are excluded. ChatGPT/Codex and GitHub Copilot subscriptions can support repository development interactively, but are not part of runtime authentication.
+Gemini partner models may be used through DeepInfra with the same `DEEPINFRA_TOKEN`, explicit model
+registration, and normal budget reservation. Direct Gemini/Flow or Vertex credentials and billing,
+OpenAI API, and ElevenLabs are excluded. ChatGPT/Codex and GitHub Copilot subscriptions can support
+repository development interactively, but are not part of runtime authentication.
 
 GitHub supplies `GITHUB_TOKEN` automatically for each Actions run. Do not create a duplicate repository secret.
 

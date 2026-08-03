@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "run_id": "clinic-20260803T011736Z",
+  "created_at": "2026-08-03T01:17:36Z",
+  "branch": "agent/clinic-robustness-run",
+  "base_commit": "55c3e2897131e63115197450eeae2943a8eb260b",
+  "provider": "deepinfra",
+  "profile": "cad_10",
+  "repository_hard_cap_usd": "10.00",
+  "scenario_run_cap_usd": "8.00",
+  "paid_request_concurrency": 1,
+  "parallel_paid_requests_allowed": false,
+  "unknown_billing_retry_allowed": false,
+  "recursive_retries_allowed": false,
+  "partner_avatar_explicitly_allowed_for_this_run": true,
+  "partner_avatar_attempt_cap": 12,
+  "forbidden_providers": ["gemini", "vertex_ai", "openai_api", "elevenlabs"],
+  "github_actions_allowed": false,
+  "github_branch_policy": "commit and push only agent/clinic-robustness-run; never commit or push main"
+}

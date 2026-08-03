@@ -1,0 +1,23 @@
+{
+  "reviewer": "human:codex-original-resolution-review",
+  "criteria": {
+    "room_geometry": {"status": "pass", "confidence": 0.98, "observed_evidence": "Long counter, chairs, workstations and public/staff floor zones are physically coherent."},
+    "circulation": "pass", "spatial_anchors": "pass", "master_coverage": "pass",
+    "character_count_identity": {"status": "pass", "confidence": 0.99, "observed_evidence": "The established male patient and female nurse remain distinct and correctly costumed."},
+    "background_population": "pass", "crowd_continuity": "pass",
+    "blocking_and_framing": {"status": "pass", "confidence": 0.99, "observed_evidence": "Counter visibly separates patient public-left from nurse staff-right for the full shot."},
+    "gaze_and_eyeline": {"status": "pass", "confidence": 0.99, "observed_evidence": "Both look at the card, each other or workstation; nobody looks into camera."},
+    "anatomy_contact": {"status": "pass", "confidence": 0.97, "observed_evidence": "Hands, fingers, counter contact and standing posture remain plausible."},
+    "wardrobe_construction": {"status": "pass", "confidence": 0.98, "observed_evidence": "Plain olive jacket, teal scrubs and open grey cardigan persist."},
+    "prop_identity_ownership": {"status": "pass", "confidence": 0.98, "observed_evidence": "One ordinary thin blue card remains stable from patient placement through nurse control."},
+    "prop_interaction": {"status": "pass", "confidence": 0.98, "observed_evidence": "Patient slides the face-down card; nurse controls the same card then transitions to mouse/keyboard use."},
+    "privacy": {"status": "pass", "confidence": 0.99, "observed_evidence": "Card face remains hidden and monitor content remains unreadable."},
+    "unwanted_text": {"status": "pass", "confidence": 0.96, "observed_evidence": "No readable facility, wall, card, monitor or clothing text is evident."},
+    "lighting_continuity": "pass",
+    "performance_action_match": {"status": "pass", "confidence": 0.96, "observed_evidence": "The quiet system check and short pause read naturally without explanatory performance."},
+    "audio_sync": "pass",
+    "continuity": {"status": "pass", "confidence": 0.98, "observed_evidence": "Axis, palette, crowd, principal wardrobe and narrative card action match the accepted master."},
+    "symbolic_environment": "pass", "occupancy_target": "pass", "patient_information_policy": "pass",
+    "monitor_orientation": "pass", "counter_separation": "pass", "profile_screen_privacy": "pass", "profile_card_privacy": "pass"
+  }
+}

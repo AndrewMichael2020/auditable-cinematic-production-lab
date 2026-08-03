@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "request_id": "6c8b3778-6fdf-4355-b644-cc316ec408f6",
+  "provider_request_id": "R2VdCrFLsfrkx2OT54mvnNcy",
+  "initial_ledger_status": "billing_unknown",
+  "reason": "Provider-reported US$0.325 exceeded the US$0.200 eight-second reservation because the generated output lasted 12.2 seconds.",
+  "new_inference_issued": false,
+  "existing_output_retrieved_once": true,
+  "reported_actual_usd": "0.325",
+  "aggregate_run_cap_usd": "8.00",
+  "aggregate_actual_after_reconciliation_usd": "2.62500000000000003",
+  "output": {
+    "path": "raw/6c8b3778-6fdf-4355-b644-cc316ec408f6.mp4",
+    "sha256": "6800af8a05f29fcc161f4acf108c7f9d37aa1631d604511b643a0da0b9f95e60",
+    "duration_seconds": 12.2,
+    "video_width": 768,
+    "video_height": 1152,
+    "audio_present": true
+  },
+  "resolution": "Manually reconciled to completed after verifying exact cost, existing output, aggregate cap headroom and no second inference."
+}

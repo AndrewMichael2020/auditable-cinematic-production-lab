@@ -1,0 +1,8 @@
+{
+  "approved_models": 6,
+  "cap_usd": "10.0",
+  "explicit_run_cap_usd": "8",
+  "mode": "dry_run",
+  "ok": true,
+  "profile": "cad_10"
+}

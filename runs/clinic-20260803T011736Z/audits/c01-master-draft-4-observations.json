@@ -1,0 +1,31 @@
+{
+  "reviewer": "human:codex-frame-review",
+  "criteria": {
+    "room_geometry": "pass",
+    "circulation": "pass",
+    "spatial_anchors": {"status": "fail", "confidence": 0.9, "observed_evidence": "The draft establishes doors, chairs and counter, but does not establish the planned windows, rear workstation orientation or occupied waiting depth.", "recommended_repair_action": "Hold the distant corner-wide composition and include daylight windows, rear-facing workstations and occupied chair rows."},
+    "master_coverage": {"status": "fail", "confidence": 0.95, "observed_evidence": "The opening is wider, but the camera lets the patient fill the frame and the room emptiness prevents a usable occupancy master.", "recommended_repair_action": "Lock the camera; keep both principals under fifteen percent frame height for the entire shot."},
+    "character_count_identity": "pass",
+    "background_population": {"status": "fail", "confidence": 1.0, "observed_evidence": "No 8–12-person waiting population is present.", "recommended_repair_action": "Populate roughly sixty percent of seats and keep safe walkways clear."},
+    "crowd_continuity": {"status": "fail", "confidence": 1.0, "observed_evidence": "The required crowd is absent, so it cannot seed later crowd continuity.", "recommended_repair_action": "Generate stable seated and circulating background groups in the locked master."},
+    "blocking_and_framing": {"status": "fail", "confidence": 0.93, "observed_evidence": "The patient advances into foreground scale and the public/staff counter separation becomes ambiguous.", "recommended_repair_action": "Allow at most two distant steps and keep the nurse clearly behind the full counter."},
+    "gaze_and_eyeline": "pass",
+    "anatomy_contact": "pass",
+    "wardrobe_construction": {"status": "fail", "confidence": 0.96, "observed_evidence": "A white badge-like mark appears on the patient's olive jacket.", "recommended_repair_action": "Use a completely plain olive jacket with no badge, patch, mark or lettering."},
+    "prop_identity_ownership": "pass",
+    "prop_interaction": "pass",
+    "privacy": "pass",
+    "unwanted_text": {"status": "fail", "confidence": 0.95, "observed_evidence": "The patient's white jacket mark resembles malformed badge text.", "recommended_repair_action": "Remove all badges and marked clothing surfaces."},
+    "lighting_continuity": {"status": "fail", "confidence": 0.9, "observed_evidence": "Interior light is coherent but the protected soft background daylight is absent.", "recommended_repair_action": "Include diffuse sunlight through background windows while keeping warm interior fill."},
+    "performance_action_match": {"status": "fail", "confidence": 0.85, "observed_evidence": "The patient walks toward camera and no restrained elbow cough is visible.", "recommended_repair_action": "Keep movement lateral and distant; include one brief elbow cough."},
+    "audio_sync": "pass",
+    "continuity": {"status": "fail", "confidence": 0.95, "observed_evidence": "Occupancy and final blocking cannot anchor the planned close coverage."},
+    "symbolic_environment": "pass",
+    "occupancy_target": {"status": "fail", "confidence": 1.0, "observed_evidence": "The waiting hall reads almost empty rather than fifty to seventy percent occupied."},
+    "patient_information_policy": "pass",
+    "monitor_orientation": {"status": "fail", "confidence": 0.85, "observed_evidence": "Rear-facing workstation orientation is not established."},
+    "counter_separation": {"status": "fail", "confidence": 0.93, "observed_evidence": "Public/staff separation becomes visually ambiguous as the patient advances."},
+    "profile_screen_privacy": "pass",
+    "profile_card_privacy": "pass"
+  }
+}

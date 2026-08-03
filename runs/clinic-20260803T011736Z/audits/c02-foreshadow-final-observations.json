@@ -1,0 +1,20 @@
+{
+  "reviewer": "human:codex-original-resolution-review",
+  "criteria": {
+    "room_geometry": "pass", "circulation": "pass", "spatial_anchors": "pass", "master_coverage": "pass",
+    "character_count_identity": "pass", "background_population": "pass", "crowd_continuity": "pass",
+    "blocking_and_framing": "pass", "gaze_and_eyeline": "pass", "anatomy_contact": "pass",
+    "wardrobe_construction": "pass",
+    "prop_identity_ownership": {"status": "review", "confidence": 0.68, "observed_evidence": "The returned ordinary-size card stays stable, but two extra blue-edged desk rectangles could be misread as duplicate cards.", "recommended_repair_action": "Use only the opening handoff interval before the secondary desk objects become narratively salient."},
+    "prop_interaction": {"status": "pass", "confidence": 0.93, "observed_evidence": "The nurse completes a physically plausible lateral counter return to the departing adult."},
+    "privacy": {"status": "pass", "confidence": 0.97, "observed_evidence": "The visible card side has no readable name, PHN, barcode, date, address or typography."},
+    "unwanted_text": {"status": "pass", "confidence": 0.97, "observed_evidence": "No readable wall, card, monitor or clothing text is visible."},
+    "lighting_continuity": "pass",
+    "performance_action_match": {"status": "pass", "confidence": 0.91, "observed_evidence": "The patient notices from the background without overt reaction while the nurse stays routine."},
+    "audio_sync": "pass",
+    "continuity": {"status": "pass", "confidence": 0.9, "observed_evidence": "Teal/wood/daylight palette, patient clothing and nurse scrubs/cardigan align with the accepted master."},
+    "symbolic_environment": {"status": "pass", "confidence": 0.9, "observed_evidence": "The opening return reads as ordinary reception business rather than exposition."},
+    "occupancy_target": "pass", "patient_information_policy": "pass", "monitor_orientation": "pass",
+    "counter_separation": "pass", "profile_screen_privacy": "pass", "profile_card_privacy": "pass"
+  }
+}

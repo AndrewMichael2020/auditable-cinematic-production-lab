@@ -1,0 +1,244 @@
+{
+  "candidate_count": 39,
+  "candidates": [
+    {
+      "bytes": 205,
+      "reason": "duplicate CLI stdout; canonical JSON report is retained",
+      "relative_path": "audits/production-validation.stdout.json",
+      "sha256": "43327a98a0a9a6654fbae9edee285cf7d4b5a3bc381309ab57729d23e90bad9d"
+    },
+    {
+      "bytes": 535107,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-environment-master-contact.png",
+      "sha256": "40ae67cb13972324d325ef9310e32edac8ee8ea8af125cd407800a5aed6d72d7"
+    },
+    {
+      "bytes": 552505,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-draft-contact.png",
+      "sha256": "f2d4b2e7b3efe3217d87feaf11c16ba0d6e76970e482fb0e5791014f3ff97939"
+    },
+    {
+      "bytes": 532161,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-draft-redesign-contact.png",
+      "sha256": "86e8113c81095e1fc6b67f467f82452cd6ff4ca6b8ad0d4a8db5ebab018af723"
+    },
+    {
+      "bytes": 558633,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-draft-repair-contact.png",
+      "sha256": "65f0a73c8b40cbff06dde9fbb60d5d58586ee71586948b9a163c78c206a371bd"
+    },
+    {
+      "bytes": 378210,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c01-master-final-contact.png",
+      "sha256": "725542e567c32016a55285cc064867088cab7b3a6273a46fe14551e1bcc60843"
+    },
+    {
+      "bytes": 872985,
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/c02-crop-preview-2.png",
+      "sha256": "e96df1555d45952860bf6df9cd93c94aceb0cb77f390760b40226b1b6b87c3f0"
+    },
+    {
+      "bytes": 763337,
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/c02-crop-preview-3.png",
+      "sha256": "cd60a44159cd397d7393edc3fa95d1a3160610448b1e904ace97cacc79ac5692"
+    },
+    {
+      "bytes": 870717,
+      "reason": "visual preview; regenerate from retained source media",
+      "relative_path": "qa/c02-crop-preview.png",
+      "sha256": "78b22c3f1d02d65f2aacb26e4a7c90cbca966a8e99805a93c1cf7c0434d1fe12"
+    },
+    {
+      "bytes": 525868,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-foreshadow-draft-contact.png",
+      "sha256": "55d263b49ab0b783f8b0b90fcf124a56e5a678a2d52ae1fca3e03153c94d4b9e"
+    },
+    {
+      "bytes": 529005,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-foreshadow-final-contact.png",
+      "sha256": "f77fcf6eddd4257c563409229516789fe718731315d424902da47f1f154a9a2a"
+    },
+    {
+      "bytes": 487019,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c02-foreshadow-salvage-contact.png",
+      "sha256": "876596a795fca57008391bf045c16843dd1752482850dbd6aa10a76805ee0aa7"
+    },
+    {
+      "bytes": 448500,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c03-edit-contact.png",
+      "sha256": "59d91f9938c9a85fef78666524d61adc0a1e78d20791497f6a4fc398c1399d3c"
+    },
+    {
+      "bytes": 968835,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c03-nurse-greeting-contact.png",
+      "sha256": "c96e9d6e2fb4f20ed38e3e62e48982c8b23891ba2e83ad09088f31996de2fab7"
+    },
+    {
+      "bytes": 1444136,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c04-patient-history-contact.png",
+      "sha256": "b671d470f10eb9e6b1c19178f1ddb71a8c78335bc0edbc95b87ff549797c672e"
+    },
+    {
+      "bytes": 830396,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c05-contact.png",
+      "sha256": "6287f27bc6889cb652a37fd100a832cf98ff57651635795d766f3185734640aa"
+    },
+    {
+      "bytes": 539736,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c06-edit-contact-v2.png",
+      "sha256": "106e08ca104dc83e6399765e8fcbb4d9a5f3b3dd24ec12d88e597236787cbcc7"
+    },
+    {
+      "bytes": 656277,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c06-edit-contact.png",
+      "sha256": "b4d0efd96b91d9bde7adbf7831caf4727c9d10afa8ba2e360cf3c67d5b1ffe8a"
+    },
+    {
+      "bytes": 909050,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c06-rephrased-contact.png",
+      "sha256": "10fb0eb18cb607acb5a023250fb6d5db37cbebe60b5c1c93ffe6c91949d5c3c8"
+    },
+    {
+      "bytes": 688144,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c07-contact.png",
+      "sha256": "dd1e31abe09996648a08e40088ad56ad4ae0edb9a808eb04e1b1182a391c1f13"
+    },
+    {
+      "bytes": 559024,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c08-card-check-draft-contact.png",
+      "sha256": "317cf995edfd0488cac8fca93c03f655d2676ad85fec88fde875da74aabead8b"
+    },
+    {
+      "bytes": 563044,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c08-card-check-final-contact.png",
+      "sha256": "c72e4d74b4aa6c0eb8a0bcf1c8320608837415cde81aa11482fb5101dd198b64"
+    },
+    {
+      "bytes": 968470,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c09-contact.png",
+      "sha256": "8d2f99f6e6c372ab29b47a993a35c911a48b5cb2bf46c53023117c2b466c22f9"
+    },
+    {
+      "bytes": 694797,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c10-contact.png",
+      "sha256": "650ce7d1630462b948d13afbbc201dd13e193afc96bf1952cdfd4e7f6528044e"
+    },
+    {
+      "bytes": 1058928,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c11-contact.png",
+      "sha256": "76b1d7a01c24faabc3643530cc0b0671682556c9f56eb92b03e042652b8dd47b"
+    },
+    {
+      "bytes": 536558,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c11-edit-contact.png",
+      "sha256": "6ff1e4a69a3bee28656a841db984db06f688c82445c9ee9f6c3bd99fc0459af0"
+    },
+    {
+      "bytes": 1186438,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c11-repair-contact.png",
+      "sha256": "92396c1fd2dfaceb381a7995632f9f9974fbd05b00b0d550cd7207023174591b"
+    },
+    {
+      "bytes": 484780,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/c12-reaction-contact.png",
+      "sha256": "9a007048a6042d629dbbd145065f6fcd60537bda324291deb680fd07f81caf36"
+    },
+    {
+      "bytes": 171425,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c03-nurse-greeting-contact-sheet.png",
+      "sha256": "72b1661bf35bd42c535fd79bd49676b84a656c7b7652c1f97df7190fac71ea31"
+    },
+    {
+      "bytes": 538363,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c04-patient-history-contact-sheet.png",
+      "sha256": "861cee8a43fcefdcbe61fe1ca5d60d18a4ca9212e0d413c9ae2ffb5414539102"
+    },
+    {
+      "bytes": 273462,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c05-nurse-red-flags-contact-sheet.png",
+      "sha256": "80bd544a422426b60e7f23ab97af65fd2255743ae75e1fa9f452dfc102d5a059"
+    },
+    {
+      "bytes": 457036,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c06-patient-stable-contact-sheet.png",
+      "sha256": "f17015f5e778131caa16dc1a863bd1a05ecffbb9f94e65e0ca7a647c170ca22f"
+    },
+    {
+      "bytes": 250826,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c07-nurse-card-request-contact-sheet.png",
+      "sha256": "3a6dcaf96ba28318d0bffd0386b179a447367442c044f09302c0fe8e250ab65d"
+    },
+    {
+      "bytes": 544724,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c09-nurse-coverage-result-contact-sheet.png",
+      "sha256": "36b0f5e0024fc2b04022d715d7d05ef4714f701e3466ad4b20416c71b2ef9dbe"
+    },
+    {
+      "bytes": 97234,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c10-patient-cost-contact-sheet.png",
+      "sha256": "c525fc7a30e00d8fdc9e48d2ef239842f2b7c03c8212bf8e8f0cf9ad45892c3d"
+    },
+    {
+      "bytes": 411953,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c11-nurse-uncertainty-contact-sheet.png",
+      "sha256": "2e7433a31cd2eac481d3db5a22fc0074047402b6466634ce113477edc3e711bb"
+    },
+    {
+      "bytes": 105609,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "qa/final-c12-patient-reaction-contact-sheet.png",
+      "sha256": "90e8d49a68900abd990b3303c2922350590900d6513ab95f085c6e98dd42f817"
+    },
+    {
+      "bytes": 4205044,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "rejected/final-v1-contact-sheet.png",
+      "sha256": "119c8ab9086a3a34877cfb1ae9ad5da5dc6e4f065fecb1baa28cb98a3f4a8eb5"
+    },
+    {
+      "bytes": 4143886,
+      "reason": "intermediate contact sheet; regenerate from retained source media",
+      "relative_path": "rejected/final-v2-contact-sheet.png",
+      "sha256": "2c44a385e9688c8e71c215c5d609336e63e5da0fda0ccfcadaf50c16ebfc6d06"
+    }
+  ],
+  "mode": "dry_run",
+  "reclaimable_bytes": 30342427,
+  "removed": [],
+  "run": "runs/clinic-20260803T011736Z",
+  "schema_version": "1.0"
+}

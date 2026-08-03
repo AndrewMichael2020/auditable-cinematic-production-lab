@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "reviewer": "Production continuity review",
+  "rules": {
+    "master_coverage": {"status": "pass", "confidence": 1.0, "observed_evidence": "This independently resumable scene owns a new location master and does not reuse the platform geography."},
+    "character_count_identity": {"status": "pass", "confidence": 1.0, "observed_evidence": "The production manifest explicitly starts a new cast; no prior character identity is inherited."},
+    "crowd_continuity": {"status": "pass", "confidence": 1.0, "observed_evidence": "Clinic background actors are scene-local and impose no cross-scene crowd dependency."},
+    "blocking_and_framing": {"status": "pass", "confidence": 1.0, "observed_evidence": "The clinic defines and preserves its own axis without changing the completed platform scene."},
+    "gaze_and_eyeline": {"status": "pass", "confidence": 1.0, "observed_evidence": "The shared protected no-lens-gaze policy is preserved."},
+    "wardrobe_construction": {"status": "pass", "confidence": 1.0, "observed_evidence": "Wardrobe continuity is explicitly scene-local for the new principals."},
+    "prop_identity_ownership": {"status": "pass", "confidence": 1.0, "observed_evidence": "Privacy-sensitive clinic cards are new scene-local props with explicit ownership."},
+    "privacy": {"status": "pass", "confidence": 1.0, "observed_evidence": "The clinic adds stricter privacy state without weakening any prior production constraint."},
+    "lighting_continuity": {"status": "pass", "confidence": 1.0, "observed_evidence": "Daytime clinic lighting is intentionally independent of the prior scene's time and location."},
+    "continuity": {"status": "pass", "confidence": 1.0, "observed_evidence": "Only production workflow and audit schema are inherited; completed-scene artifacts remain immutable and replaceable independently."}
+  }
+}

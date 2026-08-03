@@ -1,0 +1,26 @@
+{
+  "crop": {
+    "height": 315,
+    "width": 560,
+    "x": 0,
+    "y": 100
+  },
+  "output": {
+    "bytes": 882805,
+    "duration_seconds": 2.895,
+    "path": "runs/clinic-20260803T011736Z/edit/c07-nurse-card-request.mp4",
+    "sha256": "4d7b48a6864535d3a6df84decee8f56e462210998d00695841a030279fe242d7"
+  },
+  "pacing_rate": 1.0,
+  "schema_version": "1.0",
+  "source": {
+    "duration_seconds": 3.16,
+    "path": "runs/clinic-20260803T011736Z/raw/60b48e3d-50e7-42ee-8d54-2ff514946a95.mp4",
+    "sha256": "adfbba4e57170570a37a28aa552fb0aa7676055a4641ed96b3a22890e114cd8b"
+  },
+  "sync_preserved": true,
+  "trim": {
+    "end_seconds": 3.0,
+    "start_seconds": 0.1
+  }
+}

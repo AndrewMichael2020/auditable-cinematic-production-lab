@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "audit_type": "bounded_repair_authorization",
+  "audit_stage": "cheap_draft",
+  "scene_id": "clinic-reception-coverage-check",
+  "shot_id": "c01-master",
+  "authorization_allowed": true,
+  "attempt_limit": 1,
+  "attempts_used": 1,
+  "source_audit": "audits/c01-master-draft-4.json",
+  "source_audit_sha256": "15b8069357671003649e9a063e824b07380623cae143be2bbfe2536bb16116c5",
+  "source_audit_gate": "review",
+  "source_media_sha256": "37bec3abf3b684d94b48a2eb9f67fafa17ecfb934a7d07fb8a320dfae29f0af6",
+  "source_prompt_sha256": "d9282e72e721024efa7d66089d5d461987395b16d27097a895710d04de017b98",
+  "repaired_prompt_sha256": "6ede0d40453ee17ccf731cf9c90c41c55888ebe96c6d34d0f7c0971f5560b4d8",
+  "repair_actions": [
+    "Lock the 24mm corner-wide scale for the full shot.",
+    "Prepopulate ten background adults across roughly sixty percent of seats and clear walkways.",
+    "Keep the patient distant with at most two lateral steps and keep the nurse behind the full counter.",
+    "Expose soft daylight windows and rear-facing workstations.",
+    "Remove every badge, patch, mark and text-like clothing detail."
+  ],
+  "protected_constraints": [
+    "public-side camera axis",
+    "patient screen left",
+    "nurse screen right behind counter",
+    "unreadable monitors and plain surfaces",
+    "no patient identifier",
+    "no camera gaze",
+    "warm wood, pale walls and teal accents"
+  ],
+  "suggested_next_pipeline_stage": "final_candidate",
+  "on_failure": "stop c01 generation; no identical or prompt-varied retry"
+}

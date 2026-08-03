@@ -1,0 +1,26 @@
+{
+  "crop": {
+    "height": 315,
+    "width": 560,
+    "x": 0,
+    "y": 100
+  },
+  "output": {
+    "bytes": 603789,
+    "duration_seconds": 2.197,
+    "path": "runs/clinic-20260803T011736Z/edit/c03-nurse-greeting.mp4",
+    "sha256": "6a3b01972fce0552ec08aee4c10793ae987d39b1e9f42148a53dc6de6786017d"
+  },
+  "pacing_rate": 1.0,
+  "schema_version": "1.0",
+  "source": {
+    "duration_seconds": 2.48,
+    "path": "runs/clinic-20260803T011736Z/raw/eabd945d-364a-4cb3-bd02-bed2f1a8d6d1.mp4",
+    "sha256": "fb45252e751e878563191748ff450b717156f3a5c398ff6c2a380a98900cda7a"
+  },
+  "sync_preserved": true,
+  "trim": {
+    "end_seconds": 2.3,
+    "start_seconds": 0.1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "dry_run": false,
+  "model": "PrunaAI/p-video-avatar",
+  "prompt_sha256": "2154c84ff0dfa621c1cf1a2368eced090426fc370b26b99c22b3754dc0557b97",
+  "request_id": "eabd945d-364a-4cb3-bd02-bed2f1a8d6d1",
+  "reserved_usd": "0.100"
+}

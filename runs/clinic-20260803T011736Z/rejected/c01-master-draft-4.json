@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "shot_id": "c01-master",
+  "source": "drafts/fce436b7-56a3-4103-821a-9f49ad1af75e.mp4",
+  "decision": "rejected_with_one_bounded_final_repair",
+  "reason": "Environment-master mode exposed core geometry, but occupancy, locked distance, workstation/daylight anchors and plain wardrobe still failed.",
+  "draft_retries_remaining": 0,
+  "final_candidate_repairs_authorized": 1,
+  "protected_constraints": ["same public-side axis", "patient screen left", "nurse behind counter screen right", "no readable text or identifiers", "no camera gaze"]
+}

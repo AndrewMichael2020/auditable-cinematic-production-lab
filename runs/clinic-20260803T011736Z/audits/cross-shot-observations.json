@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "reviewer": "Codex full-sequence visual review",
+  "rules": {
+    "master_coverage": {"status": "pass", "confidence": 0.96, "observed_evidence": "The opening wide establishes entry, occupied waiting hall, counter, nurse, patient and safe circulation before close coverage."},
+    "character_count_identity": {"status": "pass", "confidence": 0.99, "observed_evidence": "Exactly two speaking principals remain identifiable throughout."},
+    "crowd_continuity": {"status": "pass", "confidence": 0.9, "observed_evidence": "Background occupancy varies only with framing and shows no conspicuous fusion or impossible crossing."},
+    "blocking_and_framing": {"status": "pass", "confidence": 0.95, "observed_evidence": "Patient remains public-side/screen-left and nurse staff-side/screen-right; the counter and interlocutor foreground preserve orientation."},
+    "gaze_and_eyeline": {"status": "pass", "confidence": 0.96, "observed_evidence": "Both actors use interlocutor/work-surface eyelines; the final patient reaction remains off-camera screen-right."},
+    "wardrobe_construction": {"status": "pass", "confidence": 0.95, "observed_evidence": "Olive patient outerwear and teal nurse clothing remain stable without changing closures or accessories."},
+    "prop_identity_ownership": {"status": "pass", "confidence": 0.92, "observed_evidence": "The card remains a single blue-and-white ordinary plastic prop through the foreshadow and face-down system check."},
+    "privacy": {"status": "pass", "confidence": 0.99, "observed_evidence": "Card faces, workstation content and patient identifiers stay unreadable in every interval."},
+    "lighting_continuity": {"status": "pass", "confidence": 0.95, "observed_evidence": "Daylight direction and warm-neutral interior light remain consistent."},
+    "continuity": {"status": "pass", "confidence": 0.93, "observed_evidence": "Geography, narrative order, identity, attire, room tone and the coverage-result emotional turn remain coherent."}
+  }
+}

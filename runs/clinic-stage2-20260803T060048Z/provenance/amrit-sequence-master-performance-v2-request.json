@@ -1,0 +1,7 @@
+{
+  "dry_run": false,
+  "model": "ResembleAI/chatterbox-turbo",
+  "prompt_sha256": "36f076c35215204021fb222c00f2d8f88589d754188ce0977fd03b42885956be",
+  "request_id": "21804d2b-3128-4d9b-b126-b8304c0d751a",
+  "reserved_usd": "0.000235"
+}

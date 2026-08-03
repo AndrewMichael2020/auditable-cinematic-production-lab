@@ -1,0 +1,31 @@
+{
+  "crop": {
+    "height": 315,
+    "width": 560,
+    "x": 0,
+    "y": 100
+  },
+  "output": {
+    "bytes": 1348110,
+    "duration_seconds": 7.296,
+    "path": "runs/clinic-20260803T011736Z/edit/c09-nurse-coverage-result.mp4",
+    "sha256": "11a24758ccf04768578047842c2b5d75777e70b74de4f53d1624630b324d1c5e"
+  },
+  "pacing_rate": 1.05,
+  "postprocess": {
+    "action": "locally blur the far-right background notice region while stream-copying the synchronized AAC audio",
+    "preprocess_source": "runs/clinic-20260803T011736Z/rejected/c09-before-background-notice-blur.mp4",
+    "audio_stream_copied": true
+  },
+  "schema_version": "1.0",
+  "source": {
+    "duration_seconds": 7.92,
+    "path": "runs/clinic-20260803T011736Z/raw/3f35ff38-30aa-48f9-a7da-e2e891c128ee.mp4",
+    "sha256": "933910731b064801463faa93dc0ad5156b82742778bdd19490a7aeaf59da26dc"
+  },
+  "sync_preserved": true,
+  "trim": {
+    "end_seconds": 7.75,
+    "start_seconds": 0.1
+  }
+}

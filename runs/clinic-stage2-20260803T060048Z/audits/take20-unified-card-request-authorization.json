@@ -1,0 +1,14 @@
+{
+  "schema_version": "2.0",
+  "audit_type": "bounded_repair_authorization",
+  "shot_id": "take20",
+  "source_audit_gate": "block",
+  "source_candidate": "previous shot04 nurse card request",
+  "source_evidence": "The prior nurse dialogue was recorded separately, and its wording and prosody did not belong to one coherent sequence performance.",
+  "authorization_allowed": true,
+  "attempt_limit": 1,
+  "attempts_used": 0,
+  "protected_constraints": ["Wan-AI/Wan2.6-I2V only", "native 1280x720 nurse medium single", "canonical Amrit pv01 identity and wardrobe", "complete face and sustained screen-right eyeline", "second segment of the unified synchronized performance master"],
+  "repair_actions": ["render the B.C. Services Card wording from the unified master", "preserve response-anticipation eye contact", "keep hands quiet and the card absent until the handoff shot"],
+  "repaired_prompt_sha256": "67da3b48fe4be35ce91dab880f697bdf53e56a3eb1a410fd64c6d3508ab0a8f1"
+}
