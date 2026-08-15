@@ -14,6 +14,7 @@ from .auditor import (audit_continuity, audit_draft, audit_final_candidate, audi
                       text_sha256,
                       verify_bounded_repair_authorization, verify_promotion_authorization,
                       verify_storyboard_authorization)
+from .av_sync import audit_av_sync_file
 from .config import ProjectConfig
 from .elevenlabs import ElevenLabsClient
 from .dialogue_turns import prepare_dialogue_turns
@@ -344,6 +345,12 @@ def parser() -> argparse.ArgumentParser:
     stage2_timeline.add_argument("--output", required=True)
     stage2_timeline.add_argument("--ambience")
     stage2_timeline.add_argument("--manifest")
+    av_sync = commands.add_parser(
+        "audit-av-sync",
+        help="evaluate timestamped AV-offset evidence and the normal-speed review gate",
+    )
+    av_sync.add_argument("evidence")
+    av_sync.add_argument("--output")
     return result
 
 
@@ -465,6 +472,12 @@ def main(argv: list[str] | None = None) -> int:
                        "mode": "dry_run", "approved_models": len(config.raw["approved_models"])},
                       args.output)
             return 0
+        if args.command == "audit-av-sync":
+            report = audit_av_sync_file(args.evidence)
+            emit_json(report, args.output)
+            if report["evidence_kind"] == "calibration_fixture":
+                return 0 if report["objective_gate"] == "pass" else 2
+            return 0 if report["acceptance_gate"] == "pass" else 2
         if args.command == "validate-scene":
             scene = load_scene(args.scene)
             spatial_audit = audit_scene(scene)

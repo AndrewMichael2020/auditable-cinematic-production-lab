@@ -37,9 +37,9 @@ def test_invalid_costs_and_units_fail_closed():
 
 def test_live_pricing_snapshot_expires_without_human_refresh():
     config = ProjectConfig.load()
-    config.require_current_pricing(as_of=date(2026, 9, 2))
+    config.require_current_pricing(as_of=date(2026, 9, 14))
     with pytest.raises(PolicyError, match="stale"):
-        config.require_current_pricing(as_of=date(2026, 9, 3))
+        config.require_current_pricing(as_of=date(2026, 9, 15))
 
 
 def test_config_rejects_unsafe_execution_policy(tmp_path):

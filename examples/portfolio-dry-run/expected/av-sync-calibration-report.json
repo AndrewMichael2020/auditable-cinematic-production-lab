@@ -1,0 +1,51 @@
+{
+  "acceptance_gate": "not_applicable",
+  "artifact_id": "synthetic-av-offset-calibration-v1",
+  "audit_type": "audiovisual_offset",
+  "cadence_capable": true,
+  "events": [
+    {
+      "absolute_offset_ms": 40.0,
+      "audio_onset_ms": 1000.0,
+      "confidence": 1.0,
+      "event_id": "calibration-pulse-01",
+      "signed_offset_ms": 40.0,
+      "visual_onset_ms": 1040.0,
+      "within_target": true
+    },
+    {
+      "absolute_offset_ms": 60.0,
+      "audio_onset_ms": 2500.0,
+      "confidence": 1.0,
+      "event_id": "calibration-pulse-02",
+      "signed_offset_ms": -60.0,
+      "visual_onset_ms": 2440.0,
+      "within_target": true
+    },
+    {
+      "absolute_offset_ms": 80.0,
+      "audio_onset_ms": 4000.0,
+      "confidence": 1.0,
+      "event_id": "calibration-pulse-03",
+      "signed_offset_ms": 80.0,
+      "visual_onset_ms": 4080.0,
+      "within_target": true
+    }
+  ],
+  "evidence_kind": "calibration_fixture",
+  "human_review": {
+    "decision": "pending",
+    "normal_speed": false,
+    "reviewer": null,
+    "sound_enabled": false
+  },
+  "limitations": "Timestamp evidence is supplied by the measurement process; this evaluator does not infer lip motion. A calibration fixture validates evaluator resolution only and cannot establish synchronization of a production artifact.",
+  "maximum_absolute_offset_ms": 80.0,
+  "maximum_allowed_cadence_ms": 40.0,
+  "measurement_cadence_ms": 20.0,
+  "minimum_observed_confidence": 1.0,
+  "minimum_required_confidence": 0.8,
+  "objective_gate": "pass",
+  "schema_version": "1.0",
+  "target_max_absolute_offset_ms": 80.0
+}

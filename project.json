@@ -1,9 +1,9 @@
 {
   "schema_version": "0.2.0",
-  "project_id": "video-gen-test",
-  "status": "maya_kenji_cosmos_final_v02_rendered_review_candidate",
-  "updated_at": "2026-08-03",
-  "objective": "Review the rendered Maya and Kenji clinic sequence at normal speed, with Sarah and Bill bound through persona voice contracts, Cosmos admitted for the face-free spatial handoff, and retained Wan picture performances synchronized to ASR-audited dialogue turns.",
+  "project_id": "cinematic-production-lab",
+  "status": "stage3_preproduction_portfolio_release_v0.2.0",
+  "updated_at": "2026-08-15",
+  "objective": "Develop reproducible cinematic scenes through structured story, production and editorial decisions while preserving explicit model admission, voice lineage, human acceptance, provenance and bounded execution controls.",
   "provider_policy": {
     "allowed_providers": [
       "deepinfra",
@@ -184,7 +184,7 @@
     }
   },
   "pricing": {
-    "verified_at": "2026-08-03",
+    "verified_at": "2026-08-15",
     "max_age_days": 30,
     "currency": "USD",
     "fail_if_unverified_or_increased": true,

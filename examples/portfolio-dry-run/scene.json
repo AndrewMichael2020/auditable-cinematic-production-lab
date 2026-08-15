@@ -1,0 +1,149 @@
+{
+  "id": "portfolio-rain-window",
+  "title": "The Light Left On",
+  "duration_seconds": 20,
+  "location": {
+    "name": "quiet apartment kitchen",
+    "time": "rainy blue hour",
+    "layout": "window frame left, small table at centre, closed doorway frame right",
+    "axis": "camera remains on the window side; Noor is screen left and Alex screen right",
+    "light": "cool window fill and one warm pendant practical"
+  },
+  "visual_policy": {
+    "text_policy": "forbid",
+    "camera_gaze_policy": "never_look_at_camera",
+    "public_space_symbols": {
+      "max_icons": 0,
+      "allowed_icons": []
+    },
+    "environmental_metaphors": [
+      "one warm practical holds the possibility of repair",
+      "rain reflections carry the unresolved distance"
+    ]
+  },
+  "spatial_plan": {
+    "camera": {
+      "side": "window_side"
+    },
+    "objects": [
+      {
+        "id": "table",
+        "kind": "table",
+        "zone": "center_safe_zone",
+        "support": "floor",
+        "contains_text": false
+      },
+      {
+        "id": "pendant",
+        "kind": "pendant_light",
+        "zone": "center_safe_zone",
+        "support": "ceiling_mounted",
+        "contains_text": false
+      }
+    ]
+  },
+  "characters": [
+    {
+      "id": "noor",
+      "age": 35,
+      "description": "woman with dark wavy hair and a thoughtful, restrained presence",
+      "wardrobe": "forest-green cardigan over a cream shirt",
+      "wardrobe_visual": [
+        {
+          "item": "cardigan",
+          "color": "forest green",
+          "construction": "two sleeves, five aligned buttons, stable ribbed cuffs"
+        }
+      ]
+    },
+    {
+      "id": "alex",
+      "age": 38,
+      "description": "man with short brown hair and a tired, open expression",
+      "wardrobe": "charcoal overshirt over a pale grey T-shirt",
+      "wardrobe_visual": [
+        {
+          "item": "overshirt",
+          "color": "charcoal",
+          "construction": "two sleeves, one chest pocket, six aligned buttons"
+        }
+      ]
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "seconds": 5,
+      "framing": "locked wide full-body two-shot",
+      "spatial_role": "master",
+      "camera": {"movement": "locked", "framing": "wide_full_body"},
+      "blocking": {
+        "noor": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "alex": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "gaze": {
+        "noor": {"target": "alex", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "alex": {"target": "noor", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "Noor dries a cup while Alex waits beside the doorway",
+      "dialogue": null
+    },
+    {
+      "id": "s02",
+      "seconds": 5,
+      "framing": "medium over Alex toward Noor",
+      "camera": {"movement": "locked", "framing": "medium_over_shoulder"},
+      "blocking": {
+        "noor": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "alex": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "gaze": {
+        "noor": {"target": "alex", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "alex": {"target": "noor", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "Noor sets the cup down and finally meets Alex's eyeline",
+      "dialogue": {"speaker": "noor", "line": "I left the light on because I thought you might come back."}
+    },
+    {
+      "id": "s03",
+      "seconds": 5,
+      "framing": "restrained profile close-up of Alex",
+      "camera": {"movement": "locked", "framing": "profile_close_up"},
+      "blocking": {
+        "noor": {"start": "left_safe_zone", "end": "left_safe_zone"},
+        "alex": {"start": "right_safe_zone", "end": "right_safe_zone"},
+        "minimum_separation_m": 1.5
+      },
+      "gaze": {
+        "noor": {"target": "alex", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "alex": {"target": "noor", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "Alex takes in the admission before answering",
+      "dialogue": {"speaker": "alex", "line": "Then let me stay long enough to turn it off with you."}
+    },
+    {
+      "id": "s04",
+      "seconds": 5,
+      "framing": "matching locked wide two-shot",
+      "camera": {"movement": "locked", "framing": "wide_full_body"},
+      "blocking": {
+        "noor": {"start": "left_safe_zone", "end": "center_left_safe_zone"},
+        "alex": {"start": "right_safe_zone", "end": "center_right_safe_zone"},
+        "minimum_separation_m": 0.75
+      },
+      "gaze": {
+        "noor": {"target": "alex", "screen_direction": "screen_right", "camera_look_forbidden": true},
+        "alex": {"target": "noor", "screen_direction": "screen_left", "camera_look_forbidden": true}
+      },
+      "action": "They both move toward the small table as the rain softens",
+      "dialogue": null
+    }
+  ],
+  "acceptance": {
+    "technical": ["four decodable five-second landscape clips", "20-second assembly"],
+    "continuity": ["two adults only", "wardrobe and axis remain stable", "no generated text"],
+    "human": ["the admission turns the scene", "Alex's pause reads before the answer", "the final movement feels earned"]
+  }
+}

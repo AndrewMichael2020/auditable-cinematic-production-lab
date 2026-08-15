@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "evidence_kind": "calibration_fixture",
+  "artifact_id": "synthetic-av-offset-calibration-v1",
+  "target_max_absolute_offset_ms": 80,
+  "measurement_cadence_ms": 20,
+  "events": [
+    {
+      "event_id": "calibration-pulse-01",
+      "audio_onset_ms": 1000,
+      "visual_onset_ms": 1040,
+      "confidence": 1.0
+    },
+    {
+      "event_id": "calibration-pulse-02",
+      "audio_onset_ms": 2500,
+      "visual_onset_ms": 2440,
+      "confidence": 1.0
+    },
+    {
+      "event_id": "calibration-pulse-03",
+      "audio_onset_ms": 4000,
+      "visual_onset_ms": 4080,
+      "confidence": 1.0
+    }
+  ],
+  "human_review": {
+    "decision": "pending",
+    "normal_speed": false,
+    "sound_enabled": false,
+    "reviewer": null
+  },
+  "note": "Synthetic onset timestamps validate evaluator cadence and boundary handling only. They are not production-artifact lip-sync evidence."
+}

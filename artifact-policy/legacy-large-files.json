@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "threshold_bytes": 5242880,
+  "updated_at": "2026-08-15",
+  "policy": "Existing portfolio evidence is retained. New or enlarged tracked files above the threshold are blocked; new or modified media under runs are blocked and belong in release assets, Actions artifacts, or local/cold storage.",
+  "legacy_large_files": {
+    "runs/cliffhanger-20260802T235825Z/audit-bundle.tar.gz": 9697347,
+    "runs/clinic-20260803T011736Z/audio/clinic-room-tone.wav": 9539694,
+    "runs/clinic-20260803T011736Z/final-clinic-coverage-check.mp4": 11408725,
+    "runs/clinic-20260803T011736Z/final/final-clinic-coverage-check.mp4": 11408725,
+    "runs/clinic-20260803T011736Z/rejected/final-v1-before-spatial-reframe.mp4": 11704197,
+    "runs/clinic-20260803T011736Z/rejected/final-v2-before-notice-and-reaction-repair.mp4": 11826267,
+    "runs/clinic-stage2-20260803T060048Z/audio/final-clinic-ambience-v6.wav": 7390806,
+    "runs/clinic-stage2-20260803T060048Z/final/clinic-stage2-sequence-v3.mp4": 11444150
+  }
+}
