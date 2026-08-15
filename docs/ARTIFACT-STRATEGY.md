@@ -12,7 +12,7 @@ not rewrite public history.
 |---|---|---|
 | Git | source, tests, manifests, policies, compact JSON/Markdown decisions, selected contact sheets, and the existing README-linked proof clips | permanent; credential scan and large-artifact guard on every PR |
 | GitHub release assets | accepted delivery media, checksums, and a bounded source/evidence bundle | permanent for a named release; SHA-256 published beside each bundle |
-| GitHub Actions artifacts | zero-cost build output and explicitly manual smoke-run packets | short-lived; the dry-run bundle uses seven days and the manual smoke packet uses 30 days |
+| GitHub Actions artifacts | zero-cost build and validation output | short-lived; the dry-run bundle uses seven days |
 | Local or cold storage | provider downloads, raw takes, lossless audio, intermediates, rejected media, and private references | retained according to production value; hashes and compact decisions remain portable |
 
 ## Existing evidence stays

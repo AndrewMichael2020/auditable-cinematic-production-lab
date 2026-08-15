@@ -21,7 +21,6 @@ from .voice import validate_voice_realization, voice_realization_sha256
 COST_COMPARISON_EPSILON = Decimal("0.000000000001")
 DEFAULT_MAX_PARTNER_AVATAR_ATTEMPTS = 5
 VIDEO_ROLE_COUNT_KEYS = {
-    "draft_video": "max_fastwan_5s_drafts",
     "final_video": "max_wan22_5s_finals",
     "cosmos_world_video": "max_cosmos3_super_5s_candidates",
 }

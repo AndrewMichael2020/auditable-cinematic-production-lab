@@ -38,7 +38,6 @@
     "profiles": {
       "cad_10": {
         "application_hard_cap_usd": 10.0,
-        "max_fastwan_5s_drafts": 40,
         "max_wan22_5s_finals": 12,
         "max_cosmos3_super_5s_candidates": 8,
         "max_wan26_i2v_requests": 19,
@@ -47,7 +46,6 @@
       },
       "cad_15": {
         "application_hard_cap_usd": 9.75,
-        "max_fastwan_5s_drafts": 80,
         "max_wan22_5s_finals": 20,
         "max_cosmos3_super_5s_candidates": 12,
         "max_wan26_i2v_requests": 19,
@@ -56,7 +54,6 @@
       },
       "cad_20": {
         "application_hard_cap_usd": 15.0,
-        "max_fastwan_5s_drafts": 120,
         "max_wan22_5s_finals": 28,
         "max_cosmos3_super_5s_candidates": 16,
         "max_wan26_i2v_requests": 19,
@@ -79,20 +76,6 @@
       "price_usd_per_million_input_tokens": 0.08,
       "price_usd_per_million_output_tokens": 0.28
     },
-    "draft_video": {
-      "id": "FastVideo/FastWan-QAD-FP8-1.3B",
-      "licence": "Apache-2.0",
-      "endpoint_type": "deepinfra_inference",
-      "price_usd_per_second": 0.0025,
-      "seconds": 5,
-      "resolution": "480p",
-      "orientations": [
-        "landscape",
-        "portrait"
-      ],
-      "cinematic_stage2_allowed": false,
-      "allowed_use": "disposable non-cinematic staging or cartoon experiments only; never aesthetic reference, source, persona reference, lip-sync input, promotion candidate, or final media"
-    },
     "final_video": {
       "id": "Wan-AI/Wan2.2-T2V-A14B",
       "licence": "Apache-2.0",
@@ -101,6 +84,7 @@
       "seconds": 5,
       "resolution": "720p",
       "orientation": "landscape",
+      "cinematic_stage2_allowed": true,
       "request_timeout_seconds": 600,
       "negative_prompt": "advertisement, commercial, corporate promotional video, product showcase, beauty campaign, glamour key light, glossy plastic skin, stock-photo pose, presenter smile, cartoon, animation, 3D render, illustration, continuous cyan wall, long dark-wood reception counter, auditorium chair rows, portrait frame, extreme close crop, cut-off face, readable text, logo, badge, watermark, malformed hands, extra fingers, duplicate person, fused bodies"
     },
@@ -113,6 +97,7 @@
       "resolution": "720p",
       "aspect_ratio": "16:9",
       "output_type": "video",
+      "cinematic_stage2_allowed": true,
       "max_prompt_characters": 4000,
       "request_timeout_seconds": 900,
       "allowed_use": "promoted physics-aware world-model candidate after storyboard authorization and draft promotion or bounded repair authorization"
@@ -127,6 +112,7 @@
       "seconds": 5,
       "allowed_seconds": [5, 6, 7, 8, 9, 10],
       "resolution": "720P",
+      "cinematic_stage2_allowed": true,
       "synchronized_audio_input_allowed": true,
       "request_timeout_seconds": 600,
       "negative_prompt": "camera cut, angle change, zoom, reframing, object morph, moving monitor, moving keyboard, disappearing card reader, extra card, flat blue paper, unreadable anatomy, malformed hands, extra fingers, fused hands, duplicate person, new person, identity change, wardrobe change, glass divider, transparent barrier, readable text, logo, watermark, advertisement, commercial gloss, presenter smile, cartoon, animation, illustration, CGI, 3D render"
@@ -177,6 +163,7 @@
       "price_usd_per_second": 0.025,
       "max_reserved_seconds_per_request": 8,
       "resolution": "720p",
+      "cinematic_stage2_allowed": true,
       "single_subject_prompt": "Exactly one person appears in every frame: the reference adult. No second face, body, shoulder, reflection, silhouette, or person enters the image. Only the reference adult speaks and moves their lips and jaw.",
       "paired_subject_prompt_template": "This is one paired landscape conversation plate containing exactly the two reference adults and no third person. Only the adult on {speaker_side} speaks and moves their lips and jaw. The adult on {listener_side} remains visible and silent with restrained listening micro-movements. Never merge, replace, duplicate, crop out, or reposition either reference adult.",
       "gaze_lock_prompt_template": "Locked camera and static side-profile conversation framing facing {gaze_direction}. For every frame, preserve the reference head angle and keep the nose, face, and pupils aimed at one fixed point just beyond the {gaze_direction} frame edge. No head turn, frontal pose, or camera gaze. Only lips, jaw, eyebrows, restrained breathing, and subtle expression move; the camera is an unnoticed observer.",
@@ -261,9 +248,6 @@
     "intro_min_seconds": 2.0,
     "outro_min_seconds": 3.0,
     "ambient_sound_required": true,
-    "forbidden_cinematic_generation_models": [
-      "FastVideo/FastWan-QAD-FP8-1.3B"
-    ],
     "human_gates": [
       "cinematic_composition",
       "mouth_visibility",

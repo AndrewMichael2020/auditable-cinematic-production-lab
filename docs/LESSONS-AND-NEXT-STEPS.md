@@ -149,10 +149,10 @@ What failed the new Stage 2 bar:
 
 Lessons to carry forward:
 
-- **Quarantine model/style classes that fail the medium.** `shot05-draft-v2-contact.png` traces to
-  "`FastVideo/FastWan-QAD-FP8-1.3B`". Its simplified glossy/cartoon-like people are not a lower-cost
-  preview of the intended cinema; they are a different aesthetic class. Stage 2 now rejects that
-  model as a source, reference, lip-sync input or final interval regardless of technical validity.
+- **Retire models that miss the cinematic quality bar.** Early tests of
+  `FastVideo/FastWan-QAD-FP8-1.3B` produced simplified glossy/cartoon-like people rather than a
+  lower-cost preview of the intended cinema. It was evaluated, did not meet the expected quality,
+  and is no longer registered or executable. Its retained run records exist only as provenance.
 - **Reuse the station lip-sync contract exactly.** The accepted station scene used 512×512
   single-person references, 960×960 synchronized avatar outputs and preplanned 16:9 crops with
   identical picture/audio trim and rate transforms. Native landscape inputs returned HTTP 500,

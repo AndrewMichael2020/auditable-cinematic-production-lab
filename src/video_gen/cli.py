@@ -96,7 +96,7 @@ def parser() -> argparse.ArgumentParser:
     plan.add_argument("--profile", default="cad_10")
     plan.add_argument(
         "--role",
-        choices=["draft_video", "final_video", "cosmos_world_video"],
+        choices=["final_video", "cosmos_world_video"],
         required=True,
     )
     prompt_source = plan.add_mutually_exclusive_group(required=True)
@@ -583,11 +583,7 @@ def main(argv: list[str] | None = None) -> int:
                             if args.observations else None)
             report = audit_stage2_sequence(
                 sequence, timeline_packet, final_media=args.final, observations=observations,
-                forbidden_generation_models=set(
-                    config.raw.get("stage2_contract", {}).get(
-                        "forbidden_cinematic_generation_models", []
-                    )
-                ),
+                allowed_generation_models=config.cinematic_generation_model_ids(),
             )
             emit_json(report, args.output)
             return 0 if report["promotion_allowed"] else 2

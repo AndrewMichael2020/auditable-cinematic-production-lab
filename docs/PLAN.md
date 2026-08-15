@@ -80,7 +80,6 @@ The US-dollar caps conservatively assume 1 USD = 1.37 CAD and 12% tax. Before a 
 | Capability                      | Model                            | Licence                  |            Listed price used for reservation |
 | ------------------------------- | -------------------------------- | ------------------------ | -------------------------------------------: |
 | Planning and prompt compilation | `Qwen/Qwen3-32B`                 | Apache 2.0               | US$0.08 input / US$0.28 output per 1M tokens |
-| Non-cinematic staging/cartoon draft only | `FastVideo/FastWan-QAD-FP8-1.3B` | Apache 2.0 | US$0.0025/second |
 | Final text-to-video             | `Wan-AI/Wan2.2-T2V-A14B`         | Apache 2.0               |                              US$0.075/second |
 | Frame/contact-sheet QA          | `Qwen/Qwen3-VL-30B-A3B-Instruct` | Apache 2.0               | US$0.15 input / US$0.60 output per 1M tokens |
 | Dialogue audio                  | `ResembleAI/chatterbox-turbo`    | MIT                      |                    US$1.00 per 1M characters |
@@ -89,13 +88,9 @@ The US-dollar caps conservatively assume 1 USD = 1.37 CAD and 12% tax. Before a 
 
 Model names and prices are configuration data. A live run must fail closed if DeepInfra no longer exposes the exact model, the price is unknown, or the configured reservation price is lower than the currently verified price.
 
-`FastVideo/FastWan-QAD-FP8-1.3B` is permanently quarantined from Stage 2 cinematic production.
-The style evidenced by `shot05-draft-v2-contact.png` is suitable only for explicitly labelled,
-disposable non-cinematic staging or cartoon experiments. Its output may never be used as an
-aesthetic reference, accepted generation source, persona reference, avatar/lip-sync input,
-promotion candidate, edit interval or final media for the series. The Stage 2 audit requires the
-generation model ID on every interval and blocks this model even if its container and aspect ratio
-are technically valid.
+The Stage 2 audit requires a generation model ID on every interval and accepts only models explicitly
+registered for cinematic Stage 2 use. Unregistered sources are blocked even when their container and
+aspect ratio are technically valid.
 
 ## Honest limitation
 
@@ -147,15 +142,10 @@ Each request follows this order:
 
 A timeout with unknown provider status is not retried automatically. It is held for reconciliation so the same paid request is not duplicated.
 
-Recommended proof envelopes:
-
-| CAD profile | FastWan draft ceiling | Wan 2.2 final ceiling | Intended use                     |
-| ----------- | --------------------: | --------------------: | -------------------------------- |
-| 10          |        40 × 5 seconds |        12 × 5 seconds | Default complete 20-second proof |
-| 15          |        80 × 5 seconds |        20 × 5 seconds | More prompt exploration          |
-| 20          |       120 × 5 seconds |        28 × 5 seconds | Larger comparison set            |
-
-The monetary cap overrides the count ceilings. Planning, QA, and TTS share the same cap.
+Each CAD profile applies an overall application hard cap plus candidate-count ceilings for the
+approved generation models. The monetary cap always overrides the count ceilings, so a remaining
+candidate slot can never authorize spending beyond the selected profile. Planning, QA, and TTS
+share that same cap.
 
 ## Foundation milestone 0 — Correct architecture
 

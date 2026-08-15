@@ -11,7 +11,6 @@ credentials, `--live`, and `--confirm-live`.
 |---|---|---:|---|
 | Planning | [`Qwen/Qwen3-32B`](https://deepinfra.com/Qwen/Qwen3-32B/api) | US$0.08 input / US$0.28 output per 1M tokens | Registered historical planning lane |
 | Visual QA | [`Qwen/Qwen3-VL-30B-A3B-Instruct`](https://deepinfra.com/Qwen/Qwen3-VL-30B-A3B-Instruct/api) | US$0.15 input / US$0.60 output per 1M tokens | Registered contact-sheet evaluator |
-| Historical connectivity draft | [`FastVideo/FastWan-QAD-FP8-1.3B`](https://deepinfra.com/FastVideo/FastWan-QAD-FP8-1.3B/api) | US$0.0025 per second; provider page fixes output at five seconds | Quarantined from cinematic source, persona, promotion, and final use |
 | Final candidate | [`Wan-AI/Wan2.2-T2V-A14B`](https://deepinfra.com/Wan-AI/Wan2.2-T2V-A14B/api) | US$0.075 per second | Registered at five seconds and 720p |
 | Physics-aware candidate | [`nvidia/Cosmos3-Super`](https://deepinfra.com/nvidia/Cosmos3-Super/api) | US$0.05 per second at 720p | Registered only after storyboard authorization and promotion/repair approval |
 | Audio-conditioned dialogue | [`Wan-AI/Wan2.6-I2V`](https://deepinfra.com/Wan-AI/Wan2.6-I2V/api) | US$0.10 per second | Partner exception; disabled by default and individually bounded |
@@ -27,8 +26,6 @@ credits because plan-specific credit economics are not equivalent to a stable pe
 
 ## Historical or constrained, not the current creative promise
 
-- FastWan remains only for the separate, manual connectivity smoke workflow and disposable
-  non-cinematic experiments. It is not the cinematic drafting strategy.
 - Wan 2.6 I2V and p-video-avatar are partner-model exceptions. Neither is an automatic fallback.
 - The accepted Stage 2 evidence records what actually ran; this snapshot does not retroactively
   replace model, cost, or acceptance provenance.
