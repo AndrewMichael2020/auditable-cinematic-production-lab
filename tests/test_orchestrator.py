@@ -38,9 +38,9 @@ def approved_voice(model_id, provider_voice, **settings):
 
 def test_dry_run_is_default_and_never_calls_provider(tmp_path):
     app, ledger = setup(tmp_path)
-    result = app.run_video("draft_video", "safe prompt", seed=12)
+    result = app.run_video("final_video", "safe prompt", seed=12)
     assert result.dry_run is True
-    assert str(result.reserved_usd) == "0.0125"
+    assert str(result.reserved_usd) == "0.375"
     assert ledger.actual_total() == 0
 
 
@@ -67,7 +67,10 @@ def test_live_reconciles_reported_cost(tmp_path):
         return 200, json.dumps(response).encode(), {}
 
     client = DeepInfraClient("token", transport)
-    result = app.run_video("draft_video", "prompt", live=True, confirmed=True, client=client, output_dir=tmp_path)
+    result = app.run_video(
+        "final_video", "prompt", live=True, confirmed=True,
+        client=client, output_dir=tmp_path,
+    )
     assert result.dry_run is False
     assert result.output_path == str(tmp_path / f"{result.request_id}.mp4")
     assert result.output_sha256
@@ -76,10 +79,19 @@ def test_live_reconciles_reported_cost(tmp_path):
     event = ledger.db.execute("SELECT metadata FROM events WHERE event='completed'").fetchone()[0]
     assert "output_sha256" in event
     assert "signature" not in event
-    assert request_payloads == [{
-        "prompt": "prompt", "seconds": 5, "resolution": "480p",
+    assert len(request_payloads) == 1
+    assert {
+        "prompt": request_payloads[0]["prompt"],
+        "seconds": request_payloads[0]["seconds"],
+        "resolution": request_payloads[0]["resolution"],
+        "orientation": request_payloads[0]["orientation"],
+        "seed": request_payloads[0]["seed"],
+    } == {
+        "prompt": "prompt", "seconds": 5, "resolution": "720p",
         "orientation": "landscape", "seed": 0,
-    }]
+    }
+    assert request_payloads[0]["negative_prompt"] == \
+        app.config.model("final_video").data["negative_prompt"]
 
 
 def test_final_uses_approved_negative_prompt_and_native_landscape_parameters(tmp_path):
@@ -380,7 +392,7 @@ def test_failed_download_records_cost_and_provider_provenance(tmp_path):
 
     client = DeepInfraClient("token", transport)
     with pytest.raises(ProviderError, match="503"):
-        app.run_video("draft_video", "prompt", live=True, confirmed=True,
+        app.run_video("final_video", "prompt", live=True, confirmed=True,
                       client=client, output_dir=tmp_path)
     assert str(ledger.actual_total()) == "0.0125"
     event = ledger.db.execute(
@@ -394,7 +406,7 @@ def test_unknown_cost_is_recorded_and_not_retried(tmp_path):
     app, ledger = setup(tmp_path)
     client = DeepInfraClient("token", lambda req, timeout: (200, b'{"video_url":"x"}', {}))
     with pytest.raises(UnknownBillingStatus):
-        app.run_video("draft_video", "prompt", live=True, confirmed=True, client=client)
+        app.run_video("final_video", "prompt", live=True, confirmed=True, client=client)
     event = ledger.db.execute("SELECT event FROM events ORDER BY sequence DESC").fetchone()[0]
     assert event == "billing_unknown"
 
@@ -410,7 +422,7 @@ def test_pre_send_tls_verification_failure_is_not_misclassified_as_billable(tmp_
 
     with pytest.raises(ProviderError, match="before request submission"):
         app.run_video(
-            "draft_video", "prompt", live=True, confirmed=True,
+            "final_video", "prompt", live=True, confirmed=True,
             client=DeepInfraClient("token", transport),
         )
     event = ledger.db.execute(
@@ -420,10 +432,10 @@ def test_pre_send_tls_verification_failure_is_not_misclassified_as_billable(tmp_
     assert ledger.actual_total() == 0
 
 
-def test_unconfirmed_live_request_does_not_reserve(tmp_path):
+def test_unconfirmed_promoted_request_does_not_reserve(tmp_path):
     app, ledger = setup(tmp_path)
-    with pytest.raises(PolicyError, match="confirm-live"):
-        app.run_video("draft_video", "prompt", live=True)
+    with pytest.raises(PolicyError, match="human promotion"):
+        app.run_video("final_video", "prompt", live=True)
     assert ledger.reserved_total() == 0
 
 
@@ -431,17 +443,17 @@ def test_missing_live_token_does_not_reserve(tmp_path, monkeypatch):
     app, ledger = setup(tmp_path)
     monkeypatch.delenv("DEEPINFRA_TOKEN", raising=False)
     with pytest.raises(ProviderError, match="DEEPINFRA_TOKEN"):
-        app.run_video("draft_video", "prompt", live=True, confirmed=True)
+        app.run_video("final_video", "prompt", live=True, confirmed=True)
     assert ledger.reserved_total() == 0
 
 
 def test_candidate_count_cap_overrides_remaining_money(tmp_path):
     app, ledger = setup(tmp_path)
-    model = app.config.model("draft_video")
-    for index in range(40):
+    model = app.config.model("final_video")
+    for index in range(12):
         ledger.reserve(str(index), model.id, model.reserve(seconds=5), app.cap)
     with pytest.raises(PolicyError, match="candidate cap"):
-        app.run_video("draft_video", "one too many")
+        app.run_video("final_video", "one too many")
 
 
 def test_speech_dry_run_reserves_by_character(tmp_path):

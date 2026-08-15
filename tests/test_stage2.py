@@ -17,6 +17,7 @@ from video_gen.stage2 import (HUMAN_GATES, audit_stage2_sequence,
 
 ROOT = Path(__file__).resolve().parents[1]
 SEQUENCE = ROOT / "sequences" / "clinic-reception-stage2.json"
+ALLOWED_GENERATION_MODELS = {"Wan-AI/Wan2.2-T2V-A14B"}
 
 
 def _video(path: Path, *, size: str = "1280x720", duration: float = 3.0,
@@ -215,6 +216,7 @@ def test_stage2_audit_accepts_complete_square_avatar_lineage(tmp_path):
     report = audit_stage2_sequence(
         sequence, {"intervals": intervals, "ambience": str(ambience)},
         observations=observations,
+        allowed_generation_models=ALLOWED_GENERATION_MODELS,
     )
 
     assert not any(
@@ -274,14 +276,23 @@ def test_stage2_audit_requires_human_evidence_and_passes_complete_candidate(tmp_
         for gate in HUMAN_GATES
     }
 
-    report = audit_stage2_sequence(sequence, timeline, observations=observations)
+    report = audit_stage2_sequence(
+        sequence,
+        timeline,
+        observations=observations,
+        allowed_generation_models=ALLOWED_GENERATION_MODELS,
+    )
 
     assert report["gate"] == "pass"
     assert report["promotion_allowed"] is True
     assert report["blocking_findings"] == 0
     assert report["review_findings"] == 0
 
-    missing_review = audit_stage2_sequence(sequence, timeline)
+    missing_review = audit_stage2_sequence(
+        sequence,
+        timeline,
+        allowed_generation_models=ALLOWED_GENERATION_MODELS,
+    )
     assert missing_review["gate"] == "review"
     assert missing_review["review_findings"] == len(HUMAN_GATES)
 
@@ -298,7 +309,11 @@ def test_stage2_audit_blocks_legacy_portrait_and_untyped_timeline(tmp_path):
         }],
     }
 
-    report = audit_stage2_sequence(sequence, timeline)
+    report = audit_stage2_sequence(
+        sequence,
+        timeline,
+        allowed_generation_models=ALLOWED_GENERATION_MODELS,
+    )
 
     assert report["gate"] == "block"
     assert report["promotion_allowed"] is False
@@ -308,7 +323,7 @@ def test_stage2_audit_blocks_legacy_portrait_and_untyped_timeline(tmp_path):
 
 @pytest.mark.skipif(not shutil.which("ffmpeg") or not shutil.which("ffprobe"),
                     reason="FFmpeg tools are required")
-def test_stage2_audit_quarantines_fastwan_from_cinematic_sources(tmp_path):
+def test_stage2_audit_rejects_unregistered_cinematic_source_model(tmp_path):
     sequence = load_stage2_sequence(SEQUENCE)
     source = tmp_path / "source.mp4"
     _video(source)
@@ -318,10 +333,14 @@ def test_stage2_audit_quarantines_fastwan_from_cinematic_sources(tmp_path):
         _interval(source, 3, role="essential_action"),
         _interval(source, 4, role="outro_reaction"),
     ]
-    intervals[2]["generation_model_id"] = "FastVideo/FastWan-QAD-FP8-1.3B"
+    intervals[2]["generation_model_id"] = "example/retired-low-quality-model"
     timeline = {"intervals": intervals, "ambience": str(source)}
 
-    report = audit_stage2_sequence(sequence, timeline)
+    report = audit_stage2_sequence(
+        sequence,
+        timeline,
+        allowed_generation_models=ALLOWED_GENERATION_MODELS,
+    )
 
     assert report["gate"] == "block"
     assert any(

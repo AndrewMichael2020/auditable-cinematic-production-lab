@@ -508,12 +508,11 @@ def _human_result(gate_id: str, raw: Any) -> dict[str, Any]:
 def audit_stage2_sequence(sequence: dict[str, Any], timeline: dict[str, Any], *,
                           final_media: str | Path | None = None,
                           observations: dict[str, Any] | None = None,
-                          forbidden_generation_models: set[str] | None = None) -> dict[str, Any]:
+                          allowed_generation_models: set[str] | None = None) -> dict[str, Any]:
     """Apply Stage 2 native-format, lineage, edit-rhythm, sound, and human gates."""
     observations = observations or {}
-    forbidden_generation_models = forbidden_generation_models or {
-        "FastVideo/FastWan-QAD-FP8-1.3B",
-    }
+    if allowed_generation_models is None:
+        raise PolicyError("cinematic generation model allowlist is required")
     hierarchy = sequence["hierarchy"]
     intervals = timeline.get("intervals")
     results: list[dict[str, Any]] = []
@@ -586,10 +585,16 @@ def audit_stage2_sequence(sequence: dict[str, Any], timeline: dict[str, Any], *,
         if not str(interval.get("generation_request_id", "")).strip():
             add("typed_lineage", "fail", f"Interval {index} lacks generation_request_id.")
         generation_model_id = str(interval.get("generation_model_id", ""))
-        if generation_model_id in forbidden_generation_models:
+        if not generation_model_id.strip():
+            add("typed_lineage", "fail", f"Interval {index} lacks generation_model_id.")
+        elif (
+            allowed_generation_models is not None
+            and generation_model_id not in allowed_generation_models
+        ):
             add(
                 "cinematic_source_model", "fail",
-                f"Interval {index} uses quarantined non-cinematic model {generation_model_id}.",
+                f"Interval {index} uses a model not registered for cinematic Stage 2: "
+                f"{generation_model_id}.",
             )
         shot_personas: dict[str, str] = {}
         shot_id = interval.get("shot_id")

@@ -184,7 +184,6 @@ user-approved partner exception exists only for the bounded lip-sync avatar test
 | Stage | DeepInfra model | Licence | Role |
 |---|---|---|---|
 | Stage 1/2 planning | `Qwen/Qwen3-32B` | Apache 2.0 | Historical structured shot planning and prompt compilation; not the Stage 3 creative primary |
-| Historical/quarantined drafts | `FastVideo/FastWan-QAD-FP8-1.3B` | Apache 2.0 | Early 480p staging tests and the manual connectivity smoke test only; blocked from cinematic sources |
 | Final candidates | `Wan-AI/Wan2.2-T2V-A14B` | Apache 2.0 | Selected 5-second 720p generations |
 | Physics-aware world candidates | `nvidia/Cosmos3-Super` | OpenMDW 1.1 | Promoted 5-second 720p spatial/physics comparison |
 | Visual QA | `Qwen/Qwen3-VL-30B-A3B-Instruct` | Apache 2.0 | Contact-sheet scoring and defect labels |
@@ -250,9 +249,8 @@ explicitly registered DeepInfra partner model; no direct Google API credential i
 8. Preserve the decision, source lineage, prompts, seeds, costs, hashes, voice binding, and QA evidence;
    keep delivery media in the appropriate Git, release, Actions, or local/cold-storage tier.
 
-FastWan is not the cinematic draft lane. It remains quarantined to the separate manual connectivity
-smoke test and disposable non-cinematic experiments. Human approval remains required for casting,
-paid promotion, bounded repair, editorial acceptance, and final delivery.
+Human approval remains required for casting, paid promotion, bounded repair, editorial acceptance,
+and final delivery.
 
 ## Run locally
 
@@ -338,10 +336,9 @@ The automatic **dry-run** workflow runs on pushes to `main` and pull requests ac
 3.12. It receives no provider credential and never invokes `--live`; it scans tracked files for
 credential-shaped material, enforces the forward artifact policy, runs tests and configuration
 preflight, replays the zero-cost sample and AV calibration, validates the typed Stage 2 sequence,
-and builds/verifies the bounded release bundle. If a human later chooses to run the **live DeepInfra
-smoke test** and enters `LIVE`, that separate manual workflow makes exactly one quarantined FastWan
-connectivity request, never retries it, and retains the result and compact records as a 30-day
-workflow artifact. Signed query parameters from provider output URLs are excluded from the ledger.
+and builds/verifies the bounded release bundle. Paid inference is intentionally excluded from GitHub
+Actions; live requests remain local, explicitly confirmed, budget-reserved, and individually
+recorded. Signed query parameters from provider output URLs are excluded from the ledger.
 
 ## Repository map
 
@@ -370,7 +367,6 @@ workflow artifact. Signed query parameters from provider output URLs are exclude
 - [locations/clinic-reception.json](locations/clinic-reception.json): reusable data-driven clinic geometry and privacy rules.
 - [artifact-policy/legacy-large-files.json](artifact-policy/legacy-large-files.json): exact grandfathered large-file ceiling for retained proof.
 - [.github/workflows/dry-run.yml](.github/workflows/dry-run.yml): automatic credential-free CI and release-bundle verification.
-- [.github/workflows/live-smoke.yml](.github/workflows/live-smoke.yml): explicitly manual, one-request connectivity smoke test.
 - [`src/video_gen`](src/video_gen): CLI, policy, ledger, provider, production, editing, AV-sync, retention, and release modules.
 - [`tests`](tests): policy, provider, media, voice, AV-sync, artifact, release, and orchestration coverage.
 - [LICENSE](LICENSE): repository licence.

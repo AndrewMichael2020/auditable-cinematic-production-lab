@@ -8,7 +8,7 @@ The programmatic proof requires exactly one user-created GitHub Actions secret:
 DEEPINFRA_API_TOKEN
 ```
 
-It authenticates all approved DeepInfra models: Qwen planning, FastWan drafts, Wan 2.2 final candidates, Qwen-VL review, and Chatterbox speech.
+It authenticates the approved DeepInfra planning, cinematic generation, visual-review, and speech models.
 
 Add it at:
 

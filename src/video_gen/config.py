@@ -107,6 +107,11 @@ class ProjectConfig:
             if model_id in model_ids:
                 raise PolicyError(f"approved model id is assigned to multiple roles: {model_id}")
             model_ids.add(model_id)
+            cinematic_allowed = data.get("cinematic_stage2_allowed")
+            if cinematic_allowed is not None and not isinstance(cinematic_allowed, bool):
+                raise PolicyError(
+                    f"approved model {role} cinematic_stage2_allowed must be boolean"
+                )
             price_schemes = sum(
                 key in data for key in (
                     "price_usd_per_second", "price_usd_per_million_characters",
@@ -224,3 +229,13 @@ class ProjectConfig:
             if model.id == model_id:
                 return model
         raise PolicyError(f"model is not approved: {model_id}")
+
+    def cinematic_generation_model_ids(self) -> set[str]:
+        model_ids = {
+            str(data["id"])
+            for data in self.raw["approved_models"].values()
+            if data.get("cinematic_stage2_allowed") is True
+        }
+        if not model_ids:
+            raise PolicyError("at least one cinematic Stage 2 model must be registered")
+        return model_ids
