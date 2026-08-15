@@ -7,6 +7,7 @@ from typing import Any
 
 from .errors import PolicyError
 from .media import (mean_volume_dbfs, native_landscape_facts, probe, sha256_file)
+from .voice import validate_voice_realization
 
 
 SCHEMA_VERSION = "2.0"
@@ -83,6 +84,7 @@ def load_series(path: str | Path) -> dict[str, Any]:
         raise PolicyError("series manifest requires canonical_personas")
     character_ids: set[str] = set()
     persona_ids: set[str] = set()
+    voice_realization_ids: set[str] = set()
     for index, persona in enumerate(personas):
         if not isinstance(persona, dict):
             raise PolicyError(f"canonical persona {index} must be an object")
@@ -109,6 +111,23 @@ def load_series(path: str | Path) -> dict[str, Any]:
             raise PolicyError(f"{context} requires a structured voice")
         for field in ("provider_voice", "language", "accent_direction", "performance_baseline"):
             _require_string(voice, field, f"{context} voice")
+        realization = validate_voice_realization(
+            voice.get("voice_realization"), persona_version=version,
+        )
+        realization_id = str(realization["voice_realization_id"])
+        if realization_id in voice_realization_ids:
+            raise PolicyError("canonical voice realization ids must be unique")
+        voice_realization_ids.add(realization_id)
+        if realization["provider_voice"] != voice["provider_voice"]:
+            raise PolicyError(f"{context} voice realization conflicts with provider_voice")
+        approval = realization["approval"]
+        audition_path_value = str(approval.get("audition_path") or "").strip()
+        if audition_path_value:
+            audition_path = _resolve(source, audition_path_value)
+            if not audition_path.is_file():
+                raise PolicyError(f"{context} voice audition does not exist")
+            if sha256_file(audition_path) != approval["audition_sha256"]:
+                raise PolicyError(f"{context} voice audition hash does not match")
         reference_pack = persona.get("reference_pack")
         if not isinstance(reference_pack, dict):
             raise PolicyError(f"{context} requires a reference_pack")
@@ -457,6 +476,26 @@ def audit_stage2_sequence(sequence: dict[str, Any], timeline: dict[str, Any], *,
 
     def add(gate_id: str, status: str, evidence: str) -> None:
         results.append({"gate_id": gate_id, "status": status, "evidence": evidence})
+
+    unapproved_voices = []
+    for persona in sequence["_series"]["canonical_personas"]:
+        realization = persona["voice"]["voice_realization"]
+        if realization["approval"]["status"] != "approved":
+            unapproved_voices.append(
+                f"{persona['character_id']}={realization['voice_realization_id']} "
+                f"({realization['approval']['status']})"
+            )
+    if unapproved_voices:
+        add(
+            "voice_realization", "fail",
+            "Production promotion requires approved audition bindings: "
+            + "; ".join(unapproved_voices) + ".",
+        )
+    else:
+        add(
+            "voice_realization", "pass",
+            "Every canonical speaker resolves to one human-approved audition hash.",
+        )
 
     if not isinstance(intervals, list) or not intervals:
         add("timeline", "fail", "Timeline has no intervals.")

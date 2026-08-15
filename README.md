@@ -1,6 +1,6 @@
-# Auditable Cinematic Production Lab
+# Cinematic Production Lab
 
-[![Dry-run CI](https://github.com/AndrewMichael2020/auditable-cinematic-production-lab/actions/workflows/dry-run.yml/badge.svg)](https://github.com/AndrewMichael2020/auditable-cinematic-production-lab/actions/workflows/dry-run.yml)
+[![Dry-run CI](https://github.com/AndrewMichael2020/cinematic-production-lab/actions/workflows/dry-run.yml/badge.svg)](https://github.com/AndrewMichael2020/cinematic-production-lab/actions/workflows/dry-run.yml)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Tests: pytest](https://img.shields.io/badge/tests-pytest-0A9EDC?logo=pytest&logoColor=white)](tests)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -26,8 +26,9 @@ open-ended generation demo:
   provider, cost, hash, lineage, and human-acceptance evidence.
 - **Honest QA:** accepted and rejected artifacts are retained separately; the latest rejected run
   has a documented voice-persona and lip-sync root-cause analysis.
-- **Safe automation:** GitHub workflows are manual-dispatch only, generation defaults to dry-run,
-  and the paid smoke test requires an explicit `LIVE` confirmation.
+- **Safe automation:** push and pull-request CI runs tests, a tracked-credential scan, configuration
+  preflight, and Stage 2 validation without provider credentials; the paid smoke test remains a
+  separate manual workflow requiring explicit `LIVE` confirmation.
 
 | Evidence | What it shows |
 |---|---|
@@ -53,6 +54,26 @@ series-owned personas and cinematic intent, typed sequence-to-shot lineage, nati
 orientation checks, face/mouth and action gates, perceptible ambience, outer fades and explicit
 human acceptance. The clinic v3 package is the first accepted Stage 2 delivery candidate; a second
 contrasting sequence is still required to exit the stage.
+
+## Architecture
+
+```text
+series + sequence manifests
+          ↓
+model / price / secret policy validation
+          ↓
+dry-run planner → reservation ledger → explicitly confirmed provider request
+          ↓                                  ↓
+typed provenance + media hashes        reported-cost reconciliation
+          ↓
+technical checks + human acceptance gates → FFmpeg delivery master
+```
+
+The CLI is the policy boundary. Configuration is validated before orchestration; live requests
+require a current human-reviewed pricing snapshot, explicit confirmation, an approved registered
+model, and a reservation that fits both the run profile and provider-account ceiling. Voice
+generation additionally requires a versioned canonical realization and approved audition hash.
+Provider uncertainty never triggers an automatic retry or fallback.
 
 ## Current pause and latest-run decision
 
@@ -110,9 +131,11 @@ Choose exactly one run profile: **10, 15, or 20 dollars Canadian**, including a 
 |---|---:|
 | CAD 10 | US$10.00 |
 | CAD 15 | US$9.75 |
-| CAD 20 | US$13.00 |
+| CAD 20 | US$15.00 |
 
-The program must stop before the selected US-dollar cap. It must also respect a DeepInfra account spending limit of no more than US$13.00 for the proof. DeepInfra reports actual cost in `inference_status.cost`; the local append-only ledger records both reserved and reported cost.
+The program must stop before the selected US-dollar cap. It must also respect a DeepInfra account
+spending limit of no more than US$20.00. DeepInfra reports actual cost in
+`inference_status.cost`; the local append-only ledger records both reserved and reported cost.
 
 Only sequential generation is allowed. Every request reserves its maximum expected cost before transmission. No recursive retries, parallel paid jobs, automatic provider fallback, or unbounded workflow reruns.
 
@@ -159,6 +182,7 @@ test dependency, then validate the complete dry-run path:
 
 ```bash
 python -m pip install -e . pytest
+video-gen-secret-scan
 pytest -q
 video-gen preflight --profile cad_10
 video-gen validate-scene
@@ -183,7 +207,7 @@ perceptual lip sync, essential action, reference fidelity, persona/voice, ambien
 stitch integrity all have explicit human evidence.
 
 Generated ledgers and media normally live under ignored `runs/` and `outputs/` directories. Selected
-auditable live runs may be force-added on a dedicated branch. Inspect and
+evidence-complete live runs may be force-added on a dedicated branch. Inspect and
 human-approve the four compiled prompts from `scenes/golden-scene.json` before any live draft run.
 
 When moving to another machine, transfer ignored run folders separately from Git and verify their
@@ -217,9 +241,11 @@ Use `audit-artifacts` before cleanup. `prune-artifacts` is a dry run unless `--a
 only removes previews, sampled-frame sheets, and other deterministic derivatives. It retains raw and
 final media, ledgers, manifests, reports, hashes, and compact references fail-closed.
 
-The repository workflows are manual-dispatch only; development pushes and pull requests do not
-start generation. If a human later chooses to run **live DeepInfra smoke test** and enters `LIVE`,
-the workflow makes exactly one FastWan request (maximum reserved
+The automatic **dry-run** workflow runs on pushes to `main` and pull requests across Python 3.11 and
+3.12. It receives no provider credential and never invokes `--live`; it scans tracked files for
+credential-shaped material, runs the test suite and configuration preflight, and validates the typed
+Stage 2 sequence. If a human later chooses to run **live DeepInfra smoke test** and enters `LIVE`,
+that separate manual workflow makes exactly one FastWan request (maximum reserved
 cost US$0.0125), never retries it, and retains the generated clip, append-only SQLite ledger,
 compiled prompt, command result, hashes, and JSON audit export as a workflow artifact for 30 days.
 Signed query parameters from provider output URLs are deliberately excluded from the ledger.

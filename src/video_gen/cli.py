@@ -25,7 +25,7 @@ from .production import compile_prompt, load_production, load_scene
 from .retention import audit_run_artifacts, prune_recomputable_artifacts
 from .stage2 import (audit_stage2_sequence, compile_stage2_prompt,
                      compile_stage2_take_prompt,
-                     load_stage2_sequence)
+                     load_series, load_stage2_sequence)
 
 
 def parser() -> argparse.ArgumentParser:
@@ -114,6 +114,8 @@ def parser() -> argparse.ArgumentParser:
     speech.add_argument("--profile", default="cad_10")
     speech.add_argument("--text", required=True)
     speech.add_argument("--seed", type=int, default=0)
+    speech.add_argument("--series-manifest")
+    speech.add_argument("--character-id")
     speech.add_argument("--live", action="store_true")
     speech.add_argument("--confirm-live", action="store_true")
     speech.add_argument("--result")
@@ -121,7 +123,9 @@ def parser() -> argparse.ArgumentParser:
     avatar.add_argument("--profile", default="cad_10")
     avatar.add_argument("--image", required=True)
     avatar.add_argument("--script", required=True)
-    avatar.add_argument("--voice", required=True)
+    avatar.add_argument("--voice")
+    avatar.add_argument("--series-manifest")
+    avatar.add_argument("--character-id")
     avatar.add_argument("--gaze-direction", choices=["screen_left", "screen_right"], required=True)
     avatar.add_argument(
         "--speaker-position", choices=["only_person", "frame_left", "frame_right"],
@@ -269,6 +273,23 @@ def image_video_audio_input(value: str | Path, *, live: bool = False) -> str:
     if media_type not in {"audio/wav", "audio/x-wav", "audio/mpeg", "audio/mp4", "audio/aac"}:
         raise VideoGenError("I2V audio must be WAV, MP3, MP4 audio, or AAC")
     return f"data:{media_type};base64,{base64.b64encode(source.read_bytes()).decode()}"
+
+
+def canonical_voice_binding(
+    series_manifest: str | None, character_id: str | None,
+) -> tuple[str, dict] | None:
+    if series_manifest is None and character_id is None:
+        return None
+    if not series_manifest or not character_id:
+        raise VideoGenError("voice binding requires --series-manifest and --character-id together")
+    series = load_series(series_manifest)
+    persona = next(
+        (item for item in series["canonical_personas"] if item["character_id"] == character_id),
+        None,
+    )
+    if persona is None:
+        raise VideoGenError(f"unknown canonical character: {character_id}")
+    return persona["voice"]["provider_voice"], persona["voice"]["voice_realization"]
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -478,19 +499,30 @@ def main(argv: list[str] | None = None) -> int:
             partner_avatar_attempt_cap=args.partner_avatar_attempt_cap,
         )
         if args.command == "plan-speech":
+            voice_binding = canonical_voice_binding(args.series_manifest, args.character_id)
             request = orchestrator.run_speech(
-                args.text, seed=args.seed, live=args.live, confirmed=args.confirm_live)
+                args.text, seed=args.seed, live=args.live, confirmed=args.confirm_live,
+                voice_realization=(voice_binding[1] if voice_binding else None),
+            )
             emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
             return 0
         if args.command == "plan-avatar":
+            voice_binding = canonical_voice_binding(args.series_manifest, args.character_id)
+            voice = args.voice or (voice_binding[0] if voice_binding else None)
+            if not voice:
+                raise VideoGenError(
+                    "avatar generation requires --voice or a canonical series voice binding"
+                )
             request = orchestrator.run_avatar(
-                avatar_image_input(args.image, live=args.live), args.script, args.voice,
+                avatar_image_input(args.image, live=args.live), args.script, voice,
                 seed=args.seed,
                 max_seconds=args.max_seconds, gaze_direction=args.gaze_direction,
                 speaker_position=args.speaker_position,
                 response_anticipation=args.response_anticipation,
                 performance_direction=args.performance, live=args.live, confirmed=args.confirm_live,
-                allow_partner=args.allow_partner_avatar, output_dir=args.output_dir)
+                allow_partner=args.allow_partner_avatar,
+                voice_realization=(voice_binding[1] if voice_binding else None),
+                output_dir=args.output_dir)
             emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
             return 0
         if args.command == "plan-image-video":
