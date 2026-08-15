@@ -1,0 +1,211 @@
+{
+  "schema_version": "1.0",
+  "sequence_id": "seq-clinic-maya-kenji-cosmos-v02",
+  "title": "Clinic coverage conversation - Maya and Kenji, Cosmos production pass two",
+  "source_run": "../runs/clinic-full-sequence-20260803T184456Z",
+  "series_manifest": "../series/surrey-care/series.json",
+  "intent": "Preserve the latest run's cast, clinic, wardrobe, screen direction and card action while replacing its invalid voices and raising production value with a deterministic opening master, motivated coverage, a Cosmos handoff insert and restrained clinic ambience.",
+  "production_outcome": {
+    "status": "rendered_review_candidate",
+    "final_timeline": "../runs/clinic-cosmos-final-v02/timeline-v02.json",
+    "master": "../runs/clinic-cosmos-final-v02/final/clinic-maya-kenji-cosmos-v02-master.mp4",
+    "review_copy": "../runs/clinic-cosmos-final-v02/final/clinic-maya-kenji-cosmos-v02-480p.mp4",
+    "known_provider_cost_usd": 5.75976488,
+    "conservative_unknown_reservations_usd": 1.31,
+    "human_playback_review_pending": true
+  },
+  "persona_bindings": [
+    {
+      "character_id": "nurse-maya",
+      "persona_version": "pv01"
+    },
+    {
+      "character_id": "patient-kenji",
+      "persona_version": "pv01"
+    }
+  ],
+  "visual_anchor": {
+    "path": "../runs/clinic-full-sequence-20260803T184456Z/references/fresh-personas-clinic-anchor.png",
+    "sha256": "f1d22c258a109e4cb0895d87f1780526e28018e9e5ae9e00a90d6056c3db49c7",
+    "source_preservation": "Exact cast identity, age, body proportions, skin tone, hair, wardrobe, clinic palette, counter geometry and left-right screen axis are fixed. Motion may add only subtle performance and physically coherent action."
+  },
+  "model_strategy": {
+    "spatial_world_shots": "nvidia/Cosmos3-Super for face-free contact and ownership action only",
+    "visible_dialogue_shots": "Wan-AI/Wan2.6-I2V with approved synchronized performance-master audio",
+    "voice_casting": "Dynamic ElevenLabs catalog matching from provider-neutral persona traits, followed by human selection and an immutable eleven_v3 performance audition",
+    "rationale": "Cosmos is assigned to the face-free card handoff after two actor-visible silent pilots inferred unwanted speech motion. Audio-conditioned I2V supplies the retained speaking pictures; exact ElevenLabs dialogue is split at independently audited ASR word gaps and locally synchronized without speech stretching. Casting ranks age, gender presentation, accent, timbre and manner but explicitly excludes ethnicity and appearance."
+  },
+  "dialogue_generation": {
+    "candidate_id": "clinic-maya-kenji-eleven-v3-c02",
+    "model_id": "eleven_v3",
+    "language_code": "en",
+    "output_format": "wav_24000",
+    "seed": 3407,
+    "apply_text_normalization": "auto",
+    "candidate_limit_before_human_review": 1
+  },
+  "budget_plan_usd": {
+    "hard_cap": 10.0,
+    "voice_auditions_successful_artifacts": 0.0072,
+    "nonproductive_reservations": 0.52,
+    "cosmos_world_shots": 0.75,
+    "audio_conditioned_dialogue_shots": 4.0,
+    "bounded_repair_reserve": 4.72,
+    "rule": "Never spend repair reserve without reviewing the first-pass evidence and identifying one bounded defect."
+  },
+  "performance_masters": [
+    {
+      "performance_master_id": "pm-maya-clinic-eleven-v02",
+      "character_id": "nurse-maya",
+      "persona_version": "pv01",
+      "voice_realization_id": "vr-maya-eleven-sarah-v01",
+      "status": "candidate",
+      "audio_path": "../runs/clinic-cosmos-final-v02/audio/clinic-maya-kenji-eleven-v3-c02.wav",
+      "sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+      "audition_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+      "dialogue_ids": [
+        "dlg-maya-greeting",
+        "dlg-maya-card-request",
+        "dlg-maya-coverage",
+        "dlg-maya-final-answer"
+      ]
+    },
+    {
+      "performance_master_id": "pm-kenji-clinic-eleven-v02",
+      "character_id": "patient-kenji",
+      "persona_version": "pv01",
+      "voice_realization_id": "vr-kenji-eleven-bill-v01",
+      "status": "candidate",
+      "audio_path": "../runs/clinic-cosmos-final-v02/audio/clinic-maya-kenji-eleven-v3-c02.wav",
+      "sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+      "audition_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+      "dialogue_ids": [
+        "dlg-kenji-symptom",
+        "dlg-kenji-cost-question"
+      ]
+    }
+  ],
+  "beats": [
+    {
+      "beat_id": "beat-01-opening-master",
+      "seconds": 3,
+      "model_role": "deterministic_anchor_plate",
+      "purpose": "A quiet readable clinic master from the approved anchor with no inferred silent speech."
+    },
+    {
+      "beat_id": "beat-02-maya-greeting",
+      "seconds": 5,
+      "model_role": "image_to_video",
+      "speaker": "nurse-maya",
+      "dialogue_id": "dlg-maya-greeting",
+      "line": "Good morning. What brings you in today?",
+      "delivery": "warmly, reassuring, restrained",
+      "voice_binding": {
+        "persona_version": "pv01",
+        "voice_persona_id": "vp-maya-v01",
+        "voice_realization_id": "vr-maya-eleven-sarah-v01",
+        "audition_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+        "performance_master_id": "pm-maya-clinic-eleven-v02"
+      }
+    },
+    {
+      "beat_id": "beat-03-kenji-symptom",
+      "seconds": 7,
+      "model_role": "image_to_video",
+      "speaker": "patient-kenji",
+      "dialogue_id": "dlg-kenji-symptom",
+      "line": "I have had a cough for six weeks. It is worse at night.",
+      "delivery": "quietly concerned, older, composed",
+      "voice_binding": {
+        "persona_version": "pv01",
+        "voice_persona_id": "vp-kenji-v01",
+        "voice_realization_id": "vr-kenji-eleven-bill-v01",
+        "audition_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+        "performance_master_id": "pm-kenji-clinic-eleven-v02"
+      }
+    },
+    {
+      "beat_id": "beat-04-maya-card-request",
+      "seconds": 5,
+      "model_role": "image_to_video",
+      "speaker": "nurse-maya",
+      "dialogue_id": "dlg-maya-card-request",
+      "line": "May I see your BC Services Card, please?",
+      "delivery": "calmly, professional, conversational",
+      "voice_binding": {
+        "persona_version": "pv01",
+        "voice_persona_id": "vp-maya-v01",
+        "voice_realization_id": "vr-maya-eleven-sarah-v01",
+        "audition_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+        "performance_master_id": "pm-maya-clinic-eleven-v02"
+      }
+    },
+    {
+      "beat_id": "beat-05-card-handoff",
+      "seconds": 5,
+      "model_role": "cosmos_world_video",
+      "purpose": "One coherent card travels from Kenji's hand to Maya's hand across the counter, with ownership, contact, release and placement visible."
+    },
+    {
+      "beat_id": "beat-06-maya-coverage",
+      "seconds": 5,
+      "model_role": "image_to_video",
+      "speaker": "nurse-maya",
+      "dialogue_id": "dlg-maya-coverage",
+      "line": "Your provincial coverage is not active, so today's visit may be billed.",
+      "delivery": "gently, matter-of-fact, no cheerfulness",
+      "voice_binding": {
+        "persona_version": "pv01",
+        "voice_persona_id": "vp-maya-v01",
+        "voice_realization_id": "vr-maya-eleven-sarah-v01",
+        "audition_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+        "performance_master_id": "pm-maya-clinic-eleven-v02"
+      }
+    },
+    {
+      "beat_id": "beat-07-kenji-cost-question",
+      "seconds": 8,
+      "model_role": "image_to_video",
+      "speaker": "patient-kenji",
+      "dialogue_id": "dlg-kenji-cost-question",
+      "line": "Oh no. Before I see a provider, can you tell me how much the visit would cost me?",
+      "delivery": "disappointed, gentle, courteous, naturally worried",
+      "voice_binding": {
+        "persona_version": "pv01",
+        "voice_persona_id": "vp-kenji-v01",
+        "voice_realization_id": "vr-kenji-eleven-bill-v01",
+        "audition_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+        "performance_master_id": "pm-kenji-clinic-eleven-v02"
+      }
+    },
+    {
+      "beat_id": "beat-08-maya-final-answer",
+      "seconds": 10,
+      "model_role": "image_to_video",
+      "speaker": "nurse-maya",
+      "dialogue_id": "dlg-maya-final-answer",
+      "line": "I can't confirm that here. You can review reference fees on the Doctors of BC website, or get an itemized bill after your visit.",
+      "delivery": "apologetic, reassuring, measured, precise",
+      "voice_binding": {
+        "persona_version": "pv01",
+        "voice_persona_id": "vp-maya-v01",
+        "voice_realization_id": "vr-maya-eleven-sarah-v01",
+        "audition_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+        "performance_master_id": "pm-maya-clinic-eleven-v02"
+      }
+    },
+    {
+      "beat_id": "beat-09-living-outro",
+      "seconds": 0,
+      "model_role": "cosmos_world_video",
+      "status": "omitted_after_two_actor_visible_cosmos_failures",
+      "purpose": "Omitted; Maya's complete final answer carries the outer fade."
+    }
+  ],
+  "acceptance_gates": {
+    "voice": "Both exact auditions pass all eight human criteria and are hash-bound to every dialogue beat before any motion request.",
+    "sync": "Every visible utterance receives a normal-speed sound review and timecoded phonetic closure review; unresolved or low-confidence sync blocks final acceptance.",
+    "visual": "Identity, wardrobe, clinic geography, screen direction, card continuity and restrained performance match the visual anchor.",
+    "edit": "Include an opening read, motivated conversational coverage, the full card action, one handoff-to-coverage audio lead, audible clinic ambience and an outer fade after Maya's final answer."
+  }
+}

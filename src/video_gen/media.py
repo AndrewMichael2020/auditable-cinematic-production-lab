@@ -806,6 +806,7 @@ def assemble_timeline(intervals: list[dict], output: str | Path, *,
                                 "true_peak_dbtp_max": -1.5, "loudness_range_lu": 11},
         "ambience": ({"path": str(ambience), "sha256": sha256_file(ambience)}
                      if ambience is not None else None),
+        "ambience_volume": ambience_volume if ambience is not None else None,
         "provenance": provenance,
         "output": {"path": str(destination), "sha256": sha256_file(destination),
                    "bytes": destination.stat().st_size},
@@ -814,10 +815,11 @@ def assemble_timeline(intervals: list[dict], output: str | Path, *,
 
 def assemble_stage2_timeline(intervals: list[dict], output: str | Path, *,
                              ambience: str | Path, target_seconds: float,
-                             fade_seconds: float = 0.5) -> dict:
+                             fade_seconds: float = 0.5,
+                             ambience_volume: float = 1.0) -> dict:
     """Assemble a Stage 2 sequence while refusing portrait wrappers, freezes, and weak lineage."""
     return assemble_timeline(
         intervals, output, ambience=ambience, target_seconds=target_seconds,
         native_landscape_only=True, require_typed_lineage=True, allow_holds=False,
-        fade_seconds=fade_seconds, ambience_volume=1.0,
+        fade_seconds=fade_seconds, ambience_volume=ambience_volume,
     )

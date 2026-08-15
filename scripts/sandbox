@@ -1,0 +1,73 @@
+#!/bin/zsh
+set -euo pipefail
+
+script_dir="${0:A:h}"
+repo_root="${script_dir:h}"
+image="${VIDEO_GEN_SANDBOX_IMAGE:-video-gen-sandbox:py3.12-ffmpeg}"
+harness="${CODEX_PYTHON_HARNESS:-/Users/antvibe/Documents/Dev/scripts/codex-python-isolated-run}"
+
+usage() {
+  print -u2 'Usage: scripts/sandbox build|test|validate|run '\''COMMAND'\'''
+}
+
+require_harness() {
+  if [[ ! -x "$harness" ]]; then
+    print -u2 "error: isolated Python harness is not executable: $harness"
+    exit 2
+  fi
+}
+
+run_isolated() {
+  local command_text="$1"
+  local usage_log="${CODEX_ORBSTACK_USAGE_LOG:-/tmp/video-gen-orbstack-usage.jsonl}"
+  require_harness
+  CODEX_ORBSTACK_USAGE_LOG="$usage_log" "$harness" \
+    --project \
+    --image "$image" \
+    --no-install \
+    --command "export PYTHONPATH=src; $command_text" \
+    "$repo_root"
+}
+
+[[ $# -ge 1 ]] || {
+  usage
+  exit 2
+}
+
+case "$1" in
+  build)
+    [[ $# -eq 1 ]] || {
+      usage
+      exit 2
+    }
+    docker build \
+      --pull \
+      --tag "$image" \
+      "$repo_root/.sandbox"
+    ;;
+  test)
+    [[ $# -eq 1 ]] || {
+      usage
+      exit 2
+    }
+    run_isolated 'python -m pytest -q tests'
+    ;;
+  validate)
+    [[ $# -eq 1 ]] || {
+      usage
+      exit 2
+    }
+    run_isolated 'python -m video_gen.cli preflight --profile cad_10 && python -m video_gen.cli validate-scene >/var/tmp/video-gen-golden-scene.json && python -m video_gen.cli validate-stage2 sequences/clinic-reception-stage2.json >/var/tmp/video-gen-stage2.json && python -m video_gen.cli validate-voice-plan sequences/clinic-full-cosmos-voice-plan.json >/var/tmp/video-gen-voice-plan.json'
+    ;;
+  run)
+    [[ $# -eq 2 ]] || {
+      usage
+      exit 2
+    }
+    run_isolated "$2"
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac

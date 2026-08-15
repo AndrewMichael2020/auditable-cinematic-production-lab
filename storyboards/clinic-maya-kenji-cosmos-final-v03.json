@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.0",
+  "storyboard_id": "sb-clinic-maya-kenji-cosmos-v03",
+  "sequence_id": "seq-clinic-maya-kenji-cosmos-v03",
+  "title": "Maya and Kenji clinic coverage conversation shareability repair",
+  "format": {
+    "aspect_ratio": "16:9",
+    "resolution": "1280x720",
+    "frame_rate": 24,
+    "edit_style": "restrained Canadian social-realist drama",
+    "camera_rule": "Motivated master-to-clean-single coverage with a fixed eye-level axis and no unmotivated camera movement."
+  },
+  "continuity_lock": {
+    "approved_visual_anchor": "../runs/clinic-full-sequence-20260803T184456Z/references/fresh-personas-clinic-anchor.png",
+    "approved_visual_anchor_sha256": "f1d22c258a109e4cb0895d87f1780526e28018e9e5ae9e00a90d6056c3db49c7",
+    "handoff_anchor": "../runs/clinic-cosmos-final-v03/references/handoff-insert-bc-services-card-sample.png",
+    "handoff_anchor_sha256": "dda364418995664c4205cb85088ea62ee7acb5376aa7bfed13e86f41815ab60d",
+    "screen_axis": "Maya remains frame left looking screen right. Kenji remains frame right looking screen left.",
+    "must_preserve": [
+      "Maya and Kenji identity, apparent age, body proportions, skin tone, hair and wardrobe",
+      "bright teal and light maple clinic palette",
+      "counter, workstation and room geometry",
+      "natural skin and fabric texture",
+      "one realistic, clearly marked sample Photo BC Services Card during the handoff"
+    ],
+    "must_avoid": [
+      "identity drift",
+      "wardrobe drift",
+      "new people",
+      "moving workstation",
+      "glass divider",
+      "readable personal identifiers or invented card branding",
+      "presenter smile",
+      "commercial gloss",
+      "duplicate objects",
+      "malformed hands",
+      "camera cut inside a generated take"
+    ]
+  },
+  "source_transforms": {
+    "maya_clean_single_crop": {
+      "source": "approved_visual_anchor",
+      "crop_pixels": {
+        "width": 880,
+        "height": 495,
+        "x": 0,
+        "y": 40
+      },
+      "output": "runs/clinic-cosmos-final-v02/references/maya-clean-single.png",
+      "resize": "1280x720 Lanczos",
+      "content_rule": "Deterministic crop only. Do not synthesize, retouch or replace pixels."
+    },
+    "kenji_clean_single_crop": {
+      "source": "approved_visual_anchor",
+      "crop_pixels": {
+        "width": 880,
+        "height": 495,
+        "x": 792,
+        "y": 40
+      },
+      "output": "runs/clinic-cosmos-final-v02/references/kenji-clean-single.png",
+      "resize": "1280x720 Lanczos",
+      "content_rule": "Deterministic crop only. Do not synthesize, retouch or replace pixels."
+    },
+    "handoff_insert_crop": {
+      "source": "v02 face-free handoff insert plus official Province of British Columbia Photo BC Services Card reference",
+      "official_reference": "runs/clinic-cosmos-final-v03/references/bc-services-card-official-front.png",
+      "output": "runs/clinic-cosmos-final-v03/references/handoff-insert-bc-services-card-sample.png",
+      "output_sha256": "dda364418995664c4205cb85088ea62ee7acb5376aa7bfed13e86f41815ab60d",
+      "content_rule": "Deterministic perspective composite only: preserve the entire clinic and both people while replacing the blank card face with an official-layout, fictional SAMPLE prop containing no real identifiers."
+    }
+  },
+  "voice_contract": {
+    "nurse-maya": {
+      "voice_persona_id": "vp-maya-v01",
+      "voice_realization_id": "vr-maya-eleven-sarah-v01",
+      "provider_voice": "Sarah",
+      "direction": "reassuring, somewhat younger, restrained and clinically professional"
+    },
+    "patient-kenji": {
+      "voice_persona_id": "vp-kenji-v01",
+      "voice_realization_id": "vr-kenji-eleven-bill-v01",
+      "provider_voice": "Bill",
+      "direction": "older, gentle, courteous and quietly disappointed"
+    }
+  },
+  "production_outcome": {
+    "status": "repaired_review_candidate_human_playback_pending",
+    "predecessor_master": "runs/clinic-cosmos-final-v02/final/clinic-maya-kenji-cosmos-v02-master.mp4",
+    "timeline": "runs/clinic-cosmos-final-v03/timeline-v03.json",
+    "master": "runs/clinic-cosmos-final-v03/final/clinic-maya-kenji-cosmos-v03-master.mp4",
+    "review_copy": "runs/clinic-cosmos-final-v03/final/clinic-maya-kenji-cosmos-v03-480p.mp4",
+    "actual_seconds": 35.459,
+    "final_audit": "runs/clinic-cosmos-final-v03/audits/final-v03-audit.json",
+    "promotion_allowed": false,
+    "promotion_blocker": "Normal-speed human audiovisual review with sound is still required.",
+    "defects_in_scope": [
+      "static opening",
+      "white-noise ambience",
+      "visible mouth motion outside audible speech",
+      "incorrect singular card name",
+      "blank unrealistic card prop"
+    ]
+  },
+  "shots": [
+    {
+      "shot_id": "shot-01-opening-master",
+      "beat_id": "beat-01-opening-master",
+      "model_role": "deterministic_anchor_plate",
+      "seconds": 0,
+      "source": "approved_visual_anchor",
+      "framing": "locked eye-level wide two-shot",
+      "audio": "clinic ambience only",
+      "action": "Hold the approved Maya and Kenji clinic anchor as a calm establishing composition under room tone.",
+      "edit_purpose": "Establish cast, geography, quiet clinic atmosphere and screen axis before dialogue.",
+      "acceptance": "Omitted. The repair opens on Maya's already-moving greeting take.",
+      "status": "omitted_static_opening"
+    },
+    {
+      "shot_id": "shot-02-maya-greeting",
+      "beat_id": "beat-02-maya-greeting",
+      "model_role": "image_to_video",
+      "seconds": 5,
+      "source": "maya_clean_single_crop",
+      "framing": "eye-level medium close single on Maya, looking screen right",
+      "speaker": "nurse-maya",
+      "dialogue": "Good morning. What brings you in today?",
+      "performance": "Warm and reassuring, with one restrained brow movement and no promotional smile.",
+      "acceptance": "Only Maya is visible and speaking; normal-speed phonetic closure must pass.",
+      "timeline_seconds": 2.9
+    },
+    {
+      "shot_id": "shot-03-kenji-symptom",
+      "beat_id": "beat-03-kenji-symptom",
+      "model_role": "image_to_video",
+      "seconds": 7,
+      "source": "kenji_clean_single_crop",
+      "framing": "eye-level medium close single on Kenji, looking screen left",
+      "speaker": "patient-kenji",
+      "dialogue": "I have had a cough for six weeks. It is worse at night.",
+      "performance": "Older and gentle, quietly concerned, with a small breath between sentences and no staged cough.",
+      "acceptance": "Only Kenji is visible and speaking; voice must be unmistakably masculine and sync must pass at normal speed.",
+      "timeline_seconds": 4.75
+    },
+    {
+      "shot_id": "shot-04-maya-card-request",
+      "beat_id": "beat-04-maya-card-request",
+      "model_role": "image_to_video",
+      "seconds": 5,
+      "source": "maya_clean_single_crop",
+      "framing": "eye-level medium close single on Maya, looking screen right",
+      "speaker": "nurse-maya",
+      "dialogue": "May I see your BC Services Card, please?",
+      "performance": "Calm and conversational, with one small open-palm request gesture kept inside frame.",
+      "acceptance": "BC is undotted; Services is spoken in full; picture cuts no later than 150 milliseconds after audible speech ends.",
+      "timeline_seconds": 3.2,
+      "status": "regenerate_audio_and_motion_for_exact_plural_name"
+    },
+    {
+      "shot_id": "shot-05-card-handoff",
+      "beat_id": "beat-05-card-handoff",
+      "model_role": "cosmos_world_video",
+      "seconds": 5,
+      "timeline_seconds": 4,
+      "source": "handoff_insert_bc_services_card_sample",
+      "framing": "locked close insert of both hands, one card and the reader; faces remain outside frame",
+      "audio": "clinic ambience only",
+      "action": "Kenji transfers one realistic fictional SAMPLE Photo BC Services Card to Maya. The pale security pattern, portrait zone and British Columbia Services Card heading remain visually coherent as ownership transfers to Maya.",
+      "edit_purpose": "Make the essential prop action legible without asking a dialogue model to solve object physics.",
+      "acceptance": "One continuous realistic sample card, stable shared contact, Kenji release, correct hands, no blank blue card, duplicate or teleport, and no visible face or mouth."
+    },
+    {
+      "shot_id": "shot-06-maya-coverage",
+      "beat_id": "beat-06-maya-coverage",
+      "model_role": "image_to_video",
+      "seconds": 5,
+      "source": "Maya's locally synchronized clean single",
+      "framing": "eye-level medium close single on Maya, looking screen right",
+      "speaker": "nurse-maya",
+      "dialogue": "Your provincial coverage is not active, so today's visit may be billed.",
+      "performance": "Gentle and matter-of-fact, with a brief downward glance before returning to Kenji.",
+      "acceptance": "No cheerful delivery, no card handling and no workstation movement.",
+      "timeline_seconds": 4.85
+    },
+    {
+      "shot_id": "shot-07-kenji-cost-question",
+      "beat_id": "beat-07-kenji-cost-question",
+      "model_role": "image_to_video",
+      "seconds": 8,
+      "source": "kenji_clean_single_crop",
+      "framing": "eye-level medium close single on Kenji, looking screen left",
+      "speaker": "patient-kenji",
+      "dialogue": "Oh no. Before I see a provider, can you tell me how much the visit would cost me?",
+      "performance": "Genuinely disappointed on the first sentence, then gentle and courteous while asking for clarity.",
+      "acceptance": "The disappointment is audible and visible but not theatrical; normal-speed sync must pass.",
+      "timeline_seconds": 6.75
+    },
+    {
+      "shot_id": "shot-08-maya-final-answer",
+      "beat_id": "beat-08-maya-final-answer",
+      "model_role": "image_to_video",
+      "seconds": 10,
+      "source": "maya_clean_single_crop",
+      "framing": "eye-level medium close single on Maya, looking screen right",
+      "speaker": "nurse-maya",
+      "dialogue": "I can't confirm that here. You can review reference fees on the Doctors of BC website, or get an itemized bill after your visit.",
+      "performance": "Apologetic, reassuring and precise, with a small pause after the first sentence.",
+      "acceptance": "BC is spoken without dots or pauses. No promise of a provincial price and no implication that the reference fee fixes the clinic charge.",
+      "timeline_seconds": 8.4
+    },
+    {
+      "shot_id": "shot-09-living-outro",
+      "beat_id": "beat-09-living-outro",
+      "model_role": "cosmos_world_video",
+      "seconds": 0,
+      "status": "omitted_after_two_actor_visible_cosmos_failures",
+      "source": "approved_visual_anchor",
+      "framing": "locked eye-level wide two-shot",
+      "audio": "clinic ambience only",
+      "action": "Kenji absorbs the uncertainty with a small exhale and lowered eyes, then looks back to Maya. Maya remains calmly present. Both mouths stay closed.",
+      "edit_purpose": "Let the emotional consequence land before the fade.",
+      "acceptance": "Omitted. The final Maya shot carries the fade after her complete answer."
+    }
+  ],
+  "cutting_plan": {
+    "order": [
+      "shot-02-maya-greeting",
+      "shot-03-kenji-symptom",
+      "shot-04-maya-card-request",
+      "shot-05-card-handoff",
+      "shot-06-maya-coverage",
+      "shot-07-kenji-cost-question",
+      "shot-08-maya-final-answer"
+    ],
+    "transition": "Open directly on Maya in motion. Use straight cuts, hold the face-free card handoff as the only non-speaking insert, and fade immediately after Maya's final audible word and natural mouth closure.",
+    "handles": "Keep only 100 to 150 milliseconds after independently detected final speech. If the generated mouth continues moving after speech, cut earlier to a face-free insert or the next speaker.",
+    "ambience": "Use an ElevenLabs clinic-reception ambience stem with distant indistinct multi-voice chatter, footsteps, paper and keyboard detail; reject intelligible foreground words, white-noise dominance, announcements, music and alarms."
+  },
+  "generation_policy": {
+    "first_paid_video": "No opening generation. Reuse and trim all passing dialogue shots; regenerate only the corrected Maya card line and the realistic face-free card handoff.",
+    "promotion_rule": "A speaking picture is promoted only for its audited speech window. Audio-silent visible articulation is a blocking defect, regardless of waveform correlation.",
+    "repair_rule": "Spend repair reserve only against one named defect with a bounded prompt change. Stop after two non-improving attempts.",
+    "final_gate": "A stitched export is a review candidate, not an accepted final, until voice identity, normal-speed sync, exact content, action continuity, ambience and stitch integrity all pass."
+  },
+  "exact_content_contract": {
+    "spoken_name": "BC Services Card",
+    "acronym_rule": "BC is undotted and spoken without letter-separating pauses.",
+    "prop_rule": "The card must resemble the official Photo BC Services Card layout while being visibly fictional and marked SAMPLE, with no real identifiers.",
+    "official_reference_url": "https://www2.gov.bc.ca/gov/content/governments/government-id/bc-services-card/types-of-cards/photo"
+  }
+}

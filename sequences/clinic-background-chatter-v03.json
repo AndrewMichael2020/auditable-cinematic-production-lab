@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Synthetic, non-sensitive clinic reception background dialogue to be filtered and mixed below the protagonists.",
+  "inputs": [
+    {
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella",
+      "text": "[speaking softly, distant] I left the forms at reception."
+    },
+    {
+      "voice_id": "iP95p4xoKVk53GoZ742B",
+      "voice_name": "Chris",
+      "text": "[quietly, distant] Thanks. I will take them through."
+    },
+    {
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "voice_name": "River",
+      "text": "[murmuring in the background] The next room is ready."
+    },
+    {
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella",
+      "text": "[softly, farther away] I will bring the clipboard over."
+    },
+    {
+      "voice_id": "iP95p4xoKVk53GoZ742B",
+      "voice_name": "Chris",
+      "text": "[quietly, overlapping] All right. Thank you."
+    }
+  ],
+  "mix_contract": {
+    "foreground_words_allowed": false,
+    "protagonist_voice_ids_allowed": false,
+    "high_pass_hz": 180,
+    "low_pass_hz": 2800,
+    "target_level_below_dialogue_db": 24,
+    "room_reflection": "short and diffuse",
+    "notes": "The generated speech is synthetic and contains no names, identifiers, symptoms, appointments or health information. Filter, spatialize and keep it indistinct beneath the scene."
+  }
+}

@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
 import json
 import mimetypes
+import os
 import sys
 from decimal import Decimal
 from pathlib import Path
@@ -13,6 +15,8 @@ from .auditor import (audit_continuity, audit_draft, audit_final_candidate, audi
                       verify_bounded_repair_authorization, verify_promotion_authorization,
                       verify_storyboard_authorization)
 from .config import ProjectConfig
+from .elevenlabs import ElevenLabsClient
+from .dialogue_turns import prepare_dialogue_turns
 from .errors import VideoGenError
 from .ledger import Ledger
 from .media import (assemble_lipsynced_dialogue, assemble_master_dialogue_scene,
@@ -22,10 +26,15 @@ from .media import (assemble_lipsynced_dialogue, assemble_master_dialogue_scene,
                     prepare_stage2_square_dialogue_clip)
 from .orchestrator import Orchestrator
 from .production import compile_prompt, load_production, load_scene
-from .retention import audit_run_artifacts, prune_recomputable_artifacts
+from .retention import (audit_run_artifacts, prune_recomputable_artifacts,
+                        prune_rejected_media)
 from .stage2 import (audit_stage2_sequence, compile_stage2_prompt,
                      compile_stage2_take_prompt,
                      load_stage2_sequence)
+from .voice_personas import (load_voice_plan, voice_audition_spec,
+                             dialogue_candidate_spec,
+                             voice_budget_report, voice_readiness_report)
+from .voice_casting import rank_voice_catalog
 
 
 def parser() -> argparse.ArgumentParser:
@@ -48,6 +57,12 @@ def parser() -> argparse.ArgumentParser:
         "validate-stage2", help="validate and compile a typed Stage 2 sequence package")
     validate_stage2.add_argument("sequence")
     validate_stage2.add_argument("--output")
+    validate_voice = commands.add_parser(
+        "validate-voice-plan",
+        help="validate canonical voice-persona lineage and report readiness",
+    )
+    validate_voice.add_argument("plan")
+    validate_voice.add_argument("--output")
     audit_stage2 = commands.add_parser(
         "audit-stage2", help="audit Stage 2 lineage, native format, edit rhythm, sound, and human gates")
     audit_stage2.add_argument("--sequence", required=True)
@@ -78,12 +93,20 @@ def parser() -> argparse.ArgumentParser:
     audit_stage.add_argument("--output")
     plan = commands.add_parser("plan-video", help="reserve and print a dry-run video request")
     plan.add_argument("--profile", default="cad_10")
-    plan.add_argument("--role", choices=["draft_video", "final_video"], required=True)
+    plan.add_argument(
+        "--role",
+        choices=["draft_video", "final_video", "cosmos_world_video"],
+        required=True,
+    )
     prompt_source = plan.add_mutually_exclusive_group(required=True)
     prompt_source.add_argument("--prompt")
     prompt_source.add_argument("--prompt-file")
     prompt_source.add_argument("--scene-manifest")
     plan.add_argument("--seed", type=int, default=0)
+    plan.add_argument(
+        "--image",
+        help="optional local image or public HTTPS image for Cosmos I2V conditioning",
+    )
     plan.add_argument("--live", action="store_true")
     plan.add_argument("--confirm-live", action="store_true")
     plan.add_argument("--scene-audit")
@@ -92,6 +115,9 @@ def parser() -> argparse.ArgumentParser:
     plan.add_argument("--repair-authorization")
     plan.add_argument("--result")
     plan.add_argument("--output-dir", default="outputs")
+    plan.add_argument("--webhook-url")
+    plan.add_argument("--webhook-result")
+    plan.add_argument("--webhook-wait-seconds", type=float, default=900)
     image_video = commands.add_parser(
         "plan-image-video",
         help="animate one approved storyboard plate through the bounded Stage 2 partner exception",
@@ -104,12 +130,20 @@ def parser() -> argparse.ArgumentParser:
     image_video.add_argument("--seconds", type=int, default=5)
     image_video.add_argument("--output-dir", default="outputs")
     image_video.add_argument("--allow-partner-i2v", action="store_true")
+    image_video.add_argument(
+        "--inline-local-assets",
+        action="store_true",
+        help="embed bounded local image/audio data directly in the provider request",
+    )
     image_video.add_argument("--live", action="store_true")
     image_video.add_argument("--confirm-live", action="store_true")
     image_video.add_argument("--scene-audit")
     image_video.add_argument("--take-id")
     image_video.add_argument("--repair-authorization")
     image_video.add_argument("--result")
+    image_video.add_argument("--webhook-url")
+    image_video.add_argument("--webhook-result")
+    image_video.add_argument("--webhook-wait-seconds", type=float, default=900)
     speech = commands.add_parser("plan-speech", help="reserve or generate one bounded speech line")
     speech.add_argument("--profile", default="cad_10")
     speech.add_argument("--text", required=True)
@@ -117,6 +151,89 @@ def parser() -> argparse.ArgumentParser:
     speech.add_argument("--live", action="store_true")
     speech.add_argument("--confirm-live", action="store_true")
     speech.add_argument("--result")
+    voice_audition = commands.add_parser(
+        "plan-voice-audition",
+        help="reserve or generate one canonical persona audition/performance master",
+    )
+    voice_audition.add_argument("--profile", default="cad_10")
+    voice_audition.add_argument("--plan", required=True)
+    voice_audition.add_argument("--character", required=True)
+    voice_audition.add_argument("--output-dir", default="outputs")
+    voice_audition.add_argument("--live", action="store_true")
+    voice_audition.add_argument("--confirm-live", action="store_true")
+    voice_audition.add_argument("--result")
+    voice_match = commands.add_parser(
+        "match-voices",
+        help="rank the current ElevenLabs voice catalog against one persona contract",
+    )
+    voice_match.add_argument("--plan", required=True)
+    voice_match.add_argument("--character", required=True)
+    voice_match.add_argument(
+        "--catalog",
+        help="optional cached ElevenLabs voices JSON; otherwise fetch the live read-only catalog",
+    )
+    voice_match.add_argument("--top", type=int, default=5)
+    voice_match.add_argument("--output")
+    dialogue_candidate = commands.add_parser(
+        "plan-dialogue-candidate",
+        help="reserve or generate one timestamped multi-speaker ElevenLabs candidate",
+    )
+    dialogue_candidate.add_argument("--profile", default="cad_10")
+    dialogue_candidate.add_argument("--plan", required=True)
+    dialogue_candidate.add_argument("--output-dir", default="outputs")
+    dialogue_candidate.add_argument("--live", action="store_true")
+    dialogue_candidate.add_argument("--confirm-live", action="store_true")
+    dialogue_candidate.add_argument("--result")
+    dialogue_turns = commands.add_parser(
+        "prepare-dialogue-turns",
+        help="split a timestamped dialogue candidate into padded storyboard-length WAV files",
+    )
+    dialogue_turns.add_argument("--profile", default="cad_10")
+    dialogue_turns.add_argument("--audio", required=True)
+    dialogue_turns.add_argument("--manifest", required=True)
+    dialogue_turns.add_argument("--plan", required=True)
+    dialogue_turns.add_argument("--output-dir", required=True)
+    dialogue_turns.add_argument("--lead-in", type=float, default=0.35)
+    dialogue_turns.add_argument("--asr-audit")
+    dialogue_turns.add_argument("--result")
+    eleven_speech = commands.add_parser(
+        "generate-eleven-speech",
+        help="generate one isolated ElevenLabs persona line with timestamp evidence",
+    )
+    eleven_speech.add_argument("--profile", default="cad_10")
+    eleven_speech.add_argument("--voice-id", required=True)
+    eleven_speech.add_argument("--text", required=True)
+    eleven_speech.add_argument("--output", required=True)
+    eleven_speech.add_argument("--model-id", default="eleven_v3")
+    eleven_speech.add_argument("--seed", type=int, default=0)
+    eleven_speech.add_argument("--live", action="store_true")
+    eleven_speech.add_argument("--confirm-live", action="store_true")
+    eleven_speech.add_argument("--result")
+    eleven_ambience = commands.add_parser(
+        "generate-eleven-ambience",
+        help="generate one bounded ElevenLabs sound-effect or ambience stem",
+    )
+    eleven_ambience.add_argument("--profile", default="cad_10")
+    eleven_ambience.add_argument("--text", required=True)
+    eleven_ambience.add_argument("--seconds", type=float)
+    eleven_ambience.add_argument("--loop", action="store_true")
+    eleven_ambience.add_argument("--prompt-influence", type=float, default=0.3)
+    eleven_ambience.add_argument("--output", required=True)
+    eleven_ambience.add_argument("--model-id", default="eleven_text_to_sound_v2")
+    eleven_ambience.add_argument("--live", action="store_true")
+    eleven_ambience.add_argument("--confirm-live", action="store_true")
+    eleven_ambience.add_argument("--result")
+    eleven_background = commands.add_parser(
+        "generate-eleven-background-dialogue",
+        help="generate a bounded multi-voice background-dialogue stem",
+    )
+    eleven_background.add_argument("--profile", default="cad_10")
+    eleven_background.add_argument("--inputs-json", required=True)
+    eleven_background.add_argument("--output", required=True)
+    eleven_background.add_argument("--seed", type=int, default=0)
+    eleven_background.add_argument("--live", action="store_true")
+    eleven_background.add_argument("--confirm-live", action="store_true")
+    eleven_background.add_argument("--result")
     avatar = commands.add_parser("plan-avatar", help="generate one explicitly approved partner lip-sync clip")
     avatar.add_argument("--profile", default="cad_10")
     avatar.add_argument("--image", required=True)
@@ -166,6 +283,15 @@ def parser() -> argparse.ArgumentParser:
     artifact_prune.add_argument("run")
     artifact_prune.add_argument("--apply", action="store_true")
     artifact_prune.add_argument("--output")
+    rejected_prune = commands.add_parser(
+        "prune-rejected-media",
+        help="delete only large failed/rejected media backed by retained review evidence",
+    )
+    rejected_prune.add_argument("run")
+    rejected_prune.add_argument("--decisions", required=True)
+    rejected_prune.add_argument("--minimum-mib", type=float, default=25.0)
+    rejected_prune.add_argument("--apply", action="store_true")
+    rejected_prune.add_argument("--output")
     prepare = commands.add_parser("prepare-dialogue", help="trim, pace, and reframe one synchronized turn")
     prepare.add_argument("--input", required=True)
     prepare.add_argument("--output", required=True)
@@ -241,33 +367,62 @@ def avatar_image_input(value: str | Path, *, live: bool = False) -> str:
     return f"data:{media_type};base64,{base64.b64encode(source.read_bytes()).decode()}"
 
 
-def image_video_input(value: str | Path, *, live: bool = False) -> str:
+def image_video_input(
+    value: str | Path,
+    *,
+    live: bool = False,
+    allow_live_inline: bool = False,
+) -> str:
     if str(value).startswith("https://"):
         return str(value)
-    if live:
+    if live and not allow_live_inline:
         raise VideoGenError(
             "live partner-I2V generation requires a public HTTPS image URL; "
-            "local/data images are rejected before reservation"
+            "use --inline-local-assets to send a bounded local image directly to the provider"
         )
     source = Path(value)
+    if not source.is_file():
+        raise VideoGenError("I2V image does not exist")
+    if source.stat().st_size > 5 * 1024 * 1024:
+        raise VideoGenError("inline I2V image exceeds the 5 MiB safety limit")
     media_type = mimetypes.guess_type(source.name)[0]
     if media_type not in {"image/jpeg", "image/png", "image/webp"}:
         raise VideoGenError("I2V image must be JPEG, PNG, or WebP")
     return f"data:{media_type};base64,{base64.b64encode(source.read_bytes()).decode()}"
 
 
-def image_video_audio_input(value: str | Path, *, live: bool = False) -> str:
+def image_video_audio_input(
+    value: str | Path,
+    *,
+    live: bool = False,
+    allow_live_inline: bool = False,
+) -> str:
     if str(value).startswith("https://"):
         return str(value)
-    if live:
+    if live and not allow_live_inline:
         raise VideoGenError(
             "live partner-I2V generation requires a public HTTPS audio URL; "
-            "local/data audio is rejected before reservation"
+            "use --inline-local-assets to send bounded local audio directly to the provider"
         )
     source = Path(value)
+    if not source.is_file():
+        raise VideoGenError("I2V audio does not exist")
+    if source.stat().st_size > 5 * 1024 * 1024:
+        raise VideoGenError("inline I2V audio exceeds the 5 MiB safety limit")
     media_type = mimetypes.guess_type(source.name)[0]
     if media_type not in {"audio/wav", "audio/x-wav", "audio/mpeg", "audio/mp4", "audio/aac"}:
         raise VideoGenError("I2V audio must be WAV, MP3, MP4 audio, or AAC")
+    return f"data:{media_type};base64,{base64.b64encode(source.read_bytes()).decode()}"
+
+
+def cosmos_image_input(value: str | Path) -> str:
+    """Cosmos explicitly accepts inline image Data URLs, including for live calls."""
+    if str(value).startswith("https://"):
+        return str(value)
+    source = Path(value)
+    media_type = mimetypes.guess_type(source.name)[0]
+    if media_type not in {"image/jpeg", "image/png", "image/webp"}:
+        raise VideoGenError("Cosmos image must be JPEG, PNG, or WebP")
     return f"data:{media_type};base64,{base64.b64encode(source.read_bytes()).decode()}"
 
 
@@ -340,6 +495,47 @@ def main(argv: list[str] | None = None) -> int:
                 "spatial_audit": spatial_audit,
             }, args.output)
             return 0
+        if args.command == "validate-voice-plan":
+            voice_plan = load_voice_plan(args.plan)
+            emit_json({
+                "ok": True,
+                "sequence_id": voice_plan["sequence_id"],
+                "readiness": voice_readiness_report(voice_plan),
+                "budget": voice_budget_report(voice_plan, config),
+            }, args.output)
+            return 0
+        if args.command == "match-voices":
+            voice_plan = load_voice_plan(args.plan)
+            persona = voice_plan["_personas"].get(args.character)
+            if persona is None:
+                raise VideoGenError(f"character is not bound in plan: {args.character}")
+            if args.catalog:
+                catalog_packet = json.loads(
+                    Path(args.catalog).read_text(encoding="utf-8")
+                )
+                voices = (
+                    catalog_packet.get("voices")
+                    if isinstance(catalog_packet, dict) else catalog_packet
+                )
+                if not isinstance(voices, list):
+                    raise VideoGenError("voice catalog must be a list or contain voices")
+                catalog_source = "cached"
+            else:
+                voices = ElevenLabsClient(
+                    os.environ.get("ELEVENLABS_KEY", "")
+                ).list_voices()
+                catalog_source = "elevenlabs_live_read_only"
+            emit_json({
+                "schema_version": "1.0",
+                "audit_type": "dynamic_voice_shortlist",
+                "character_id": args.character,
+                "voice_persona_id": persona["voice"]["voice_persona_id"],
+                "catalog_source": catalog_source,
+                "automatic_casting_allowed": False,
+                "protected_attributes_used": False,
+                "candidates": rank_voice_catalog(persona, voices, limit=args.top),
+            }, args.output)
+            return 0
         if args.command == "audit-stage2":
             sequence = load_stage2_sequence(args.sequence)
             timeline_packet = json.loads(Path(args.timeline).read_text(encoding="utf-8"))
@@ -388,6 +584,17 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if args.command == "prune-artifacts":
             report = prune_recomputable_artifacts(args.run, apply=args.apply)
+            emit_json(report, args.output)
+            return 0
+        if args.command == "prune-rejected-media":
+            if args.minimum_mib < 0:
+                raise VideoGenError("--minimum-mib cannot be negative")
+            report = prune_rejected_media(
+                args.run,
+                args.decisions,
+                minimum_bytes=int(args.minimum_mib * 1024 * 1024),
+                apply=args.apply,
+            )
             emit_json(report, args.output)
             return 0
         if args.command == "assemble-proof":
@@ -469,6 +676,7 @@ def main(argv: list[str] | None = None) -> int:
                 timeline_packet["intervals"], args.output, ambience=ambience,
                 target_seconds=float(timeline_packet["target_seconds"]),
                 fade_seconds=float(timeline_packet.get("fade_seconds", 0.5)),
+                ambience_volume=float(timeline_packet.get("ambience_volume", 1.0)),
             )
             emit_json(report, args.manifest)
             return 0
@@ -481,6 +689,170 @@ def main(argv: list[str] | None = None) -> int:
             request = orchestrator.run_speech(
                 args.text, seed=args.seed, live=args.live, confirmed=args.confirm_live)
             emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
+            return 0
+        if args.command == "plan-voice-audition":
+            voice_plan = load_voice_plan(args.plan)
+            spec = voice_audition_spec(voice_plan, args.character)
+            request = orchestrator.run_voice_audition(
+                spec, live=args.live, confirmed=args.confirm_live,
+                output_dir=args.output_dir,
+            )
+            emit_json(
+                {**request.__dict__, "reserved_usd": str(request.reserved_usd)},
+                args.result,
+            )
+            return 0
+        if args.command == "plan-dialogue-candidate":
+            voice_plan = load_voice_plan(args.plan)
+            spec = dialogue_candidate_spec(voice_plan)
+            request = orchestrator.run_dialogue_candidate(
+                spec,
+                live=args.live,
+                confirmed=args.confirm_live,
+                output_dir=args.output_dir,
+            )
+            emit_json(
+                {**request.__dict__, "reserved_usd": str(request.reserved_usd)},
+                args.result,
+            )
+            return 0
+        if args.command == "prepare-dialogue-turns":
+            report = prepare_dialogue_turns(
+                args.audio,
+                args.manifest,
+                args.plan,
+                args.output_dir,
+                lead_in_seconds=args.lead_in,
+                asr_audit=args.asr_audit,
+            )
+            emit_json(report, args.result)
+            return 0
+        if args.command == "generate-eleven-speech":
+            spec = {
+                "provider": "elevenlabs",
+                "operation": "timestamped_single_speaker_line",
+                "model_id": args.model_id,
+                "voice_id": args.voice_id,
+                "text": args.text,
+                "seed": args.seed,
+                "output_format": "wav_24000",
+                "live": bool(args.live),
+            }
+            if not args.live:
+                emit_json(spec, args.result)
+                return 0
+            if not args.confirm_live:
+                raise VideoGenError("live ElevenLabs speech requires --confirm-live")
+            generated = ElevenLabsClient(
+                os.environ.get("ELEVENLABS_KEY", "")
+            ).text_to_speech(
+                args.text,
+                args.voice_id,
+                model_id=args.model_id,
+                seed=args.seed,
+            )
+            output = Path(args.output)
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes(generated.audio)
+            emit_json({
+                **spec,
+                "provider_request_id": generated.provider_request_id,
+                "character_cost": generated.character_cost,
+                "output": str(output),
+                "sha256": hashlib.sha256(generated.audio).hexdigest(),
+                "bytes": len(generated.audio),
+                "alignment": generated.alignment,
+                "normalized_alignment": generated.normalized_alignment,
+            }, args.result)
+            return 0
+        if args.command == "generate-eleven-ambience":
+            spec = {
+                "provider": "elevenlabs",
+                "operation": "text_to_sound_effect",
+                "model_id": args.model_id,
+                "text": args.text,
+                "duration_seconds": args.seconds,
+                "loop": bool(args.loop),
+                "prompt_influence": args.prompt_influence,
+                "output_format": "mp3_44100_192",
+                "live": bool(args.live),
+            }
+            if not args.live:
+                emit_json(spec, args.result)
+                return 0
+            if not args.confirm_live:
+                raise VideoGenError("live ElevenLabs ambience requires --confirm-live")
+            generated = ElevenLabsClient(
+                os.environ.get("ELEVENLABS_KEY", "")
+            ).sound_effect(
+                args.text,
+                duration_seconds=args.seconds,
+                loop=args.loop,
+                prompt_influence=args.prompt_influence,
+                model_id=args.model_id,
+            )
+            output = Path(args.output)
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes(generated.audio)
+            emit_json({
+                **spec,
+                "provider_request_id": generated.provider_request_id,
+                "character_cost": generated.character_cost,
+                "content_type": generated.content_type,
+                "output": str(output),
+                "sha256": hashlib.sha256(generated.audio).hexdigest(),
+                "bytes": len(generated.audio),
+            }, args.result)
+            return 0
+        if args.command == "generate-eleven-background-dialogue":
+            packet = json.loads(Path(args.inputs_json).read_text(encoding="utf-8"))
+            inputs = packet.get("inputs") if isinstance(packet, dict) else packet
+            if not isinstance(inputs, list) or not 2 <= len(inputs) <= 10:
+                raise VideoGenError("background dialogue requires 2 to 10 inputs")
+            normalized_inputs = []
+            for item in inputs:
+                if not isinstance(item, dict):
+                    raise VideoGenError("background dialogue inputs must be objects")
+                text_value = str(item.get("text", "")).strip()
+                voice_id = str(item.get("voice_id", "")).strip()
+                if not text_value or not voice_id:
+                    raise VideoGenError(
+                        "background dialogue inputs require text and voice_id"
+                    )
+                normalized_inputs.append({"text": text_value, "voice_id": voice_id})
+            spec = {
+                "provider": "elevenlabs",
+                "operation": "multi_voice_background_dialogue",
+                "model_id": "eleven_v3",
+                "inputs": normalized_inputs,
+                "seed": args.seed,
+                "output_format": "wav_24000",
+                "live": bool(args.live),
+            }
+            if not args.live:
+                emit_json(spec, args.result)
+                return 0
+            if not args.confirm_live:
+                raise VideoGenError(
+                    "live ElevenLabs background dialogue requires --confirm-live"
+                )
+            generated = ElevenLabsClient(
+                os.environ.get("ELEVENLABS_KEY", "")
+            ).text_to_dialogue(normalized_inputs, seed=args.seed)
+            output = Path(args.output)
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes(generated.audio)
+            emit_json({
+                **spec,
+                "provider_request_id": generated.provider_request_id,
+                "character_cost": generated.character_cost,
+                "output": str(output),
+                "sha256": hashlib.sha256(generated.audio).hexdigest(),
+                "bytes": len(generated.audio),
+                "voice_segments": generated.voice_segments,
+                "alignment": generated.alignment,
+                "normalized_alignment": generated.normalized_alignment,
+            }, args.result)
             return 0
         if args.command == "plan-avatar":
             request = orchestrator.run_avatar(
@@ -510,12 +882,21 @@ def main(argv: list[str] | None = None) -> int:
                 except (OSError, json.JSONDecodeError, ValueError) as exc:
                     raise VideoGenError(str(exc)) from exc
             request = orchestrator.run_image_video(
-                image_video_input(args.image, live=args.live), prompt,
-                audio_input=(image_video_audio_input(args.audio, live=args.live)
+                image_video_input(
+                    args.image, live=args.live,
+                    allow_live_inline=args.inline_local_assets,
+                ), prompt,
+                audio_input=(image_video_audio_input(
+                    args.audio, live=args.live,
+                    allow_live_inline=args.inline_local_assets,
+                )
                              if args.audio else None),
                 seconds=args.seconds, seed=args.seed,
                 live=args.live, confirmed=args.confirm_live,
                 allow_partner=args.allow_partner_i2v, output_dir=args.output_dir,
+                webhook_url=args.webhook_url,
+                webhook_result_path=args.webhook_result,
+                webhook_wait_seconds=args.webhook_wait_seconds,
             )
             emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
             return 0
@@ -533,7 +914,7 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 scene_packet = json.loads(Path(args.scene_audit).read_text(encoding="utf-8"))
                 verify_storyboard_authorization(scene_packet, args.shot_id, prompt)
-                if args.role == "final_video":
+                if args.role in {"final_video", "cosmos_world_video"}:
                     if args.draft_audit:
                         draft_packet = json.loads(Path(args.draft_audit).read_text(encoding="utf-8"))
                         verify_promotion_authorization(draft_packet, prompt)
@@ -542,12 +923,17 @@ def main(argv: list[str] | None = None) -> int:
                         verify_bounded_repair_authorization(repair_packet, prompt)
                     else:
                         raise ValueError(
-                            "final live video requires --draft-audit or --repair-authorization")
+                            "promoted live video requires --draft-audit or --repair-authorization")
             except (OSError, json.JSONDecodeError, ValueError) as exc:
                 raise VideoGenError(str(exc)) from exc
         request = orchestrator.run_video(
-            args.role, prompt, seed=args.seed, live=args.live, confirmed=args.confirm_live,
-            output_dir=args.output_dir)
+            args.role, prompt, seed=args.seed,
+            image_input=(cosmos_image_input(args.image) if args.image else None),
+            live=args.live, confirmed=args.confirm_live,
+            output_dir=args.output_dir,
+            webhook_url=args.webhook_url,
+            webhook_result_path=args.webhook_result,
+            webhook_wait_seconds=args.webhook_wait_seconds)
         emit_json({**request.__dict__, "reserved_usd": str(request.reserved_usd)}, args.result)
         return 0
     except VideoGenError as exc:

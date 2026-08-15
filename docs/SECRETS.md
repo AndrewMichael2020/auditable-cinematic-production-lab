@@ -35,11 +35,12 @@ env:
 
 The real local `.env` file remains ignored. [.env.example](../.env.example) contains only blank variable names.
 
-## Optional local fallback
+## Optional local dialogue provider
 
-`ELEVENLABS_API_KEY` may exist in an ignored local `.env` as a user-supplied fallback. No current
-runtime command reads it, it must never be copied to GitHub Actions or audit artifacts, and it was
-not used in the validated lip-sync run.
+`ELEVENLABS_KEY` may exist in the ignored local `.env`. It is read only by `match-voices` and an
+explicitly confirmed `plan-dialogue-candidate --live --confirm-live` call. It must never be copied to
+GitHub Actions, manifests, ledgers, screenshots, or logs. Catalog matching is read-only; dialogue
+generation records the provider request ID and credit usage but never the key.
 
 ## Not required
 
@@ -52,7 +53,8 @@ Do not create these secrets for the initial proof:
 
 Gemini partner models may be used through DeepInfra with the same `DEEPINFRA_TOKEN`, explicit model
 registration, and normal budget reservation. Direct Gemini/Flow or Vertex credentials and billing,
-OpenAI API, and ElevenLabs are excluded. ChatGPT/Codex and GitHub Copilot subscriptions can support
+OpenAI API, and unregistered media providers are excluded. ElevenLabs is limited to the registered
+voice-catalog and dialogue-candidate operations above. ChatGPT/Codex and GitHub Copilot can support
 repository development interactively, but are not part of runtime authentication.
 
 GitHub supplies `GITHUB_TOKEN` automatically for each Actions run. Do not create a duplicate repository secret.
@@ -94,4 +96,5 @@ A timeout with unknown billing status blocks automatic retry until the request i
 
 ## Rotation
 
-Rotate the token immediately if it appears in a commit, log, artifact, issue, pull request, screenshot, or copied terminal output. Removing exposed text does not make the old token safe.
+Rotate either provider key immediately if it appears in a commit, log, artifact, issue, pull request,
+screenshot, or copied terminal output. Removing exposed text does not make the old key safe.

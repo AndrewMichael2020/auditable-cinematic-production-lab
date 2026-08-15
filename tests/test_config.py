@@ -11,6 +11,8 @@ def test_registry_and_costs():
     assert config.profile_cap("cad_10") == Decimal("10.0")
     assert config.model("draft_video").reserve(seconds=5) == Decimal("0.0125")
     assert config.model("final_video").reserve(seconds=5) == Decimal("0.375")
+    assert config.model("cosmos_world_video").reserve(seconds=5) == Decimal("0.25")
+    assert config.model("voice_design").reserve(characters=250) == Decimal("0.005")
     assert config.model("lip_sync_avatar").reserve(seconds=8) == Decimal("0.200")
 
 

@@ -31,7 +31,7 @@
         "provider_voice": "Unified Chatterbox performance master, seed 3407",
         "language": "English (US provider setting), directed as Canadian English",
         "accent_direction": "Natural Lower Mainland Canadian English; composed clinical pacing; no generic American announcer tone and no stylized Punjabi accent.",
-        "performance_baseline": "Low-key, clear and empathetic with a restrained dramatic arc: professional warmth, precise B.C. Services Card diction, concerned weight on inactive M.S.P., then compassionate but firm uncertainty. Generate the sequence in one continuous take and split only at deliberate pauses."
+        "performance_baseline": "Low-key, clear and empathetic with a restrained dramatic arc: professional warmth, precise BC Services Card diction, concerned weight on inactive MSP, then compassionate but firm uncertainty. Generate the sequence in one continuous take and split only at deliberate pauses."
       },
       "reference_pack": {
         "version": "rp01",
@@ -71,6 +71,337 @@
             "kind": "native_16_9_landscape_medium_closeup",
             "status": "planned_generation",
             "path": "runs/clinic-stage2-current/references/patient-daniel-landscape.png"
+          }
+        ]
+      }
+    },
+    {
+      "character_id": "nurse-maya",
+      "persona_id": "persona-maya-clinic",
+      "persona_version": "pv01",
+      "display_name": "Maya",
+      "age_baseline": 42,
+      "cultural_background": "Black Canadian woman working in Surrey, British Columbia; family ancestry intentionally unspecified.",
+      "local_history": "An experienced clinic nurse who works with patients navigating both care and coverage uncertainty.",
+      "language_history": "English-dominant Lower Mainland Canadian professional speech.",
+      "accent": "Natural contemporary Lower Mainland Canadian English; no racialized or caricatured accent.",
+      "appearance": "Black Canadian woman in her early forties with deep brown skin, short natural curls and kind observant eyes; slate-blue scrubs with a light warm-grey cardigan.",
+      "manner": "Grounded, direct and empathetic without promotional smiling or presenter energy; normally framed left and facing screen right.",
+      "backstory": "A practiced clinic nurse who explains administrative limits precisely while protecting a patient's dignity.",
+      "relationships": "Meets Kenji for the first time during this episode.",
+      "voice": {
+        "provider_voice": "ElevenLabs Sarah realization vr-maya-eleven-sarah-v01, voice selected by human and exact performance pending audition",
+        "language": "English",
+        "accent_direction": "Natural contemporary Lower Mainland Canadian English; no announcer polish and no racialized or caricatured accent.",
+        "performance_baseline": "Warm, grounded adult feminine voice in a natural mid-low register; calm clinical professionalism, subtle empathy and unhurried precision.",
+        "contract_version": "1.0",
+        "voice_persona_id": "vp-maya-v01",
+        "perceived_age_range": "38-46",
+        "gender_presentation": "adult feminine",
+        "timbre": "warm, grounded and lightly textured",
+        "register": "natural mid-low register",
+        "vocal_manner": "calm clinical professionalism with subtle empathy; never sales-like",
+        "language_history": "English-dominant Lower Mainland Canadian professional speech",
+        "accent_diction": "clear contemporary Canadian English with precise Services Card and coverage diction; no racialized accent",
+        "pace": "unhurried conversational pace with short responsive pauses",
+        "energy": "contained, attentive and reassuring without cheerleading",
+        "recast_policy": "Any provider, model version, description or synthesis-setting change creates a new realization and requires a new human audition before motion generation.",
+        "matching_profile": {
+          "gender": "female",
+          "age_priority": [
+            "middle_aged",
+            "young",
+            "old"
+          ],
+          "accent_priority": [
+            "canadian",
+            "american"
+          ],
+          "descriptors": [
+            "warm",
+            "reassuring",
+            "professional",
+            "mature",
+            "calm"
+          ],
+          "avoid_descriptors": [
+            "promotional",
+            "playful",
+            "high energy"
+          ],
+          "protected_attributes_excluded": true,
+          "selection_policy": "Rank the current provider catalog from vocal traits only, then require a human casting decision and a separate exact-performance audition."
+        },
+        "voice_realizations": [
+          {
+            "voice_realization_id": "vr-maya-qwen3-serena-v01",
+            "persona_version": "pv01",
+            "provider": "deepinfra",
+            "model_id": "Qwen/Qwen3-TTS",
+            "model_version": "COMBINED_SMALL",
+            "synthesis_settings": {
+              "voice": "Serena",
+              "instruct": "Speak as a grounded Canadian clinic nurse in her early forties: warm adult feminine tone, calm clinical professionalism, subtle empathy, unhurried conversational pace, precise diction, restrained emotion, no presenter energy and no promotional smile in the voice.",
+              "language": "English",
+              "response_format": "wav"
+            },
+            "status": "candidate",
+            "effective_from": null,
+            "audition": {
+              "script": "Good morning. What brings you in today? May I see your Services Card, please? Your provincial coverage is not active, so today's visit may be billed. I'm sorry, I can't confirm the amount here. The clinic will tell you the charge before you are seen.",
+              "audio_path": "../../runs/clinic-cosmos-voice-casting-v01/audio/vr-maya-qwen3-serena-v01.wav",
+              "audio_sha256": "c0cb5640ba7b39b79d282c76053e69ccd1d808f48bd844fccd8c1562c525dd82",
+              "provider_request_id": "ROMs4sZR0hWQOjZEUu3zSo4L",
+              "review": {
+                "decision": "pending",
+                "reviewer": null,
+                "reviewed_at": null,
+                "criteria": {
+                  "perceived_age": "pending",
+                  "gender_presentation": "pending",
+                  "timbre": "pending",
+                  "accent": "pending",
+                  "diction": "pending",
+                  "pace": "pending",
+                  "intelligibility": "pending",
+                  "dramatic_fit": "pending"
+                }
+              }
+            }
+          },
+          {
+            "voice_realization_id": "vr-maya-eleven-sarah-v01",
+            "persona_version": "pv01",
+            "provider": "elevenlabs",
+            "model_id": "eleven_v3",
+            "model_version": "eleven_v3",
+            "synthesis_settings": {
+              "voice": "Sarah",
+              "voice_id": "EXAVITQu4vr4xnSDxMaL",
+              "instruct": "Warm and reassuring but restrained; mature clinical professionalism, natural conversational timing, no presenter energy.",
+              "language": "English",
+              "response_format": "wav",
+              "output_format": "wav_24000",
+              "seed": 3407
+            },
+            "status": "candidate",
+            "effective_from": null,
+            "casting_selection": {
+              "decision": "approved",
+              "reviewer": "human-user",
+              "reviewed_at": "2026-08-03",
+              "basis": "ElevenLabs premade voice preview",
+              "performance_approval_carried_forward": false
+            },
+            "audition_history": [
+              {
+                "candidate_id": "clinic-maya-kenji-eleven-v3-c01",
+                "audio_path": "../../runs/clinic-elevenlabs-dialogue-v01/audio/clinic-maya-kenji-eleven-v3-c01.wav",
+                "audio_sha256": "cb321d7f0331352f1235cea8f28448c237834234a29c6357512011b066930cf9",
+                "provider_request_id": "HsBciCWu9d6KctjZpNek",
+                "status": "superseded",
+                "reason": "Exact-content revision requested after generation; voice casting remains selected."
+              }
+            ],
+            "audition": {
+              "script": "Good morning. What brings you in today? May I see your BC Services Card, please? Your provincial coverage is not active, so today's visit may be billed. I can't confirm that here. You can review reference fees on the Doctors of BC website, or get an itemized bill after your visit.",
+              "audio_path": "../../runs/clinic-cosmos-final-v02/audio/clinic-maya-kenji-eleven-v3-c02.wav",
+              "audio_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+              "provider_request_id": "tCieRlqGR8GtSMQZOGjS",
+              "review": {
+                "decision": "pending",
+                "reviewer": null,
+                "reviewed_at": null,
+                "criteria": {
+                  "perceived_age": "pending",
+                  "gender_presentation": "pending",
+                  "timbre": "pending",
+                  "accent": "pending",
+                  "diction": "pending",
+                  "pace": "pending",
+                  "intelligibility": "pending",
+                  "dramatic_fit": "pending"
+                }
+              }
+            }
+          }
+        ],
+        "active_voice_realization_id": null
+      },
+      "reference_pack": {
+        "version": "rp01",
+        "visual_references": [
+          {
+            "kind": "native_16_9_landscape_two_shot_anchor_frame_left",
+            "status": "approved_visual_anchor",
+            "path": "../../runs/clinic-full-sequence-20260803T184456Z/references/fresh-personas-clinic-anchor.png",
+            "sha256": "f1d22c258a109e4cb0895d87f1780526e28018e9e5ae9e00a90d6056c3db49c7"
+          }
+        ]
+      }
+    },
+    {
+      "character_id": "patient-kenji",
+      "persona_id": "persona-kenji-clinic",
+      "persona_version": "pv01",
+      "display_name": "Kenji",
+      "age_baseline": 58,
+      "cultural_background": "East Asian Canadian man living in Surrey, British Columbia; ancestry intentionally not inferred from his name.",
+      "local_history": "A long-time Lower Mainland resident seeking care for a persistent cough.",
+      "language_history": "English-dominant Lower Mainland Canadian everyday speech.",
+      "accent": "Natural contemporary Lower Mainland Canadian English; no racialized or caricatured accent.",
+      "appearance": "East Asian Canadian man in his late fifties with close-cropped salt-and-pepper hair and natural age lines; navy rain shell over a muted rust crew-neck.",
+      "manner": "Quietly worried, courteous and composed; normally framed right and facing screen left.",
+      "backstory": "A patient who has tolerated a six-week cough but needs cost clarity before accepting uncertain charges.",
+      "relationships": "Meets Maya for the first time during this episode.",
+      "voice": {
+        "provider_voice": "ElevenLabs Bill realization vr-kenji-eleven-bill-v01, voice selected by human and exact performance pending audition",
+        "language": "English",
+        "accent_direction": "Natural contemporary Lower Mainland Canadian English; unmistakably masculine and no racialized or caricatured accent.",
+        "performance_baseline": "Quiet, courteous adult masculine voice in a mid-low register; lightly weathered, concerned but composed, with natural breath and no announcer tone.",
+        "contract_version": "1.0",
+        "voice_persona_id": "vp-kenji-v01",
+        "perceived_age_range": "54-64",
+        "gender_presentation": "adult masculine",
+        "timbre": "lightly weathered, restrained and human",
+        "register": "natural mid-low register",
+        "vocal_manner": "quietly concerned, courteous and composed; never theatrical",
+        "language_history": "English-dominant Lower Mainland Canadian everyday speech",
+        "accent_diction": "clear contemporary Canadian English; no caricatured East Asian accent",
+        "pace": "measured conversational pace with slight hesitation around cost",
+        "energy": "low-key, tired and attentive",
+        "recast_policy": "Any provider, model version, description or synthesis-setting change creates a new realization and requires a new human audition before motion generation.",
+        "matching_profile": {
+          "gender": "male",
+          "age_priority": [
+            "old",
+            "middle_aged"
+          ],
+          "accent_priority": [
+            "canadian",
+            "american"
+          ],
+          "descriptors": [
+            "older",
+            "gentle",
+            "comforting",
+            "mature",
+            "friendly",
+            "balanced"
+          ],
+          "avoid_descriptors": [
+            "aggressive",
+            "dominant",
+            "theatrical",
+            "gravelly"
+          ],
+          "protected_attributes_excluded": true,
+          "selection_policy": "Rank the current provider catalog from vocal traits only, then require a human casting decision and a separate exact-performance audition."
+        },
+        "voice_realizations": [
+          {
+            "voice_realization_id": "vr-kenji-qwen3-uncle-fu-v01",
+            "persona_version": "pv01",
+            "provider": "deepinfra",
+            "model_id": "Qwen/Qwen3-TTS",
+            "model_version": "COMBINED_SMALL",
+            "synthesis_settings": {
+              "voice": "Uncle_Fu",
+              "instruct": "Speak in clear contemporary Canadian English as a man in his late fifties: unmistakably masculine mid-low voice, lightly weathered and mellow, quiet and courteous, concerned but composed, measured natural pace, no theatrical distress, no announcer polish and no caricatured accent.",
+              "language": "English",
+              "response_format": "wav"
+            },
+            "status": "candidate",
+            "effective_from": null,
+            "audition": {
+              "script": "I have had a cough for six weeks. It is worse at night. Before we begin, can you tell me what this might cost?",
+              "audio_path": "../../runs/clinic-cosmos-voice-casting-v01/audio/vr-kenji-qwen3-uncle-fu-v01.wav",
+              "audio_sha256": "d067f3f3e14939ff61987d5a9d473e847c216df0fbf62794d6ee069ffc963aa5",
+              "provider_request_id": "R3llhfeLhKitnFk9PX78jBmA",
+              "review": {
+                "decision": "pending",
+                "reviewer": null,
+                "reviewed_at": null,
+                "criteria": {
+                  "perceived_age": "pending",
+                  "gender_presentation": "pending",
+                  "timbre": "pending",
+                  "accent": "pending",
+                  "diction": "pending",
+                  "pace": "pending",
+                  "intelligibility": "pending",
+                  "dramatic_fit": "pending"
+                }
+              }
+            }
+          },
+          {
+            "voice_realization_id": "vr-kenji-eleven-bill-v01",
+            "persona_version": "pv01",
+            "provider": "elevenlabs",
+            "model_id": "eleven_v3",
+            "model_version": "eleven_v3",
+            "synthesis_settings": {
+              "voice": "Bill",
+              "voice_id": "pqHfZKP75CvOlQylNhV4",
+              "instruct": "Older and gentle, quiet and courteous, concerned but composed, measured pace, no theatrical distress or announcer tone.",
+              "language": "English",
+              "response_format": "wav",
+              "output_format": "wav_24000",
+              "seed": 3407
+            },
+            "status": "candidate",
+            "effective_from": null,
+            "casting_selection": {
+              "decision": "approved",
+              "reviewer": "human-user",
+              "reviewed_at": "2026-08-03",
+              "basis": "ElevenLabs premade voice preview",
+              "performance_approval_carried_forward": false
+            },
+            "audition_history": [
+              {
+                "candidate_id": "clinic-maya-kenji-eleven-v3-c01",
+                "audio_path": "../../runs/clinic-elevenlabs-dialogue-v01/audio/clinic-maya-kenji-eleven-v3-c01.wav",
+                "audio_sha256": "cb321d7f0331352f1235cea8f28448c237834234a29c6357512011b066930cf9",
+                "provider_request_id": "HsBciCWu9d6KctjZpNek",
+                "status": "superseded",
+                "reason": "Exact-content revision requested after generation; voice casting remains selected."
+              }
+            ],
+            "audition": {
+              "script": "I have had a cough for six weeks. It is worse at night. Oh no. Before I see a provider, can you tell me how much the visit would cost me?",
+              "audio_path": "../../runs/clinic-cosmos-final-v02/audio/clinic-maya-kenji-eleven-v3-c02.wav",
+              "audio_sha256": "499b8004c20ce5ca5194b38620f57a6e1dc13c1cad453e283e0090add22bc882",
+              "provider_request_id": "tCieRlqGR8GtSMQZOGjS",
+              "review": {
+                "decision": "pending",
+                "reviewer": null,
+                "reviewed_at": null,
+                "criteria": {
+                  "perceived_age": "pending",
+                  "gender_presentation": "pending",
+                  "timbre": "pending",
+                  "accent": "pending",
+                  "diction": "pending",
+                  "pace": "pending",
+                  "intelligibility": "pending",
+                  "dramatic_fit": "pending"
+                }
+              }
+            }
+          }
+        ],
+        "active_voice_realization_id": null
+      },
+      "reference_pack": {
+        "version": "rp01",
+        "visual_references": [
+          {
+            "kind": "native_16_9_landscape_two_shot_anchor_frame_right",
+            "status": "approved_visual_anchor",
+            "path": "../../runs/clinic-full-sequence-20260803T184456Z/references/fresh-personas-clinic-anchor.png",
+            "sha256": "f1d22c258a109e4cb0895d87f1780526e28018e9e5ae9e00a90d6056c3db49c7"
           }
         ]
       }

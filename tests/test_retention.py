@@ -1,4 +1,11 @@
-from video_gen.retention import audit_run_artifacts, prune_recomputable_artifacts
+import hashlib
+import json
+
+import pytest
+
+from video_gen.errors import PolicyError
+from video_gen.retention import (audit_run_artifacts, prune_recomputable_artifacts,
+                                 prune_rejected_media)
 
 
 def test_retention_keeps_masters_and_marks_only_derivatives(tmp_path):
@@ -38,3 +45,61 @@ def test_prune_is_dry_run_by_default_and_apply_is_bounded(tmp_path):
     assert applied["mode"] == "applied"
     assert keep.exists()
     assert not preview.exists()
+
+
+def test_rejected_large_media_prune_keeps_review_evidence_and_lessons(tmp_path):
+    run = tmp_path / "run"
+    run.mkdir()
+    rejected = run / "failed-take.mp4"
+    rejected.write_bytes(b"large failed media")
+    review = run / "failed-take-review.json"
+    review.write_text('{"decision":"rejected"}')
+    lessons = run / "LESSONS.md"
+    lessons.write_text("Keep this production lesson.")
+    decisions = run / "rejected-media.json"
+    decisions.write_text(json.dumps({
+        "schema_version": "1.0",
+        "protected_paths": [],
+        "decisions": [{
+            "relative_path": "failed-take.mp4",
+            "outcome": "rejected",
+            "reason": "voice continuity failed human review",
+            "sha256": hashlib.sha256(rejected.read_bytes()).hexdigest(),
+            "retained_evidence": ["failed-take-review.json", "LESSONS.md"],
+        }],
+    }))
+
+    dry = prune_rejected_media(run, decisions, minimum_bytes=1)
+    assert dry["candidate_count"] == 1
+    assert rejected.exists()
+    applied = prune_rejected_media(run, decisions, minimum_bytes=1, apply=True)
+    assert len(applied["removed"]) == 1
+    assert not rejected.exists()
+    assert review.exists()
+    assert lessons.exists()
+    assert decisions.exists()
+
+
+def test_rejected_media_prune_refuses_anchor_even_if_listed(tmp_path):
+    run = tmp_path / "run"
+    run.mkdir()
+    anchor = run / "clinic-anchor.mp4"
+    anchor.write_bytes(b"anchor")
+    evidence = run / "review.json"
+    evidence.write_text("{}")
+    decisions = run / "decisions.json"
+    decisions.write_text(json.dumps({
+        "schema_version": "1.0",
+        "protected_paths": [],
+        "decisions": [{
+            "relative_path": "clinic-anchor.mp4",
+            "outcome": "rejected",
+            "reason": "mistaken decision",
+            "sha256": hashlib.sha256(anchor.read_bytes()).hexdigest(),
+            "retained_evidence": ["review.json"],
+        }],
+    }))
+
+    with pytest.raises(PolicyError, match="protected media"):
+        prune_rejected_media(run, decisions, minimum_bytes=1, apply=True)
+    assert anchor.exists()
