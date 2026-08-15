@@ -1,18 +1,35 @@
 name: dry-run
 on:
-  # Keep development testing local. Do not consume GitHub Actions minutes
-  # automatically on pushes or pull requests.
+  push:
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: dry-run-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+    env:
+      # This workflow never receives provider credentials and never invokes --live.
+      DEEPINFRA_TOKEN: ''
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ matrix.python-version }}
+          cache: pip
       - run: python -m pip install -e . pytest
+      - run: video-gen-secret-scan
       - run: pytest -q
       - run: video-gen preflight --profile cad_10
+      - run: video-gen validate-stage2 sequences/clinic-reception-stage2.json

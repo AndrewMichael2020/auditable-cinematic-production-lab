@@ -16,6 +16,23 @@ def setup(tmp_path):
     return Orchestrator(ProjectConfig.load(), ledger, "cad_10"), ledger
 
 
+def approved_voice(model_id, provider_voice, **settings):
+    return {
+        "voice_realization_id": "vr-test-approved-v1",
+        "effective_persona_version": "pv01",
+        "provider_model_id": model_id,
+        "provider_voice": provider_voice,
+        "immutable_settings": settings or {"seed": 0},
+        "approval": {
+            "status": "approved",
+            "audition_path": "auditions/test.wav",
+            "audition_sha256": "a" * 64,
+            "reviewed_by": "test-reviewer",
+            "reviewed_at": "2026-08-15T00:00:00Z",
+        },
+    }
+
+
 def test_dry_run_is_default_and_never_calls_provider(tmp_path):
     app, ledger = setup(tmp_path)
     result = app.run_video("draft_video", "safe prompt", seed=12)
@@ -170,7 +187,12 @@ def test_live_speech_persists_wav_and_word_timing(tmp_path):
             return None, b"RIFF", {}
         return 200, json.dumps(response).encode(), {}
 
-    result = app.run_speech("Four", live=True, confirmed=True,
+    result = app.run_speech(
+        "Four", live=True, confirmed=True,
+        voice_realization=approved_voice(
+            "ResembleAI/chatterbox-turbo", "test-performance", seed=0,
+            response_format="wav",
+        ),
                             client=DeepInfraClient("token", transport), output_dir=tmp_path)
     assert result.dry_run is False
     assert (tmp_path / f"{result.request_id}.wav").read_bytes() == b"RIFF"
@@ -196,6 +218,16 @@ def test_partner_avatar_requires_explicit_override_without_reserving(tmp_path):
     app, ledger = setup(tmp_path)
     with pytest.raises(PolicyError, match="allow-partner-avatar"):
         app.run_avatar("data:image/png;base64,aW1hZ2U=", "Hello", "Kore (Female)")
+    assert ledger.reserved_total() == 0
+
+
+def test_live_voice_generation_requires_approved_binding_before_reservation(tmp_path):
+    app, ledger = setup(tmp_path)
+    with pytest.raises(PolicyError, match="approved voice realization"):
+        app.run_speech(
+            "Four", live=True, confirmed=True,
+            client=DeepInfraClient("token", lambda req, timeout: (500, b"", {})),
+        )
     assert ledger.reserved_total() == 0
 
 
@@ -289,6 +321,10 @@ def test_live_partner_avatar_uses_partner_policy_cap_and_persists_video(tmp_path
         "data:image/png;base64,aW1hZ2U=", "Hello", "Kore (Female)",
         gaze_direction="screen_right", live=True, confirmed=True,
         allow_partner=True, client=client, output_dir=tmp_path,
+        voice_realization=approved_voice(
+            "PrunaAI/p-video-avatar", "Kore (Female)", seed=0,
+            voice_language="English (US)",
+        ),
     )
     assert result.reserved_usd == app.config.model("lip_sync_avatar").reserve(seconds=8)
     assert (tmp_path / f"{result.request_id}.mp4").read_bytes() == b"video"
@@ -319,6 +355,9 @@ def test_partner_avatar_targets_one_speaker_in_a_paired_landscape_plate(tmp_path
         "data:image/png;base64,aW1hZ2U=", "Hello", "Kore (Female)",
         gaze_direction="screen_left", speaker_position="frame_right",
         live=True, confirmed=True, allow_partner=True,
+        voice_realization=approved_voice(
+            "PrunaAI/p-video-avatar", "Kore (Female)", seed=0,
+        ),
         client=DeepInfraClient("token", transport), output_dir=tmp_path,
     )
 
@@ -352,6 +391,9 @@ def test_partner_avatar_question_holds_partner_eyeline(tmp_path):
         "data:image/png;base64,aW1hZ2U=", "How much?", "Kore (Female)",
         gaze_direction="screen_right", response_anticipation=True,
         live=True, confirmed=True, allow_partner=True,
+        voice_realization=approved_voice(
+            "PrunaAI/p-video-avatar", "Kore (Female)", seed=0,
+        ),
         client=DeepInfraClient("token", transport), output_dir=tmp_path,
     )
 

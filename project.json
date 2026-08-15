@@ -139,6 +139,7 @@
   },
   "pricing": {
     "verified_at": "2026-08-03",
+    "max_age_days": 30,
     "currency": "USD",
     "fail_if_unverified_or_increased": true,
     "price_refresh_requires_human_approval": true
