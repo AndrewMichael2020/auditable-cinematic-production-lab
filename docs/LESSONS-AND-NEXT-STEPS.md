@@ -61,7 +61,7 @@ The next goal is repeatability across scenes, not more infrastructure.
 6. Review every frame of any crop used to repair identity, person-count, or edge-intrusion defects.
 7. Assemble without separating synchronized audio from its picture; then check decode, duration,
    black frames, loudness, dialogue rhythm, and the final emotional beat.
-8. Retain the auditable core and prune only artifacts that can be reproduced from retained media.
+8. Retain the traceable core and prune only artifacts that can be reproduced from retained media.
 
 ## Pareto next steps
 
@@ -157,7 +157,7 @@ Lessons to carry forward:
   single-person references, 960×960 synchronized avatar outputs and preplanned 16:9 crops with
   identical picture/audio trim and rate transforms. Native landscape inputs returned HTTP 500,
   while the square path reproduced the good synchronization. Stage 2 therefore permits this one
-  auditable square-performance exception—never portrait footage, side fill or a crop that cuts a
+  evidence-backed square-performance exception—never portrait footage, side fill or a crop that cuts a
   face—and requires the square reference to derive from an approved paired 16:9 scene.
 
 - **Validate source orientation, not the final wrapper.** Scaling, cropping or side-filling a
@@ -433,7 +433,7 @@ so later work cannot silently rewrite that history.
 
 The closeout is also a major positive milestone: the engine produced roughly one minute of coherent,
 concluded two-character dialogue in a convincing clinic environment, with persona-bound voices,
-realistic multi-voice ambience, bounded spend and auditable assembly. The remaining defects are the
+realistic multi-voice ambience, bounded spend and traceable assembly. The remaining defects are the
 next craft frontier, not evidence that the end-to-end production failed.
 
 Stage 3 prioritizes cinematic craft rather than model accumulation. Its complete craft model covers

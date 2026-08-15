@@ -57,7 +57,7 @@ case "$1" in
       usage
       exit 2
     }
-    run_isolated 'python -m video_gen.cli preflight --profile cad_10 && python -m video_gen.cli validate-scene >/var/tmp/video-gen-golden-scene.json && python -m video_gen.cli validate-stage2 sequences/clinic-reception-stage2.json >/var/tmp/video-gen-stage2.json && python -m video_gen.cli validate-voice-plan sequences/clinic-full-cosmos-voice-plan.json >/var/tmp/video-gen-voice-plan.json'
+    run_isolated 'python -m video_gen.cli preflight --profile cad_10 --output /var/tmp/cinematic-preflight.json && diff -u examples/portfolio-dry-run/expected/preflight.json /var/tmp/cinematic-preflight.json && python -m video_gen.cli validate-scene examples/portfolio-dry-run/scene.json --output /var/tmp/cinematic-scene-plan.json && python -m video_gen.cli audit-av-sync examples/portfolio-dry-run/av-sync-calibration.json --output /var/tmp/cinematic-av-sync.json && diff -u examples/portfolio-dry-run/expected/av-sync-calibration-report.json /var/tmp/cinematic-av-sync.json && python -m video_gen.cli validate-stage2 sequences/clinic-reception-stage2.json >/var/tmp/video-gen-stage2.json && python -m video_gen.release_bundle build --output /var/tmp/cinematic-production-lab-v0.2.0.zip && python -m video_gen.release_bundle verify /var/tmp/cinematic-production-lab-v0.2.0.zip'
     ;;
   run)
     [[ $# -eq 2 ]] || {

@@ -5,39 +5,91 @@
 [![Tests: pytest](https://img.shields.io/badge/tests-pytest-0A9EDC?logo=pytest&logoColor=white)](tests)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Dry-run by default](https://img.shields.io/badge/generation-dry--run%20by%20default-2ea44f)](#run-locally)
-[![Spend: fail-closed](https://img.shields.io/badge/spend-fail--closed-8A2BE2)](#cash-rule)
+[![Release](https://img.shields.io/github/v/release/AndrewMichael2020/cinematic-production-lab?display_name=tag)](https://github.com/AndrewMichael2020/cinematic-production-lab/releases)
 
-A budget-controlled, programmatic cinematic production lab for reproducible scenes, explicit human
-acceptance, and traceable records of models, prompts, seeds, costs, media hashes, and QA decisions.
-It combines local models where practical, a strong OpenAI creative-reasoning lane, and explicitly
-approved remote video, voice, and specialist providers.
+A production-oriented cinematic systems portfolio: story and sequence manifests, bounded model
+orchestration, editorial decision records, versioned voices, technical and perceptual QA, FFmpeg
+assembly, and explicit human acceptance. The lab treats generation as one department inside a wider
+filmmaking workflow—not as the product.
 
 ## Portfolio proof
 
 ![Accepted Stage 2 clinic sequence contact sheet](docs/ideas_for_scenario_testing/final-clinic-stage2-sequence-v3-contact-sheet.png)
 
-The repository demonstrates a production-oriented approach to synthetic video rather than an
-open-ended generation demo:
+**[Watch the first completed film on YouTube](https://www.youtube.com/watch?v=VnIrfT_vzvI).** The
+repository also keeps the accepted
+[clinic Stage 2 sequence](runs/clinic-stage2-20260803T060048Z/final/clinic-stage2-sequence-v3.mp4)
+and bounded [15-second dialogue continuation](runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4)
+playable in place. These existing README artifacts remain part of the portfolio evidence.
 
-- **Playable evidence:** an accepted
-  [clinic Stage 2 sequence](runs/clinic-stage2-20260803T060048Z/final/clinic-stage2-sequence-v3.mp4)
-  and a bounded [15-second dialogue continuation](runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4).
-- **Fail-closed spending:** every paid request reserves its maximum cost before transmission and
-  stops when budget, billing, retry, or admission status is uncertain.
-- **Traceable production:** typed scene and sequence manifests preserve model, prompt, seed,
-  provider, cost, hash, lineage, and human-acceptance evidence.
-- **Honest QA:** accepted and rejected artifacts are retained separately; the latest rejected run
-  has a documented voice-persona and lip-sync root-cause analysis.
-- **Safe automation:** push and pull-request CI runs tests, a tracked-credential scan, configuration
-  preflight, and Stage 2 validation without provider credentials; the paid smoke test remains a
-  separate manual workflow requiring explicit `LIVE` confirmation.
+| Evidence | Decision | What it shows |
+|---|---|---|
+| [First completed film](https://www.youtube.com/watch?v=VnIrfT_vzvI) | Published | End-to-end cinematic result |
+| [Accepted Stage 2 run](runs/clinic-stage2-20260803T060048Z/RUN-REPORT.md) | Accepted | Delivery, edit, QA decisions, cost/provenance records, and retained proof |
+| [15-second continuation](runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4) | Accepted bounded proof | Master-plus-coverage dialogue assembly and compact evidence |
+| [Full-clinic postmortem](docs/CLINIC-FULL-SEQUENCE-POSTMORTEM.md) | Rejected | Voice-persona and lip-sync failure, root cause, and restart gates |
+| [Zero-cost sample](examples/portfolio-dry-run/README.md) | Reproducible | Credential-free scene compilation and ±80 ms AV-offset evaluator calibration |
+| [Dry-run workflow](.github/workflows/dry-run.yml) | Automatic | Python 3.11/3.12 tests, credential scan, artifact guard, sample replay, and release build |
+| [v0.2.0 release bundle](https://github.com/AndrewMichael2020/cinematic-production-lab/releases) | Bounded | CLI source, sample, expected output, provider snapshot, checksums, and compact proof records |
 
-| Evidence | What it shows |
+The same evidence reads differently for the portfolio's target audiences:
+
+| Audience | Signal |
 |---|---|
-| [Stage 2 run report](runs/clinic-stage2-20260803T060048Z/RUN-REPORT.md) | Accepted delivery, audit decisions, cost controls, and retained artifacts |
-| [Latest-run postmortem](docs/CLINIC-FULL-SEQUENCE-POSTMORTEM.md) | Rejection criteria, root cause, and restart gates |
-| [Dry-run workflow](.github/workflows/dry-run.yml) | Tests, preflight validation, and zero-cost orchestration |
-| [Test suite](tests) | Budget, provider, media, retention, orchestration, and Stage 2 policy coverage |
+| AI platform engineering | explicit policy boundary, credential-free dry planning, sequential reservations, current model registry, no automatic paid fallback |
+| Media engineering | typed timelines, source lineage, hashes, AV-offset evidence, loudness/format checks, deterministic assembly and retention tiers |
+| Applied ML and agentic systems | model admission by role, human promotion/acceptance gates, structured observations, failure records, and reproducible clean-run CI |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A["Series / episode / sequence / scene manifests"] --> B["Policy preflight: model, price, secrets, voice binding"]
+    B --> C["Bounded cost reservation"]
+    C --> D{"Execution mode"}
+    D -->|"default"| E["Credential-free dry plan"]
+    D -->|"manual live + confirm-live"| F["Sequential provider request"]
+    F --> G["Cost reconciliation + source provenance"]
+    E --> H["Technical QA"]
+    G --> H
+    H --> I["Perceptual QA: contact sheets + AV offset"]
+    I --> J["Normal-speed human review with sound"]
+    J -->|"accept"| K["FFmpeg edit, mix, and delivery"]
+    J -->|"reject / review"| L["Decision record + bounded repair"]
+    K --> M["Hashes, manifest, release asset"]
+    L --> N["Compact evidence + local or cold media"]
+```
+
+The CLI is the policy boundary. Configuration is validated before orchestration; a live request
+needs a current provider snapshot, an approved registered role, capacity under the configured
+overall limit, credentials, and two explicit live flags. Voice generation additionally requires a
+versioned canonical realization and approved audition hash. Unknown billing or provider state stops
+the run; it never triggers an automatic retry or model fallback.
+
+## Editorial system, not just generation
+
+The production vocabulary is shared by human collaborators and agentic tools: series canon,
+episode threads, sequences, scenes, beats, setups, source takes, coverage, selects, handles, action
+clocks, continuity state, timelines, stems, acceptance decisions, and bounded repairs. That shared
+language lets an agent prepare options and preserve lineage while a person retains casting,
+promotion, editorial, and final-acceptance authority.
+
+Voice is a production asset, not a request-time string: character persona → versioned realization →
+exact audition SHA-256 → immutable dialogue-beat binding. A provider, model, voice, instruction, or
+synthesis-setting change creates a new realization and returns to human audition review.
+
+Three principles shape every sequence:
+
+- **Story before shots:** intention, consequence, subtext, viewpoint, and A/B/C thread movement are
+  fixed before a provider request.
+- **Coverage before rescue:** living masters, motivated setups, eyelines, action continuity, and edit
+  handles are planned so assembly is not forced to hide missing storytelling.
+- **Sound and time are first-class:** dialogue performance, room tone, semantic ambience, foley,
+  music/silence, pacing, cadence, and normal-speed playback are reviewed alongside picture.
+
+See [the production vocabulary](docs/PRODUCTION-VOCABULARY.md),
+[the Stage 3 plan](docs/STAGE-3-CINEMATIC-SERIES-PLAN.md), and
+[the reproducibility record](docs/REPRODUCIBILITY.md).
 
 ## Current goal
 
@@ -62,26 +114,6 @@ human acceptance. Stage 3 is now planned around cinematic craft in all its dimen
 character arcs, theme, narrative viewpoint, screenplay, dialogue and narration, directing and
 acting, mise-en-scene, cinematography, storyboarding/previs, editing, sound/music/silence,
 compositing, colour/finishing and continuity. No Stage 3 generation is authorized yet.
-
-## Architecture
-
-```text
-series + sequence manifests
-          ↓
-model / price / secret policy validation
-          ↓
-dry-run planner → reservation ledger → explicitly confirmed provider request
-          ↓                                  ↓
-typed provenance + media hashes        reported-cost reconciliation
-          ↓
-technical checks + human acceptance gates → FFmpeg delivery master
-```
-
-The CLI is the policy boundary. Configuration is validated before orchestration; live requests
-require a current human-reviewed pricing snapshot, explicit confirmation, an approved registered
-model, and a reservation that fits both the run profile and provider-account ceiling. Voice
-generation additionally requires a versioned canonical realization and approved audition hash.
-Provider uncertainty never triggers an automatic retry or fallback.
 
 ## Current clinic candidate and latest-run decision
 
@@ -178,25 +210,15 @@ POST https://api.deepinfra.com/v1/inference/{model}
 Authorization: Bearer $DEEPINFRA_TOKEN
 ```
 
-## Cash rule
+## Execution and overall budget control
 
-Choose exactly one run profile: **10, 15, or 20 dollars Canadian**, including a conservative allowance for currency conversion and 12% tax.
-
-| Profile | Application hard cap in US dollars |
-|---|---:|
-| CAD 10 | US$10.00 |
-| CAD 15 | US$9.75 |
-| CAD 20 | US$15.00 |
-
-The program must stop before the selected US-dollar cap. It must also respect a DeepInfra account
-spending limit of no more than US$20.00. DeepInfra normally reports actual cost in
-`inference_status.cost`. For TTS responses that omit it, the engine accepts only an exact
-provider-reported `input_character_length` match multiplied by the pinned, verified model-registry
-character rate. The append-only ledger records the reservation, cost source, and reconciled actual.
-
-Only sequential generation is allowed. Every request reserves its maximum expected cost before transmission. No recursive retries, parallel paid jobs, automatic provider fallback, or unbounded workflow reruns.
-
-At currently listed prices, one 5-second FastWan draft costs US$0.0125, one 5-second Cosmos3-Super world candidate costs US$0.25, and one 5-second Wan 2.2 final candidate costs US$0.375. A useful 20-second proof with extensive cheap drafts and bounded promoted candidates should remain well below the CAD 10 profile.
+`project.json` sets the overall run limit, provider-account ceiling, per-role candidate limits, and
+paid concurrency of one. Before transmission, each paid request reserves its maximum configured
+cost; after completion, the ledger reconciles the provider-reported actual. An unknown price,
+billing status, or result stops the run without retry or fallback. The named profiles are simply
+settings for choosing a conservative overall ceiling—not the focus of the project. Current units
+and provider links are recorded in the
+[dated provider snapshot](docs/PROVIDER-SNAPSHOT-2026-08-15.md).
 
 ## Required secret
 
@@ -215,25 +237,22 @@ explicitly registered DeepInfra partner model; no direct Google API credential i
 
 ## Intended workflow
 
-1. Validate the selected CAD budget profile and reserve expected cost.
-2. Compile structured shot prompts with Qwen.
-3. Generate cheap FastWan drafts.
-4. Run FFmpeg checks and Qwen-VL contact-sheet review.
-5. Human-select prompts worth promoting.
-6. Generate bounded Wan 2.2 final candidates.
-7. For shots where spatial coherence or physical interaction is decisive, generate a separately
-   promoted Cosmos3-Super comparison with the same approved prompt and seed.
-8. Rank the live voice catalog from each series persona's vocal traits, excluding protected visual or
-   cultural attributes; a human selects or overrides the shortlist.
-9. Generate one bounded timestamped dialogue candidate, review the exact performance, then hash-bind
-   the approved realization to every line. Never select a voice ad hoc inside a request script.
-10. Run visible dialogue through normal-speed audiovisual review and an objective offset check when
-   available. A voice mismatch or perceptible lead/lag blocks assembly.
-11. Assemble 12–30 seconds with FFmpeg and produce a manifest containing every model, prompt, seed,
-    cost, output hash, voice binding, audition decision, sync evidence and admission decision.
-12. Stop automatically when the budget, candidate, retry, voice-persona or sync gate fails.
+1. Author series canon, episode threads, sequence/scene beats, coverage, action clocks, sound intent,
+   and acceptance conditions.
+2. Run the zero-cost policy preflight, compile prompts, and validate spatial continuity and privacy.
+3. Version each speaking persona and hash-bind a human-approved voice audition before motion.
+4. Lock an animatic and let a human authorize only the source takes or bounded model comparisons
+   worth generating.
+5. Reserve the maximum configured cost and send one explicitly confirmed provider request at a time.
+6. Run format/stream/hash checks, contact-sheet review, structured defect observations, and—where
+   visible speech exists—objective AV-offset evidence plus normal-speed review with sound.
+7. Assemble picture, dialogue, ambience, foley, music/silence, fades, and delivery formats in FFmpeg.
+8. Preserve the decision, source lineage, prompts, seeds, costs, hashes, voice binding, and QA evidence;
+   keep delivery media in the appropriate Git, release, Actions, or local/cold-storage tier.
 
-Human approval remains required before promoting drafts to the more expensive final model and before final acceptance. The execution itself is programmatic.
+FastWan is not the cinematic draft lane. It remains quarantined to the separate manual connectivity
+smoke test and disposable non-cinematic experiments. Human approval remains required for casting,
+paid promotion, bounded repair, editorial acceptance, and final delivery.
 
 ## Run locally
 
@@ -244,19 +263,20 @@ test dependency, then validate the complete dry-run path:
 python -m pip install -e . pytest
 video-gen-secret-scan
 pytest -q
-video-gen preflight --profile cad_10
-video-gen validate-scene
-video-gen audit-scene --output runs/storyboard-spatial-audit.json
+video-gen preflight --profile cad_10 \
+  --output /tmp/cinematic-preflight.json
+diff -u examples/portfolio-dry-run/expected/preflight.json \
+  /tmp/cinematic-preflight.json
+video-gen validate-scene examples/portfolio-dry-run/scene.json \
+  --output /tmp/cinematic-scene-plan.json
+video-gen audit-av-sync examples/portfolio-dry-run/av-sync-calibration.json \
+  --output /tmp/cinematic-av-sync.json
+diff -u examples/portfolio-dry-run/expected/av-sync-calibration-report.json \
+  /tmp/cinematic-av-sync.json
 video-gen validate-stage2 sequences/clinic-reception-stage2.json \
-  --output runs/clinic-stage2-plan.json
-video-gen validate-voice-plan sequences/clinic-full-cosmos-voice-plan.json
-video-gen match-voices \
-  --plan sequences/clinic-full-cosmos-voice-plan.json \
-  --character nurse-maya --top 5
-video-gen --run-cap-usd 5 plan-dialogue-candidate --profile cad_10 \
-  --plan sequences/clinic-full-cosmos-voice-plan.json
-video-gen plan-video --profile cad_10 --role draft_video \
-  --prompt "A locked wide shot on the rainy platform" --seed 101
+  --output /tmp/clinic-stage2-plan.json
+video-gen-release build
+video-gen-release verify dist/cinematic-production-lab-v0.2.0.zip
 ```
 
 `plan-video` reserves the maximum expected charge in the local append-only SQLite ledger but does
@@ -272,9 +292,10 @@ take cannot pass. The final audit remains in `review` until composition, complet
 perceptual lip sync, essential action, reference fidelity, persona/voice, ambience audibility and
 stitch integrity all have explicit human evidence.
 
-Generated ledgers and media normally live under ignored `runs/` and `outputs/` directories. Selected
-evidence-complete live runs may be force-added on a dedicated branch. Inspect and
-human-approve the four compiled prompts from `scenes/golden-scene.json` before any live draft run.
+Generated ledgers and media normally live under ignored `runs/` and `outputs/` directories. Existing
+README-linked proof stays in Git. New accepted delivery media belongs in a named GitHub release;
+raw, intermediate, rejected, and pending-review media stays local or in cold storage. The
+[artifact strategy](docs/ARTIFACT-STRATEGY.md) and CI guard prevent accidental repository growth.
 
 When moving to another machine, transfer ignored run folders separately from Git and verify their
 final/source hashes after copying. Do not commit `.env`, provider tokens or signed media URLs. On the
@@ -315,15 +336,19 @@ treated as large-media cleanup candidates.
 
 The automatic **dry-run** workflow runs on pushes to `main` and pull requests across Python 3.11 and
 3.12. It receives no provider credential and never invokes `--live`; it scans tracked files for
-credential-shaped material, runs the test suite and configuration preflight, and validates the typed
-Stage 2 sequence. If a human later chooses to run **live DeepInfra smoke test** and enters `LIVE`,
-that separate manual workflow makes exactly one FastWan request (maximum reserved
-cost US$0.0125), never retries it, and retains the generated clip, append-only SQLite ledger,
-compiled prompt, command result, hashes, and JSON audit export as a workflow artifact for 30 days.
-Signed query parameters from provider output URLs are deliberately excluded from the ledger.
+credential-shaped material, enforces the forward artifact policy, runs tests and configuration
+preflight, replays the zero-cost sample and AV calibration, validates the typed Stage 2 sequence,
+and builds/verifies the bounded release bundle. If a human later chooses to run the **live DeepInfra
+smoke test** and enters `LIVE`, that separate manual workflow makes exactly one quarantined FastWan
+connectivity request, never retries it, and retains the result and compact records as a 30-day
+workflow artifact. Signed query parameters from provider output URLs are excluded from the ledger.
 
 ## Repository map
 
+- [examples/portfolio-dry-run](examples/portfolio-dry-run/README.md): fictional credential-free scene, AV calibration fixture, commands, and exact expected output.
+- [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md): clean-run contract, evidence boundaries, and accepted/rejected/pending matrix.
+- [docs/PROVIDER-SNAPSHOT-2026-08-15.md](docs/PROVIDER-SNAPSHOT-2026-08-15.md): dated official provider capabilities, prices, runtime status, and planned-option separation.
+- [docs/ARTIFACT-STRATEGY.md](docs/ARTIFACT-STRATEGY.md): Git, release, Actions, and local/cold-storage tiers; existing proof is preserved.
 - [docs/PLAN.md](docs/PLAN.md): staged architecture and proof plan.
 - [docs/STAGE-2-CLOSEOUT.md](docs/STAGE-2-CLOSEOUT.md): evidence-based Stage 2 closeout, remaining debt and general lessons.
 - [docs/STAGE-3-CINEMATIC-SERIES-PLAN.md](docs/STAGE-3-CINEMATIC-SERIES-PLAN.md): prioritized all-craft plan for versatile premium short-form series production.
@@ -343,8 +368,11 @@ Signed query parameters from provider output URLs are deliberately excluded from
 - [productions/stage3-cinematic-versatility.json](productions/stage3-cinematic-versatility.json): machine-readable Stage 3 project architecture, interwoven pilot scope, vertical-slice gate, model policy, budgets and exit gate.
 - [research/model-candidates/2026-08-04-stage3.json](research/model-candidates/2026-08-04-stage3.json): dated official-source Stage 3 LLM candidate scan and fixed evaluation packet.
 - [locations/clinic-reception.json](locations/clinic-reception.json): reusable data-driven clinic geometry and privacy rules.
-- [`src/video_gen`](src/video_gen): CLI, policy, ledger, provider, production, and media modules.
-- [`tests`](tests): fail-closed budget, provider, scene, and orchestration tests.
+- [artifact-policy/legacy-large-files.json](artifact-policy/legacy-large-files.json): exact grandfathered large-file ceiling for retained proof.
+- [.github/workflows/dry-run.yml](.github/workflows/dry-run.yml): automatic credential-free CI and release-bundle verification.
+- [.github/workflows/live-smoke.yml](.github/workflows/live-smoke.yml): explicitly manual, one-request connectivity smoke test.
+- [`src/video_gen`](src/video_gen): CLI, policy, ledger, provider, production, editing, AV-sync, retention, and release modules.
+- [`tests`](tests): policy, provider, media, voice, AV-sync, artifact, release, and orchestration coverage.
 - [LICENSE](LICENSE): repository licence.
 
 No full episode, autonomous open-ended retry loop, or foundation-model training is in scope yet.

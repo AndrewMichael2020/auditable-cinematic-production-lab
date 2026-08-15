@@ -20,16 +20,43 @@ jobs:
     env:
       # This workflow never receives provider credentials and never invokes --live.
       DEEPINFRA_TOKEN: ''
+      ELEVENLABS_KEY: ''
+      BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || '' }}
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - run: python -m pip install -e . pytest
       - run: video-gen-secret-scan
+      - run: python scripts/check_artifact_policy.py --base-ref "$BASE_SHA"
       - run: pytest -q
-      - run: video-gen preflight --profile cad_10
+      - name: Replay exact zero-cost sample
+        run: |
+          video-gen preflight --profile cad_10 --output /tmp/cinematic-preflight.json
+          diff -u examples/portfolio-dry-run/expected/preflight.json /tmp/cinematic-preflight.json
+          video-gen validate-scene examples/portfolio-dry-run/scene.json \
+            --output /tmp/cinematic-scene-plan.json
+          video-gen audit-av-sync examples/portfolio-dry-run/av-sync-calibration.json \
+            --output /tmp/cinematic-av-sync.json
+          diff -u examples/portfolio-dry-run/expected/av-sync-calibration-report.json \
+            /tmp/cinematic-av-sync.json
       - run: video-gen validate-stage2 sequences/clinic-reception-stage2.json
+      - name: Build and verify bounded release bundle
+        run: |
+          video-gen-release build
+          video-gen-release verify dist/cinematic-production-lab-v0.2.0.zip
+      - name: Retain reproducibility bundle for seven days
+        if: matrix.python-version == '3.12'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cinematic-production-lab-v0.2.0-${{ github.sha }}
+          path: |
+            dist/cinematic-production-lab-v0.2.0.zip
+            dist/cinematic-production-lab-v0.2.0.zip.sha256
+          if-no-files-found: error
+          retention-days: 7

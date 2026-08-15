@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "video-gen"
-version = "0.1.0"
-description = "Budget-controlled DeepInfra video proof orchestrator"
+version = "0.2.0"
+description = "Fail-closed cinematic production orchestration and evidence tooling"
 requires-python = ">=3.11"
 
 [project.scripts]
 video-gen = "video_gen.cli:main"
 video-gen-secret-scan = "video_gen.secret_scan:main"
+video-gen-release = "video_gen.release_bundle:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

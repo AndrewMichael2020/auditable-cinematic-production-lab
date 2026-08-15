@@ -18,7 +18,7 @@ repeatedly on one scene after its major architectural lessons are already clear.
 This closeout should not obscure the achievement. Stage 2 produced roughly one minute of coherent,
 concluded two-character dialogue in a beautifully rendered clinic environment, with persona-bound
 voices and realistic multi-voice clinic ambience. It moved the work from attractive isolated clips
-to an end-to-end authored conversation with production lineage, bounded spend and an auditable final
+to an end-to-end authored conversation with production lineage, bounded spend and a traceable final
 assembly. The remaining card, motion and coverage defects define the next craft frontier; they do
 not erase that advance.
 
