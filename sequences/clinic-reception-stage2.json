@@ -334,7 +334,7 @@
           "action": "Amrit keeps polite screen-right eye contact while requesting the card; no card appears yet and no synthetic listener enters frame.",
           "mouth_visible_required": true,
           "response_anticipation_required": true,
-          "dialogue": {"speaker": "nurse-amrit", "line": "May I see your B.C. Services Card?"}
+          "dialogue": {"speaker": "nurse-amrit", "line": "May I see your BC Services Card?"}
         },
         {
           "shot_id": "shot05",

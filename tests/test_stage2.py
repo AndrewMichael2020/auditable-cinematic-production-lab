@@ -83,7 +83,10 @@ def _interval(path: Path, index: int, *, role: str) -> dict:
 
 def _approve_voice_realizations(sequence: dict) -> None:
     for persona in sequence["_series"]["canonical_personas"]:
-        approval = persona["voice"]["voice_realization"]["approval"]
+        realization = persona["voice"].get("voice_realization")
+        if realization is None:
+            continue
+        approval = realization["approval"]
         approval.update({
             "status": "approved",
             "audition_path": f"auditions/{persona['character_id']}.wav",
@@ -135,6 +138,7 @@ def test_stage2_manifest_records_unapproved_voice_realizations():
     statuses = {
         persona["character_id"]: persona["voice"]["voice_realization"]["approval"]["status"]
         for persona in sequence["_series"]["canonical_personas"]
+        if "voice_realization" in persona["voice"]
     }
 
     assert statuses == {
@@ -236,12 +240,14 @@ def test_stage2_assembly_is_native_typed_audible_and_has_outer_fades(tmp_path):
 
     report = assemble_stage2_timeline(
         intervals, output, ambience=ambience, target_seconds=12.0, fade_seconds=0.5,
+        ambience_volume=0.2,
     )
 
     assert report["native_landscape_only"] is True
     assert report["typed_lineage_required"] is True
     assert report["freeze_holds_allowed"] is False
     assert report["fade_in_seconds"] == 0.5
+    assert report["ambience_volume"] == 0.2
     assert native_landscape_facts(output)["native_landscape_16_9"] is True
     assert mean_volume_dbfs(output, start=1.0, duration=2.0) > -50
     assert {item["codec_type"] for item in probe(output)["streams"]} == {"video", "audio"}

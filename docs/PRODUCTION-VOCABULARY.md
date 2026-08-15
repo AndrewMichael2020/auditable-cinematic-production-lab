@@ -1,20 +1,26 @@
 # Production vocabulary
 
-Status: normative for Stage 2 planning, generation, editing, filenames, manifests and audits.
+Status: normative for Stage 2 and Stage 3 planning, generation, editing, filenames, manifests and audits.
 Existing completed-run artifacts remain immutable legacy evidence; new records must use these terms
 and map any provider-specific vocabulary to them.
 
 Run directories use the singular `edit/` for retained intermediate edit clips. The plural
-`edits/` is not part of the Stage 2 layout; migrate any legacy contents before cleanup so two
+`edits/` is not part of the Stage 2 or Stage 3 layout; migrate any legacy contents before cleanup so two
 competing folders cannot silently hold different versions.
 
 ## Working hierarchy
 
-Narrative hierarchy: `Series → Season → Episode → Sequence → Scene → Beat`
+Portfolio hierarchy: `Portfolio → Project → Production`
+
+Narrative branches include:
+
+- series: `Series → Season → Episode → Sequence → Scene → Beat`;
+- feature: `Feature → Act → Sequence → Scene → Beat`;
+- short or standalone work: `Work → Sequence → Scene → Beat`.
 
 Production/edit lineage: `Scene + beat plan → Setup → Take → Clip/source interval → Shot → Cut or transition → next shot`
 
-Series through beat describe story organization and canon. Setup and take describe production. A
+Project and its narrative branch describe story organization and canon. Setup and take describe production. A
 clip is media. A shot, cut and transition describe the edited result. Keeping those layers separate
 prevents a generated file, camera plan and final screen interval from all being called a “shot” or
 “scene.”
@@ -23,17 +29,19 @@ prevents a generated file, camera plan and final screen interval from all being 
 
 | Term | Standard definition | Boundary or usage rule |
 |---|---|---|
-| **Production** | The complete body of planned and generated work for one deliverable or test program. | May contain one or more sequences and their shared continuity state. |
+| **Portfolio** | The collection of unrelated or related creative projects managed by the engine. | Owns discovery and shared engine policy only; it cannot leak one project's canon, assets or style into another. |
+| **Project** | The isolated creative and operational namespace for one series, feature, short, anthology, documentary or other declared form. | Owns form, genre, tone, audience, runtime, format, model/budget policy, bibles, assets and lifecycle state. |
+| **Production** | One greenlit body of planned and generated work toward a specific deliverable or test within a project. | May contain one episode, feature, installment, proof or another declared deliverable and its continuity state. |
 | **Series** | The entire continuing show: its premise, world, enduring style, character canon and body of episodes. | Owns the series bible, style bible, canonical personas and long-range continuity. |
 | **Season** | An ordered production and story block of episodes within a series. | Often released roughly yearly, but a season is not defined by a calendar year. It owns the season arc and season-start continuity state. |
 | **Episode** | One standalone delivered installment or story within a season. | May contain one or more sequences and scenes while also advancing season or series arcs. |
-| **Sequence** | A continuous narrative or thematic unit made from one or more related scenes. | May span locations or times while pursuing one dramatic purpose. Stage 2 currently plans, generates and accepts at sequence level. |
+| **Sequence** | A continuous narrative or thematic unit made from one or more related scenes. | May span locations or times while pursuing one dramatic purpose. Stage 2 and Stage 3 plan, generate and accept at sequence level. |
 | **Scene** | Continuous dramatic action in one primary time and place. | A material change of time or primary environment starts a new scene. A new camera angle, setup or cut does not. |
 | **Beat** | The smallest meaningful change in action, information, intention or emotion. | Several beats may occur in one shot; a beat does not require a cut. |
 | **Setup** | One specific camera and production arrangement: position, height, angle, lens intent, framing, movement, lighting, axis and actor/prop blocking. | A material camera, lens, lighting or blocking change creates a new setup. Setup is a plan, not media. |
 | **Frame** | One individual image in a video stream at one instant. | A frame is not a shot and does not describe shot size. Use **framing** or **shot-size class** for composition. |
 | **Framing** | The intentional placement and scale of subjects, objects and negative space within the image. | Records composition, headroom, look-room and exclusions; it is part of a setup and may be evaluated throughout a shot. |
-| **Shot-size class** | The project's top-level scale taxonomy: `wide`, `medium` or `close`. | Every planned Stage 2 shot declares exactly one class. More specific labels remain descriptive variants within that class. |
+| **Shot-size class** | The project's top-level scale taxonomy: `wide`, `medium` or `close`. | Every planned Stage 2 or Stage 3 shot declares exactly one class. More specific labels remain descriptive variants within that class. |
 | **Wide shot** | Coverage in which geography, environment or full-body spatial relationships dominate. | Includes establishing and master views when their primary job is spatial context. |
 | **Medium shot** | Coverage balancing a subject's performance or action with enough body and environment to preserve context. | This is the broad middle class; waist-up, medium-wide, medium two-shot and medium close-up are descriptive variants. |
 | **Close shot** | Coverage in which a face, object or detailed action dominates and wider geography becomes secondary. | Includes a close-up and an insert such as the card transfer; it still requires safe edges, legibility and stable motion. |
@@ -47,6 +55,34 @@ prevents a generated file, camera plan and final screen interval from all being 
 | **Handle** | Extra source material retained before the selected in-point or after the out-point. | Preserve enough handles to review and adjust cuts without regenerating. |
 | **Edit version** | A named assembly state of a sequence, such as rough assembly, review version or accepted version. | Do not use bare “cut” to mean a version. If an industry label such as “rough cut” is used, also provide a stable version ID. |
 | **Delivery master** | The accepted rendered media file exported from the approved edit version. | Distinct from a **master shot**, which is coverage, and from a camera-original clip. |
+
+## Narrative craft terms
+
+| Term | Standard definition | Boundary or usage rule |
+|---|---|---|
+| **Premise** | The compact dramatic proposition that identifies the principal characters, world, conflict and distinctive possibility of the series or story. | A premise is not a plot summary or marketing slogan; it explains what kind of conflict can repeatedly generate story. |
+| **Dramatic engine** | The repeatable source of pressure, choice and consequence that produces episodes or scenes. | Record how the engine can generate variation without resetting character development. |
+| **Plot thread** | A causally connected chain of goals, obstacles, actions and consequences, often labelled main plot, A plot, B plot or C plot. | A plot thread may cross scenes and episodes; every participating scene records what changes in the thread. |
+| **Character arc** | A planned pattern of change, resistance or revelation in a character's values, behaviour, self-knowledge or circumstances. | An arc may be positive, negative, flat or deliberately unresolved; it is not synonymous with plot activity. |
+| **Relationship arc** | The evolving trust, power, intimacy, conflict or understanding between characters. | Record effects on every participant rather than treating one character as a device for another's growth. |
+| **Theme thread** | A recurring dramatic question or tension explored through choices, consequences, images and relationships. | Do not encode a theme as a line characters must say. A scene declares how it advances, complicates, echoes or counters the question. |
+| **Counter-theme** | A credible competing answer to a theme's central question. | Give the counter-theme dramatic weight; it should not exist only to be easily defeated. |
+| **Motif** | A recurring visual, sonic, verbal or behavioural element whose meaning accumulates or changes. | A motif is not generic decoration. Record each occurrence and its local dramatic function. |
+| **Narrative viewpoint** | The designed relationship among teller, focal consciousness, camera/editor and audience knowledge. | Viewpoint may be first person, second person, third-person limited, third-person objective or third-person omniscient. Camera position alone does not define it. |
+| **Focal character** | The character whose knowledge, perception or emotional alignment principally organizes a passage. | A scene may change focal character only at an intentional, recorded boundary. |
+| **Narrator** | The voice or agency that presents, frames or comments on story events. | Distinguish narrator from focal character and from a character who merely speaks dialogue. Record reliability and knowledge limits. |
+| **Voice-over** | Speech heard without being synchronized to a visible speaker in the current image, used for narration, thought, testimony, memory or a sound bridge. | Off-screen scene dialogue is not automatically narration. Record source time, narrative time and acoustic perspective. |
+| **Subtext** | The active meaning, desire or conflict communicated beneath or against the literal words. | Direct it through playable intention, listening, behaviour and context rather than adding explanatory dialogue. |
+| **Scene objective** | What a character is trying to make happen in the scene. | Write it as a playable action toward another person or situation, not an unplayable mood. |
+| **Scene turn** | The consequential change in information, power, intention, relationship or emotion that gives the scene a different exit value from its entrance. | A scene without a turn must justify its duration through suspense, atmosphere, revelation or deliberate stasis. |
+| **Reveal** | A planned release of information that changes audience or character understanding. | Record who knows what before and after, plus the setup/payoff and viewpoint boundary. |
+
+Narrative inheritance follows:
+
+`Series premise/engine/themes → season arcs/plot threads → episode arcs/reveal schedule → sequence purpose → scene objective/turn → beat action/subtext`
+
+Lower levels realize and complicate higher-level dramatic intent. They may not silently contradict
+established knowledge, arc state or theme/plot continuity.
 
 ## Character and persona terms
 
@@ -104,14 +140,23 @@ If any link is absent or conflicting, the dialogue request is not production-rea
 | **Rejected take** | A retained or recorded take that failed admission; it must never silently re-enter an edit. |
 | **Shot admission** | The decision that a specific source interval can realize a planned shot in an edit. Acceptance of a take does not automatically admit every interval from it. |
 | **Sequence acceptance** | Final approval of the assembled sequence after picture, story action, continuity, lip sync, sound, transitions and evidence gates pass. |
+| **Project lifecycle state** | The project's current operational state: development, writing, greenlight, preproduction, production, postproduction, review, accepted, delivered or archived. | A state transition requires its named evidence and records unresolved debt, continuity, assets and forecast/actual spend. |
 
-## Required identifiers for new Stage 2 records
+## Required identifiers for new Stage 2 and Stage 3 records
 
 | Record | Preferred example |
 |---|---|
+| Portfolio | `portfolio-main` |
+| Project | `proj-ensemble-pilot` |
+| Production | `prod-pilot-01` |
 | Series | `ser01` |
 | Season | `ssn01` |
 | Episode | `ep01` |
+| Plot thread | `plot-a` |
+| Theme thread | `theme-care-vs-cost` |
+| Character arc | `arc-kenji-trust` |
+| Relationship arc | `rel-maya-kenji-trust` |
+| Reveal | `reveal-coverage-inactive` |
 | Sequence | `seq01` |
 | Scene | `scn01` |
 | Setup | `set01` |
@@ -122,7 +167,7 @@ If any link is absent or conflicting, the dialogue request is not production-rea
 | Edit version | `edit-v01` |
 
 IDs are scoped by their parent record in manifests. A timeline entry must preserve the chain from
-series, season and episode through sequence, scene, setup, persona version/casting realization,
+portfolio, project and production through the chosen narrative branch, sequence, scene, setup, persona version/casting realization,
 generation request, take, clip, source interval, shot and adjacent cut/transition. Existing IDs such
 as `c07` remain valid only as legacy aliases and should be mapped to the new typed IDs when a
 completed run is analyzed.

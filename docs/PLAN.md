@@ -2,21 +2,36 @@
 
 ## Decision
 
-Use DeepInfra as the single inference gateway for the first proof. The default registry remains
+Use DeepInfra as the single inference gateway for the Stage 1 and Stage 2 proofs. The default registry remains
 open-weight and permissively licensed. One user-approved, CLI-gated exception permits
 `PrunaAI/p-video-avatar` for a bounded two-speaker lip-sync test; provider metadata does not report
 its licence. Gemini partner models may be selected through the existing DeepInfra gateway when the
 exact model, current provider price, intended role, reservation, and provenance are declared. Direct
-Google Gemini/Flow billing, Vertex AI, OpenAI API, and ElevenLabs remain excluded from runtime.
+Google Gemini/Flow billing, Vertex AI, and OpenAI API remain excluded from the Stage 1/2 runtime.
+ElevenLabs is
+registered only for read-only dynamic voice shortlisting and explicitly confirmed timestamped
+dialogue candidates; neither path authorizes motion generation or automatic casting.
 
-The first deliverable is a reproducible one-location scene and its evidence trail, not a large application.
+Stage 3 adds a separately benchmarked local video lane, `gpt-5.6-sol` as the planned primary creative
+reasoning model, and bounded remote specialist shots. OpenAI API authentication remains a deferred
+readiness gate until the user exposes a key; this plan authorizes neither credential handling nor a
+paid request. DeepInfra remains an optional secondary reasoning/evaluation provider and a remote
+media gateway. The objective is one reproducible 5–12+ minute, multi-set ensemble episode with
+interwoven A/B/C plots, not an unsupported claim of premium-series parity.
 
-## Execution pause and M5 Pro restart gate
+## Stage 2 closeout and Stage 3 transition
 
-Generation is paused for migration to an M5 Pro machine with 64 GB of memory. The latest ad-hoc
-43-second clinic sequence is rejected because the male patient has a female-sounding voice and
-visible dialogue is perceptibly asynchronous. No new paid or local motion request is authorized by
-this plan until all of the following exist:
+The visual-only-persona clinic run remains rejected because the patient voice and visible dialogue
+failed human review. The later Maya/Kenji pipeline repaired the architecture with series-owned voice
+personas, one performance master, Wan visible dialogue, Cosmos spatial action and deterministic
+exact-content handling. V03 is the strongest review candidate, but it carries a brief card blip,
+slow handoff motion, no living wide coverage and pending final human playback acceptance.
+
+Stage 2 is strategically closed at the user's direction rather than repaired indefinitely. Its
+strict two-contrasting-sequence exit gate was not met. The known defects are retained as explicit
+Stage 3 entry debt in [STAGE-2-CLOSEOUT.md](STAGE-2-CLOSEOUT.md).
+
+No new paid or local motion request is authorized by this plan. Stage 3 first requires:
 
 1. every speaker resolves to one series-owned persona version and immutable voice realization;
 2. the voice realization records provider/model/voice version, language and performance direction;
@@ -26,13 +41,19 @@ this plan until all of the following exist:
 5. visible utterances pass normal-speed review with sound, timecoded closure/plosive checks and an
    objective offset/confidence result when a suitable local tool is available;
 6. a perceptual voice mismatch, persistent lead/lag, speech on a still mouth or mouth motion during
-   silence fails closed before assembly.
+   silence fails closed before assembly;
+7. a locked animatic, living-wide setup, coverage matrix and timecoded action plan;
+8. a separate provenance, licence, disk and memory review before any local video-model installation;
+9. a dated official-source scan and fixed-packet evaluation of current frontier reasoning and
+   multimodal candidates at stage start, the mid-stage gate and closeout;
+10. a project manifest that prevents personas, locations, style rules and continuity state from
+    leaking between unrelated productions.
 
-The M5 Pro migration changes the compute environment, not these gates. Secrets remain outside Git;
+The M5 Pro changes the compute environment, not these gates. Secrets remain outside Git;
 ignored run assets are copied separately and hash-verified; tests and dry preflight run before any
 model is loaded. Hardware readiness never implies generation approval.
 
-## Constraints
+## Stage 1 and Stage 2 constraints
 
 | Constraint                  | Rule                                                       |
 | --------------------------- | ---------------------------------------------------------- |
@@ -54,7 +75,7 @@ model is loaded. Hardware readiness never implies generation approval.
 
 The US-dollar caps conservatively assume 1 USD = 1.37 CAD and 12% tax. Before a real run, use the lower of the configured cap and the amount that remains under the DeepInfra account spending limit.
 
-## Approved model registry
+## Stage 1 and Stage 2 approved model registry
 
 | Capability                      | Model                            | Licence                  |            Listed price used for reservation |
 | ------------------------------- | -------------------------------- | ------------------------ | -------------------------------------------: |
@@ -242,7 +263,7 @@ The CAD 15 and CAD 20 profiles are used only if the CAD 10 evidence justifies a 
 
 ## Program Stage 2 — Cinematic robustness test runs
 
-Status: active. Stage 1 proved that the bounded pipeline, billing controls, provenance, basic
+Status: strategically closed 2026-08-04 with declared carry-forward debt. Stage 1 proved that the bounded pipeline, billing controls, provenance, basic
 continuity and visible synchronized dialogue can work. Stage 2 tests whether the same workflow can
 reliably produce short scenes that look and sound like landscape television or film, not merely
 technically valid generated video.
@@ -574,5 +595,55 @@ carry them through every shot that reveals the same depth, and permit their abse
 declared reverse or tighter setup physically excludes that part of the room. A person appearing or
 vanishing within a visible established region blocks promotion.
 
-Stage 2 completes only after a second contrasting sequence passes this same gate. Add one bounded
-feature at a time.
+## Current Maya/Kenji production outcome
+
+`runs/clinic-cosmos-final-v03` is the strongest repaired clinic candidate: 35.459 seconds, 720p
+master plus 480p review copy. It removes the static opening, replaces the noise-like ambience with
+multi-voice clinic activity, cuts speaking pictures at audible performance boundaries, corrects
+`BC Services Card`, and uses an official-layout fictional `SAMPLE` prop. Its automated audit passes;
+final human audiovisual promotion remains pending. The execution policy learned by v02 and v03 is:
+
+1. Bind selected provider realizations to provider-neutral voice personas before dialogue synthesis.
+2. Generate one timestamped performance master and independently ASR-audit it.
+3. Derive turn boundaries from exact script-to-ASR word alignment, never provider segment timestamps
+   alone; pad without stretching or resampling.
+4. Use Wan for retained single-speaker picture performance and Cosmos only for face-free spatial
+   action that passes dense contact review.
+5. Use asynchronous webhooks for long DeepInfra jobs; keep the queue timeout short and callback wait
+   separately bounded. Hash decoded outputs, retain compact receipts, and prune duplicate data URLs.
+6. Assemble typed native-16:9 lineage locally, use semantic spatial ambience beneath dialogue, and
+   use a motivated audio lead when it hides a known picture/audio boundary without hiding action.
+7. Treat automated visual, waveform and ASR evidence as a review gate. Human normal-speed playback
+   remains required before promotion from review candidate to accepted final.
+8. Plan living wide/master coverage before singles; a static visual anchor is not finished footage.
+9. Give essential actions target onset/contact/release/completion timecodes and separate exact prop
+   pixels from generated motion through local tracking and compositing.
+
+The cumulative conservative monetary accounting through v03 is US$7.82976088, with ElevenLabs
+credits reported separately. No further clinic request is authorized; the user chose stage-level
+learning over another repair.
+
+## Program Stage 3 — Cinematic grammar and versatile series production
+
+Status: planned; generation not authorized.
+
+Stage 3 develops cinematic craft in all its dimensions: dramaturgy, character/relationship/plot
+arcs, theme, narrative point of view and time, screenplay/dialogue/narration, directing and acting,
+mise-en-scene, cinematography and lighting, storyboarding and previs, editing, sound/music/silence,
+VFX/compositing, colour/finishing, continuity, production management, rights and ethics.
+
+Its priority order is independent A/B/C episode architecture; story intention; locked animatic and
+living coverage grammar; directing and performance; editing and sound; mise-en-scene and
+cinematography; then temporal action and exact props. Local model benchmarking serves those crafts
+rather than becoming the goal.
+
+The complete plan and machine-readable contract are:
+
+- [STAGE-3-CINEMATIC-SERIES-PLAN.md](STAGE-3-CINEMATIC-SERIES-PLAN.md)
+- `productions/stage3-cinematic-versatility.json`
+
+Stage 3 requires one accepted 5–12+ minute episode built sequence by sequence across multiple sets,
+with A/B/C plots that have independent objectives and causally or thematically meaningful
+intersections. A 60–90 second multi-set vertical slice is the spend-control gate before full
+production. The stage also requires a complete no-generation preproduction packet for a contrasting
+second project, proving that the engine is portable rather than clinic-specific.

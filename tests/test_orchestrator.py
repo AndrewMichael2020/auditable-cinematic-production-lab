@@ -1,9 +1,12 @@
 import json
+import ssl
+import urllib.error
 from decimal import Decimal
 
 import pytest
 
 from video_gen.config import ProjectConfig
+from video_gen.elevenlabs import ElevenLabsClient
 from video_gen.errors import PolicyError, ProviderError, UnknownBillingStatus
 from video_gen.ledger import Ledger
 from video_gen.orchestrator import (Orchestrator, audit_safe_url,
@@ -49,7 +52,11 @@ def test_final_requires_human_promotion(tmp_path):
 
 def test_live_reconciles_reported_cost(tmp_path):
     app, ledger = setup(tmp_path)
-    response = {"video_url": "https://example/v.mp4?signature=secret", "inference_status": {"cost": "0.01"}}
+    response = {
+        "video_url": "https://example/v.mp4?signature=secret",
+        "request_id": "provider-request-1",
+        "inference_status": {"cost": "0.01"},
+    }
 
     request_payloads = []
 
@@ -62,6 +69,9 @@ def test_live_reconciles_reported_cost(tmp_path):
     client = DeepInfraClient("token", transport)
     result = app.run_video("draft_video", "prompt", live=True, confirmed=True, client=client, output_dir=tmp_path)
     assert result.dry_run is False
+    assert result.output_path == str(tmp_path / f"{result.request_id}.mp4")
+    assert result.output_sha256
+    assert result.provider_request_id
     assert str(ledger.actual_total()) == "0.01"
     event = ledger.db.execute("SELECT metadata FROM events WHERE event='completed'").fetchone()[0]
     assert "output_sha256" in event
@@ -96,6 +106,254 @@ def test_final_uses_approved_negative_prompt_and_native_landscape_parameters(tmp
     assert "advertisement" in payload["negative_prompt"]
     assert "Vibrant colors" not in payload["negative_prompt"]
     assert timeout == 600
+
+
+def test_cosmos_super_uses_documented_world_model_payload_and_price(tmp_path):
+    app, ledger = setup(tmp_path)
+    payloads = []
+    response = {
+        "video_url": "data:video/mp4;base64,dmlkZW8=",
+        "request_id": "cosmos-provider-1",
+        "inference_status": {"cost": "0.25"},
+    }
+
+    def transport(req, timeout):
+        if req.full_url.startswith("data:video"):
+            return None, b"video", {}
+        payloads.append((req.full_url, json.loads(req.data), timeout))
+        return 200, json.dumps(response).encode(), {}
+
+    result = app.run_video(
+        "cosmos_world_video", "A locked wide shot with coherent room geometry.",
+        seed=42, live=True, confirmed=True,
+        client=DeepInfraClient("token", transport), output_dir=tmp_path,
+    )
+
+    assert result.model == "nvidia/Cosmos3-Super"
+    assert result.reserved_usd == Decimal("0.25")
+    assert ledger.actual_total() == Decimal("0.25")
+    url, payload, timeout = payloads[0]
+    assert url.endswith("/nvidia/Cosmos3-Super")
+    assert payload == {
+        "prompt": "A locked wide shot with coherent room geometry.",
+        "output_type": "video",
+        "resolution": "720p",
+        "aspect_ratio": "16:9",
+        "duration_seconds": 5,
+        "seed": 42,
+    }
+    assert timeout == 900
+
+
+def test_cosmos_super_webhook_completes_without_long_lived_request(tmp_path):
+    app, ledger = setup(tmp_path)
+    callback = tmp_path / "callback.json"
+    payloads = []
+
+    def transport(req, timeout):
+        if req.full_url.startswith("data:video"):
+            return None, b"video", {}
+        payload = json.loads(req.data)
+        payloads.append(payload)
+        callback.write_text(json.dumps({
+            "request_id": "cosmos-queued-1",
+            "inference_status": {"status": "succeeded", "cost": "0.25"},
+            "results": {"video": "data:video/mp4;base64,dmlkZW8="},
+        }), encoding="utf-8")
+        return 200, json.dumps({
+            "request_id": "cosmos-queued-1",
+            "inference_status": {"status": "queued"},
+        }).encode(), {}
+
+    result = app.run_video(
+        "cosmos_world_video",
+        "A locked clinic.",
+        live=True,
+        confirmed=True,
+        client=DeepInfraClient("token", transport),
+        output_dir=tmp_path,
+        webhook_url="https://example.test/webhook/token",
+        webhook_result_path=callback,
+        webhook_wait_seconds=30,
+    )
+    assert result.dry_run is False
+    assert ledger.actual_total() == Decimal("0.25")
+    assert payloads[0]["webhook"] == "https://example.test/webhook/token"
+
+
+def test_cosmos_super_rejects_unbounded_prompt(tmp_path):
+    app, ledger = setup(tmp_path)
+    with pytest.raises(PolicyError, match="world-model prompt"):
+        app.run_video("cosmos_world_video", "")
+    assert ledger.reserved_total() == 0
+
+
+def test_cosmos_super_accepts_inline_anchor_without_persisting_it(tmp_path):
+    app, ledger = setup(tmp_path)
+    image = "data:image/png;base64,YW5jaG9y"
+    result = app.run_video(
+        "cosmos_world_video", "Preserve the clinic geometry.", image_input=image,
+    )
+    assert result.reserved_usd == Decimal("0.25")
+    event = ledger.db.execute(
+        "SELECT metadata FROM events WHERE event='reserved'"
+    ).fetchone()[0]
+    assert image not in (event or "")
+
+
+def voice_spec(script="Hello, Maya."):
+    return {
+        "character_id": "nurse-maya",
+        "persona_version": "pv01",
+        "voice_persona_id": "vp-maya-v01",
+        "voice_realization_id": "vr-maya-test-v01",
+        "model_id": "Qwen/Qwen3-TTS",
+        "model_version": "COMBINED_SMALL",
+        "synthesis_settings": {
+            "voice": "Serena",
+            "instruct": "A grounded adult Canadian woman.",
+            "language": "English",
+            "response_format": "wav",
+        },
+        "script": script,
+    }
+
+
+def dialogue_spec():
+    return {
+        "sequence_id": "clinic-sequence",
+        "candidate_id": "clinic-dialogue-c01",
+        "model_id": "eleven_v3",
+        "language_code": "en",
+        "output_format": "wav_24000",
+        "apply_text_normalization": "auto",
+        "seed": 3407,
+        "inputs": [
+            {"text": "[warmly] Hello.", "voice_id": "sarah"},
+            {"text": "[gently] Hello.", "voice_id": "bill"},
+        ],
+        "turns": [
+            {"dialogue_id": "one", "speaker": "maya"},
+            {"dialogue_id": "two", "speaker": "kenji"},
+        ],
+    }
+
+
+def test_voice_audition_dry_run_reserves_by_character_count(tmp_path):
+    app, ledger = setup(tmp_path)
+    result = app.run_voice_audition(voice_spec())
+    assert result.dry_run is True
+    assert result.reserved_usd == Decimal("0.00024")
+    assert ledger.actual_total() == 0
+
+
+def test_live_voice_audition_persists_immutable_wav_and_lineage(tmp_path):
+    app, ledger = setup(tmp_path)
+    payloads = []
+    response = {
+        "audio": "UklGRg==",
+        "request_id": "voice-provider-1",
+        "inference_status": {"cost": "0.00024"},
+    }
+
+    def transport(req, timeout):
+        if req.full_url.startswith("data:audio/wav"):
+            return None, b"RIFF", {}
+        payloads.append((req.full_url, json.loads(req.data), timeout))
+        return 200, json.dumps(response).encode(), {}
+
+    result = app.run_voice_audition(
+        voice_spec(), live=True, confirmed=True,
+        client=DeepInfraClient("token", transport), output_dir=tmp_path,
+    )
+
+    output = tmp_path / "vr-maya-test-v01.wav"
+    assert output.read_bytes() == b"RIFF"
+    assert result.output_path == str(output)
+    assert result.output_sha256
+    assert result.provider_request_id == "voice-provider-1"
+    assert payloads == [(
+        "https://api.deepinfra.com/v1/inference/Qwen/Qwen3-TTS?version=COMBINED_SMALL",
+        {
+        "input": "Hello, Maya.",
+        "voice": "Serena",
+        "instruct": "A grounded adult Canadian woman.",
+        "language": "English",
+        "response_format": "wav",
+        }, 300.0,
+    )]
+    metadata = ledger.db.execute(
+        "SELECT metadata FROM events WHERE event='completed'"
+    ).fetchone()[0]
+    assert "voice-provider-1" in metadata
+    assert "A grounded adult Canadian woman" not in metadata
+
+
+def test_voice_audition_refuses_to_overwrite_realization(tmp_path):
+    app, ledger = setup(tmp_path)
+    (tmp_path / "vr-maya-test-v01.wav").write_bytes(b"existing")
+    with pytest.raises(PolicyError, match="already exists"):
+        app.run_voice_audition(voice_spec(), output_dir=tmp_path)
+    assert ledger.reserved_total() == 0
+
+
+def test_dialogue_candidate_dry_run_reserves_zero_usd_and_no_credits(tmp_path):
+    app, ledger = setup(tmp_path)
+    result = app.run_dialogue_candidate(dialogue_spec(), output_dir=tmp_path)
+    assert result.dry_run is True
+    assert result.reserved_usd == Decimal("0.0")
+    assert result.character_cost is None
+    assert ledger.actual_total() == 0
+
+
+def test_live_dialogue_candidate_requires_current_pricing_before_reservation(tmp_path):
+    app, ledger = setup(tmp_path)
+    app.config.raw["pricing"]["verified_at"] = "2020-01-01"
+    client = ElevenLabsClient(
+        "key", transport=lambda req, timeout: (500, b"", {})
+    )
+    with pytest.raises(PolicyError, match="pricing snapshot.*stale"):
+        app.run_dialogue_candidate(
+            dialogue_spec(), live=True, confirmed=True, client=client,
+            output_dir=tmp_path,
+        )
+    assert ledger.reserved_total() == 0
+
+
+def test_live_dialogue_candidate_persists_wav_timestamps_and_credit_usage(tmp_path):
+    app, ledger = setup(tmp_path)
+    response = {
+        "audio_base64": "UklGRmF1ZGlv",
+        "voice_segments": [
+            {"voice_id": "sarah", "start_time_seconds": 0.0, "end_time_seconds": 1.0},
+            {"voice_id": "bill", "start_time_seconds": 1.2, "end_time_seconds": 2.3},
+        ],
+        "alignment": {"characters": ["H"]},
+    }
+
+    def transport(req, timeout):
+        return 200, json.dumps(response).encode(), {
+            "request-id": "eleven-request-1",
+            "character-cost": "34",
+        }
+
+    result = app.run_dialogue_candidate(
+        dialogue_spec(), live=True, confirmed=True,
+        client=ElevenLabsClient("key", transport=transport), output_dir=tmp_path,
+    )
+    output = tmp_path / "clinic-dialogue-c01.wav"
+    manifest_path = tmp_path / "clinic-dialogue-c01.manifest.json"
+    assert output.read_bytes() == b"RIFFaudio"
+    manifest = json.loads(manifest_path.read_text())
+    assert manifest["character_cost"] == 34
+    assert len(manifest["voice_segments"]) == 2
+    assert manifest["human_review"]["decision"] == "pending"
+    assert result.output_sha256 == manifest["output_sha256"]
+    event = ledger.db.execute(
+        "SELECT metadata FROM events WHERE event='completed'"
+    ).fetchone()[0]
+    assert "elevenlabs_credits" in event
+    assert "[warmly] Hello" not in event
 
 
 def test_audit_safe_url_removes_query_and_fragment():
@@ -139,6 +397,27 @@ def test_unknown_cost_is_recorded_and_not_retried(tmp_path):
         app.run_video("draft_video", "prompt", live=True, confirmed=True, client=client)
     event = ledger.db.execute("SELECT event FROM events ORDER BY sequence DESC").fetchone()[0]
     assert event == "billing_unknown"
+
+
+def test_pre_send_tls_verification_failure_is_not_misclassified_as_billable(tmp_path):
+    app, ledger = setup(tmp_path)
+
+    def transport(req, timeout):
+        certificate_error = ssl.SSLCertVerificationError(
+            1, "unable to get local issuer certificate"
+        )
+        raise urllib.error.URLError(certificate_error)
+
+    with pytest.raises(ProviderError, match="before request submission"):
+        app.run_video(
+            "draft_video", "prompt", live=True, confirmed=True,
+            client=DeepInfraClient("token", transport),
+        )
+    event = ledger.db.execute(
+        "SELECT event FROM events ORDER BY sequence DESC"
+    ).fetchone()[0]
+    assert event == "failed"
+    assert ledger.actual_total() == 0
 
 
 def test_unconfirmed_live_request_does_not_reserve(tmp_path):
@@ -264,6 +543,9 @@ def test_live_partner_i2v_uses_locked_payload_and_persists_video(tmp_path):
     )
 
     assert result.reserved_usd == Decimal("0.50")
+    assert result.output_path == str(tmp_path / f"{result.request_id}.mp4")
+    assert result.output_sha256
+    assert result.provider_request_id == "i2v-provider-1"
     assert (tmp_path / f"{result.request_id}.mp4").read_bytes() == b"video"
     payload, timeout = payloads[0]
     assert payload["resolution"] == "720P"
@@ -283,6 +565,40 @@ def test_live_partner_i2v_uses_locked_payload_and_persists_video(tmp_path):
     assert '"image_sha256"' in metadata
     assert '"audio_sha256"' in metadata
     assert str(ledger.actual_total()) == "0.50"
+
+
+def test_live_partner_i2v_can_complete_through_webhook(tmp_path):
+    app, ledger = setup(tmp_path)
+    callback = tmp_path / "i2v-callback.json"
+
+    def transport(req, timeout):
+        if req.full_url.startswith("data:video"):
+            return None, b"video", {}
+        callback.write_text(json.dumps({
+            "request_id": "i2v-queued-1",
+            "inference_status": {"cost": "0.50", "runtime_ms": 120000},
+            "video_url": "data:video/mp4;base64,dmlkZW8=",
+        }), encoding="utf-8")
+        return 200, json.dumps({
+            "request_id": "i2v-queued-1",
+            "inference_status": {"status": "queued"},
+        }).encode(), {}
+
+    result = app.run_image_video(
+        "https://temporary.example/maya.png",
+        "Preserve Maya and synchronize her supplied speech.",
+        audio_input="https://temporary.example/maya.wav",
+        live=True,
+        confirmed=True,
+        allow_partner=True,
+        client=DeepInfraClient("token", transport),
+        output_dir=tmp_path,
+        webhook_url="https://temporary.example/webhook/current",
+        webhook_result_path=callback,
+        webhook_wait_seconds=30,
+    )
+    assert (tmp_path / f"{result.request_id}.mp4").read_bytes() == b"video"
+    assert ledger.actual_total() == Decimal("0.50")
 
 
 def test_partner_avatar_accepts_public_https_without_persisting_url(tmp_path):

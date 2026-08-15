@@ -1,18 +1,19 @@
 # Stage retrospective: lessons and next steps
 
-## Current status — generation paused
+## Current status — Stage 3 planned
 
-Generation is paused for migration to an M5 Pro 64 GB machine. The most recent ad-hoc sequence,
-`clinic-full-sequence-20260803T184456Z`, is rejected after human playback found visible lip
-asynchrony and a female-sounding patient voice. Its successful Care Card action, technical encode,
-text recovery and motivated cuts remain useful evidence, but acceptance is conjunctive: a voice or
-sync block rejects the sequence.
+Stage 2 is strategically closed with declared carry-forward debt. Its strict two-sequence exit gate
+was not met. `clinic-cosmos-final-v03` is the strongest repaired review candidate, but it still has a
+transient card blip, slow handoff motion, no living wide coverage and pending human audiovisual
+acceptance. The user chose to generalize those lessons in Stage 3 instead of repairing the clinic
+scene again. No Stage 3 generation or local-model installation is authorized yet.
 
-The decisive lesson is that a visual persona is not a production persona. Although the Stage 2
-series schema supports structured voices, the latest run bypassed it and created visual-only fresh
-personas. Voice aliases in a TTS request are implementation parameters, not canonical casting.
-Likewise, audio PSNR and shared duration prove transport, not mouth synchronization. The detailed
-audit and restart contract are in [CLINIC-FULL-SEQUENCE-POSTMORTEM.md](CLINIC-FULL-SEQUENCE-POSTMORTEM.md).
+The earlier `clinic-full-sequence-20260803T184456Z` remains rejected after human playback found
+visible lip asynchrony and a female-sounding patient voice. Its decisive lesson still holds: a visual
+persona is not a production persona. Voice aliases in a request are implementation parameters, not
+canonical casting, and audio transport does not prove mouth synchronization. The historical audit
+is in [CLINIC-FULL-SEQUENCE-POSTMORTEM.md](CLINIC-FULL-SEQUENCE-POSTMORTEM.md); the current decision
+is in [STAGE-2-CLOSEOUT.md](STAGE-2-CLOSEOUT.md).
 
 ## Result
 
@@ -260,7 +261,7 @@ first accepted Stage 2 run, not yet the two-run exit condition.
   screen direction, gaze and acting restraint are also checked across every cut, not shot by shot.
 - **Voice continuity begins before lip sync.** Four separately rendered nurse lines produced a
   conspicuous closing-voice mismatch even though the final line itself was clear. The accepted v3
-  records one 19.2-second dramatic Amrit performance, uses spoken B.C./M.S.P. diction, splits only at
+  records one 19.2-second dramatic Amrit performance, uses spoken BC/MSP diction, splits only at
   deliberate pauses and conditions all four visible turns from that master. A shared voice label is
   not proof of shared timbre, prosody or emotional arc.
 - **Extras are spatial state, not decoration.** The same two waiting patients persist whenever the
@@ -314,3 +315,145 @@ is out of sync.
 The next run may start only after both personas have approved, hashed voice auditions and the local
 M5 Pro workflow can emit real audiovisual sync evidence. Do not spend on motion while either gate is
 missing.
+
+## Dynamic voice casting and bounded-retention update — 2026-08-03
+
+- **The persona owns vocal intent; the provider catalog supplies replaceable realizations.** Rank the
+  current catalog from explicit age, gender presentation, accent priority, timbre and vocal manner.
+  Never use a character's appearance, name, ethnicity or cultural background as a voice-matching
+  feature.
+- **Ranking is a shortlist, not casting.** The deterministic matcher ranked alternatives, but the
+  human deliberately selected reassuring Sarah for Maya and older, gentler Bill for Kenji. That
+  override is valid and is recorded separately from the provider-neutral persona.
+- **A voice preview does not approve a dramatic performance.** The selected provider voices are
+  planned realizations until the exact six-turn performance passes the eight-part human voice gate.
+  No motion request may inherit casting approval as performance approval.
+- **Generate dialogue before fixing shot duration.** The first timestamped candidate is 26.16 seconds
+  and uses 577 ElevenLabs credits. Bill's symptom turn is 6.24 seconds, so a passing performance would
+  receive a seven-second dialogue shot instead of being clipped or unnaturally accelerated into the
+  old five-second estimate.
+- **One candidate, then listen.** Do not spend on a second dialogue performance or any video until the
+  first candidate is reviewed at normal speed.
+- **Delete rejected pixels, not production knowledge.** Large failed/rejected media may be pruned only
+  from an explicit decision manifest containing its relative path, exact hash, rejection reason and
+  retained evidence. Keep lessons, prompts, QA, manifests, ledgers, hashes and approved visual anchors.
+
+## Maya and Kenji Cosmos/Wan production retrospective — 2026-08-03
+
+The 47.459-second `clinic-cosmos-final-v02` render is a completed review candidate, not a human-
+accepted final. It retains the Asian man/Black woman clinic anchor, binds Sarah and Bill through
+versioned voice personas, uses Cosmos for the one-card handoff, and uses Wan picture performances for
+the six spoken beats. Independent ASR recovered every intended word from audited windows of the final
+master, including the then-scripted `BC Service Card`, `may be billed`, `Oh no`, `Doctors of BC`, and `after your visit`. The shareability repair corrects the official product name to `BC Services Card` and requires the replacement line and card prop to pass together.
+
+- **Cosmos is excellent at the job it actually passed.** The face-free handoff preserved one card,
+  ownership, contact, release, the empty withdrawing hand, reader geometry and clinic space. Two
+  actor-visible silent Cosmos attempts retained identity and room geometry but made Kenji articulate
+  inaudible speech. Stop after the bounded repair and use Cosmos for spatial inserts, not silent
+  conversational faces, until that motion prior can be controlled.
+- **Wan preserved the supplied audio extremely well.** Six initial takes retained identity, camera,
+  clinic continuity and supplied audio at zero lag. The pilot measured 0.999806 correlation; the five
+  final local synchronized clips measured 0.999826–0.999972 after AAC decode.
+- **Provider turn timestamps are not edit points.** ElevenLabs' final reported boundary was 0.615
+  seconds early, while several starts also contained the preceding speaker. That created duplicated
+  fragments and clipped final words before Wan generation. The splitter now aligns the exact script
+  against independent ASR word timestamps and cuts only inside inter-line gaps. The last turn owns the
+  remaining candidate audio.
+- **A content transcript can diagnose the pipeline, not perceived sync.** Whole-mix Whisper
+  hallucinated filler in long ambience gaps, but speech-only windows from the exact final master
+  recovered the complete canonical script. Waveform and ASR evidence prove content preservation;
+  normal-speed human playback still decides voice performance and visible lip sync.
+- **Use motivated picture coverage for an audio-boundary repair.** The coverage line needed 0.536
+  seconds more mouth-motion lead than its retained Wan take provided. The final edit lets that line
+  begin over the uninterrupted end of the Cosmos handoff, then cuts to Maya when her retained mouth
+  performance starts. This preserves the card action and avoids a visible technical stitch.
+- **Long provider jobs require an async return path.** Synchronous Cosmos requests disconnected near
+  60 seconds despite a longer client timeout. The bounded webhook path completed both Cosmos and Wan
+  calls without duplicate submission. Raw callbacks are data-URL duplicates and should be reduced to
+  compact receipts immediately after the decoded media is hashed.
+- **Do not use a public asset tunnel when direct bounded transport is unavailable.** A safer inline
+  attempt was rejected by Wan's upstream 61,440-character field limit. The run stopped cloud
+  generation and finished from retained local picture/audio rather than re-exposing repaired assets.
+- **Budget reporting needs two numbers.** Provider-reported known actual is US$5.75976488. Nine
+  unresolved requests reserve a conservative additional US$1.31, so the run remains below the
+  authorized US$10 even under the worst-case ledger assumption.
+
+Next: the user should review the 480p copy at normal speed with headphones, focusing on the last word
+of Maya's greeting, the handoff-to-coverage cut, Kenji's disappointed `Oh no`, and the complete final
+answer. If one sync defect is visible, repair that named interval only; do not reopen model selection.
+
+## Shareability repair v03 — 2026-08-03
+
+The 35.459-second `clinic-cosmos-final-v03` candidate repairs the five defects found during human
+review of v02 without reopening the passing cast, clinic, or dialogue performances. It is still a
+review candidate until normal-speed human playback with sound passes.
+
+- **A static plate is not an establishing shot.** V03 opens directly on Maya's moving greeting. All
+  24 sampled frames in the first second are unique, and the edit contains no freeze holds.
+- **Room tone and room life are different assets.** The synthetic noise bed was replaced with a
+  three-voice ElevenLabs background exchange, then filtered, spatialized, reflected and mixed as
+  distant clinic activity. The final ASR hears only two brief background lines during the face-free
+  handoff, rather than a continuous foreground conversation.
+- **Picture duration must follow audible performance.** Every speaking shot now ends 80–225 ms after
+  its independently detected final word. Long silent articulation is removed editorially; no actor
+  shot is padded with a freeze or independently retimed audio.
+- **Exact institutional names are content locks.** Sarah's replacement line is `May I see your BC
+  Services Card, please?` and its new Wan take was generated from the replacement audio. Do not repair
+  a changed spoken line by swapping only the soundtrack under an old mouth performance.
+- **A required identity prop needs controlled source pixels.** The blank card was replaced by a
+  fictional `SAMPLE` prop composited from the official Province of British Columbia Photo BC Services
+  Card layout. Cosmos then animated the face-free handoff and preserved one card through contact,
+  release and final ownership. No real identifier is present.
+- **Spend against named defects.** The repair used exactly one Wan dialogue attempt and one Cosmos
+  handoff attempt. New provider-reported video cost is US$0.749996; the final ASR has a conservative
+  US$0.01 reservation because its response omitted cost. ElevenLabs reports 301 credits for the kept
+  line and background dialogue. A discarded Sound Effects response omitted billing provenance, so
+  220 credits remain reserved rather than being guessed away.
+
+The automated gate passes exact wording, opening motion, frame geometry, codec, duration, final
+loudness, no-freeze policy, card source lineage and ASR content. Promotion remains blocked on the
+user's normal-speed audiovisual review. Independently, the card blip, slow handoff and absent living
+wide coverage are retained as Stage 3 design debt rather than minimized as accepted limitations.
+
+## Stage 2 strategic closeout and Stage 3 decision — 2026-08-04
+
+Human review of v03 found three remaining production defects: a transient card-surface blip, a
+handoff whose movement is too slow, and no living wide establishing/master coverage. These do not
+justify another scene-specific clinic repair. They reveal missing general capabilities:
+
+- exact high-information prop pixels must be tracked and composited independently from generated
+  motion;
+- essential action requires storyboarded onset, contact, release and completion time windows;
+- a static anchor cannot substitute for an animated geography master or later return to shared
+  space.
+
+Stage 2 is therefore closed strategically with declared debt. Its strict two-sequence exit gate was
+not met, and v03 remains a review candidate rather than an accepted final. The decision is explicit
+so later work cannot silently rewrite that history.
+
+The closeout is also a major positive milestone: the engine produced roughly one minute of coherent,
+concluded two-character dialogue in a convincing clinic environment, with persona-bound voices,
+realistic multi-voice ambience, bounded spend and auditable assembly. The remaining defects are the
+next craft frontier, not evidence that the end-to-end production failed.
+
+Stage 3 prioritizes cinematic craft rather than model accumulation. Its complete craft model covers
+dramaturgy, character/relationship/plot arcs, intertwined theme threads, narrative viewpoint and
+time, screenplay/dialogue/narration, directing and acting, mise-en-scene, cinematography and
+lighting, storyboarding/previs, editing, sound/music/silence, VFX/compositing, colour/finishing,
+continuity, production management, rights and ethics.
+
+The immediate order is: a complete 5–12+ minute multi-set pilot with independently motivated A/B/C
+plots; locked episode animatic and living coverage grammar; directing and performance; editing and
+sound; production design and cinematography; then temporal action and exact props. The clinic becomes
+a regression fixture rather than a genre template. A contrasting second-project preproduction
+packet proves that core schemas and workflows transfer across tone, form and production state.
+
+`gpt-5.6-sol` is the planned primary model for story architecture, screenwriting, preproduction
+synthesis and difficult reviews once the user exposes OpenAI API access. DeepInfra remains a bounded
+secondary evaluation/fallback lane and a remote media gateway. Cosmos3-Super is remote-only through
+DeepInfra or a verified NVIDIA-hosted endpoint; it is never a local dependency. At stage start,
+midpoint and closeout, a dated official-source web scan compares current LLM and multimodal
+candidates on the same filmmaking evaluation packet. No model changes automatically.
+
+See [the Stage 2 closeout](STAGE-2-CLOSEOUT.md) and
+[the Stage 3 cinematic-series plan](STAGE-3-CINEMATIC-SERIES-PLAN.md).

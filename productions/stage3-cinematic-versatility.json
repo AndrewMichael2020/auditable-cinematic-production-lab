@@ -1,0 +1,350 @@
+{
+  "schema_version": "2.0",
+  "stage_id": "stage3-multiset-interwoven-pilot",
+  "status": "planned",
+  "generation_authorized": false,
+  "decision_date": "2026-08-04",
+  "north_star": "Project-aware low-budget production with premium authored story, performance, mise-en-scene, cinematography, editing and sound.",
+  "stage2_closeout": {
+    "strict_exit_gate_met": false,
+    "transition_type": "user_directed_strategic_closeout_with_declared_debt",
+    "achievement": "Roughly one minute of coherent concluded two-character clinic dialogue with persona-bound voices, convincing environment, realistic multi-voice ambience, bounded spend and auditable assembly.",
+    "retrospective": "docs/STAGE-2-CLOSEOUT.md",
+    "strongest_review_candidate": "runs/clinic-cosmos-final-v03/final/clinic-maya-kenji-cosmos-v03-master.mp4",
+    "candidate_audit": "runs/clinic-cosmos-final-v03/audits/final-v03-audit.json",
+    "future_role": "regression_fixture_not_project_template"
+  },
+  "project_architecture": {
+    "root_hierarchy": [
+      "portfolio",
+      "project",
+      "production",
+      "narrative_form",
+      "sequence",
+      "scene",
+      "beat"
+    ],
+    "supported_form_examples": [
+      "series",
+      "feature",
+      "short",
+      "anthology",
+      "documentary",
+      "commercial_experiment"
+    ],
+    "required_project_fields": [
+      "project_id",
+      "form",
+      "genre",
+      "tone",
+      "audience_contract",
+      "runtime_target",
+      "aspect_ratio",
+      "frame_rate",
+      "narrative_mode",
+      "craft_priorities",
+      "visual_bible",
+      "sound_bible",
+      "model_policy",
+      "budget_policy",
+      "lifecycle_state"
+    ],
+    "lifecycle_states": [
+      "development",
+      "writing",
+      "greenlight",
+      "preproduction",
+      "production",
+      "postproduction",
+      "review",
+      "accepted",
+      "delivered",
+      "archived"
+    ],
+    "isolation_rule": "Personas, casting, sets, props, style, continuity, accepted assets, cost and model decisions are project-scoped and cannot leak between projects."
+  },
+  "entry_debt": [
+    {
+      "debt_id": "debt-wide-coverage",
+      "defect": "No living wide establishing or master coverage in v03.",
+      "stage3_response": "Require living establishing and master coverage plus planned returns to shared geography."
+    },
+    {
+      "debt_id": "debt-action-tempo",
+      "defect": "The card handoff motion plays too slowly.",
+      "stage3_response": "Declare and measure initiation, contact, release and completion time windows."
+    },
+    {
+      "debt_id": "debt-exact-prop-motion",
+      "defect": "The generated card surface has a transient blip.",
+      "stage3_response": "Track and composite exact prop pixels over a stable action plate with reviewed occlusion masks."
+    },
+    {
+      "debt_id": "debt-perceptual-acceptance",
+      "defect": "V03 has not received recorded final human audiovisual acceptance.",
+      "stage3_response": "Require normal-speed review with sound on headphones and ordinary speakers."
+    },
+    {
+      "debt_id": "debt-local-video-runtime",
+      "defect": "No local video model has a measured production benchmark on the target Apple Silicon host.",
+      "stage3_response": "Benchmark one short fictional 480p living-wide clip before selecting a local production baseline."
+    }
+  ],
+  "craft_dimensions": [
+    "story_architecture_and_dramaturgy",
+    "character_relationship_and_plot_arcs",
+    "theme_and_counter_theme",
+    "narrative_viewpoint_voice_and_time",
+    "screenwriting_dialogue_and_narration",
+    "directing_casting_and_performance",
+    "mise_en_scene_and_production_design",
+    "cinematography_lighting_and_camera",
+    "storyboarding_previs_and_coverage",
+    "editing_and_temporal_composition",
+    "dialogue_sound_music_foley_and_silence",
+    "vfx_generative_integration_and_compositing",
+    "colour_finishing_titles_and_delivery",
+    "continuity_production_management_rights_and_ethics"
+  ],
+  "priorities": {
+    "priority_0_hard_gates": [
+      "coherent_story_event_and_turn",
+      "persona_voice_exact_content_safety_and_rights",
+      "intelligible_dialogue_and_visible_speech_acceptance",
+      "geography_character_prop_and_sound_continuity",
+      "reproducible_delivery_and_honest_acceptance_status"
+    ],
+    "priority_1_stage3_focus": [
+      "independent_abc_plot_arcs_and_meaningful_intersections",
+      "locked_episode_animatic_and_living_coverage_grammar",
+      "directing_listening_subtext_and_performance_continuity",
+      "editing_rhythm_sound_foley_and_silence",
+      "mise_en_scene_cinematography_lighting_and_palette",
+      "temporal_action_and_deterministic_exact_props"
+    ]
+  },
+  "episode_scope": {
+    "deliverable": "one_complete_multiset_ensemble_pilot",
+    "duration_minutes": {
+      "minimum": 5,
+      "standard_minimum": 8,
+      "standard_maximum": 10,
+      "expanded_minimum": 12
+    },
+    "sets": {
+      "minimum": 3,
+      "maximum": 5
+    },
+    "speaking_characters": {
+      "minimum": 4,
+      "maximum": 7
+    },
+    "plot_threads": [
+      {
+        "id": "plot-a",
+        "role": "principal_dramatic_spine"
+      },
+      {
+        "id": "plot-b",
+        "role": "independent_character_plot"
+      },
+      {
+        "id": "plot-c",
+        "role": "compact_complete_counterpoint_complication_or_echo"
+      }
+    ],
+    "plot_invariant": "Each plot has its own focal character, objective, escalation, turn and changed exit state; intersections create causality, obstruction, revelation, ironic contrast, thematic echo or convergence.",
+    "beat_matrix_units": [
+      "cold_open",
+      "inciting_events",
+      "escalation",
+      "midpoint_collision",
+      "complications",
+      "convergence",
+      "resolution_or_tag"
+    ]
+  },
+  "vertical_slice_gate": {
+    "duration_seconds": {
+      "minimum": 60,
+      "maximum": 90
+    },
+    "minimum_sets": 2,
+    "minimum_plot_threads": 2,
+    "required_elements": [
+      "living_wide",
+      "dialogue_exchange",
+      "listener_reaction",
+      "motivated_sound_or_picture_bridge",
+      "normal_speed_human_review",
+      "cost_per_accepted_second_forecast"
+    ],
+    "fresh_user_approval_required_after_pass": true
+  },
+  "portability_proof": {
+    "deliverable": "complete_no_generation_preproduction_packet",
+    "must_contrast": [
+      "project",
+      "genre",
+      "tone",
+      "narrative_mode",
+      "visual_language",
+      "sound_language"
+    ],
+    "clinic_hardcodes_allowed_in_core": false
+  },
+  "production_invariants": {
+    "complete_episode_planned_before_generation": true,
+    "animatic_required_before_generation": true,
+    "living_master_required_per_scene": true,
+    "return_to_shared_geography_required_unless_waived": true,
+    "exact_surfaces_are_deterministic": true,
+    "action_clock_required_for_essential_action": true,
+    "one_heavyweight_local_model_resident": true,
+    "human_aesthetic_authority": true,
+    "automated_scores_cannot_override_hard_failures": true,
+    "paid_requests_are_sequential": true,
+    "two_non_improving_attempt_stop": true
+  },
+  "reasoning_policy": {
+    "primary": {
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "api": "responses",
+      "authentication_status": "deferred_until_user_exposes_key",
+      "reasoning_effort_by_role": {
+        "stage_review_episode_architecture_final_screenplay_root_cause": "max",
+        "scene_plan_script_doctor_storyboard_continuity": "xhigh"
+      },
+      "pro_mode": "evaluation_only_not_automatic"
+    },
+    "secondary": {
+      "provider": "deepinfra",
+      "selection": "dated_catalog_scan_plus_fixed_packet",
+      "roles": [
+        "independent_evaluation",
+        "fallback_after_primary_failure_or_unavailability",
+        "specialized_multimodal_review"
+      ]
+    },
+    "local_private_utility": "lmstudio",
+    "qwen_stage3_creative_primary": false,
+    "deterministic_schema_budget_and_acceptance_authority": "code"
+  },
+  "model_review_policy": {
+    "cadence": [
+      "stage_start",
+      "mid_stage_vertical_slice_gate",
+      "stage_closeout"
+    ],
+    "web_scan_required": true,
+    "official_sources_first": true,
+    "record_path_pattern": "research/model-candidates/YYYY-MM-DD-stageN.json",
+    "fixed_packet": [
+      "project_premise_and_theme_architecture",
+      "independent_abc_plots_and_intersections",
+      "five_to_twelve_minute_beat_matrix",
+      "subtextual_scene_and_dialogue_rewrite",
+      "storyboard_and_coverage_plan",
+      "cross_scene_continuity_audit",
+      "postmortem_root_cause_analysis"
+    ],
+    "human_approval_required_for_primary_change": true,
+    "automatic_model_switch": false
+  },
+  "video_runtime_candidates": {
+    "local_primary_candidate": {
+      "model_family": "Lightricks/LTX-2.3",
+      "status": "benchmark_required",
+      "initial_benchmark": "one_480p_two_to_four_second_living_wide",
+      "production_approved": false
+    },
+    "local_workflow_host": {
+      "runtime": "ComfyUI_or_official_LTX_local_pipeline",
+      "status": "provenance_license_disk_and_memory_review_required"
+    },
+    "local_wan_candidate": {
+      "model_family": "Wan-AI/Wan2.2-TI2V-5B",
+      "status": "experimental_only_official_apple_silicon_path_unproven"
+    },
+    "remote_dialogue": {
+      "provider": "deepinfra",
+      "model_family": "Wan-AI/Wan2.6-I2V",
+      "role": "bounded_audio_conditioned_visible_dialogue"
+    },
+    "remote_spatial_action": {
+      "model_family": "nvidia/Cosmos3-Super",
+      "local_allowed": false,
+      "known_route": "deepinfra",
+      "nvidia_hosted_route": "discover_and_verify_exact_endpoint_free_allowance_terms_and_rate_limits_at_each_stage_review",
+      "role": "bounded_physical_action_spatial_causality_and_world_state"
+    },
+    "voice": {
+      "provider": "elevenlabs",
+      "role": "persona_bound_performance_masters_and_background_ensemble",
+      "credits_tracked_separately": true
+    }
+  },
+  "continuous_improvement": {
+    "cycle": [
+      "refresh_model_candidates_when_stage_gate_is_due",
+      "observe_complete_edit_at_normal_speed_on_two_playback_systems",
+      "diagnose_story_craft_model_and_postproduction_root_causes",
+      "choose_one_measurable_craft_hypothesis_per_sequence",
+      "compare_animatic_alternatives_before_generation",
+      "generate_minimum_required_coverage",
+      "blind_compare_complete_edits",
+      "promote_pattern_after_two_contrasting_successes",
+      "update_accepted_benchmark_reel_and_failure_taxonomy"
+    ],
+    "metrics": [
+      "cost_per_accepted_second",
+      "generated_seconds_per_accepted_second",
+      "accepted_take_rate",
+      "shared_geography_picture_percentage",
+      "action_tempo_error_seconds",
+      "exact_content_defects_per_exact_content_shot",
+      "continuity_defects_per_cut",
+      "animatic_to_acceptance_elapsed_time",
+      "craft_score_delta",
+      "reusable_assets_promoted",
+      "abc_plot_intersection_clarity",
+      "project_portability_failures"
+    ]
+  },
+  "budget_policy": {
+    "live_requests_authorized": false,
+    "vertical_slice_and_episode_require_separate_caps": true,
+    "forecast_required_after_locked_animatic": true,
+    "forecast_scenarios": [
+      "low",
+      "expected",
+      "high"
+    ],
+    "reasoning_and_video_costs_reported_separately": true,
+    "elevenlabs_credits_reported_separately": true,
+    "current_price_verification_required_before_reservation": true
+  },
+  "exit_gate": {
+    "accepted_episode_required": true,
+    "accepted_episode_duration_minutes_minimum": 5,
+    "interwoven_plot_threads_required": 3,
+    "contrasting_preproduction_packet_required": true,
+    "human_craft_score_median_minimum": 4,
+    "human_craft_dimension_minimum": 3,
+    "required_capabilities": [
+      "independent_abc_arcs_and_legible_intersections",
+      "multiset_living_geography_and_motivated_coverage",
+      "stable_exact_content_surfaces",
+      "natural_storyboarded_action_tempo",
+      "recurring_persona_voice_location_and_episode_continuity",
+      "human_approved_visible_dialogue",
+      "retained_sound_stems_foley_and_two_device_review",
+      "model_scans_at_start_midpoint_and_closeout",
+      "episode_cost_and_generation_to_acceptance_report",
+      "reusable_accepted_shot_pattern_library",
+      "no_clinic_hardcodes_in_core"
+    ]
+  },
+  "plan_document": "docs/STAGE-3-CINEMATIC-SERIES-PLAN.md"
+}

@@ -13,6 +13,9 @@ def test_registry_and_costs():
     assert config.profile_cap("cad_10") == Decimal("10.0")
     assert config.model("draft_video").reserve(seconds=5) == Decimal("0.0125")
     assert config.model("final_video").reserve(seconds=5) == Decimal("0.375")
+    assert config.model("cosmos_world_video").reserve(seconds=5) == Decimal("0.25")
+    assert config.model("voice_design").reserve(characters=250) == Decimal("0.005")
+    assert config.model("dialogue_voice").reserve(characters=250) == Decimal("0.0")
     assert config.model("lip_sync_avatar").reserve(seconds=8) == Decimal("0.200")
 
 
@@ -46,4 +49,16 @@ def test_config_rejects_unsafe_execution_policy(tmp_path):
     path = tmp_path / "project.json"
     path.write_text(json.dumps(mutated), encoding="utf-8")
     with pytest.raises(PolicyError, match="disable retries"):
+        ProjectConfig.load(path)
+
+
+def test_credit_billing_requires_an_explicit_zero_usd_placeholder(tmp_path):
+    raw = ProjectConfig.load().raw
+    mutated = json.loads(json.dumps(raw))
+    mutated["approved_models"]["dialogue_voice"][
+        "price_usd_per_million_characters"
+    ] = 1
+    path = tmp_path / "project.json"
+    path.write_text(json.dumps(mutated), encoding="utf-8")
+    with pytest.raises(PolicyError, match="credit-billed USD placeholder must be zero"):
         ProjectConfig.load(path)

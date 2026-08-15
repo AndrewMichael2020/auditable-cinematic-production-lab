@@ -116,8 +116,30 @@ class ProjectConfig:
             if price_schemes != 1:
                 raise PolicyError(f"approved model {role} requires exactly one pricing scheme")
             price_fields = [key for key in data if key.startswith("price_usd_")]
-            for field in price_fields:
-                cls._positive_decimal(data[field], f"approved model {role} {field}")
+            billing_unit = str(data.get("billing_unit", "usd"))
+            if billing_unit == "elevenlabs_credits":
+                if (
+                    data["endpoint_type"] != "elevenlabs_text_to_dialogue"
+                    or price_fields != ["price_usd_per_million_characters"]
+                ):
+                    raise PolicyError(
+                        f"approved model {role} has an invalid credit-billed pricing scheme"
+                    )
+                try:
+                    usd_placeholder = Decimal(str(data[price_fields[0]]))
+                except Exception as exc:
+                    raise PolicyError(
+                        f"approved model {role} credit-billed USD placeholder must be numeric"
+                    ) from exc
+                if not usd_placeholder.is_finite() or usd_placeholder != 0:
+                    raise PolicyError(
+                        f"approved model {role} credit-billed USD placeholder must be zero"
+                    )
+            elif billing_unit == "usd":
+                for field in price_fields:
+                    cls._positive_decimal(data[field], f"approved model {role} {field}")
+            else:
+                raise PolicyError(f"approved model {role} has an unsupported billing_unit")
             if "price_usd_per_million_input_tokens" in data and \
                     "price_usd_per_million_output_tokens" not in data:
                 raise PolicyError(f"approved model {role} requires output token pricing")

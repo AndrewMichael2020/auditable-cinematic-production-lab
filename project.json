@@ -1,12 +1,13 @@
 {
   "schema_version": "0.2.0",
   "project_id": "video-gen-test",
-  "status": "generation_paused_for_m5_voice_persona_remediation",
+  "status": "maya_kenji_cosmos_final_v02_rendered_review_candidate",
   "updated_at": "2026-08-03",
-  "objective": "Resume production on an M5 Pro only after every speaker has a canonical approved voice realization and visible dialogue has a valid perceptual audiovisual-sync gate.",
+  "objective": "Review the rendered Maya and Kenji clinic sequence at normal speed, with Sarah and Bill bound through persona voice contracts, Cosmos admitted for the face-free spatial handoff, and retained Wan picture performances synchronized to ASR-audited dialogue turns.",
   "provider_policy": {
     "allowed_providers": [
-      "deepinfra"
+      "deepinfra",
+      "elevenlabs"
     ],
     "partner_video_models_allowed": false,
     "explicit_partner_test_exception": {
@@ -27,7 +28,7 @@
     "direct_google_gemini_api_allowed": false,
     "vertex_ai_allowed": false,
     "openai_api_allowed": false,
-    "elevenlabs_allowed": false
+    "elevenlabs_allowed": true
   },
   "budget": {
     "display_currency": "CAD",
@@ -39,25 +40,34 @@
         "application_hard_cap_usd": 10.0,
         "max_fastwan_5s_drafts": 40,
         "max_wan22_5s_finals": 12,
-        "max_wan26_i2v_requests": 19
+        "max_cosmos3_super_5s_candidates": 8,
+        "max_wan26_i2v_requests": 19,
+        "max_voice_auditions": 4,
+        "max_dialogue_candidates": 2
       },
       "cad_15": {
         "application_hard_cap_usd": 9.75,
         "max_fastwan_5s_drafts": 80,
         "max_wan22_5s_finals": 20,
-        "max_wan26_i2v_requests": 19
+        "max_cosmos3_super_5s_candidates": 12,
+        "max_wan26_i2v_requests": 19,
+        "max_voice_auditions": 4,
+        "max_dialogue_candidates": 2
       },
       "cad_20": {
         "application_hard_cap_usd": 15.0,
         "max_fastwan_5s_drafts": 120,
         "max_wan22_5s_finals": 28,
-        "max_wan26_i2v_requests": 19
+        "max_cosmos3_super_5s_candidates": 16,
+        "max_wan26_i2v_requests": 19,
+        "max_voice_auditions": 4,
+        "max_dialogue_candidates": 2
       }
     },
     "default_profile": "cad_10",
     "deepinfra_account_spending_limit_usd_max": 20.0,
     "monetary_cap_overrides_count_caps": true,
-    "provider_reported_cost_field": "inference_status.cost",
+    "provider_reported_cost_field": "inference_status.cost, or exact input_character_length multiplied by the verified immutable model-registry rate for TTS endpoints that omit inline cost",
     "reservation_required_before_request": true,
     "reconcile_after_request": true
   },
@@ -94,6 +104,19 @@
       "request_timeout_seconds": 600,
       "negative_prompt": "advertisement, commercial, corporate promotional video, product showcase, beauty campaign, glamour key light, glossy plastic skin, stock-photo pose, presenter smile, cartoon, animation, 3D render, illustration, continuous cyan wall, long dark-wood reception counter, auditorium chair rows, portrait frame, extreme close crop, cut-off face, readable text, logo, badge, watermark, malformed hands, extra fingers, duplicate person, fused bodies"
     },
+    "cosmos_world_video": {
+      "id": "nvidia/Cosmos3-Super",
+      "licence": "OpenMDW-1.1",
+      "endpoint_type": "deepinfra_world_model",
+      "price_usd_per_second": 0.05,
+      "seconds": 5,
+      "resolution": "720p",
+      "aspect_ratio": "16:9",
+      "output_type": "video",
+      "max_prompt_characters": 4000,
+      "request_timeout_seconds": 900,
+      "allowed_use": "promoted physics-aware world-model candidate after storyboard authorization and draft promotion or bounded repair authorization"
+    },
     "image_to_video": {
       "id": "Wan-AI/Wan2.6-I2V",
       "licence": "provider-metadata-unspecified",
@@ -102,7 +125,7 @@
       "default_allowed": false,
       "price_usd_per_second": 0.10,
       "seconds": 5,
-      "allowed_seconds": [5, 6, 7, 8],
+      "allowed_seconds": [5, 6, 7, 8, 9, 10],
       "resolution": "720P",
       "synchronized_audio_input_allowed": true,
       "request_timeout_seconds": 600,
@@ -121,6 +144,29 @@
       "licence": "MIT",
       "endpoint_type": "deepinfra_tts",
       "price_usd_per_million_characters": 1.0
+    },
+    "voice_design": {
+      "id": "Qwen/Qwen3-TTS",
+      "licence": "Apache-2.0",
+      "endpoint_type": "deepinfra_tts_custom_voice",
+      "model_version": "COMBINED_SMALL",
+      "price_usd_per_million_characters": 20.0,
+      "max_input_characters": 1000,
+      "request_timeout_seconds": 300,
+      "allowed_response_format": "wav",
+      "allowed_use": "Canonical persona audition and sequence-wide performance-master generation with a named preset voice plus an explicit performance instruction; human approval and immutable artifact binding are required before motion."
+    },
+    "dialogue_voice": {
+      "id": "eleven_v3",
+      "licence": "ElevenLabs commercial service terms",
+      "endpoint_type": "elevenlabs_text_to_dialogue",
+      "price_usd_per_million_characters": 0.0,
+      "billing_unit": "elevenlabs_credits",
+      "max_input_characters": 2000,
+      "max_dialogue_turns": 10,
+      "output_format": "wav_24000",
+      "request_timeout_seconds": 300,
+      "allowed_use": "Human-approved voice realizations compiled into one timestamped multi-speaker performance candidate; provider credit usage is recorded separately from the DeepInfra USD production cap."
     },
     "lip_sync_avatar": {
       "id": "PrunaAI/p-video-avatar",
@@ -152,9 +198,14 @@
         "purpose": "Authenticate all approved DeepInfra inference requests"
       }
     ],
+    "local_optional": [
+      {
+        "name": "ELEVENLABS_KEY",
+        "purpose": "Read the voice catalog and generate explicitly approved dialogue candidates"
+      }
+    ],
     "forbidden": [
       "OPENAI_API_KEY",
-      "ELEVENLABS_API_KEY",
       "GEMINI_API_KEY",
       "GOOGLE_API_KEY",
       "GOOGLE_APPLICATION_CREDENTIALS"

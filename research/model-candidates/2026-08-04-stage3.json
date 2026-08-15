@@ -1,0 +1,203 @@
+{
+  "schema_version": "1.0",
+  "stage_id": "stage3-multiset-interwoven-pilot",
+  "review_gate": "stage_start",
+  "verified_date": "2026-08-04",
+  "verified_at": "2026-08-04T10:36:52Z",
+  "official_sources_only": true,
+  "live_evaluation_authorized": false,
+  "data_handling_and_terms_review": "required_before_any_new_provider_receives_project_material",
+  "selection": {
+    "primary_model": "gpt-5.6-sol",
+    "provider": "openai",
+    "reason": "Frontier creative and professional-work capability is preferred because text reasoning cost is small relative to video generation and failures.",
+    "authentication_status": "deferred_until_user_exposes_openai_api_key",
+    "automatic_switch_allowed": false
+  },
+  "candidates": [
+    {
+      "provider": "openai",
+      "model_id": "gpt-5.6-sol",
+      "lifecycle": "current_frontier",
+      "access_status": "api_key_not_yet_exposed",
+      "context_tokens": 1050000,
+      "max_output_tokens": 128000,
+      "input_usd_per_million_tokens": 5.0,
+      "cached_input_usd_per_million_tokens": 0.5,
+      "output_usd_per_million_tokens": 30.0,
+      "reasoning_efforts": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "structured_outputs": true,
+      "image_input": true,
+      "planned_roles": [
+        "project_and_episode_architecture",
+        "screenwriting_and_dialogue",
+        "abc_plot_interweaving",
+        "storyboard_and_continuity_review",
+        "postmortem_root_cause_analysis"
+      ],
+      "decision": "primary_pending_auth_and_fixed_packet",
+      "sources": [
+        "https://developers.openai.com/api/docs/guides/latest-model",
+        "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+      ]
+    },
+    {
+      "provider": "openai",
+      "model_id": "gpt-5.6-terra",
+      "lifecycle": "current_frontier_cost_balanced",
+      "access_status": "api_key_not_yet_exposed",
+      "context_tokens": 1050000,
+      "max_output_tokens": 128000,
+      "input_usd_per_million_tokens": 2.5,
+      "cached_input_usd_per_million_tokens": 0.25,
+      "output_usd_per_million_tokens": 15.0,
+      "reasoning_efforts": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "planned_roles": [
+        "optional_high_volume_scene_breakdowns",
+        "continuity_passes_after_sol_authorship"
+      ],
+      "decision": "secondary_candidate_only_if_packet_preserves_quality",
+      "sources": [
+        "https://developers.openai.com/api/docs/models"
+      ]
+    },
+    {
+      "provider": "anthropic",
+      "model_id": "claude-fable-5",
+      "lifecycle": "generally_available",
+      "access_status": "not_configured",
+      "context_tokens": 1000000,
+      "max_output_tokens": 128000,
+      "input_usd_per_million_tokens": 10.0,
+      "output_usd_per_million_tokens": 50.0,
+      "adaptive_thinking": "always_on",
+      "image_input": true,
+      "planned_roles": [
+        "highest_capability_external_story_architecture_comparator",
+        "independent_long_running_episode_review"
+      ],
+      "decision": "unconfigured_candidate_not_a_fallback_without_user_approval",
+      "sources": [
+        "https://platform.claude.com/docs/en/about-claude/models/overview"
+      ]
+    },
+    {
+      "provider": "anthropic",
+      "model_id": "claude-opus-4-8",
+      "lifecycle": "generally_available",
+      "access_status": "not_configured",
+      "context_tokens": 1000000,
+      "max_output_tokens": 128000,
+      "input_usd_per_million_tokens": 5.0,
+      "output_usd_per_million_tokens": 25.0,
+      "adaptive_thinking": true,
+      "image_input": true,
+      "planned_roles": [
+        "external_story_and_screenplay_comparator",
+        "independent_long_context_episode_review"
+      ],
+      "decision": "unconfigured_candidate_not_a_fallback_without_user_approval",
+      "sources": [
+        "https://platform.claude.com/docs/en/about-claude/models/overview",
+        "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8"
+      ]
+    },
+    {
+      "provider": "google",
+      "model_id": "gemini-3.1-pro-preview",
+      "lifecycle": "preview",
+      "access_status": "not_configured",
+      "context_tokens": 1048576,
+      "max_output_tokens": 65536,
+      "input_usd_per_million_tokens_at_or_below_200k": 2.0,
+      "output_usd_per_million_tokens_at_or_below_200k": 12.0,
+      "structured_outputs": true,
+      "input_modalities": [
+        "text",
+        "image",
+        "video",
+        "audio",
+        "pdf"
+      ],
+      "planned_roles": [
+        "multimodal_storyboard_and_rough_cut_comparator",
+        "continuity_review"
+      ],
+      "decision": "preview_candidate_not_primary_and_not_configured",
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview",
+        "https://ai.google.dev/gemini-api/docs/pricing",
+        "https://ai.google.dev/gemini-api/docs/deprecations"
+      ]
+    },
+    {
+      "provider": "deepinfra",
+      "model_id": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B",
+      "lifecycle": "current_catalog",
+      "access_status": "provider_configured_but_no_call_authorized",
+      "context_tokens_listed": 256000,
+      "input_usd_per_million_tokens_listed": 0.5,
+      "output_usd_per_million_tokens_listed": 2.2,
+      "planned_roles": [
+        "low_cost_independent_reasoning_evaluator",
+        "orchestration_comparator"
+      ],
+      "decision": "secondary_candidate_pending_fixed_packet",
+      "sources": [
+        "https://deepinfra.com/"
+      ]
+    },
+    {
+      "provider": "deepinfra",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "lifecycle": "current_catalog",
+      "access_status": "provider_configured_but_no_call_authorized",
+      "context_tokens_listed": 1048576,
+      "input_usd_per_million_tokens_listed": 1.3,
+      "output_usd_per_million_tokens_listed": 2.6,
+      "planned_roles": [
+        "low_cost_reasoning_comparator",
+        "root_cause_audit_candidate"
+      ],
+      "decision": "secondary_candidate_pending_fixed_packet",
+      "sources": [
+        "https://deepinfra.com/",
+        "https://docs.deepinfra.com/models"
+      ]
+    }
+  ],
+  "fixed_evaluation_packet": [
+    "project_premise_and_theme_architecture",
+    "independent_abc_plot_design_and_intersections",
+    "five_to_twelve_minute_beat_matrix",
+    "subtextual_scene_and_dialogue_rewrite",
+    "storyboard_and_coverage_plan",
+    "cross_scene_continuity_audit",
+    "evidence_based_postmortem"
+  ],
+  "scoring": [
+    "dramaturgy",
+    "character_specificity",
+    "production_feasibility",
+    "continuity",
+    "instruction_adherence",
+    "originality",
+    "cost_and_latency"
+  ],
+  "evaluation_status": "not_run_no_paid_or_external_model_calls_authorized",
+  "next_review_gate": "mid_stage_vertical_slice"
+}

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import time
 import uuid
 from dataclasses import dataclass
 from decimal import Decimal
@@ -10,13 +12,20 @@ from typing import Any
 from urllib.parse import urlsplit, urlunsplit
 
 from .config import ProjectConfig
-from .errors import PolicyError, UnknownBillingStatus
+from .elevenlabs import ElevenLabsClient
+from .errors import PolicyError, ProviderError, UnknownBillingStatus
 from .ledger import Ledger
 from .provider import DeepInfraClient, prompt_hash
 from .voice import validate_voice_realization, voice_realization_sha256
 
 COST_COMPARISON_EPSILON = Decimal("0.000000000001")
 DEFAULT_MAX_PARTNER_AVATAR_ATTEMPTS = 5
+VIDEO_ROLE_COUNT_KEYS = {
+    "draft_video": "max_fastwan_5s_drafts",
+    "final_video": "max_wan22_5s_finals",
+    "cosmos_world_video": "max_cosmos3_super_5s_candidates",
+}
+PROMOTED_VIDEO_ROLES = {"final_video", "cosmos_world_video"}
 
 
 def reported_cost_exceeds_reservation(reported: Decimal, reserved: Decimal) -> bool:
@@ -42,6 +51,23 @@ class PlannedRequest:
     reserved_usd: Decimal
     prompt_sha256: str
     dry_run: bool
+    output_path: str | None = None
+    output_sha256: str | None = None
+    provider_request_id: str | None = None
+
+
+@dataclass(frozen=True)
+class DialogueCandidate:
+    request_id: str
+    model: str
+    reserved_usd: Decimal
+    input_characters: int
+    dry_run: bool
+    output_path: str | None = None
+    output_sha256: str | None = None
+    manifest_path: str | None = None
+    provider_request_id: str | None = None
+    character_cost: int | None = None
 
 
 class Orchestrator:
@@ -60,14 +86,88 @@ class Orchestrator:
         self.explicit_run_cap = run_cap_usd is not None
         self.partner_avatar_attempt_cap = partner_avatar_attempt_cap
 
-    def _client_for_live(
-        self, *, live: bool, confirmed: bool, client: DeepInfraClient | None,
-    ) -> DeepInfraClient | None:
+    def _infer_video(
+        self,
+        client: DeepInfraClient,
+        model_id: str,
+        payload: dict[str, Any],
+        *,
+        request_id: str,
+        request_sha256: str,
+        timeout: float,
+        webhook_url: str | None,
+        webhook_result_path: str | Path | None,
+        webhook_wait_seconds: float,
+    ):
+        if webhook_url is None:
+            return client.infer(model_id, payload, timeout=timeout)
+        queued = client.submit_webhook(
+            model_id,
+            payload,
+            webhook_url,
+            timeout=min(60, timeout),
+        )
+        deadline = time.monotonic() + webhook_wait_seconds
+        callback_path = Path(webhook_result_path)
+        while not callback_path.is_file() and time.monotonic() < deadline:
+            time.sleep(0.5)
+        if not callback_path.is_file():
+            self.ledger.append(
+                request_id,
+                "billing_unknown",
+                metadata=json.dumps({
+                    "provider_request_id": queued.provider_request_id,
+                    "request_sha256": request_sha256,
+                    "reason": "webhook_timeout",
+                }, sort_keys=True),
+            )
+            raise UnknownBillingStatus(
+                "provider webhook did not arrive; do not retry automatically"
+            )
+        callback = json.loads(callback_path.read_text(encoding="utf-8"))
+        if callback.get("request_id") != queued.provider_request_id:
+            self.ledger.append(
+                request_id,
+                "billing_unknown",
+                metadata=json.dumps({
+                    "provider_request_id": queued.provider_request_id,
+                    "request_sha256": request_sha256,
+                    "reason": "webhook_request_id_mismatch",
+                }, sort_keys=True),
+            )
+            raise UnknownBillingStatus(
+                "provider webhook request id did not match; do not retry automatically"
+            )
+        callback_status = (callback.get("inference_status") or {}).get("status")
+        if callback_status == "failed":
+            callback_cost = (callback.get("inference_status") or {}).get("cost")
+            actual = Decimal(str(callback_cost)) if callback_cost is not None else None
+            self.ledger.append(
+                request_id,
+                "failed" if actual is not None else "billing_unknown",
+                actual=actual,
+                metadata=json.dumps({
+                    "provider_request_id": queued.provider_request_id,
+                    "request_sha256": request_sha256,
+                    "reason": "provider_webhook_failed",
+                }, sort_keys=True),
+            )
+            raise ProviderError("provider webhook reported failed inference")
+        return client.result_from_webhook(payload, callback, timeout=timeout)
+
+    def _require_live_policy(self, *, live: bool, confirmed: bool) -> None:
         if not live:
-            return client
+            return
         if not confirmed:
             raise PolicyError("live request requires --confirm-live")
         self.config.require_current_pricing()
+
+    def _client_for_live(
+        self, *, live: bool, confirmed: bool, client: DeepInfraClient | None,
+    ) -> DeepInfraClient | None:
+        self._require_live_policy(live=live, confirmed=confirmed)
+        if not live:
+            return client
         return client or DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
 
     def _voice_binding(
@@ -89,37 +189,85 @@ class Orchestrator:
         return binding
 
     def run_video(self, role: str, prompt: str, *, seconds: int = 5, seed: int = 0,
+                  image_input: str | None = None,
                   live: bool = False, confirmed: bool = False,
                   client: DeepInfraClient | None = None,
-                  output_dir: str | Path = "outputs") -> PlannedRequest:
-        if role not in {"draft_video", "final_video"}:
+                  output_dir: str | Path = "outputs",
+                  webhook_url: str | None = None,
+                  webhook_result_path: str | Path | None = None,
+                  webhook_wait_seconds: float = 900) -> PlannedRequest:
+        if role not in VIDEO_ROLE_COUNT_KEYS:
             raise PolicyError("run_video accepts approved video roles only")
-        if role == "final_video" and live and not confirmed:
-            raise PolicyError("final generation requires explicit human promotion")
-        # Validate policy and credentials before creating a budget reservation.
+        if role in PROMOTED_VIDEO_ROLES and live and not confirmed:
+            raise PolicyError("promoted generation requires explicit human promotion")
+        # Validate policy, current pricing, and credentials before creating a
+        # budget reservation. A local configuration error must not leave an
+        # orphan paid-attempt record.
         client = self._client_for_live(live=live, confirmed=confirmed, client=client)
+        if (webhook_url is None) != (webhook_result_path is None):
+            raise PolicyError("webhook URL and webhook result path must be supplied together")
+        if webhook_url is not None:
+            if not live:
+                raise PolicyError("webhook inference is available only for live requests")
+            if not 30 <= webhook_wait_seconds <= 1800:
+                raise PolicyError("webhook wait must be between 30 and 1800 seconds")
+            callback_path = Path(webhook_result_path)
+            if callback_path.exists():
+                raise PolicyError("webhook result destination already exists")
         model = self.config.model(role)
         profile_data = self.config.raw["budget"]["profiles"][self.profile]
-        count_key = "max_fastwan_5s_drafts" if role == "draft_video" else "max_wan22_5s_finals"
+        count_key = VIDEO_ROLE_COUNT_KEYS[role]
         if self.ledger.reservation_count(model.id) >= int(profile_data[count_key]):
             raise PolicyError(f"candidate cap reached for {role}")
         configured_seconds = int(model.data["seconds"])
         if seconds != configured_seconds:
             raise PolicyError(f"{model.id} is approved for exactly {configured_seconds} seconds")
-        payload = {
-            "prompt": prompt,
-            "seconds": seconds,
-            "resolution": model.data["resolution"],
-            "orientation": (
-                model.data.get("orientation") or
-                ("landscape" if "landscape" in model.data.get("orientations", []) else None)
-            ),
-            "seed": seed,
-        }
-        if not payload["orientation"]:
-            raise PolicyError(f"{model.id} has no approved output orientation")
-        if model.data.get("negative_prompt"):
-            payload["negative_prompt"] = model.data["negative_prompt"]
+        if model.endpoint_type == "deepinfra_world_model":
+            if not prompt.strip() or len(prompt) > int(model.data["max_prompt_characters"]):
+                raise PolicyError(
+                    f"world-model prompt must contain 1–{model.data['max_prompt_characters']} characters"
+                )
+            payload = {
+                "prompt": prompt,
+                "output_type": model.data["output_type"],
+                "resolution": model.data["resolution"],
+                "aspect_ratio": model.data["aspect_ratio"],
+                "duration_seconds": seconds,
+                "seed": seed,
+            }
+            if image_input is not None:
+                image_parts = urlsplit(image_input)
+                is_image_data = (
+                    image_parts.scheme == "data" and image_input.startswith("data:image/")
+                )
+                is_public_https = (
+                    image_parts.scheme == "https"
+                    and bool(image_parts.netloc)
+                    and image_parts.username is None
+                    and image_parts.password is None
+                )
+                if not (is_image_data or is_public_https):
+                    raise PolicyError(
+                        "Cosmos image input must be an image Data URL or public HTTPS URL"
+                    )
+                payload["image_url"] = image_input
+        else:
+            if image_input is not None:
+                raise PolicyError("image conditioning is approved only for the Cosmos world role")
+            payload = {
+                "prompt": prompt,
+                "seconds": seconds,
+                "resolution": model.data["resolution"],
+                "orientation": (
+                    model.data.get("orientation") or
+                    ("landscape" if "landscape" in model.data.get("orientations", []) else None)
+                ),
+                "seed": seed,
+            }
+            if not payload["orientation"]:
+                raise PolicyError(f"{model.id} has no approved output orientation")
+            if model.data.get("negative_prompt"):
+                payload["negative_prompt"] = model.data["negative_prompt"]
         reserved = model.reserve(seconds=seconds)
         request_id = str(uuid.uuid4())
         self.ledger.reserve(request_id, model.id, reserved, self.cap)
@@ -128,15 +276,32 @@ class Orchestrator:
             return planned
         assert client is not None
         try:
-            result = client.infer(
-                model.id, payload,
+            result = self._infer_video(
+                client,
+                model.id,
+                payload,
+                request_id=request_id,
+                request_sha256=planned.prompt_sha256,
                 timeout=float(model.data.get("request_timeout_seconds", 300)),
+                webhook_url=webhook_url,
+                webhook_result_path=webhook_result_path,
+                webhook_wait_seconds=webhook_wait_seconds,
             )
         except UnknownBillingStatus:
-            self.ledger.append(request_id, "billing_unknown")
+            terminal = self.ledger.db.execute(
+                "SELECT 1 FROM events WHERE request_id=? AND event!='reserved'",
+                (request_id,),
+            ).fetchone()
+            if not terminal:
+                self.ledger.append(request_id, "billing_unknown")
             raise
         except Exception:
-            self.ledger.append(request_id, "failed")
+            terminal = self.ledger.db.execute(
+                "SELECT 1 FROM events WHERE request_id=? AND event!='reserved'",
+                (request_id,),
+            ).fetchone()
+            if not terminal:
+                self.ledger.append(request_id, "failed")
             raise
         if reported_cost_exceeds_reservation(result.cost, reserved):
             self.ledger.append(request_id, "billing_unknown", actual=result.cost,
@@ -161,14 +326,337 @@ class Orchestrator:
             raise
         metadata = json.dumps({**base_metadata, "output_sha256": output_sha256}, sort_keys=True)
         self.ledger.append(request_id, "completed", actual=result.cost, metadata=metadata)
-        return planned
+        return PlannedRequest(
+            request_id,
+            model.id,
+            reserved,
+            planned.prompt_sha256,
+            False,
+            output_path=str(destination),
+            output_sha256=output_sha256,
+            provider_request_id=result.provider_request_id,
+        )
+
+    def run_voice_audition(self, spec: dict[str, Any], *,
+                           live: bool = False, confirmed: bool = False,
+                           client: DeepInfraClient | None = None,
+                           output_dir: str | Path = "outputs") -> PlannedRequest:
+        """Generate one immutable persona audition/performance master."""
+        required = {
+            "character_id", "persona_version", "voice_persona_id",
+            "voice_realization_id", "model_id", "model_version",
+            "synthesis_settings", "script",
+        }
+        missing = required - spec.keys()
+        if missing:
+            raise PolicyError(
+                f"voice audition spec missing: {', '.join(sorted(missing))}"
+            )
+        model = self.config.model("voice_design")
+        if spec["model_id"] != model.id:
+            raise PolicyError("voice audition model is not the approved voice-design model")
+        if spec["model_version"] != model.data.get("model_version"):
+            raise PolicyError("voice audition model version is not the approved immutable version")
+        settings = spec["synthesis_settings"]
+        if not isinstance(settings, dict):
+            raise PolicyError("voice audition synthesis_settings must be an object")
+        for field in ("voice", "instruct", "language", "response_format"):
+            if not str(settings.get(field, "")).strip():
+                raise PolicyError(f"voice audition synthesis_settings requires {field}")
+        response_format = str(settings["response_format"])
+        if response_format != model.data["allowed_response_format"]:
+            raise PolicyError("voice audition must use the approved WAV response format")
+        script = str(spec["script"])
+        if not script.strip():
+            raise PolicyError("voice audition script is required")
+        if len(script) > int(model.data["max_input_characters"]):
+            raise PolicyError("voice audition script exceeds the approved character limit")
+        realization_id = str(spec["voice_realization_id"])
+        destination = Path(output_dir) / f"{realization_id}.wav"
+        if destination.exists():
+            raise PolicyError(
+                "voice audition destination already exists; create a new realization id"
+            )
+        self._require_live_policy(live=live, confirmed=confirmed)
+        if live and client is None:
+            client = DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
+        profile_data = self.config.raw["budget"]["profiles"][self.profile]
+        if self.ledger.reservation_count(model.id) >= int(
+            profile_data["max_voice_auditions"]
+        ):
+            raise PolicyError("voice audition cap reached")
+        payload = {
+            "input": script,
+            "voice": str(settings["voice"]),
+            "instruct": str(settings["instruct"]),
+            "language": str(settings["language"]),
+            "response_format": response_format,
+        }
+        reserved = model.reserve(characters=len(script))
+        request_id = str(uuid.uuid4())
+        self.ledger.reserve(request_id, model.id, reserved, self.cap)
+        planned = PlannedRequest(
+            request_id, model.id, reserved, prompt_hash(payload), not live,
+            output_path=str(destination) if live else None,
+        )
+        if not live:
+            return planned
+        assert client is not None
+        try:
+            result = client.infer_audio(
+                model.id, payload,
+                timeout=float(model.data.get("request_timeout_seconds", 300)),
+                version=str(spec["model_version"]),
+                fallback_price_usd_per_million_characters=Decimal(str(
+                    model.data["price_usd_per_million_characters"]
+                )),
+            )
+        except UnknownBillingStatus:
+            self.ledger.append(request_id, "billing_unknown")
+            raise
+        except Exception:
+            self.ledger.append(request_id, "failed")
+            raise
+        if reported_cost_exceeds_reservation(result.cost, reserved):
+            self.ledger.append(
+                request_id, "billing_unknown", actual=result.cost,
+                metadata=json.dumps({
+                    "provider_request_id": result.provider_request_id,
+                    "output_url": audit_safe_url(result.output_url),
+                    "request_sha256": planned.prompt_sha256,
+                    "reason": "reported_cost_exceeded_reservation",
+                }, sort_keys=True),
+            )
+            raise UnknownBillingStatus("reported cost exceeded approved reservation")
+        base_metadata = {
+            "provider_request_id": result.provider_request_id,
+            "output_url": audit_safe_url(result.output_url),
+            "output_path": str(destination),
+            "request_sha256": planned.prompt_sha256,
+            "script_sha256": prompt_hash({"input": script}),
+            "voice_instruction_sha256": prompt_hash({
+                "voice": settings["voice"], "instruct": settings["instruct"]
+            }),
+            "character_id": spec["character_id"],
+            "persona_version": spec["persona_version"],
+            "voice_persona_id": spec["voice_persona_id"],
+            "voice_realization_id": realization_id,
+            "model_version": spec["model_version"],
+            "response_format": response_format,
+            "cost_source": result.raw.get("_cost_source"),
+            "provider_input_character_length": result.raw.get(
+                "input_character_length"
+            ),
+        }
+        try:
+            output_sha256 = client.download(result.output_url, str(destination))
+        except Exception:
+            self.ledger.append(
+                request_id, "failed", actual=result.cost,
+                metadata=json.dumps(
+                    {**base_metadata, "reason": "download_failed"}, sort_keys=True
+                ),
+            )
+            raise
+        self.ledger.append(
+            request_id, "completed", actual=result.cost,
+            metadata=json.dumps(
+                {**base_metadata, "output_sha256": output_sha256}, sort_keys=True
+            ),
+        )
+        return PlannedRequest(
+            request_id, model.id, reserved, planned.prompt_sha256, False,
+            output_path=str(destination), output_sha256=output_sha256,
+            provider_request_id=result.provider_request_id,
+        )
+
+    def run_dialogue_candidate(
+        self,
+        spec: dict[str, Any],
+        *,
+        live: bool = False,
+        confirmed: bool = False,
+        client: ElevenLabsClient | None = None,
+        output_dir: str | Path = "outputs",
+    ) -> DialogueCandidate:
+        """Generate one bounded, timestamped multi-speaker casting candidate."""
+        required = {
+            "sequence_id", "candidate_id", "model_id", "language_code",
+            "output_format", "apply_text_normalization", "seed", "inputs", "turns",
+        }
+        missing = required - spec.keys()
+        if missing:
+            raise PolicyError(
+                f"dialogue candidate spec missing: {', '.join(sorted(missing))}"
+            )
+        model = self.config.model("dialogue_voice")
+        if spec["model_id"] != model.id:
+            raise PolicyError("dialogue candidate is not bound to the approved model")
+        inputs = spec["inputs"]
+        turns = spec["turns"]
+        if (
+            not isinstance(inputs, list) or not inputs
+            or not isinstance(turns, list) or len(turns) != len(inputs)
+        ):
+            raise PolicyError("dialogue candidate requires aligned inputs and turns")
+        if len(inputs) > int(model.data["max_dialogue_turns"]):
+            raise PolicyError("dialogue candidate exceeds the approved turn limit")
+        for item in inputs:
+            if (
+                not isinstance(item, dict)
+                or not str(item.get("text", "")).strip()
+                or not str(item.get("voice_id", "")).strip()
+            ):
+                raise PolicyError("dialogue candidate input requires text and voice_id")
+        input_characters = sum(len(str(item["text"])) for item in inputs)
+        if input_characters > int(model.data["max_input_characters"]):
+            raise PolicyError("dialogue candidate exceeds the approved character limit")
+        if spec["output_format"] != model.data["output_format"]:
+            raise PolicyError("dialogue candidate output format is not approved")
+        self._require_live_policy(live=live, confirmed=confirmed)
+        if live and client is None:
+            client = ElevenLabsClient(os.environ.get("ELEVENLABS_KEY", ""))
+        if self.ledger.reservation_count(model.id) >= int(
+            self.config.raw["budget"]["profiles"][self.profile]["max_dialogue_candidates"]
+        ):
+            raise PolicyError("dialogue candidate cap reached")
+
+        candidate_id = str(spec["candidate_id"])
+        if not candidate_id or any(char not in "abcdefghijklmnopqrstuvwxyz0123456789-" for char in candidate_id):
+            raise PolicyError("dialogue candidate id must be lowercase letters, digits, or hyphens")
+        destination = Path(output_dir) / f"{candidate_id}.wav"
+        manifest_path = Path(output_dir) / f"{candidate_id}.manifest.json"
+        if destination.exists() or manifest_path.exists():
+            raise PolicyError("dialogue candidate destination already exists")
+        safe_request = {
+            key: spec[key] for key in (
+                "sequence_id", "candidate_id", "model_id", "language_code",
+                "output_format", "apply_text_normalization", "seed", "inputs", "turns",
+            )
+        }
+        request_sha256 = prompt_hash(safe_request)
+        reserved = model.reserve(characters=input_characters)
+        request_id = str(uuid.uuid4())
+        self.ledger.reserve(request_id, model.id, reserved, self.cap)
+        if not live:
+            return DialogueCandidate(
+                request_id=request_id,
+                model=model.id,
+                reserved_usd=reserved,
+                input_characters=input_characters,
+                dry_run=True,
+            )
+
+        assert client is not None
+        try:
+            result = client.text_to_dialogue(
+                inputs,
+                model_id=model.id,
+                language_code=str(spec["language_code"]),
+                seed=int(spec["seed"]),
+                output_format=str(spec["output_format"]),
+                apply_text_normalization=str(spec["apply_text_normalization"]),
+                timeout=float(model.data.get("request_timeout_seconds", 300)),
+            )
+        except UnknownBillingStatus:
+            self.ledger.append(request_id, "billing_unknown")
+            raise
+        except Exception as exc:
+            self.ledger.append(
+                request_id,
+                "failed",
+                metadata=json.dumps({
+                    "reason": "provider_request_failed",
+                    "error_type": type(exc).__name__,
+                    "request_sha256": request_sha256,
+                }, sort_keys=True),
+            )
+            raise
+
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        audio_partial = destination.with_suffix(destination.suffix + ".partial")
+        manifest_partial = manifest_path.with_suffix(manifest_path.suffix + ".partial")
+        try:
+            audio_partial.write_bytes(result.audio)
+            audio_partial.replace(destination)
+            output_sha256 = hashlib.sha256(result.audio).hexdigest()
+            manifest = {
+                "schema_version": "1.0",
+                "artifact_type": "elevenlabs_dialogue_candidate",
+                "sequence_id": spec["sequence_id"],
+                "candidate_id": candidate_id,
+                "model_id": model.id,
+                "provider_request_id": result.provider_request_id,
+                "character_cost": result.character_cost,
+                "billing_unit": "elevenlabs_credits",
+                "input_characters": input_characters,
+                "request_sha256": request_sha256,
+                "output_path": str(destination),
+                "output_sha256": output_sha256,
+                "turns": turns,
+                "voice_segments": result.voice_segments,
+                "alignment": result.alignment,
+                "normalized_alignment": result.normalized_alignment,
+                "human_review": {
+                    "decision": "pending",
+                    "note": "Casting approval selects voices; this exact performance still requires review.",
+                },
+            }
+            manifest_partial.write_text(
+                json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            manifest_partial.replace(manifest_path)
+        except Exception:
+            self.ledger.append(
+                request_id,
+                "failed",
+                actual=Decimal("0"),
+                metadata=json.dumps({
+                    "provider_request_id": result.provider_request_id,
+                    "character_cost": result.character_cost,
+                    "billing_unit": "elevenlabs_credits",
+                    "reason": "artifact_persistence_failed",
+                    "request_sha256": request_sha256,
+                }, sort_keys=True),
+            )
+            raise
+        self.ledger.append(
+            request_id,
+            "completed",
+            actual=Decimal("0"),
+            metadata=json.dumps({
+                "provider_request_id": result.provider_request_id,
+                "character_cost": result.character_cost,
+                "billing_unit": "elevenlabs_credits",
+                "output_path": str(destination),
+                "output_sha256": output_sha256,
+                "manifest_path": str(manifest_path),
+                "request_sha256": request_sha256,
+            }, sort_keys=True),
+        )
+        return DialogueCandidate(
+            request_id=request_id,
+            model=model.id,
+            reserved_usd=reserved,
+            input_characters=input_characters,
+            dry_run=False,
+            output_path=str(destination),
+            output_sha256=output_sha256,
+            manifest_path=str(manifest_path),
+            provider_request_id=result.provider_request_id,
+            character_cost=result.character_cost,
+        )
 
     def run_image_video(self, image_input: str, prompt: str, *, audio_input: str | None = None,
                         seconds: int = 5,
                         seed: int = 0, live: bool = False, confirmed: bool = False,
                         allow_partner: bool = False,
                         client: DeepInfraClient | None = None,
-                        output_dir: str | Path = "outputs") -> PlannedRequest:
+                        output_dir: str | Path = "outputs",
+                        webhook_url: str | None = None,
+                        webhook_result_path: str | Path | None = None,
+                        webhook_wait_seconds: float = 900) -> PlannedRequest:
         """Animate one approved storyboard plate through the bounded Stage 2 I2V exception."""
         if not allow_partner:
             raise PolicyError("partner I2V model requires --allow-partner-i2v")
@@ -192,6 +680,15 @@ class Orchestrator:
         if not prompt.strip() or len(prompt) > 1500:
             raise PolicyError("I2V prompt must contain 1–1500 characters")
         client = self._client_for_live(live=live, confirmed=confirmed, client=client)
+        if (webhook_url is None) != (webhook_result_path is None):
+            raise PolicyError("webhook URL and webhook result path must be supplied together")
+        if webhook_url is not None:
+            if not live:
+                raise PolicyError("webhook inference is available only for live requests")
+            if not 30 <= webhook_wait_seconds <= 1800:
+                raise PolicyError("webhook wait must be between 30 and 1800 seconds")
+            if Path(webhook_result_path).exists():
+                raise PolicyError("webhook result destination already exists")
         model = self.config.model("image_to_video")
         configured_seconds = int(model.data["seconds"])
         allowed_seconds = {
@@ -239,19 +736,36 @@ class Orchestrator:
             return planned
         assert client is not None
         try:
-            result = client.infer(
-                model.id, payload,
+            result = self._infer_video(
+                client,
+                model.id,
+                payload,
+                request_id=request_id,
+                request_sha256=planned.prompt_sha256,
                 timeout=float(model.data.get("request_timeout_seconds", 600)),
+                webhook_url=webhook_url,
+                webhook_result_path=webhook_result_path,
+                webhook_wait_seconds=webhook_wait_seconds,
             )
         except UnknownBillingStatus:
-            self.ledger.append(request_id, "billing_unknown")
+            terminal = self.ledger.db.execute(
+                "SELECT 1 FROM events WHERE request_id=? AND event!='reserved'",
+                (request_id,),
+            ).fetchone()
+            if not terminal:
+                self.ledger.append(request_id, "billing_unknown")
             raise
         except Exception as exc:
-            self.ledger.append(request_id, "failed", metadata=json.dumps({
-                "reason": "provider_request_failed",
-                "error_type": type(exc).__name__,
-                "partner_exception": True,
-            }, sort_keys=True))
+            terminal = self.ledger.db.execute(
+                "SELECT 1 FROM events WHERE request_id=? AND event!='reserved'",
+                (request_id,),
+            ).fetchone()
+            if not terminal:
+                self.ledger.append(request_id, "failed", metadata=json.dumps({
+                    "reason": "provider_request_failed",
+                    "error_type": type(exc).__name__,
+                    "partner_exception": True,
+                }, sort_keys=True))
             raise
         if reported_cost_exceeds_reservation(result.cost, reserved):
             self.ledger.append(request_id, "billing_unknown", actual=result.cost,
@@ -285,7 +799,16 @@ class Orchestrator:
             request_id, "completed", actual=result.cost,
             metadata=json.dumps({**base_metadata, "output_sha256": output_sha256}, sort_keys=True),
         )
-        return planned
+        return PlannedRequest(
+            request_id,
+            model.id,
+            reserved,
+            planned.prompt_sha256,
+            False,
+            output_path=str(destination),
+            output_sha256=output_sha256,
+            provider_request_id=result.provider_request_id,
+        )
 
     def run_speech(self, text: str, *, seed: int = 0, output_format: str = "wav",
                    live: bool = False, confirmed: bool = False,

@@ -111,23 +111,67 @@ def load_series(path: str | Path) -> dict[str, Any]:
             raise PolicyError(f"{context} requires a structured voice")
         for field in ("provider_voice", "language", "accent_direction", "performance_baseline"):
             _require_string(voice, field, f"{context} voice")
-        realization = validate_voice_realization(
-            voice.get("voice_realization"), persona_version=version,
-        )
-        realization_id = str(realization["voice_realization_id"])
-        if realization_id in voice_realization_ids:
-            raise PolicyError("canonical voice realization ids must be unique")
-        voice_realization_ids.add(realization_id)
-        if realization["provider_voice"] != voice["provider_voice"]:
-            raise PolicyError(f"{context} voice realization conflicts with provider_voice")
-        approval = realization["approval"]
-        audition_path_value = str(approval.get("audition_path") or "").strip()
-        if audition_path_value:
-            audition_path = _resolve(source, audition_path_value)
-            if not audition_path.is_file():
-                raise PolicyError(f"{context} voice audition does not exist")
-            if sha256_file(audition_path) != approval["audition_sha256"]:
-                raise PolicyError(f"{context} voice audition hash does not match")
+        if "voice_realization" in voice:
+            realization = validate_voice_realization(
+                voice["voice_realization"], persona_version=version,
+            )
+            realization_id = str(realization["voice_realization_id"])
+            if realization_id in voice_realization_ids:
+                raise PolicyError("canonical voice realization ids must be unique")
+            voice_realization_ids.add(realization_id)
+            if realization["provider_voice"] != voice["provider_voice"]:
+                raise PolicyError(f"{context} voice realization conflicts with provider_voice")
+            approval = realization["approval"]
+            audition_path_value = str(approval.get("audition_path") or "").strip()
+            if audition_path_value:
+                audition_path = _resolve(source, audition_path_value)
+                if not audition_path.is_file():
+                    raise PolicyError(f"{context} voice audition does not exist")
+                if sha256_file(audition_path) != approval["audition_sha256"]:
+                    raise PolicyError(f"{context} voice audition hash does not match")
+        else:
+            # Stage 3 personas use a multi-candidate voice contract. Stage 2
+            # validates its structure here without requiring unrelated audition
+            # media; the dedicated voice-plan loader verifies those artifacts
+            # before a Stage 3 candidate can be promoted.
+            realizations = voice.get("voice_realizations")
+            if not isinstance(realizations, list) or not realizations:
+                raise PolicyError(f"{context} requires a canonical voice realization")
+            candidate_ids: set[str] = set()
+            for candidate in realizations:
+                if not isinstance(candidate, dict):
+                    raise PolicyError(f"{context} voice realization must be an object")
+                candidate_id = _require_string(
+                    candidate, "voice_realization_id", f"{context} voice realization"
+                )
+                if candidate_id in candidate_ids or candidate_id in voice_realization_ids:
+                    raise PolicyError("canonical voice realization ids must be unique")
+                candidate_ids.add(candidate_id)
+                voice_realization_ids.add(candidate_id)
+                if candidate.get("persona_version") != version:
+                    raise PolicyError(f"{context} voice realization persona version is not canonical")
+                for field in ("provider", "model_id", "model_version", "status"):
+                    _require_string(candidate, field, f"{context} voice realization")
+                settings = candidate.get("synthesis_settings")
+                if not isinstance(settings, dict) or not settings:
+                    raise PolicyError(f"{context} voice realization requires synthesis_settings")
+                if any(
+                    sensitive in str(key).lower()
+                    for key in settings
+                    for sensitive in ("token", "secret", "password", "api_key", "credential")
+                ):
+                    raise PolicyError(f"{context} voice realization settings contain credentials")
+                if not isinstance(candidate.get("audition"), dict):
+                    raise PolicyError(f"{context} voice realization requires an audition")
+            active_id = voice.get("active_voice_realization_id")
+            if active_id is not None:
+                active = next(
+                    (item for item in realizations
+                     if item["voice_realization_id"] == active_id),
+                    None,
+                )
+                if active is None or active.get("status") != "approved":
+                    raise PolicyError(f"{context} active voice realization must be approved")
         reference_pack = persona.get("reference_pack")
         if not isinstance(reference_pack, dict):
             raise PolicyError(f"{context} requires a reference_pack")
@@ -478,8 +522,18 @@ def audit_stage2_sequence(sequence: dict[str, Any], timeline: dict[str, Any], *,
         results.append({"gate_id": gate_id, "status": status, "evidence": evidence})
 
     unapproved_voices = []
+    stage2_character_ids = {
+        state["character_id"] for state in sequence["episode"]["character_states"]
+    }
     for persona in sequence["_series"]["canonical_personas"]:
-        realization = persona["voice"]["voice_realization"]
+        if persona["character_id"] not in stage2_character_ids:
+            continue
+        realization = persona["voice"].get("voice_realization")
+        if realization is None:
+            unapproved_voices.append(
+                f"{persona['character_id']} has no Stage 2 voice realization"
+            )
+            continue
         if realization["approval"]["status"] != "approved":
             unapproved_voices.append(
                 f"{persona['character_id']}={realization['voice_realization_id']} "
@@ -494,7 +548,7 @@ def audit_stage2_sequence(sequence: dict[str, Any], timeline: dict[str, Any], *,
     else:
         add(
             "voice_realization", "pass",
-            "Every canonical speaker resolves to one human-approved audition hash.",
+            "Every Stage 2 speaker resolves to one human-approved audition hash.",
         )
 
     if not isinstance(intervals, list) or not intervals:
