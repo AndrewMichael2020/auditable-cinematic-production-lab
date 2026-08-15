@@ -1,6 +1,40 @@
-# Video Generation Test
+# Auditable Cinematic Production Lab
 
-A budget-controlled, programmatic experiment toward an AI drama production engine using open-source models hosted by DeepInfra.
+[![Dry-run CI](https://github.com/AndrewMichael2020/auditable-cinematic-production-lab/actions/workflows/dry-run.yml/badge.svg)](https://github.com/AndrewMichael2020/auditable-cinematic-production-lab/actions/workflows/dry-run.yml)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![Tests: pytest](https://img.shields.io/badge/tests-pytest-0A9EDC?logo=pytest&logoColor=white)](tests)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Dry-run by default](https://img.shields.io/badge/generation-dry--run%20by%20default-2ea44f)](#run-locally)
+[![Spend: fail-closed](https://img.shields.io/badge/spend-fail--closed-8A2BE2)](#cash-rule)
+
+A budget-controlled AI cinematic production lab for reproducible scenes, explicit human acceptance,
+and audit-ready records of models, prompts, seeds, costs, media hashes, and QA decisions.
+
+## Portfolio proof
+
+![Accepted Stage 2 clinic sequence contact sheet](docs/ideas_for_scenario_testing/final-clinic-stage2-sequence-v3-contact-sheet.png)
+
+The repository demonstrates a production-oriented approach to synthetic video rather than an
+open-ended generation demo:
+
+- **Playable evidence:** an accepted
+  [clinic Stage 2 sequence](runs/clinic-stage2-20260803T060048Z/final/clinic-stage2-sequence-v3.mp4)
+  and a bounded [15-second dialogue continuation](runs/cliffhanger-20260802T235825Z/final-the-call-15s.mp4).
+- **Fail-closed spending:** every paid request reserves its maximum cost before transmission and
+  stops when budget, billing, retry, or admission status is uncertain.
+- **Traceable production:** typed scene and sequence manifests preserve model, prompt, seed,
+  provider, cost, hash, lineage, and human-acceptance evidence.
+- **Honest QA:** accepted and rejected artifacts are retained separately; the latest rejected run
+  has a documented voice-persona and lip-sync root-cause analysis.
+- **Safe automation:** GitHub workflows are manual-dispatch only, generation defaults to dry-run,
+  and the paid smoke test requires an explicit `LIVE` confirmation.
+
+| Evidence | What it shows |
+|---|---|
+| [Stage 2 run report](runs/clinic-stage2-20260803T060048Z/RUN-REPORT.md) | Accepted delivery, audit decisions, cost controls, and retained artifacts |
+| [Latest-run postmortem](docs/CLINIC-FULL-SEQUENCE-POSTMORTEM.md) | Rejection criteria, root cause, and restart gates |
+| [Dry-run workflow](.github/workflows/dry-run.yml) | Tests, preflight validation, and zero-cost orchestration |
+| [Test suite](tests) | Budget, provider, media, retention, orchestration, and Stage 2 policy coverage |
 
 ## Current goal
 
