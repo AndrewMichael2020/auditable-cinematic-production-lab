@@ -16,6 +16,7 @@ from .elevenlabs import ElevenLabsClient
 from .errors import PolicyError, ProviderError, UnknownBillingStatus
 from .ledger import Ledger
 from .provider import DeepInfraClient, prompt_hash
+from .voice import validate_voice_realization, voice_realization_sha256
 
 COST_COMPARISON_EPSILON = Decimal("0.000000000001")
 DEFAULT_MAX_PARTNER_AVATAR_ATTEMPTS = 5
@@ -154,6 +155,39 @@ class Orchestrator:
             raise ProviderError("provider webhook reported failed inference")
         return client.result_from_webhook(payload, callback, timeout=timeout)
 
+    def _require_live_policy(self, *, live: bool, confirmed: bool) -> None:
+        if not live:
+            return
+        if not confirmed:
+            raise PolicyError("live request requires --confirm-live")
+        self.config.require_current_pricing()
+
+    def _client_for_live(
+        self, *, live: bool, confirmed: bool, client: DeepInfraClient | None,
+    ) -> DeepInfraClient | None:
+        self._require_live_policy(live=live, confirmed=confirmed)
+        if not live:
+            return client
+        return client or DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
+
+    def _voice_binding(
+        self, realization: dict[str, Any] | None, *, model_id: str,
+        live: bool, provider_voice: str | None = None, seed: int | None = None,
+    ) -> dict[str, Any] | None:
+        if realization is None:
+            if live:
+                raise PolicyError("live voice generation requires an approved voice realization")
+            return None
+        binding = validate_voice_realization(realization, require_approved=live)
+        if binding["provider_model_id"] != model_id:
+            raise PolicyError("voice realization does not match the selected provider model")
+        if provider_voice is not None and binding["provider_voice"] != provider_voice:
+            raise PolicyError("request-time voice override conflicts with canonical realization")
+        configured_seed = binding["immutable_settings"].get("seed")
+        if seed is not None and configured_seed is not None and int(configured_seed) != seed:
+            raise PolicyError("request-time seed override conflicts with canonical realization")
+        return binding
+
     def run_video(self, role: str, prompt: str, *, seconds: int = 5, seed: int = 0,
                   image_input: str | None = None,
                   live: bool = False, confirmed: bool = False,
@@ -166,12 +200,10 @@ class Orchestrator:
             raise PolicyError("run_video accepts approved video roles only")
         if role in PROMOTED_VIDEO_ROLES and live and not confirmed:
             raise PolicyError("promoted generation requires explicit human promotion")
-        if live and not confirmed:
-            raise PolicyError("live request requires --confirm-live")
-        if live and client is None:
-            # Validate credentials before creating a budget reservation. A local
-            # configuration error must not leave an orphan paid-attempt record.
-            client = DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
+        # Validate policy, current pricing, and credentials before creating a
+        # budget reservation. A local configuration error must not leave an
+        # orphan paid-attempt record.
+        client = self._client_for_live(live=live, confirmed=confirmed, client=client)
         if (webhook_url is None) != (webhook_result_path is None):
             raise PolicyError("webhook URL and webhook result path must be supplied together")
         if webhook_url is not None:
@@ -345,8 +377,7 @@ class Orchestrator:
             raise PolicyError(
                 "voice audition destination already exists; create a new realization id"
             )
-        if live and not confirmed:
-            raise PolicyError("live request requires --confirm-live")
+        self._require_live_policy(live=live, confirmed=confirmed)
         if live and client is None:
             client = DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
         profile_data = self.config.raw["budget"]["profiles"][self.profile]
@@ -482,8 +513,7 @@ class Orchestrator:
             raise PolicyError("dialogue candidate exceeds the approved character limit")
         if spec["output_format"] != model.data["output_format"]:
             raise PolicyError("dialogue candidate output format is not approved")
-        if live and not confirmed:
-            raise PolicyError("live request requires --confirm-live")
+        self._require_live_policy(live=live, confirmed=confirmed)
         if live and client is None:
             client = ElevenLabsClient(os.environ.get("ELEVENLABS_KEY", ""))
         if self.ledger.reservation_count(model.id) >= int(
@@ -649,10 +679,7 @@ class Orchestrator:
                 raise PolicyError("I2V audio must be an audio Data URL or public HTTPS URL")
         if not prompt.strip() or len(prompt) > 1500:
             raise PolicyError("I2V prompt must contain 1–1500 characters")
-        if live and not confirmed:
-            raise PolicyError("live request requires --confirm-live")
-        if live and client is None:
-            client = DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
+        client = self._client_for_live(live=live, confirmed=confirmed, client=client)
         if (webhook_url is None) != (webhook_result_path is None):
             raise PolicyError("webhook URL and webhook result path must be supplied together")
         if webhook_url is not None:
@@ -785,6 +812,7 @@ class Orchestrator:
 
     def run_speech(self, text: str, *, seed: int = 0, output_format: str = "wav",
                    live: bool = False, confirmed: bool = False,
+                   voice_realization: dict[str, Any] | None = None,
                    client: DeepInfraClient | None = None,
                    output_dir: str | Path = "outputs") -> PlannedRequest:
         if not text.strip():
@@ -793,18 +821,29 @@ class Orchestrator:
             raise PolicyError("speech text exceeds the 500 character test limit")
         if output_format != "wav":
             raise PolicyError("the proof accepts WAV speech only")
-        if live and not confirmed:
-            raise PolicyError("live request requires --confirm-live")
-        if live and client is None:
-            client = DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
+        client = self._client_for_live(live=live, confirmed=confirmed, client=client)
         model = self.config.model("speech")
+        binding = self._voice_binding(
+            voice_realization, model_id=model.id, live=live, seed=seed,
+        )
+        if binding is not None:
+            configured_format = binding["immutable_settings"].get("response_format")
+            if configured_format is not None and configured_format != output_format:
+                raise PolicyError(
+                    "request-time output format conflicts with canonical realization"
+                )
         if self.ledger.reservation_count(model.id) >= 8:
             raise PolicyError("speech request cap reached")
         payload = {"text": text, "response_format": output_format, "seed": seed}
         reserved = model.reserve(characters=len(text))
         request_id = str(uuid.uuid4())
         self.ledger.reserve(request_id, model.id, reserved, self.cap)
-        planned = PlannedRequest(request_id, model.id, reserved, prompt_hash(payload), not live)
+        request_audit = {"provider_payload": payload}
+        if binding is not None:
+            request_audit["voice_realization_sha256"] = voice_realization_sha256(binding)
+        planned = PlannedRequest(
+            request_id, model.id, reserved, prompt_hash(request_audit), not live,
+        )
         if not live:
             return planned
         assert client is not None
@@ -833,6 +872,12 @@ class Orchestrator:
                          "request_sha256": planned.prompt_sha256,
                          "output_format": output_format,
                          "words": result.raw.get("words", [])}
+        if binding is not None:
+            base_metadata.update({
+                "voice_realization_id": binding["voice_realization_id"],
+                "voice_realization_sha256": voice_realization_sha256(binding),
+                "audition_sha256": binding["approval"]["audition_sha256"],
+            })
         try:
             output_sha256 = client.download(result.output_url, str(destination))
         except Exception:
@@ -852,6 +897,7 @@ class Orchestrator:
                    performance_direction: str = "Restrained natural dramatic delivery, conversational pace.",
                    live: bool = False, confirmed: bool = False,
                    allow_partner: bool = False,
+                   voice_realization: dict[str, Any] | None = None,
                    client: DeepInfraClient | None = None,
                    output_dir: str | Path = "outputs") -> PlannedRequest:
         if not allow_partner:
@@ -872,11 +918,12 @@ class Orchestrator:
             raise PolicyError("avatar performance direction must contain 1–160 characters")
         if not 2 <= max_seconds <= 8:
             raise PolicyError("avatar reservation must cover 2–8 seconds")
-        if live and not confirmed:
-            raise PolicyError("live request requires --confirm-live")
-        if live and client is None:
-            client = DeepInfraClient(os.environ.get("DEEPINFRA_TOKEN", ""))
+        client = self._client_for_live(live=live, confirmed=confirmed, client=client)
         model = self.config.model("lip_sync_avatar")
+        binding = self._voice_binding(
+            voice_realization, model_id=model.id, live=live,
+            provider_voice=voice, seed=seed,
+        )
         if self.ledger.reservation_count(model.id) >= self.partner_avatar_attempt_cap:
             raise PolicyError("partner avatar request cap reached")
         if speaker_position == "only_person":
@@ -939,6 +986,8 @@ class Orchestrator:
         # Persist only a digest of the input, never an inline image or a
         # temporary third-party transport URL.
         safe_payload["image_sha256"] = prompt_hash({"image": image_input})
+        if binding is not None:
+            safe_payload["voice_realization_sha256"] = voice_realization_sha256(binding)
         planned = PlannedRequest(request_id, model.id, reserved, prompt_hash(safe_payload), not live)
         if not live:
             return planned
@@ -979,6 +1028,12 @@ class Orchestrator:
             "partner_exception": True,
             "licence_status": "not_reported_by_provider",
         }
+        if binding is not None:
+            base_metadata.update({
+                "voice_realization_id": binding["voice_realization_id"],
+                "voice_realization_sha256": voice_realization_sha256(binding),
+                "audition_sha256": binding["approval"]["audition_sha256"],
+            })
         try:
             output_sha256 = client.download(result.output_url, str(destination))
         except Exception:

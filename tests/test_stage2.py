@@ -81,6 +81,21 @@ def _interval(path: Path, index: int, *, role: str) -> dict:
     }
 
 
+def _approve_voice_realizations(sequence: dict) -> None:
+    for persona in sequence["_series"]["canonical_personas"]:
+        realization = persona["voice"].get("voice_realization")
+        if realization is None:
+            continue
+        approval = realization["approval"]
+        approval.update({
+            "status": "approved",
+            "audition_path": f"auditions/{persona['character_id']}.wav",
+            "audition_sha256": "a" * 64,
+            "reviewed_by": "test-reviewer",
+            "reviewed_at": "2026-08-15T00:00:00Z",
+        })
+
+
 def test_loads_series_owned_personas_and_compiles_reference_anchored_prompt():
     sequence = load_stage2_sequence(SEQUENCE)
     prompt = compile_stage2_prompt(sequence, "shot05")
@@ -116,6 +131,20 @@ def test_loads_series_owned_personas_and_compiles_reference_anchored_prompt():
         assert requirement in take_prompt
     question_prompt = compile_stage2_prompt(sequence, "shot02")
     assert sequence["_generation_prompt_policy"]["response_anticipation_clause"] in question_prompt
+
+
+def test_stage2_manifest_records_unapproved_voice_realizations():
+    sequence = load_stage2_sequence(SEQUENCE)
+    statuses = {
+        persona["character_id"]: persona["voice"]["voice_realization"]["approval"]["status"]
+        for persona in sequence["_series"]["canonical_personas"]
+        if "voice_realization" in persona["voice"]
+    }
+
+    assert statuses == {
+        "nurse-amrit": "pending_human_audition",
+        "patient-daniel": "not_auditioned",
+    }
 
 
 @pytest.mark.skipif(not shutil.which("ffmpeg") or not shutil.which("ffprobe"),
@@ -228,6 +257,7 @@ def test_stage2_assembly_is_native_typed_audible_and_has_outer_fades(tmp_path):
                     reason="FFmpeg tools are required")
 def test_stage2_audit_requires_human_evidence_and_passes_complete_candidate(tmp_path):
     sequence = load_stage2_sequence(SEQUENCE)
+    _approve_voice_realizations(sequence)
     source = tmp_path / "landscape.mp4"
     _video(source)
     intervals = [

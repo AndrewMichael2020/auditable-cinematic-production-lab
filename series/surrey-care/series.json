@@ -31,7 +31,24 @@
         "provider_voice": "Unified Chatterbox performance master, seed 3407",
         "language": "English (US provider setting), directed as Canadian English",
         "accent_direction": "Natural Lower Mainland Canadian English; composed clinical pacing; no generic American announcer tone and no stylized Punjabi accent.",
-        "performance_baseline": "Low-key, clear and empathetic with a restrained dramatic arc: professional warmth, precise BC Services Card diction, concerned weight on inactive MSP, then compassionate but firm uncertainty. Generate the sequence in one continuous take and split only at deliberate pauses."
+        "performance_baseline": "Low-key, clear and empathetic with a restrained dramatic arc: professional warmth, precise BC Services Card diction, concerned weight on inactive MSP, then compassionate but firm uncertainty. Generate the sequence in one continuous take and split only at deliberate pauses.",
+        "voice_realization": {
+          "voice_realization_id": "vr-amrit-chatterbox-3407-v1",
+          "effective_persona_version": "pv01",
+          "provider_model_id": "ResembleAI/chatterbox-turbo",
+          "provider_voice": "Unified Chatterbox performance master, seed 3407",
+          "immutable_settings": {
+            "seed": 3407,
+            "response_format": "wav"
+          },
+          "approval": {
+            "status": "pending_human_audition",
+            "audition_path": "runs/clinic-stage2-20260803T060048Z/audio/amrit-sequence-master-performance-v2.wav",
+            "audition_sha256": "abf02c5a048fa05da4ec6edd0ebe3099b57288b59a5a9055a6c53dbeb71d77bf",
+            "reviewed_by": null,
+            "reviewed_at": null
+          }
+        }
       },
       "reference_pack": {
         "version": "rp01",
@@ -62,7 +79,24 @@
         "provider_voice": "Puck (Male)",
         "language": "English (US provider setting), directed as Canadian English",
         "accent_direction": "Natural Lower Mainland Canadian English with restrained Korean-influenced cadence only if stable; no caricature and no accent switching.",
-        "performance_baseline": "Quiet, tired and direct, with short breaths and no theatrical distress."
+        "performance_baseline": "Quiet, tired and direct, with short breaths and no theatrical distress.",
+        "voice_realization": {
+          "voice_realization_id": "vr-daniel-puck-v1",
+          "effective_persona_version": "pv01",
+          "provider_model_id": "PrunaAI/p-video-avatar",
+          "provider_voice": "Puck (Male)",
+          "immutable_settings": {
+            "seed": 0,
+            "voice_language": "English (US)"
+          },
+          "approval": {
+            "status": "not_auditioned",
+            "audition_path": null,
+            "audition_sha256": null,
+            "reviewed_by": null,
+            "reviewed_at": null
+          }
+        }
       },
       "reference_pack": {
         "version": "rp01",

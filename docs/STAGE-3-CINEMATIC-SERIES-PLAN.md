@@ -1,6 +1,6 @@
 # Stage 3 plan: cinematic grammar and versatile series production
 
-Date: 2026-08-04  
+Date: 2026-08-04
 Status: planned; no installation, model download or live generation is authorized by this document
 
 ## North star

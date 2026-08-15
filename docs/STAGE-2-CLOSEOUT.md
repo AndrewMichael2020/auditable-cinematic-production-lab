@@ -1,6 +1,6 @@
 # Stage 2 closeout: from generated clips to a production system
 
-Date: 2026-08-04  
+Date: 2026-08-04
 Status: strategic closeout with declared carry-forward debt
 
 ## Decision
